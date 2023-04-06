@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 class AsyncModel extends Model{
     public function __construct(){
 		$this->req = new \GuzzleHttp\Client();
-        $this->url = 'http://localhost:8888/';
+        $this->url = 'https://service.noehpay.com/';
 	}
 	public function get($urlenp, $apikey)
     	{

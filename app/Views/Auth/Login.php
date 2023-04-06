@@ -87,13 +87,6 @@
 
                         </div>
                     </div>
-                    <div class="mt-5 text-center">
-
-                        <div>
-                            <p>Don't have an account ? <a href="<?= base_url('register') ?>" class="fw-medium text-primary">
-                                    Signup now </a> </p>
-                        </div>
-                    </div>
 
                 </div>
             </div>
