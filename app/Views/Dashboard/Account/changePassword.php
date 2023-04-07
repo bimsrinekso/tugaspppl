@@ -9,10 +9,19 @@
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Change Password</h4> 
+                        <h4 class="card-title mb-4">Change Password</h4>
                         <form action="" method="post">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="curentPw" class="form-label">Current Password</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                        <input type="password" class="form-control" name="currentPw" placeholder="Enter current password"
+                                                aria-label="Current Password" aria-describedby="password-current">
+                                            <button class="btn btn-light " type="button" id="password-current"><i
+                                                    class="mdi mdi-eye-outline"></i></button>
+                                        </div>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="userpassword" class="form-label">Password</label>
                                         <div class="input-group auth-pass-inputgroup">
@@ -21,7 +30,16 @@
                                             <button class="btn btn-light " type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button>
                                         </div>
-                                </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">Confirmation Password</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                        <input type="password" class="form-control" name="confirmPw" placeholder="Enter confirm password"
+                                                aria-label="Confirmation Password" aria-describedby="password-confirm">
+                                            <button class="btn btn-light " type="button" id="password-confirm"><i
+                                                    class="mdi mdi-eye-outline"></i></button>
+                                        </div>
+                                    </div>
                             </div>
                             
                             <div>
@@ -57,6 +75,15 @@
     <?php elseif(session()->getFlashdata('error')):?>
         <script>
             toastr.error("<?= session()->getFlashData("error"); ?>");
+        </script>
+    <?php elseif(session()->getFlashdata('validation')):?>
+        <script>
+            toastr.error('<?= session()->getFlashData("validation"); ?>', '', {
+                "timeOut": "5000",
+                "escapeHtml": false,
+                "closeButton": true,
+                "positionClass": "toast-top-right"
+            });
         </script>
     <?php endif?>
 <?php $this->endSection();?>
