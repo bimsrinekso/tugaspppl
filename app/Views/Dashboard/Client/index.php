@@ -32,7 +32,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="display:none;">
                         <div class="card mini-stats-wid">
                             <div class="card-body">
                                 <div class="d-flex">

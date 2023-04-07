@@ -146,6 +146,13 @@
                             <span key="t-reportDaily">Daily Report</span>
                         </a>
                     </li>
+                    <li class="menu-title" key="t-report">Setting Account</li>
+                    <li>
+                        <a href="<?= base_url('dashboard/changePassword') ?>" class="waves-effect">
+                            <i class='bx bxs-lock' ></i>
+                            <span key="t-setAccount">Change Password</span>
+                        </a>
+                    </li>
                 <?php elseif($_SESSION['role']== 3):?>
                     <li class="menu-title" key="t-menu">Menu</li>
                     <li>
