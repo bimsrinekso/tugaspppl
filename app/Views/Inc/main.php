@@ -59,6 +59,15 @@
         <script src="/assets/libs/node-waves/waves.min.js"></script>
 
         <script src="/assets/js/app.js"></script>
+        <!-- apexcharts -->
+        <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- dashboard blog init -->
+        <script src="/assets/js/pages/dashboard-job.init.js"></script>
+        <script src="/assets/js/plugins/react/react.production.js"></script>
+        <script src="/assets/js/plugins/react/react-dom.production.min.js"></script>
+        <script src="/assets/js/plugins/react/babel.min.js"></script>
+
         <?php $this->renderSection('javascript');?>
     </body>
 

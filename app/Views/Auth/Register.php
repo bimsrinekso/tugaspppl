@@ -66,7 +66,7 @@
 
                                     <div class="mb-3">
                                         <label for="userpassword" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" id="userpassword"
+                                            <input type="password" name="password" class="form-control" id="userpassword"
                                             placeholder="Enter password" required>
 
                                     </div>
@@ -83,7 +83,7 @@
                     <div class="mt-5 text-center">
 
                         <div>
-                            <p>Already have an account ? <a href="<?php base_url('login') ?>" class="fw-medium text-primary"> Login</a> </p>
+                            <p>Already have an account ? <a href="<?= base_url('login') ?>" class="fw-medium text-primary"> Login</a> </p>
                         </div>
                     </div>
 

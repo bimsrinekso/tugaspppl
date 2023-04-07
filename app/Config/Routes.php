@@ -30,22 +30,43 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+// $routes->get('/register', 'AuthRegis::index');
+// $routes->post('/register', 'AuthRegis::saveRegis');
 $routes->get('/login', 'AuthLogin::index');
 $routes->post('/login', 'AuthLogin::cekLogin');
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member']);
 // dashboard
 $routes->get('/dashboard/listClients', 'GroupClient::listClient', ['filter' => 'role:main']);
-$routes->get('/dashboard/createMap', 'GroupClient::createMap', ['filter' => 'role:main']);
 $routes->get('/dashboard/createClient', 'GroupClient::createClient', ['filter' => 'role:main']);
+$routes->post('/dashboard/createClient', 'GroupClient::saveClient', ['filter' => 'role:main']);
+$routes->get('/dashboard/editClient/(:num)', 'GroupClient::editClient/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editClient/(:num)', 'GroupClient::updateClient/$1', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteClient/(:num)', 'GroupClient::delClient/$1', ['filter' => 'role:main']);
+//
+$routes->get('/dashboard/listMap', 'GroupClient::listMap', ['filter' => 'role:main']);
+$routes->get('/dashboard/editMap/(:num)', 'GroupClient::editMap/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editMap/(:num)', 'GroupClient::updateMap/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/createMap', 'GroupClient::createMap', ['filter' => 'role:main']);
 $routes->post('/dashboard/createMap', 'GroupClient::saveMap', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filter' => 'role:main']);
+//
 $routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client']);
+//
 $routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/createAccount', 'VirtualAccount::createAcc', ['filter' => 'role:main']);
 $routes->post('/dashboard/createAccount', 'VirtualAccount::saveAcc', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteAccount/(:num)', 'VirtualAccount::delAcc/$1', ['filter' => 'role:main']);
 $routes->get('/dashboard/editAccount/(:num)', 'VirtualAccount::detailAcc/$1', ['filter' => 'role:main, client']);
 $routes->post('/dashboard/editAccount/(:num)', 'VirtualAccount::updateAcc/$1', ['filter' => 'role:main, client']);
+//userm
+$routes->get('/dashboard/createUser', 'UserManagement::createUser', ['filter' => 'role:main']);
+$routes->post('/dashboard/createUser', 'UserManagement::saveUser', ['filter' => 'role:main']);
+$routes->get('/dashboard/listUser', 'UserManagement::index', ['filter' => 'role:main']);
+$routes->get('/dashboard/editUser/(:num)', 'UserManagement::editUser/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editUser/(:num)', 'UserManagement::updateUser/$1', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteUser/(:num)', 'UserManagement::delUser/$1', ['filter' => 'role:main']);
+
 //depo
 $routes->get('/dashboard/listDeposit', 'Deposit::listDeposit', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/depoTransaction', 'Deposit::listTrans', ['filter' => 'role:main, client']);
