@@ -55,4 +55,42 @@ class Withdraw extends BaseController
             return view('Dashboard/Client/Withdraw/listPending', $data);
         }
     }
+
+    public function editWd($id = null){
+        $enp = 'api/wd/editPending/' .$id;
+        $dataBody = [
+            'reqwd_id' => $id
+        ];
+        $postData = $this->async->get($enp, $this->apimain);
+        $parseData = $postData->response;
+        if($postData->status == '200'){
+            $data = [
+                "dataRw" => $parseData,
+            ];
+            return view('Dashboard/Main/Withdraw/editPending', $data);
+        }else{
+            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
+            return redirect()->to('/dashboard/withdrawPending');
+        }
+    }
+
+    public function updateWd($id = null){
+        $enp = 'api/wd/updatePending/' . $id;
+        $dataBody = [
+            'reqwd_id' => $id,
+            'status'=> $this->request->getVar('status'), 
+            'remark'=> $this->request->getVar('remark'), 
+            'bankTransfer' => $this->request->getVar('bankTransfer'),
+            'userID' => $this->sesi->get('userid'),
+        ];
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $parseData = $postData->response;
+        if($postData->status == '200'){
+            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Settlement");
+            return redirect()->to('/dashboard/withdrawPending');
+        }else{
+            $this->sesi->setFlashdata('error', "Sorry, check again your data");
+            return redirect()->to('/dashboard/withdrawPending/edit/' .$id);
+        }
+    }
 }
