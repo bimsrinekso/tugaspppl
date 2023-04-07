@@ -66,7 +66,17 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="<?= base_url('dashboard/listClients')?>" key="t-tui-calendar">List Clients</a></li>
-                        <li><a href="<?= base_url('dashboard/createMap')?>" key="t-full-calendar">Create Map</a></li>
+                        <li><a href="<?= base_url('dashboard/listMap')?>" key="t-full-calendar">List Map</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx bxs-user"></i>
+                        <span key="t-withdraw">User Manangment</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url('dashboard/listUser')?>" key="t-tui-calendar">List User</a></li>
+                        <li><a href="<?= base_url('dashboard/createUser')?>" key="t-tui-calendar">Create User</a></li>
                     </ul>
                 </li>
                 <li class="menu-title" key="t-report">Report</li>

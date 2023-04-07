@@ -50,7 +50,8 @@
                                                     <td><?= $listSettle->amount ?> </td>
                                                     <td><?= $listSettle->username ?> </td>
                                                     <td><?= date('d-m-Y', strtotime($listSettle->tglbuat))?> </td>
-                                                    <td><a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editSettle/'. $listSettle->idsettle) ?> " title="Edit">
+                                                    <td>
+                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editSettle/'. $listSettle->idsettle) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                     <a class="btn btn-outline-danger btn-sm edit" data-bs-toggle="modal" data-bs-target="#hapus<?=$listSettle->idsettle?>">

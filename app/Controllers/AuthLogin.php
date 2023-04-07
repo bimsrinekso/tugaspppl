@@ -20,7 +20,6 @@ class AuthLogin extends BaseController
         ];
         $enp = 'api/cekLogin';
         $postData = $this->async->post($enp, '', $dataBody);
-        // dd($postData->response);
         $res = $postData->response;
         if($postData->status == 200){
             $isSession = [
@@ -31,7 +30,6 @@ class AuthLogin extends BaseController
                 "username" => $res->username
             ];
             $this->sesi->set($isSession);
-            // dd($isSession);
             return redirect()->to('dashboard');
         }else{
             $this->sesi->setFlashdata('error', $res);

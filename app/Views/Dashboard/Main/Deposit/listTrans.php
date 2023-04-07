@@ -105,7 +105,7 @@
                                 </div>
                                 <table id="datatable-active" class="table table-striped table-bordered nowrap w-100">
                                     <thead>
-                                        <tr>
+                                    <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Virtual Account</th>
@@ -200,7 +200,7 @@
                                 </div>
                                 <table id="datatable-inactive" class="table  table-striped table-bordered nowrap w-100">
                                     <thead>
-                                        <tr>
+                                    <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Virtual Account</th>
@@ -281,9 +281,6 @@
     </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
-<!-- End Page-content -->
-<!-- End Page-content -->
-<!-- End Page-content -->
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
 <!-- Required datatable js -->
@@ -316,7 +313,7 @@
 <!-- toastr init -->
 <script src="/assets/js/pages/toastr.init.js"></script>
 
-  <?php if(session()->getFlashdata('sukses')):?>
+<?php if(session()->getFlashdata('sukses')):?>
         <script>
               toastr.success("<?= session()->getFlashData("sukses"); ?>");
         </script>
@@ -385,7 +382,7 @@
                 "</tr>"
             );
             $.ajax({
-                url: '<?=base_url("dashboard/filterDate")?>',
+                url: "<?= base_url('dashboard/filterDate')?>",
                 method: "POST",
                 xhrFields: {
                     withCredentials: true
@@ -435,16 +432,16 @@
                             b.currency +
                             "</td>" +
                             "<td>" +
-                            b.amt +
+                            uang.format(b.amt) +
                             "</td>" +
                             "<td>" +
-                            b.actualAmount +
+                            uang.format(b.actualAmount) +
                             "</td>" +
                             "<td>" +
-                            b.amtVa +
+                            uang.format(b.amtVa) +
                             "</td>" +
                             "<td>" +
-                            b.amt - b.amtVa +
+                            (uang.format(b.amt - b.amtVa)) +
                             "</td>" +
                             "<td>" +
                             createdDate +
@@ -475,7 +472,7 @@
                 "</tr>"
             );
             $.ajax({
-                url: '<?=base_url("dashboard/filterDate")?>',
+                url: "<?= base_url('dashboard/filterDate')?>",
                 method: "POST",
                 xhrFields: {
                     withCredentials: true
@@ -525,16 +522,16 @@
                             b.currency +
                             "</td>" +
                             "<td>" +
-                            b.amt +
+                            uang.format(b.amt) +
                             "</td>" +
                             "<td>" +
-                            b.actualAmount +
+                            uang.format(b.actualAmount) +
                             "</td>" +
                             "<td>" +
-                            b.amtVa +
+                            uang.format(b.amtVa) +
                             "</td>" +
                             "<td>" +
-                            b.amt - b.amtVa +
+                            (uang.format(b.amt - b.amtVa)) +
                             "</td>" +
                             "<td>" +
                             createdDate +
