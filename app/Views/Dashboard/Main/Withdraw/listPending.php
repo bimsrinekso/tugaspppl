@@ -42,7 +42,7 @@
                                     </thead>
                                     <tbody>
                                         <?php if($dataPen != null): ?>
-                                            <?= $i = 1; ?> 
+                                            <?php $i = 1; ?> 
                                             <?php foreach($dataPen as $listPenWd):?>
                                                 <tr>
                                                     <td>
@@ -70,7 +70,7 @@
                                                         <?= $listPenWd->holderName ?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listPenWd->tglbuat))?>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listPenWd->tglbuat))?>
                                                     </td>
                                                     <td><a href="<?= base_url("dashboard/withdrawPending/edit/" . $listPenWd->reqwd_id) ?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>

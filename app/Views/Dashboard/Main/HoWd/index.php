@@ -75,10 +75,10 @@
                                                         <?= $listHo->cusBank ?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listHo->request))?>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listHo->request))?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listHo->process))?>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listHo->process))?>
                                                     </td>
                                                     <td>
                                                         <?= $listHo->namestatus ?> 
@@ -139,7 +139,7 @@
                                                         <?= $listPen->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listPen->tglbuat))?>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listPen->tglbuat))?>
                                                     </td>
                                                     <td><a href="<?= base_url("dashboard/hoWithdraw/edit/" . $listPen->reqhos_id) ?> " class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>

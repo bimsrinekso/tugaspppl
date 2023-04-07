@@ -109,7 +109,7 @@
                                     </thead>
                                     <tbody>
                                         <?php if($dataTrans != null) :?>
-                                            <div hidden><?= $i = 1; ?></div>  
+                                            <?php $i = 1; ?>  
                                             <?php foreach($dataTrans as $listTranasWd): ?>
                                                 <tr>
                                                     <td>

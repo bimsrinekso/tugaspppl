@@ -82,6 +82,7 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Merchant ID</th>
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Role</th>
@@ -96,6 +97,9 @@
                                                 <tr>
                                                     <td>
                                                         <?= $i++ ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listUserClient->id ?>
                                                     </td>
                                                     <td>
                                                         <?= $listUserClient->username ?> 

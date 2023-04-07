@@ -149,7 +149,7 @@
                                                         <?=  $listPen->amt - $listPen->amtVa?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listPen->tglbuat))?>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listPen->tglbuat))?>
                                                     </td>
                                                     
                                                 </tr>

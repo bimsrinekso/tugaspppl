@@ -167,7 +167,7 @@
                                                     <?=  $listTrans->amt - $listTrans->amtVa ?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
+                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
                                                 </td>
 
 
@@ -262,7 +262,7 @@
                                                     <?=  $listTrans->amt - $listTrans->amtVa ?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
+                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
                                                 </td>
 
                                             </tr>

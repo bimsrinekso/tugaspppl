@@ -17,9 +17,8 @@
                     <div class="card-body">
                         <h4 class="card-title">List Accounts</h4>
                         <div class="card-title-desc">
-                            <p>You can create, edit, delete and report accounts
+                            <p>You can see list virtual accounts
                             </p>
-                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createAccount') ?> ">Create Account</a>
                         </div>
                        
                         <ul class="nav nav-tabs" id="myTab" role="tablist">

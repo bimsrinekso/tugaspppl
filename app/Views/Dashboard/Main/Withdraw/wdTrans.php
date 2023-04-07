@@ -109,7 +109,7 @@
                                     </thead>
                                     <tbody>
                                         <?php if($dataTrans != null) :?>
-                                            <div hidden><?= $i = 1; ?></div>  
+                                           <?php $i = 1; ?>  
                                             <?php foreach($dataTrans as $listTranasWd): ?>
                                                 <tr>
                                                     <td>
@@ -140,10 +140,10 @@
                                                         <?= $listTranasWd->cusBank ?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listTranasWd->process))?> 
+                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listTranasWd->request))?> 
+                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
                                                     </td>                                               
                                                     <td>
                                                         <?= $listTranasWd->remark ?> 

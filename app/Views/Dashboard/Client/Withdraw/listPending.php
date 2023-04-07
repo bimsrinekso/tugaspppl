@@ -41,7 +41,7 @@
                                     </thead>
                                     <tbody>
                                         <?php if($dataPen != null): ?>
-                                            <?= $i = 1; ?> 
+                                            <?php $i = 1; ?> 
                                             <?php foreach($dataPen as $listPenWd):?>
                                                 <tr>
                                                     <td>

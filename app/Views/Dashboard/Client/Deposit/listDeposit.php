@@ -218,7 +218,7 @@
                                                        KRW
                                                     </td>
                                                      <td>
-                                                     <?= date('d-m-Y', strtotime($listDepo->dpcreat))?>
+                                                     <?= date('d-m-Y H:i:s', strtotime($listDepo->dpcreat))?>
                                                      </td>
                                                    
                                                 </tr>
