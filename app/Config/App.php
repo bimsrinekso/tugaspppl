@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'http://localhost:3366/';
+    public string $baseURL = 'http://localhost:3367/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -85,7 +85,7 @@ class App extends BaseConfig
      */
     public bool $negotiateLocale = false;
 
-    /**
+    /*
      * --------------------------------------------------------------------------
      * Supported Locales
      * --------------------------------------------------------------------------

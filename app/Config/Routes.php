@@ -69,6 +69,8 @@ $routes->delete('/dashboard/deleteUser/(:num)', 'UserManagement::delUser/$1', ['
 
 // setting profile
 $routes->get('/dashboard/changePassword', 'Account::editPassword', ['filter' => 'role:client']);
+$routes->get('/dashboard/editProfile', 'Account::editProfile', ['filter' => 'role:client']);
+$routes->post('/dashboard/editProfile', 'Account::updateProfile', ['filter' => 'role:client']);
 $routes->post('/dashboard/changePassword', 'Account::updatePassword', ['filter' => 'role:client']);
 //depo
 $routes->get('/dashboard/listDeposit', 'Deposit::listDeposit', ['filter' => 'role:main, client']);

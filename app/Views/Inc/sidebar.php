@@ -139,18 +139,21 @@
                             <li><a href="<?= base_url('dashboard/listHo')?>" key="t-full-calendar">HO Withdraw</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bxs-lock"></i>
+                            <span key="t-withdraw">Setting Account</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="<?= base_url('dashboard/changePassword')?>" key="t-tui-calendar">Change Password</a></li>
+                            <li><a href="<?= base_url('dashboard/editProfile')?>" key="t-full-calendar">Edit Profile</a></li>
+                        </ul>
+                    </li>
                     <li class="menu-title" key="t-report">Report</li>
                     <li>
                         <a href="<?= base_url('dashboard/reportDaily') ?>" class="waves-effect">
                             <i class="bx bxs-bar-chart-alt-2"></i>
                             <span key="t-reportDaily">Daily Report</span>
-                        </a>
-                    </li>
-                    <li class="menu-title" key="t-report">Setting Account</li>
-                    <li>
-                        <a href="<?= base_url('dashboard/changePassword') ?>" class="waves-effect">
-                            <i class='bx bxs-lock' ></i>
-                            <span key="t-setAccount">Change Password</span>
                         </a>
                     </li>
                 <?php elseif($_SESSION['role']== 3):?>
