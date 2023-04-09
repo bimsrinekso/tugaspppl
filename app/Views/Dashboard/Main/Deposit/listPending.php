@@ -320,7 +320,7 @@
                         createdDate +
                         "</td>" +
                         "<td>" +
-                        "<a href='<%- base_url('dashboard/depoPending/update/') %>"+ b.depoid +"' class='btn btn-outline-secondary btn-sm edit' title='Edit'>" +
+                        "<a href='<?= base_url('dashboard/depoPending/update/') ?>"+ b.depoid +"' class='btn btn-outline-secondary btn-sm edit' title='Edit'>" +
                         "<i class='fas fa-pencil-alt'></i></a>" +
                         "</td>" +
                         "</tr>"
@@ -329,7 +329,7 @@
                 var ikiTable = isTable.DataTable({
                         lengthChange: false,
                         buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
+                        scrollX: true,
                         "bDestroy": true
                     });
                     ikiTable.buttons().container().appendTo("#datatable-pending_wrapper .col-md-6:eq(0)"), $(

@@ -59,7 +59,7 @@ class Account extends BaseController
             return view('Dashboard/Account/editProfile', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/editProfile');
+            return redirect()->to('dashboard/editProfile');
         }
     }
 
@@ -74,10 +74,10 @@ class Account extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update profile");
-            return redirect()->to('/dashboard/editProfile');
+            return redirect()->to('dashboard/editProfile');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/editProfile');
+            return redirect()->to('dashboard/editProfile');
         }
     }
 }

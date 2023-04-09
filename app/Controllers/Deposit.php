@@ -107,20 +107,31 @@ class Deposit extends BaseController
     }
 
     public function updatePending($id = null){
+        $isValid = [
+            'actualAmount' => 'required',
+            'status' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/depoPending/update/'.$id);
+        }
         $enp = 'api/updatePending';
         $dataBody = [
             'iddepo' => $id,
             'actualAmount'=> $this->request->getVar('actualAmount'),
             'status'=> $this->request->getVar('status'),
+            'actionBy'=> $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update pending data");
-            return redirect()->to('/dashboard/depoPending');
+            return redirect()->to('dashboard/depoPending');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/depoPending/update');
+            return redirect()->to('dashboard/depoPending/update/'.$id);
         }
     }
 

@@ -36,10 +36,10 @@ class UserManagement extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully create User");
-            return redirect()->to('/dashboard/listUser');
+            return redirect()->to('dashboard/listUser');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/createUser');
+            return redirect()->to('dashboard/createUser');
         }
     }
 
@@ -57,7 +57,7 @@ class UserManagement extends BaseController
             return view('Dashboard/Main/UserManagement/editUser', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/listUser');
+            return redirect()->to('dashboard/listUser');
         }
     }
 
@@ -73,10 +73,10 @@ class UserManagement extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data User");
-            return redirect()->to('/dashboard/listUser');
+            return redirect()->to('dashboard/listUser');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/editUser/'. $id);
+            return redirect()->to('dashboard/editUser/'. $id);
         }
     }
 
@@ -89,10 +89,10 @@ class UserManagement extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete user");
-            return redirect()->to('/dashboard/listUser');
+            return redirect()->to('dashboard/listUser');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/listUser');
+            return redirect()->to('dashboard/listUser');
         }
     }
     

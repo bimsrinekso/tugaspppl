@@ -35,10 +35,10 @@ class Topup extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Topup");
-            return redirect()->to('/dashboard/topUp');
+            return redirect()->to('dashboard/topUp');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/topUp');
+            return redirect()->to('dashboard/topUp');
         }
     }
 
@@ -56,7 +56,7 @@ class Topup extends BaseController
             return view('Dashboard/Main/TopUp/editTopup', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/topUp');
+            return redirect()->to('dashboard/topUp');
         }
     }
 
@@ -71,10 +71,10 @@ class Topup extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Topup");
-            return redirect()->to('/dashboard/topUp');
+            return redirect()->to('dashboard/topUp');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/editSettle');
+            return redirect()->to('dashboard/editSettle');
         }
     }
 
@@ -87,10 +87,10 @@ class Topup extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data Topup");
-            return redirect()->to('/dashboard/topUp');
+            return redirect()->to('dashboard/topUp');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/topUp');
+            return redirect()->to('dashboard/topUp');
         }
     }
 }
