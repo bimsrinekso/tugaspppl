@@ -455,7 +455,7 @@
                     var ikiTable = isTable.DataTable({
                         lengthChange: false,
                         buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
+                        scrollX: true,
                         "bDestroy": true
                     });
                     ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
@@ -545,7 +545,7 @@
                     var ikiTable = isTable.DataTable({
                         lengthChange: false,
                         buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
+                        scrollX: true,
                         "bDestroy": true
                     });
                     ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
