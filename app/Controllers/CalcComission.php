@@ -26,6 +26,15 @@ class CalcComission extends BaseController
 
 
     public function saveCom(){
+        $isValid = [
+            'amount' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/createCom');
+        }
         $enp = 'api/calcom/createCom';
         $dataBody = [
             'amount'=> $this->request->getVar('amount'),
@@ -35,10 +44,10 @@ class CalcComission extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Comission");
-            return redirect()->to('/dashboard/calculateComission');
+            return redirect()->to('dashboard/calculateComission');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/createCom');
+            return redirect()->to('dashboard/createCom');
         }
     }
 
@@ -56,11 +65,20 @@ class CalcComission extends BaseController
             return view('Dashboard/Main/Comission/editCom', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/calculateComission');
+            return redirect()->to('dashboard/calculateComission');
         }
     }
 
     public function updateCom($id = null){
+        $isValid = [
+            'amount' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/editCom/'.$id);
+        }
         $enp = 'api/calcom/updateCom';
         $dataBody = [
             'com_id' => $id,
@@ -71,10 +89,10 @@ class CalcComission extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Comission");
-            return redirect()->to('/dashboard/calculateComission');
+            return redirect()->to('dashboard/calculateComission');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/createCom');
+            return redirect()->to('dashboard/editCom/'.$id);
         }
     }
 
@@ -87,10 +105,10 @@ class CalcComission extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data Comission");
-            return redirect()->to('/dashboard/calculateComission');
+            return redirect()->to('dashboard/calculateComission');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/calculateComission');
+            return redirect()->to('dashboard/calculateComission');
         }
     }
 

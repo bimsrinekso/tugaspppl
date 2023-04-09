@@ -19,7 +19,7 @@ class setBank extends BaseController
             if ($data['dataBank'] == null) {
                 return view('Dashboard/Client/Bank/addBank');
             } else {
-                return redirect()->to('/dashboard/setBank/update');
+                return redirect()->to('dashboard/setBank/update');
             }
         }   
         
@@ -58,10 +58,10 @@ class setBank extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Settlement");
-            return redirect()->to('/dashboard/setBank');
+            return redirect()->to('dashboard/setBank');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/setBank');
+            return redirect()->to('dashboard/setBank');
         }
     }
 
@@ -77,10 +77,10 @@ class setBank extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Settlement");
-            return redirect()->to('/dashboard/setBank/update');
+            return redirect()->to('dashboard/setBank/update');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/setBank/update');
+            return redirect()->to('dashboard/setBank/update');
         }
     }
 

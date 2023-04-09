@@ -59,10 +59,10 @@ class VirtualAccount extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data VA Account");
-            return redirect()->to('/dashboard/listAccounts');
+            return redirect()->to('dashboard/listAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/createAccount');
+            return redirect()->to('dashboard/createAccount');
         }
     }
 
@@ -84,7 +84,7 @@ class VirtualAccount extends BaseController
             return view('Dashboard/Main/virtualAccount/editAcc', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/listAccounts');
+            return redirect()->to('dashboard/listAccounts');
         }
     }
     public function updateAcc($id = null){
@@ -102,10 +102,10 @@ class VirtualAccount extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data VA Account");
-            return redirect()->to('/dashboard/listAccounts');
+            return redirect()->to('dashboard/listAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/editAccount');
+            return redirect()->to('dashboard/editAccount');
         }
     }
 
@@ -118,10 +118,10 @@ class VirtualAccount extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data VA Account");
-            return redirect()->to('/dashboard/listAccounts');
+            return redirect()->to('dashboard/listAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/listAccounts');
+            return redirect()->to('dashboard/listAccounts');
         }
     }
 }

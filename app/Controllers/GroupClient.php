@@ -30,7 +30,7 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add client");
-            return redirect()->to('/dashboard/listClients');
+            return redirect()->to('dashboard/listClients');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/createClient');
@@ -52,7 +52,7 @@ class GroupClient extends BaseController
             return view('Dashboard/Main/DetailClient/editClient', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/listClients');
+            return redirect()->to('dashboard/listClients');
         }
     }
 
@@ -66,10 +66,10 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Client");
-            return redirect()->to('/dashboard/listClients');
+            return redirect()->to('dashboard/listClients');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/editClient/'.$id);
+            return redirect()->to('dashboard/editClient/'.$id);
         }
     }
 
@@ -82,10 +82,10 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data Client");
-            return redirect()->to('/dashboard/listClients');
+            return redirect()->to('dashboard/listClients');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/listClients');
+            return redirect()->to('dashboard/listClients');
         }
     }
     
@@ -132,7 +132,7 @@ class GroupClient extends BaseController
             return view('Dashboard/Main/MappingClient/editMap', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/listMap');
+            return redirect()->to('dashboard/listMap');
         }
     }
 
@@ -148,10 +148,10 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Client");
-            return redirect()->to('/dashboard/listMap');
+            return redirect()->to('dashboard/listMap');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/editMap/'.$id);
+            return redirect()->to('dashboard/editMap/'.$id);
         }
     }
 
@@ -185,7 +185,7 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully mapping");
-            return redirect()->to('/dashboard/createMap');
+            return redirect()->to('dashboard/createMap');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/createMap');
@@ -201,10 +201,10 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data Map Client");
-            return redirect()->to('/dashboard/listMap');
+            return redirect()->to('dashboard/listMap');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/listMap');
+            return redirect()->to('dashboard/listMap');
         }
     }
 }

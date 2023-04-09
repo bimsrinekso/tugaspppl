@@ -70,11 +70,21 @@ class Withdraw extends BaseController
             return view('Dashboard/Main/Withdraw/editPending', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/withdrawPending');
+            return redirect()->to('dashboard/withdrawPending');
         }
     }
 
     public function updateWd($id = null){
+        $isValid = [
+            'remark' => 'required',
+            'status' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/withdrawPending/edit/'.$id);
+        }
         $enp = 'api/wd/updatePending/' . $id;
         $dataBody = [
             'reqwd_id' => $id,
@@ -87,10 +97,10 @@ class Withdraw extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Settlement");
-            return redirect()->to('/dashboard/withdrawPending');
+            return redirect()->to('dashboard/withdrawPending');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('/dashboard/withdrawPending/edit/' .$id);
+            return redirect()->to('dashboard/withdrawPending/edit/' .$id);
         }
     }
 }

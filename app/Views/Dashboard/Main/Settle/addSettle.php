@@ -49,5 +49,14 @@
         <script>
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
+    <?php elseif(session()->getFlashdata('validation')):?>
+        <script>
+            toastr.error('<?= session()->getFlashData("validation"); ?>', '', {
+                "timeOut": "5000",
+                "escapeHtml": false,
+                "closeButton": true,
+                "positionClass": "toast-top-right"
+            });
+        </script>
     <?php endif?>
 <?php $this->endSection();?>

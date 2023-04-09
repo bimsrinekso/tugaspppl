@@ -19,7 +19,7 @@
                         <div class="card-title-desc">
                             <p>You can create, edit, delete and report HO Withdraw
                             </p>
-                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/makeHo/'.session()->get('userid')) ?>">Make Ho Withdraw</a>
+                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/makeHo') ?>">Make Ho Withdraw</a>
                         </div>
                        
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
