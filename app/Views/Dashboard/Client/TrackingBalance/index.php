@@ -122,7 +122,7 @@
                                                     <td>
                                                     <?=$listTrack->payFor == 1 ? "Deposoit" : "", $listTrack->payFor == 2 ? "Withdraw":"", $listTrack->payFor == 3 ? "Topup Client":"", $listTrack->payFor == 4 ? "Ho Withdraw":""?> 
                                                     </td>
-                                                    <td>
+                                                    <td <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'"?>>
                                                     <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ?  "+".formatKrw($listTrack->amount) : "-".formatKrw($listTrack->amount)?>
                                                     </td>
                                                     <td>
