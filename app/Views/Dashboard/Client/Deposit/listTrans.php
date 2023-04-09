@@ -455,7 +455,11 @@
                     var ikiTable = isTable.DataTable({
                         lengthChange: false,
                         buttons: ["copy", "excel", "pdf"],
+<<<<<<< HEAD
                         scrollX: true,
+=======
+                        scrollCollapse: true,
+>>>>>>> 224124cfe4025b4e2115a06f0cdb3368817b6aeb
                         "bDestroy": true
                     });
                     ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
