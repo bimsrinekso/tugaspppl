@@ -119,6 +119,7 @@
                                             <th>Actual Amount</th>
                                             <th>Fee</th>
                                             <th>Actual Input</th>
+                                            <th>Last Balance</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -155,16 +156,19 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->amt) ?>
+                                                    <?=  formatKrw($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->actualAmount) ?>
+                                                    <?=  formatKrw($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->amtVa) ?>
+                                                    <?=  formatKrw($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->amt - $listTrans->amtVa) ?>
+                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
+                                                </td>
+                                                <td>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
@@ -250,16 +254,16 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->amt) ?>
+                                                    <?=  formatKrw($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->actualAmount) ?>
+                                                    <?=  formatKrw($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->amtVa) ?>
+                                                    <?=  formatKrw($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $currency->format($listTrans->amt - $listTrans->amtVa) ?>
+                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
                                                     <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>

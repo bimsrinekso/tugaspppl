@@ -41,6 +41,7 @@ class Withdraw extends BaseController
             $parseData = $postData->response;
             $data = [
                 "dataPen" => $parseData->dataPen,
+                
             ];
             return view('Dashboard/Main/Withdraw/listPending', $data);
         } elseif($this->sesi->get('role') == 2) {
@@ -51,6 +52,7 @@ class Withdraw extends BaseController
             $parseData = $postData->response;
             $data = [
                 "dataPen" => $parseData->dataPen,
+                
             ];
             return view('Dashboard/Client/Withdraw/listPending', $data);
         }

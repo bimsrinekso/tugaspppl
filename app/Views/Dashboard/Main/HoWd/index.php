@@ -60,7 +60,7 @@
                                                         <?= $listHo->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listHo->amount ?> 
+                                                        <?= formatKrw($listHo->amount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listHo->currency ?> 
@@ -124,7 +124,7 @@
                                                         <?= $listPen->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->amount ?> 
+                                                        <?= formatKrw($listPen->amount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listPen->currency ?> 
@@ -216,6 +216,7 @@
 
         $("#datatable").DataTable(), $("#datatable-all").DataTable({
             lengthChange: !1,
+            "scrollX" : true,
             buttons: ["excel", "colvis", {
                 text: 'Confirm',
                 action: function ( e, dt, node, config ) {

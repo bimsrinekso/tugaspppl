@@ -55,7 +55,7 @@
                                                         <?= $listPenWd->paymentMethod ?>
                                                     </td>
                                                     <td>
-                                                        <?= $listPenWd->amount ?>
+                                                        <?= formatKrw($listPenWd->amount) ?>
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->currency ?>

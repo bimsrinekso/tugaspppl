@@ -47,7 +47,7 @@
                                             <?php foreach($dataCom as $listCom): ?>
                                                 <tr>
                                                     <td><?= $i++ ?> </td>
-                                                    <td><?= $listCom->amount ?> </td>
+                                                    <td><?= formatKrw($listCom->amount) ?> </td>
                                                     <td><?= $listCom->username ?> </td>
                                                     <td> <?= date('d-m-Y', strtotime($listCom->tglbuat))?></td>
                                                     <td>

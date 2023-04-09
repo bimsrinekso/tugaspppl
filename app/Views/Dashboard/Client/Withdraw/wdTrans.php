@@ -97,6 +97,7 @@
                                             <th>Status</th>
                                             <th>Payment Method</th>
                                             <th>Amount</th>
+                                            <th>Last Balance</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
                                             <th>Customer Account Number</th>
@@ -116,7 +117,7 @@
                                                         <?= $i++ ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->transactionID ?> 
+                                                        <?= $listTranasWd->idTransRWD ?>  
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->namestatus ?> 
@@ -125,8 +126,10 @@
                                                         <?= $listTranasWd->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->amount ?> 
+                                                        <?= formatKrw($listTranasWd->rwdAmount) ?> 
                                                     </td>
+                                                    <td>
+                                                     <?= $listTranasWd->lastBalance == null ? "-" : formatKrw($listTranasWd->lastBalance) ?>  
                                                     <td>
                                                         <?= $listTranasWd->currency ?> 
                                                     </td>

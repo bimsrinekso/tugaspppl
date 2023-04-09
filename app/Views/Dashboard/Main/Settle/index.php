@@ -47,7 +47,7 @@
                                             <?php foreach($dataSettle as $listSettle): ?>
                                                 <tr>
                                                     <td><?= $i++ ?> </td>
-                                                    <td><?= $listSettle->amount ?> </td>
+                                                    <td><?= formatKrw($listSettle->amount) ?> </td>
                                                     <td><?= $listSettle->username ?> </td>
                                                     <td><?= date('d-m-Y', strtotime($listSettle->tglbuat))?> </td>
                                                     <td>

@@ -58,7 +58,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Balance</p>
-                                        <h4 class="mb-0"><?= $currency->format($totalBlcClient) ?></h4>
+                                        <h4 class="mb-0"><?= formatKrw($totalBlcClient) ?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center">
@@ -78,7 +78,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Deposit</p>
-                                        <h4 class="mb-0"><?= $currency->format($totalDepo) ?></h4>
+                                        <h4 class="mb-0"><?= formatKrw($totalDepo) ?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -98,7 +98,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Withdraw</p>
-                                        <h4 class="mb-0"><?= $currency->format($totalWd) ?></h4>
+                                        <h4 class="mb-0"><?= formatKrw($totalWd) ?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -119,7 +119,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Ho Withdraw</p>
-                                        <h4 class="mb-0"><?= $currency->format($totalHo) ?></h4>
+                                        <h4 class="mb-0"><?= formatKrw($totalHo) ?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">

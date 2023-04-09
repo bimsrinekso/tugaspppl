@@ -22,13 +22,20 @@ class Topup extends BaseController
 
     public function createTopup()
     {
-        return view('Dashboard/Main/TopUp/createTopup');
+        $enp = 'api/listClient';
+        $getData = $this->async->get($enp, $this->apimain);
+        $parseData = $getData->response;
+        $data = [
+            "dataClient" => $parseData,
+        ];
+        return view('Dashboard/Main/TopUp/createTopup',$data);
     }
 
     public function saveTopup(){
         $enp = 'api/topup/saveTopup';
         $dataBody = [
             'amount'=> $this->request->getVar('amount'),
+            'clientID'=> $this->request->getVar('clientID'),
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
@@ -44,6 +51,9 @@ class Topup extends BaseController
 
     public function editTopup($id = null){
         $enp = 'api/topup/editTopup';
+        $enpcl = 'api/listClient';
+        $getData = $this->async->get($enpcl, $this->apimain);
+        $parseDataCl = $getData->response;
         $dataBody = [
             'topup_id' => $id
         ];
@@ -52,6 +62,7 @@ class Topup extends BaseController
         if($postData->status == '200'){
             $data = [
                 "dataTopup" => $parseData,
+                "dataCl" => $parseDataCl
             ];
             return view('Dashboard/Main/TopUp/editTopup', $data);
         }else{

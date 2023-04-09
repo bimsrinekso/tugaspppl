@@ -119,6 +119,7 @@
                                             <th>Actual Amount</th>
                                             <th>Fee</th>
                                             <th>Actual Input</th>
+                                            <th>Last Balance</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -155,16 +156,19 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->amt ?>
+                                                    <?=  formatKrw($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->actualAmount ?>
+                                                    <?=  formatKrw($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->amtVa ?>
+                                                    <?=  formatKrw($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->amt - $listTrans->amtVa ?>
+                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
+                                                </td>
+                                                <td>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
@@ -250,17 +254,16 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->amt ?>
+                                                    <?=  formatKrw($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->actualAmount ?>
+                                                    <?=  formatKrw($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->amtVa ?>
+                                                    <?=  formatKrw($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->amt - $listTrans->amtVa ?>
-                                                </td>
+                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
                                                 <td>
                                                     <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
                                                 </td>
@@ -455,11 +458,7 @@
                     var ikiTable = isTable.DataTable({
                         lengthChange: false,
                         buttons: ["copy", "excel", "pdf"],
-<<<<<<< HEAD
                         scrollX: true,
-=======
-                        scrollCollapse: true,
->>>>>>> 224124cfe4025b4e2115a06f0cdb3368817b6aeb
                         "bDestroy": true
                     });
                     ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(

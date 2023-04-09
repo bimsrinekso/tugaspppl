@@ -150,40 +150,42 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
 <!-- Required datatable js -->
-<script src="/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
-<script src="/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="/libs/jszip/jszip.min.js"></script>
-<script src="/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="/assets/libs/jszip/jszip.min.js"></script>
+<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- Datatable init js -->
-<script src="/js/pages/datatables.init.js"></script>
+<script src="/assets/js/pages/datatables.init.js"></script>
   <!-- validation init -->
-  <script src="/js/pages/validation.init.js"></script>
-  <script src="/libs/toastr/build/toastr.min.js"></script>
+  <script src="/assets/js/pages/validation.init.js"></script>
+  <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
   <!-- toastr init -->
-  <script src="/js/pages/toastr.init.js"></script>
+  <script src="/assets/js/pages/toastr.init.js"></script>
 <script>
     $(document).ready(function () {
         $("#datatable").DataTable(), $("#datatable-all").DataTable({
             lengthChange: !1,
+            scrollX:true,
             buttons: ["excel", "colvis"],
         }).buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
         
         $("#datatable").DataTable(), $("#datatable-pending").DataTable({
             lengthChange: !1,
+            scrollX:true,
             buttons: ["excel", "colvis"],
         }).buttons().container().appendTo("#datatable-pending_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");

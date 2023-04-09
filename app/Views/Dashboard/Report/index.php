@@ -171,16 +171,16 @@
                                                 <?= $listDepo->currency ?>
                                             </td>
                                             <td>
-                                                <?= $currency->format($listDepo->amt) ?>
+                                                <?= formatKrw($listDepo->amt) ?>
                                             </td>
                                             <td>
-                                                 <?= $currency->format($listDepo->actualAmount) ?>
+                                                 <?= formatKrw($listDepo->actualAmount) ?>
                                             </td>
                                             <td>
-                                                <?= $currency->format($listDepo->amtVa) ?>
+                                                <?= formatKrw($listDepo->amtVa) ?>
                                             </td>
                                             <td>
-                                                <?= $currency->format($listDepo->amt - $listDepo->amtVa) ?>
+                                                <?= formatKrw($listDepo->amt - $listDepo->amtVa) ?>
                                             </td>
                                             
                                         </tr>
@@ -266,16 +266,16 @@
                                                 <?= $listDepo->currency ?>
                                             </td>
                                             <td>
-                                                <?= $currency->format($listDepo->amt) ?>
+                                                <?= formatKrw($listDepo->amt) ?>
                                             </td>
                                             <td>
-                                                 <?= $currency->format($listDepo->actualAmount) ?>
+                                                 <?= formatKrw($listDepo->actualAmount) ?>
                                             </td>
                                             <td>
-                                                <?= $currency->format($listDepo->amtVa) ?>
+                                                <?= formatKrw($listDepo->amtVa) ?>
                                             </td>
                                             <td>
-                                                <?= $currency->format($listDepo->amt - $listDepo->amtVa) ?>
+                                                <?= formatKrw($listDepo->amt - $listDepo->amtVa) ?>
                                             </td>
                                             
                                         </tr>
@@ -351,7 +351,7 @@
                                                         <?= $listTrans->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $currency->format($listTrans->amount) ?>
+                                                        <?= formatKrw($listTrans->amount) ?>
                                                     </td>
                                                     <td>
                                                         <?= $listTrans->currency ?> 

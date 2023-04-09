@@ -37,7 +37,6 @@ class Dashboard extends BaseController
                 "totalDepo" => $parseData->totalDepo,
                 "totalWd" => $parseData->totalWd,
                 "totalHo" => $parseData->totalHo,
-                'currency' => $this->currency
             ];
             return view('Dashboard/Client/index', $data);
         }else{

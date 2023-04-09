@@ -141,14 +141,13 @@
                                                         <?= $listPen->currency?> 
                                                     </td>
                                                     <td>
-                                                        <?=  $listPen->amt?> 
+                                                        <?=  formatKrw($listPen->amt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  $listPen->amtVa?> 
+                                                        <?=  formatKrw($listPen->amtVa)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  $listPen->amt - $listPen->amtVa?> 
-                                                    </td>
+                                                        <?=  formatKrw($listPen->amt - $listPen->amtVa)?> 
                                                     <td>
                                                         <?= date('d-m-Y', strtotime($listPen->tglbuat))?>
                                                     </td>

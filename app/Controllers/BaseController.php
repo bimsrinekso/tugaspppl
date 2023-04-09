@@ -9,7 +9,6 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\AsyncModel;
-use App\Models\CurrencyModel;
 
 /**
  * Class BaseController
@@ -30,7 +29,6 @@ abstract class BaseController extends Controller
         $this->sesi = session();
         $this->isvalid = \Config\Services::validation();
         $this->gambar = \Config\Services::image();
-        $this->currency = new CurrencyModel();
 	}
     /**
      * Instance of the main Request object.

@@ -50,7 +50,6 @@ class HoWithdraw extends BaseController
         if($getData->status == '200'){
             $data = [
                 "totalBlcClient" => $parseStatus->totalBlcClient,
-                "currency" => $this->currency
             ];
             return view('Dashboard/Client/HoWd/makeHo', $data);
         }else{

@@ -44,7 +44,7 @@ class Deposit extends BaseController
             $data = [
                 "dataCon" => $parseData->dataCon,
                 "dataRej" => $parseData->dataRej,
-                'currency' => $this->currency
+
             ];
             return view('Dashboard/Main/Deposit/listTrans', $data);
         } elseif($this->sesi->get('role') == 2) {
@@ -56,6 +56,7 @@ class Deposit extends BaseController
             $data = [
                 "dataCon" => $parseData->dataCon,
                 "dataRej" => $parseData->dataRej,
+
             ];
             return view('Dashboard/Client/Deposit/listTrans', $data);
         }
@@ -72,6 +73,7 @@ class Deposit extends BaseController
             $parseData = $postData->response;
             $data = [
                 "dataPen" => $parseData->dataPen,
+
             ];
             return view('Dashboard/Main/Deposit/listPending', $data);
         } elseif($this->sesi->get('role') == 2) {
@@ -82,6 +84,7 @@ class Deposit extends BaseController
             $parseData = $postData->response;
             $data = [
                 "dataPen" => $parseData->dataPen,
+
             ];
             return view('Dashboard/Client/Deposit/listPending', $data);
         }

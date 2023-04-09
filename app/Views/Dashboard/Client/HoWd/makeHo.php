@@ -13,7 +13,7 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Total Balance</p>
-                                    <h4 class="mb-0"><?= $currency->format($totalBlcClient) ?> </h4>
+                                    <h4 class="mb-0"><?= formatKrw($totalBlcClient) ?> </h4>
                                 </div>
     
                                 <div class="flex-shrink-0 align-self-center">

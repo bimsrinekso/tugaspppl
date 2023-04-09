@@ -125,6 +125,8 @@ $routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' 
 $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main']);
 
 
+$routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client']);
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

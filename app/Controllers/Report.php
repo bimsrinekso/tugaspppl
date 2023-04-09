@@ -21,7 +21,6 @@ class Report extends BaseController
                 "weekDeposit"=> $parseData->weekDeposit,
                 "rangeHari"=> $parseData->rangeHari,
                 "dataTrans"=> $parseData->dataTrans,
-                'currency' => $this->currency
             ];
         return view('Dashboard/Report/index', $data);
     }

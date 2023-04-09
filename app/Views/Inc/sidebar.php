@@ -61,6 +61,16 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bxs-book-content"></i>
+                        <span key="t-settlement">Tracking Balance</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url('dashboard/trackingBalance')?>" key="t-tui-calendar">Detail</a></li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-archive"></i>
                         <span key="t-withdraw">Mapping client</span>
                     </a>
@@ -137,6 +147,15 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="<?= base_url('dashboard/listHo')?>" key="t-full-calendar">HO Withdraw</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bxs-book-content"></i>
+                            <span key="t-settlement">Tracking Balance</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="<?= base_url('dashboard/trackingBalance')?>" key="t-tui-calendar">Detail</a></li>
                         </ul>
                     </li>
                     <li>
