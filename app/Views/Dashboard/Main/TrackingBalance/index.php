@@ -105,6 +105,7 @@
                                             <th>Remark</th>
                                             <th>Amount</th>
                                             <th>Last Balance</th>
+                                            <th>Client Name</th>
                                             <th>Update Time</th>
                                         </tr>
                                     </thead>
@@ -127,6 +128,9 @@
                                                     </td>
                                                     <td>
                                                         <?=formatKrw($listTrack->lastBalance)?> 
+                                                    </td>
+                                                    <td>
+                                                        <?=$listTrack->name?> 
                                                     </td>
                                                     <td>
                                                     <?= date('d-m-Y H:i:s', strtotime($listTrack->createdAt))?>

@@ -57,7 +57,7 @@ class setBank extends BaseController
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Settlement");
+            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Bank");
             return redirect()->to('dashboard/setBank');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
@@ -76,7 +76,7 @@ class setBank extends BaseController
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Settlement");
+            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update Bank");
             return redirect()->to('dashboard/setBank/update');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
