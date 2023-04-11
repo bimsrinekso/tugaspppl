@@ -39,6 +39,7 @@
                                         <th>Bank Name</th>
                                         <th>Customer Account Number</th>
                                         <th>Holder Name</th>
+                                        <th>Client Name</th>
                                         <th>Request Date</th>
                                         <th>Process Date</th>
                                         <th>Status</th>
@@ -47,7 +48,7 @@
                                     </thead>
                                     <tbody>
                                         <?php if($dataAll != null) :?>
-                                            <div hidden><?= $i = 1; ?> </div>
+                                            <?php $i = 1; ?> 
                                             <?php foreach($dataAll as $listHo) :?>
                                                 <tr>
                                                     <td>
@@ -73,6 +74,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listHo->cusBank ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->clientName ?> 
                                                     </td>
                                                     <td>
                                                         <?= date('d-m-Y H:i:s', strtotime($listHo->request))?>
@@ -105,13 +109,14 @@
                                         <th>Bank Name</th>
                                         <th>Customer Account Number</th>
                                         <th>Holder Name</th>
+                                        <th>Client Name</th>
                                         <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php if($dataPen != null) :?>
-                                        <div hidden><?= $i = 1; ?> </div>
+                                        <?php $i = 1; ?> 
                                             <?php foreach($dataPen as $listPen) :?>
                                                 <tr>
                                                     <td>
@@ -137,6 +142,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listPen->holderName ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->clientName ?> 
                                                     </td>
                                                     <td>
                                                         <?= date('d-m-Y H:i:s', strtotime($listPen->tglbuat))?>

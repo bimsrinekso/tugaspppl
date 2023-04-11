@@ -41,46 +41,59 @@
                                             <th>Amount</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
-                                            <th>Account Number</th>
+                                            <th>Customer Account Number</th>
                                             <th>Holder Name</th>
-                                            <th>Created Date</th>
+                                            <th>Request Date</th>
+                                            <th>Process Date</th>
+                                            <th>Status</th>
+                                            <th>Operator</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php if($dataTrans != null): ?>
-                                                <div hidden><?=  $i = 1; ?> </div>
-                                                <?php foreach($dataTrans as $listTrans):?>
-                                                    <tr>
-                                                        <td>
-                                                            <?= $i++ ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->transactionID ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->paymentMethod ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->amount ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->currency ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->bankName ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->accountNumber ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listTrans->holderName ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
-                                                        </td>                                                 
-                                                    </tr>
-                                                    <?php endforeach;?> 
-                                                <?php endif;?> 
+                                        <?php if($dataAll != null) :?>
+                                            <?php $i = 1; ?> 
+                                            <?php foreach($dataAll as $listHo) :?>
+                                                <tr>
+                                                    <td>
+                                                        <?= $i++ ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->transactionID ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->paymentMethod ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= formatKrw($listHo->amount) ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->currency ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->bankName ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->accountNumber ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->cusBank ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listHo->request))?>
+                                                    </td>
+                                                    <td>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listHo->process))?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $listHo->namestatus ?> 
+                                                    </td> 
+                                                    <td>
+                                                        <?= $listHo->operator ?> 
+                                                    </td>                                  
+                                                </tr>
+                                                
+                                            <?php endforeach;?>  
+                                        <?php endif;?>  
                                         </tbody>
                                 </table>
                             </div>
@@ -94,46 +107,46 @@
                                             <th>Amount</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
-                                            <th>Account Number</th>
+                                            <th>Customer Account Number</th>
                                             <th>Holder Name</th>
                                             <th>Created Date</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if($dataPen != null): ?>
-                                                <div hidden><?=  $i = 1; ?> </div>
-                                                <?php foreach($dataPen as $listPen):?>
-                                                    <tr>
-                                                        <td>
-                                                            <?= $i++ ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->transactionID ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->paymentMethod ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->amount ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->currency ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->bankName ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->accountNumber ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listPen->holderName ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= date('d-m-Y', strtotime($listPen->tglbuat))?>
-                                                        </td>                                                 
-                                                    </tr>
-                                                    <?php endforeach;?> 
-                                                <?php endif;?> 
+                                        <?php if($dataPen != null) :?>
+                                        <?php $i = 1; ?> 
+                                            <?php foreach($dataPen as $listPen) :?>
+                                                <tr>
+                                                    <td>
+                                                        <?= $i++ ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->transactionID ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->paymentMethod ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= formatKrw($listPen->amount) ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->currency ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->bankName ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->accountNumber ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->holderName ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listPen->tglbuat))?>
+                                                    </td>                                              
+                                                </tr>
+                                                <?php endforeach;?>  
+                                        <?php endif;?> 
                                         </tbody>
                                 </table>
                             </div>

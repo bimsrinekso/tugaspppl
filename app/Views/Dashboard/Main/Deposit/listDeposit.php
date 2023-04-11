@@ -109,12 +109,13 @@
                                         <th>User ID</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
+                                        <th>Client Name</th>
                                         <th>Depo At</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <?php if($dataRun != null): ?>
-                                            <div hidden><?= $i = 1; ?> </div>
+                                            <?php $i = 1; ?>
                                             <?php foreach($dataRun as $listDepo) :?>
                                                 <tr>
                                                     <td>
@@ -143,8 +144,11 @@
                                                     <td>
                                                        KRW
                                                     </td>
+                                                    <td>
+                                                         <?= $listDepo->name ?>
+                                                    </td>
                                                      <td>
-                                                        tgl
+                                                     <?= date('d-m-Y', strtotime($listDepo->createdAt))?>
                                                      </td>
                                                    
                                                 </tr>
@@ -182,12 +186,13 @@
                                             <th>User ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
+                                            <th>Client Name</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php if($dataExp != null) :?>
-                                        <div hidden><?= $i = 1; ?> </div>
+                                        <?php $i = 1; ?> 
                                             
                                             <?php foreach($dataExp as $listDepo) :?>
                                                 <tr>
@@ -216,6 +221,9 @@
                                                     </td>
                                                     <td>
                                                        KRW
+                                                    </td>
+                                                    <td>
+                                                        <?= $listDepo->name ?> 
                                                     </td>
                                                      <td>
                                                      <?= date('d-m-Y', strtotime($listDepo->dpcreat))?>

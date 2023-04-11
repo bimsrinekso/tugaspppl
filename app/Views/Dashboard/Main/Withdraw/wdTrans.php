@@ -102,6 +102,7 @@
                                             <th>Bank Name</th>
                                             <th>Customer Account Number</th>
                                             <th>Holder Name</th>
+                                            <th>Client Name</th>
                                             <th>Request Date</th>
                                             <th>Processed On</th>
                                             <th>Remark</th>
@@ -142,6 +143,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->cusBank ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listTranasWd->clientName ?> 
                                                     </td>
                                                     <td>
                                                         <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 

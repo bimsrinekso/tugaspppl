@@ -104,8 +104,10 @@
                                             <th>Transaction ID</th>
                                             <th>Remark</th>
                                             <th>Amount</th>
+                                            <th>Comission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
+                                            <th>Submit Time</th>
                                             <th>Update Time</th>
                                         </tr>
                                     </thead>
@@ -118,13 +120,16 @@
                                                         <?= $i++ ?> 
                                                     </td>
                                                     <td>
-                                                        <?=$listTrack->transactionID?> 
+                                                        <?=$listTrack->idTransTB?> 
                                                     </td>
                                                     <td>
-                                                        <?=$listTrack->payFor == 1 ? "Deposoit" : "", $listTrack->payFor == 2 ? "Withdraw":"", $listTrack->payFor == 3 ? "Topup Client":"", $listTrack->payFor == 4 ? "Ho Withdraw":""?> 
+                                                        <?=$listTrack->payFor == 1 ? "Deposit" : "", $listTrack->payFor == 2 ? "Withdraw":"", $listTrack->payFor == 3 ? "Topup Client":"", $listTrack->payFor == 4 ? "Ho Withdraw":""?> 
                                                     </td>
                                                     <td <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'"?>>
-                                                       <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ?  "+".formatKrw($listTrack->amount) : "-".formatKrw($listTrack->amount)?>
+                                                       <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ?  "+".formatKrw($listTrack->amountTB) : "-".formatKrw($listTrack->amountTB)?>
+                                                    </td>
+                                                    <td>
+                                                        <?=formatKrw($listTrack->amtVa)?> 
                                                     </td>
                                                     <td>
                                                         <?=formatKrw($listTrack->lastBalance)?> 
@@ -133,7 +138,10 @@
                                                         <?=$listTrack->name?> 
                                                     </td>
                                                     <td>
-                                                    <?= date('d-m-Y H:i:s', strtotime($listTrack->createdAt))?>
+                                                    <?= date("d-m-Y H:i:s", strtotime($listTrack->submitTime))?>
+                                                    </td>
+                                                    <td>
+                                                    <?= date("d-m-Y H:i:s", strtotime($listTrack->updatedTime))?>
                                                     </td>
                                                    
                                                 </tr>

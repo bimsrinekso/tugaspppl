@@ -36,6 +36,7 @@
                                         <th>Bank Name</th>
                                         <th>Customer Account Number</th>
                                         <th>Holder Name</th>
+                                        <th>Client Name</th>
                                         <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -68,6 +69,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->holderName ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPenWd->clientName ?>
                                                     </td>
                                                     <td>
                                                         <?= date('d-m-Y H:i:s', strtotime($listPenWd->tglbuat))?>

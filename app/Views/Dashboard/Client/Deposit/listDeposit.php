@@ -143,8 +143,8 @@
                                                     <td>
                                                        KRW
                                                     </td>
-                                                     <td>
-                                                        tgl
+                                                    <td>
+                                                     <?= date('d-m-Y', strtotime($listDepo->createdAt))?>
                                                      </td>
                                                    
                                                 </tr>

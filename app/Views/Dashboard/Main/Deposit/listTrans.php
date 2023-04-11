@@ -120,6 +120,7 @@
                                             <th>Fee</th>
                                             <th>Actual Input</th>
                                             <th>Last Balance</th>
+                                            <th>Client Name</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -171,6 +172,9 @@
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
+                                                    <?= $listTrans->clientName ?>
+                                                </td>
+                                                <td>
                                                     <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
                                                 </td>
 
@@ -218,6 +222,7 @@
                                             <th>Actual Amount</th>
                                             <th>Fee</th>
                                             <th>Actual Input</th>
+                                            <th>Client Name</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -264,6 +269,9 @@
                                                 </td>
                                                 <td>
                                                     <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
+                                                </td>
+                                                <td>
+                                                    <?= $listTrans->clientName ?>
                                                 </td>
                                                 <td>
                                                     <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>

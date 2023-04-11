@@ -264,6 +264,7 @@
                                                 </td>
                                                 <td>
                                                     <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
+                                                </td>
                                                 <td>
                                                     <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
                                                 </td>

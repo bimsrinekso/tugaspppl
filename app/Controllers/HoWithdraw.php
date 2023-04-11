@@ -32,7 +32,7 @@ class HoWithdraw extends BaseController
             $parseData = $postData->response;
             $data = [
                 "dataPen" => $parseData->dataPen,
-                "dataTrans" => $parseData->dataTrans,
+                "dataAll" => $parseData->dataTrans,
             ];
             return view('Dashboard/Client/HoWd/index', $data);
         }
