@@ -342,7 +342,7 @@
                                                         <?= $i++ ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTrans->transactionID ?> 
+                                                        <?= $listTrans->idTransRWD ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listTrans->namestatus ?> 
@@ -351,7 +351,7 @@
                                                         <?= $listTrans->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatKrw($listTrans->amount) ?>
+                                                        <?= formatKrw($listTrans->rwdAmount) ?>
                                                     </td>
                                                     <td>
                                                         <?= $listTrans->currency ?> 

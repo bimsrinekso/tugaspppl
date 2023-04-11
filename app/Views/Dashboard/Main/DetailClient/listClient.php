@@ -30,6 +30,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Client Name</th>
+                                        <th>Va</th>
+                                        <th>Comission</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -41,6 +43,8 @@
                                                 <tr>
                                                     <td><?=$i++?> </td>
                                                     <td> <?=$listClient->name?></td>
+                                                    <td> <?=$listClient->va?></td>
+                                                    <td> <?=$listClient->comission?></td>
                                                     <td>
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editClient/'. $listClient->id) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>

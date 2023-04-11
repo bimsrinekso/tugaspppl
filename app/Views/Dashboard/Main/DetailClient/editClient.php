@@ -18,6 +18,20 @@
                                         <input type="text" value="<?=$dataClient->name?>" name="name" class="form-control" placeholder="Input your Client name">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Va</label>
+                                        <input type="number" step=".01" value="<?=$dataClient->va?>" name="va" class="form-control" placeholder="Input your va">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">                               
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Comission</label>
+                                        <input type="number" step=".01" value="<?=$dataClient->comission?>" name="comission" class="form-control" placeholder="Input your comission">
+                                    </div>
+                                </div>
                             </div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                             </div>

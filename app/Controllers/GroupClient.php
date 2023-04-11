@@ -22,9 +22,22 @@ class GroupClient extends BaseController
 
     
     public function saveClient(){
+        $isValid = [
+            'amount' => 'required',
+            'va' => 'required',
+            'comission' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/createClient');
+        }
         $enp = 'api/saveClient';
         $dataBody = [
             'name'=> $this->request->getVar('name'),
+            'va'=> $this->request->getVar('va'),
+            'comission'=> $this->request->getVar('comission'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -61,6 +74,8 @@ class GroupClient extends BaseController
         $dataBody = [
             'clientID' => $id,
             'name'=> $this->request->getVar('name'),
+            'va'=> $this->request->getVar('va'),
+            'comission'=> $this->request->getVar('comission'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
