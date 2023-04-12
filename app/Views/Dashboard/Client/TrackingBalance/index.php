@@ -129,7 +129,7 @@
                                                        <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ?  "+".formatKrw($listTrack->amountTB) : "-".formatKrw($listTrack->amountTB)?>
                                                     </td>
                                                     <td>
-                                                        <?=formatKrw($listTrack->amtVa)?> 
+                                                    <?=$listTrack->payFor == 1 || $listTrack->payFor == 2 ?  formatKrw($listTrack->amtVa) : "-"?>  
                                                     </td>
                                                     <td>
                                                         <?=formatKrw($listTrack->lastBalance)?> 
