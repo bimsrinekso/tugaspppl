@@ -62,7 +62,92 @@
 <?php $this->section('isKonten');?>
 <div class="page-content">
     <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <h2>Management Report</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end">
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#filter-container" aria-expanded="false" aria-controls="filter-container"
+                            title="Filter & Urutkan Data">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                        <a href="#" class="btn btn-primary" onclick="location.reload();" title="Refresh Data">
+                            <i class="fas fa-redo"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-12" id="filter-container">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="column" class="mb-2">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="daterange" class="control-label">Filter Date</label>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Choose date range" name="daterangeConf"
+                                                        id="daterange" value="" />
+                                                </div>
+                                                <div class="col-4">
+                                                    <button class="btn btn-secondary waves-effect waves-light"
+                                                        id="btnFilterCon" data-tabactive="datatable-active"
+                                                        onclick="filterTgl()" type="button">Filter</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <button class="btn btn-success waves-effect waves-light"
+                                                        id="btnFilterCon" data-tabactive="datatable-active"
+                                                        type="button"><i class="fas fa-file-excel"></i> Export to Excel</button>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-start">
+                            <h5 class="card-title me-2">Summary Report</h5>
+                        </div>
+                        <table id="tableSummary" class="table table-striped table-bordered nowrap w-100">
+                            <thead>
+                                <th>
+                                    Opening Balance
+                                </th>
+                                <th>
+                                    Deposit
+                                </th>
+                                <th>
+                                    VA FEE
+                                </th>
+                                <th>Withdrawl</th>
+                                <th>Bank Charge</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -85,43 +170,19 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="confirm-tab" onclick="cbHref(this)"
                                     data-bs-toggle="tab" data-bs-target="#confirm" type="button" role="tab"
-                                    aria-controls="confirm" aria-selected="true">CONFIRMED</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="reject-tab" onclick="cbHref(this)" data-bs-toggle="tab"
-                                    data-bs-target="#reject" type="button" role="tab" aria-controls="reject"
-                                    aria-selected="true">REJECTED</button>
+                                    aria-controls="confirm" aria-selected="true">ALL</button>
                             </li>
                         </ul>
                         <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="confirm" role="tabpanel"
                                 aria-labelledby="confirm-tab">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="daterange" class="control-label">Filter Date</label>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Choose date range" name="daterangeConf"
-                                                        id="daterange" value="" />
-                                                </div>
-                                                <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light"
-                                                        id="btnFilterCon" data-tabactive="datatable-active"
-                                                        onclick="filterTgl()" type="button">Filter</a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <table id="datatable-active" class="table table-striped table-bordered nowrap w-100">
+                                <table id="tableDepo" class="table table-striped table-bordered nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Date</th>
                                             <th>Trx ID</th>
+                                            <th>Status</th>
                                             <th>Virtual Account</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
@@ -136,151 +197,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($trxDepoCon != null) :?>
-                                        <div hidden><?= $i = 1; ?></div>
-                                        <?php foreach($trxDepoCon as $listDepo):?>
-                                        <tr>
-                                            <td>
-                                                <?= $i++ ?>
-                                            </td>
-                                            <td>
-                                                <?= date("d-m-Y H:i:s", strtotime($listDepo->tglbuat))?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->trxId ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->vaNumber ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->bank ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->holderName ?>
-                                            </td>
-                                            <td>
-                                                Bank Transfer
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->userid ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->senderName ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->currency ?>
-                                            </td>
-                                            <td>
-                                                <?= formatKrw($listDepo->amt) ?>
-                                            </td>
-                                            <td>
-                                                 <?= formatKrw($listDepo->actualAmount) ?>
-                                            </td>
-                                            <td>
-                                                <?= formatKrw($listDepo->amtVa) ?>
-                                            </td>
-                                            <td>
-                                                <?= formatKrw($listDepo->amt - $listDepo->amtVa) ?>
-                                            </td>
-                                            
-                                        </tr>
-                                        <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane fade" id="reject" role="tabpanel" aria-labelledby="reject-tab">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="daterange" class="control-label">Filter Date</label>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Choose date range" name="daterangeRej"
-                                                        id="daterange" value="" />
-                                                </div>
-                                                <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light"
-                                                        id="btnFilterRej" data-tabactive="datatable-active"
-                                                        onclick="filterTgl()" type="button">Filter</a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <table id="datatable-inactive" class="table  table-striped table-bordered nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Date</th>
-                                            <th>Trx ID</th>
-                                            <th>Virtual Account</th>
-                                            <th>Bank</th>
-                                            <th>Holder Name</th>
-                                            <th>Payment Method</th>
-                                            <th>User ID</th>
-                                            <th>Depositor</th>
-                                            <th>Currency</th>
-                                            <th>Amount</th>
-                                            <th>Actual Amount</th>
-                                            <th>Fee</th>
-                                            <th>Actual Input</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if($trxDepoRej != null):?>
-                                            <div hidden><?= $i = 1; ?></div>
-                                        <?php foreach($trxDepoRej as $listDepo):?>
-                                        <tr>
-                                        <td>
-                                                <?= $i++ ?>
-                                            </td>
-                                            <td>
-                                                <?= date("d-m-Y H:i:s", strtotime($listDepo->tglbuat))?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->trxId ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->vaNumber ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->bank ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->holderName ?>
-                                            </td>
-                                            <td>
-                                                Bank Transfer
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->userid ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->senderName ?>
-                                            </td>
-                                            <td>
-                                                <?= $listDepo->currency ?>
-                                            </td>
-                                            <td>
-                                                <?= formatKrw($listDepo->amt) ?>
-                                            </td>
-                                            <td>
-                                                 <?= formatKrw($listDepo->actualAmount) ?>
-                                            </td>
-                                            <td>
-                                                <?= formatKrw($listDepo->amtVa) ?>
-                                            </td>
-                                            <td>
-                                                <?= formatKrw($listDepo->amt - $listDepo->amtVa) ?>
-                                            </td>
-                                            
-                                        </tr>
-                                        <?php endforeach; ?>
-                                        <?php endif; ?>
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -301,21 +218,7 @@
                           </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="confirmed" role="tabpanel" aria-labelledby="confirmed-tab">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="daterange" class="control-label">Filter Date</label>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <input type="text" class="form-control" placeholder="Choose date range" name="daterangeAll" id="daterange" value="" />
-                                            </div>
-                                            <div class="col-4">
-                                                <button class="btn btn-secondary waves-effect waves-light" id="btnFilterRun" data-tabactive="datatable-all" onclick="filterWd()" type="button">Filter</a>
-                                            </div>
-                                        </div>
-                                      
-                                    </div>
-                                </div>
-                                <table id="datatable-all" class="table table-bordered table-responsive nowrap w-100">
+                                <table id="tableWd" class="table table-bordered table-responsive nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -334,52 +237,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($dataTrans != null):?>
-                                            <div hidden><?= $i = 1; ?></div>
-                                            <?php foreach($dataTrans as $listTrans):?>
-                                                <tr>
-                                                    <td>
-                                                        <?= $i++ ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->idTransRWD ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->namestatus ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->paymentMethod ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= formatKrw($listTrans->rwdAmount) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->currency ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->bankName ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->accountNumber ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->cusBank ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= date("d-m-Y", strtotime($listTrans->process))?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= date("d-m-Y", strtotime($listTrans->request))?>
-                                                    </td>                                               
-                                                    <td>
-                                                        <?= $listTrans->remark ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listTrans->operator ?> 
-                                                    </td>
-                                                </tr>
-                                                <?php endforeach; ?>
-                                        <?php endif; ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -395,38 +253,39 @@
 <!-- End Page-content -->
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
-<!-- Required datatable js -->
-<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples -->
-<script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="/assets/libs/jszip/jszip.min.js"></script>
-<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Required datatable js -->
+    <script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="/assets/libs/jszip/jszip.min.js"></script>
+    <script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
-<!-- Responsive examples -->
-<script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<!-- date range -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- date range -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-<!-- Datatable init js -->
-<script src="/assets/js/pages/datatables.init.js"></script>
-<!-- validation init -->
-<script src="/assets/js/pages/validation.init.js"></script>
-<script src="/assets/libs/toastr/build/toastr.min.js"></script>
+    <!-- Datatable init js -->
+    <script src="/assets/js/pages/datatables.init.js"></script>
+    <!-- validation init -->
+    <script src="/assets/js/pages/validation.init.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
-<!-- toastr init -->
-<script src="/assets/js/pages/toastr.init.js"></script>
-<script src="/assets/js/tableReport.js"></script>
-<!-- apexcharts -->
-<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <!-- toastr init -->
+    <script src="/assets/js/pages/toastr.init.js"></script>
+    <script src="/assets/js/tableReport.js"></script>
+    <script src="/assets/js/plugins/service/tableReport.js"></script>
+    <!-- apexcharts -->
+    <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
 <?php if(session()->getFlashdata('sukses')):?>
         <script>
               toastr.success("<?= session()->getFlashData("sukses"); ?>");
@@ -442,39 +301,26 @@
     var weekWithdraw = "<?php echo json_encode($weekWithdraw); ?>;"
     weekWithdraw = weekWithdraw.split(",");
     $(document).ready(function () {
-        tableConf = $("#datatable-active").DataTable({
-            lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"],
+        tableSummary = $("#tableSummary").DataTable({
+            lengtChange: !1,
             "scrollX": true,
             "bDestroy": true
-        });
-        tableConf.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
+        })
+        // tableConf = $("#datatable-active").DataTable({
+        //     lengthChange: !1,
+        //     "scrollX": true,
+        //     "bDestroy": true
+        // });
         tableRej = $("#datatable-inactive").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf", "colvis"],
             "scrollX": true,
             "bDestroy": true
         });
-        tableRej.buttons().container().appendTo("#datatable-inactive_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
         var tableWithdraw = $("#datatable-all").DataTable({
             lengthChange: !1,
-            buttons: ["excel", "colvis", {
-                text: 'Confirm',
-                action: function ( e, dt, node, config ) {
-                    $("#datatable-all").DataTable().search("Confirm").draw();
-                },
-            },{
-                text: 'Rejected',
-                action: function ( e, dt, node, config ) {
-                    $("#datatable-all").DataTable().search("Rejected").draw();
-                }}],
             "scrollX" : true,
             "bDestroy": true
         });
-        tableWithdraw.buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
         targetFilter = $("#btnFilterCon").data("tabactive");
         $('input[name="daterangeConf"]').daterangepicker({
             timePicker: true,

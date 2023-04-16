@@ -24,4 +24,42 @@ class Report extends BaseController
             ];
         return view('Dashboard/Report/index', $data);
     }
+
+    public function listDepo()
+    {        
+        $param = $_REQUEST;        
+        $enp = 'api/reportDepo';
+        $dataBody = [
+            'userid'=> $this->sesi->get('userid'),
+            'param' => $param
+        ];
+        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data
+        ];
+    
+        echo json_encode($response);
+    }
+
+    public function listWd()
+    {        
+        $param = $_REQUEST;        
+        $enp = 'api/reportWd';
+        $dataBody = [
+            'userid'=> $this->sesi->get('userid'),
+            'param' => $param
+        ];
+        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data
+        ];
+    
+        echo json_encode($response);
+    }
 }

@@ -50,8 +50,11 @@ $routes->post('/dashboard/editMap/(:num)', 'GroupClient::updateMap/$1', ['filter
 $routes->get('/dashboard/createMap', 'GroupClient::createMap', ['filter' => 'role:main']);
 $routes->post('/dashboard/createMap', 'GroupClient::saveMap', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filter' => 'role:main']);
-//
+
+//report
 $routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client']);
+$routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:main, client']);
+$routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client']);
 //
 $routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/createAccount', 'VirtualAccount::createAcc', ['filter' => 'role:main']);
