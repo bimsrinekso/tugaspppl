@@ -23,9 +23,10 @@ class GroupClient extends BaseController
     
     public function saveClient(){
         $isValid = [
-            'amount' => 'required',
+            'name' => 'required',
             'va' => 'required',
-            'comission' => 'required',
+            'comDepo' => 'required',
+            'comWd' => 'required',
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -37,7 +38,8 @@ class GroupClient extends BaseController
         $dataBody = [
             'name'=> $this->request->getVar('name'),
             'va'=> $this->request->getVar('va'),
-            'comission'=> $this->request->getVar('comission'),
+            'comDepo'=> $this->request->getVar('comDepo'),
+            'comWd'=> $this->request->getVar('comWd'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -75,7 +77,8 @@ class GroupClient extends BaseController
             'clientID' => $id,
             'name'=> $this->request->getVar('name'),
             'va'=> $this->request->getVar('va'),
-            'comission'=> $this->request->getVar('comission'),
+            'comDepo'=> $this->request->getVar('comDepo'),
+            'comWd'=> $this->request->getVar('comWd'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;

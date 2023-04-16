@@ -28,8 +28,14 @@
                             <div class="row">                               
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Comission</label>
-                                        <input type="number" step=".01" value="<?=$dataClient->comission?>" name="comission" class="form-control" placeholder="Input your comission">
+                                        <label class="form-label">Comission Deposit</label>
+                                        <input type="number" step=".01" value="<?=$dataClient->comDepo?>" name="comDepo" class="form-control" placeholder="Input your comission">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Comission Withdraw</label>
+                                        <input type="number" step=".01" value="<?=$dataClient->comWd?>" name="comWd" class="form-control" placeholder="Input your comission">
                                     </div>
                                 </div>
                             </div>

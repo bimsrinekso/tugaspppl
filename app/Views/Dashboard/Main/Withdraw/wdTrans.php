@@ -97,6 +97,7 @@
                                             <th>Status</th>
                                             <th>Payment Method</th>
                                             <th>Amount</th>
+                                            <th>Comission</th>
                                             <th>Last Balance</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
@@ -128,6 +129,9 @@
                                                     </td>
                                                     <td>
                                                         <?= formatKrw($listTranasWd->rwdAmount) ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listTranasWd->comission == null ? "-" : formatKrw($listTranasWd->comission) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->lastBalance == null ? "-" : formatKrw($listTranasWd->lastBalance) ?> 

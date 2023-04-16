@@ -80,6 +80,7 @@ class Withdraw extends BaseController
         $isValid = [
             'remark' => 'required',
             'status' => 'required',
+            'status' => 'required',
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();

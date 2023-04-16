@@ -28,8 +28,12 @@
                             <div class="row">                               
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Comission</label>
-                                        <input type="number" step=".01" name="comission" class="form-control" placeholder="Input your comission">
+                                        <label class="form-label">Comission Deposit</label>
+                                        <input type="number" step=".01" name="comDepo" class="form-control" placeholder="Input your comission Deposit">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Comission Withdraw</label>
+                                        <input type="number" step=".01" name="comWd" class="form-control" placeholder="Input your comission Withdraw">
                                     </div>
                                 </div>
                             </div>
