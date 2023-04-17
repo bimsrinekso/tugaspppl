@@ -25,7 +25,7 @@
                           </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-                                <table id="datatable-buttons-scroll" class="table table-bordered nowrap table-responsive">
+                                <table id="datatable-buttons-scroll" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                     <tr>
                                         <th>No</th>
@@ -134,6 +134,7 @@
         $("#datatable").DataTable(), $("#datatable-buttons-scroll").DataTable({
             lengthChange: !1,
             scrollX:true,
+            autoWidth:true,
             buttons: ["copy", "excel", "pdf", "colvis"],
         }).buttons().container().appendTo("#datatable-buttons-scroll_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
