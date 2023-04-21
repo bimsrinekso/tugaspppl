@@ -40,7 +40,7 @@ class HoWithdraw extends BaseController
 
     public function reqHo()
     {
-        $enpBl = 'api/getBalance/';
+        $enpBl = 'api/getBlcCloud/';
         $dataBody = [
             'userid'=> $this->sesi->get('userid')
         ];

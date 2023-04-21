@@ -30,8 +30,10 @@ class TrackingBalance extends BaseController
                 ];
                 return view('Dashboard/Client/TrackingBalance/index',$data);
             }else{
-                $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-                return redirect()->to('dashboard');
+                $data = [
+                    "dataTrack" => [],
+                ];
+                return view('Dashboard/Client/TrackingBalance/index',$data);
             }
             
         }   
