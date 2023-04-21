@@ -132,7 +132,7 @@
                                 <th>
                                     VA FEE
                                 </th>
-                                <th>Withdrawl</th>
+                                <th>Withdraw</th>
                                 <th>Bank Charge</th>
                             </thead>
                             <tbody>
