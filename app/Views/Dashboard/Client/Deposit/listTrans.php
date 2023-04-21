@@ -112,7 +112,7 @@
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>User ID</th>
+                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
@@ -211,7 +211,7 @@
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>User ID</th>
+                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>

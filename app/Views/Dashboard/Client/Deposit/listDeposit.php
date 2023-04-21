@@ -106,7 +106,7 @@
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>
-                                        <th>User ID</th>
+                                        <th>Member ID</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
                                         <th>Depo At</th>
@@ -179,7 +179,7 @@
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>User ID</th>
+                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Depo At</th>

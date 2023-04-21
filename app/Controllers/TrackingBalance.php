@@ -19,15 +19,21 @@ class TrackingBalance extends BaseController
             ];
             return view('Dashboard/Main/TrackingBalance/index',$data);
         } elseif($this->sesi->get('role') == 2) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataTrack" => $parseData,
-            ];
-            return view('Dashboard/Client/TrackingBalance/index',$data);
+                $dataBody = [
+                    'userid'=> $this->sesi->get('userid')
+                ];
+                $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+                if($postData->status == 200){
+                    $parseData = $postData->response;
+                $data = [
+                    "dataTrack" => $parseData,
+                ];
+                return view('Dashboard/Client/TrackingBalance/index',$data);
+            }else{
+                $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
+                return redirect()->to('dashboard');
+            }
+            
         }   
     }
 }
