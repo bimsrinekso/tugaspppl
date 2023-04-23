@@ -80,4 +80,21 @@ class Account extends BaseController
             return redirect()->to('dashboard/editProfile');
         }
     }
+    public function detailPersonalKey(){
+        $enp = 'api/account/personalKey';
+        $dataBody = [
+            'userID' => $this->sesi->get('userid')
+        ];
+        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+        $parseData = $postData->response;
+        if($postData->status == '200'){
+            $data = [
+                "dataKey" => $parseData,
+            ];
+            return view('Dashboard/Account/personalKey', $data);
+        }else{
+            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
+            return redirect()->to('dashboard');
+        }
+    }
 }

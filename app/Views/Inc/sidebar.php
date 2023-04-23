@@ -91,6 +91,15 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class='bx bxs-data'></i>
+                        <span key="t-withdraw">Base Bank</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url('dashboard/baseBank')?>" key="t-tui-calendar">List Bank</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-user"></i>
                         <span key="t-withdraw">User Manangment</span>
                     </a>
@@ -176,6 +185,7 @@
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="<?= base_url('dashboard/changePassword')?>" key="t-tui-calendar">Change Password</a></li>
                             <li><a href="<?= base_url('dashboard/editProfile')?>" key="t-full-calendar">Edit Profile</a></li>
+                            <li><a href="<?= base_url('dashboard/personalKey')?>" key="t-full-calendar">Personal Key</a></li>
                         </ul>
                     </li>
                     

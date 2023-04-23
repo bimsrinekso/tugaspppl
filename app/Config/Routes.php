@@ -75,6 +75,7 @@ $routes->get('/dashboard/changePassword', 'Account::editPassword', ['filter' => 
 $routes->get('/dashboard/editProfile', 'Account::editProfile', ['filter' => 'role:client']);
 $routes->post('/dashboard/editProfile', 'Account::updateProfile', ['filter' => 'role:client']);
 $routes->post('/dashboard/changePassword', 'Account::updatePassword', ['filter' => 'role:client']);
+$routes->get('/dashboard/personalKey', 'Account::detailPersonalKey', ['filter' => 'role:client']);
 //depo
 $routes->get('/dashboard/listDeposit', 'Deposit::listDeposit', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/depoTransaction', 'Deposit::listTrans', ['filter' => 'role:main, client']);
@@ -111,7 +112,13 @@ $routes->post('/dashboard/createApis', 'GenerateApi::saveApis', ['filter' => 'ro
 $routes->get('/dashboard/detailApi/(:num)', 'GenerateApi::detailApi/$1', ['filter' => 'role:main']);
 //
 
-
+// base bank
+$routes->get('/dashboard/baseBank', 'Bank::index', ['filter' => 'role:main']);
+$routes->get('/dashboard/baseBank/create', 'Bank::createBank', ['filter' => 'role:main']);
+$routes->post('/dashboard/baseBank/create', 'Bank::saveBank', ['filter' => 'role:main']);
+$routes->get('/dashboard/baseBank/detail/(:any)', 'Bank::detailBank/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/baseBank/detail/(:any)', 'Bank::updateBank/$1', ['filter' => 'role:main']);
+//
 $routes->get('/dashboard/calculateComission', 'CalcComission::indexCalc', ['filter' => 'role:main']);
 $routes->get('/dashboard/createCom', 'CalcComission::createCalc', ['filter' => 'role:main']);
 $routes->post('/dashboard/createCom', 'CalcComission::saveCom', ['filter' => 'role:main']);

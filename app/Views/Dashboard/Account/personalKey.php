@@ -16,11 +16,11 @@
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Detail Api</h4>
+                        <h4 class="card-title mb-4">Detail Personal Key</h4>
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Api Key</label>
-                                <input type="text" value="<?=$dataApi->apiKey?>" class="form-control">
+                                <input type="text" value="<?=$dataKey->apiKey?>" class="form-control">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -56,7 +56,7 @@
   <script src="/js/pages/toastr.init.js"></script>
   <script>
     const publicKeyEditor = CodeMirror(document.getElementById('publicKey'), {
-    value: `<?=$dataApi->publicKey?>`,
+    value: `<?=$dataKey->publicKey?>`,
     mode: 'shell',
     readOnly: true,
     lineNumbers: true,
@@ -64,7 +64,7 @@
 });
 
 const privateKeyEditor = CodeMirror(document.getElementById('privateKey'), {
-    value: `<?=$dataApi->privateKey?>`,
+    value: `<?=$dataKey->privateKey?>`,
     mode: 'shell',
     readOnly: true,
     lineNumbers: true,
