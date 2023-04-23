@@ -81,6 +81,16 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class='bx bxs-bolt'></i>
+                        <span key="t-withdraw">Generate Api</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url('dashboard/generateApis')?>" key="t-tui-calendar">List Api</a></li>
+                        <li><a href="<?= base_url('dashboard/createApis')?>" key="t-tui-calendar">Create Api</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-user"></i>
                         <span key="t-withdraw">User Manangment</span>
                     </a>
@@ -168,6 +178,7 @@
                             <li><a href="<?= base_url('dashboard/editProfile')?>" key="t-full-calendar">Edit Profile</a></li>
                         </ul>
                     </li>
+                    
                     <li class="menu-title" key="t-report">Report</li>
                     <li>
                         <a href="<?= base_url('dashboard/reportDaily') ?>" class="waves-effect">

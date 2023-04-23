@@ -104,6 +104,13 @@ $routes->get('/dashboard/editSettle/(:num)', 'Settlement::editSettle/$1', ['filt
 $routes->post('/dashboard/editSettle/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteSettle/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main']);
 
+// api
+$routes->get('/dashboard/generateApis', 'GenerateApi::index', ['filter' => 'role:main']);
+$routes->get('/dashboard/createApis', 'GenerateApi::createApis', ['filter' => 'role:main']);
+$routes->post('/dashboard/createApis', 'GenerateApi::saveApis', ['filter' => 'role:main']);
+$routes->get('/dashboard/detailApi/(:num)', 'GenerateApi::detailApi/$1', ['filter' => 'role:main']);
+//
+
 
 $routes->get('/dashboard/calculateComission', 'CalcComission::indexCalc', ['filter' => 'role:main']);
 $routes->get('/dashboard/createCom', 'CalcComission::createCalc', ['filter' => 'role:main']);
