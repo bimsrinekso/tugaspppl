@@ -46,7 +46,7 @@ class GenerateApi extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $data = [
-                "dataApi" => $parseData,
+                "dataApi" => $parseData[0],
             ];
             return view('Dashboard/Main/GenApi/detailApis', $data);
         }else{

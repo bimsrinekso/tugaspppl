@@ -148,7 +148,7 @@
                                                          <?= $listDepo->name ?>
                                                     </td>
                                                      <td>
-                                                     <?= date('d-m-Y', strtotime($listDepo->createdAt))?>
+                                                     <?= date('d-m-Y', strtotime($listDepo->dpcreat))?>
                                                      </td>
                                                    
                                                 </tr>

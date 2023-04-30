@@ -14,6 +14,7 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
+            // dd($parseData);
             $data = [
                 "dataUser" => $parseData->dataUser,
                 "dataActive" => $parseData->dataActive,
@@ -26,6 +27,7 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
+            // dd($parseData);
             $data = [
                 "dataUser" => $parseData->dataUser,
                 "dataActive" => $parseData->dataActive,
@@ -78,7 +80,7 @@ class VirtualAccount extends BaseController
         $parseStatus = $getData->response;
         if($postData->status == '200'){
             $data = [
-                "dataVa" => $parseData,
+                "dataVa" => $parseData[0],
                 "groupStatus" => $parseStatus
             ];
             return view('Dashboard/Main/virtualAccount/editAcc', $data);

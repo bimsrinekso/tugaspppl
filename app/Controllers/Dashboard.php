@@ -32,7 +32,7 @@ class Dashboard extends BaseController
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
             $data = [
-                "totalUser" => $parseData->totalUser,
+                "totalTopup" => $parseData->totalTopup,
                 "totalBlcClient" => $parseData->totalBlcClient,
                 "totalDepo" => $parseData->totalDepo,
                 "totalWd" => $parseData->totalWd,

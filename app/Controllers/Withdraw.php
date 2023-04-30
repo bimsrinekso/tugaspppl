@@ -67,7 +67,7 @@ class Withdraw extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $data = [
-                "dataRw" => $parseData,
+                "dataRw" => $parseData[0],
             ];
             return view('Dashboard/Main/Withdraw/editPending', $data);
         }else{

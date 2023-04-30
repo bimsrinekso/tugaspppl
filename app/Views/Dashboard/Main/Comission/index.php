@@ -49,7 +49,7 @@
                                                     <td><?= $i++ ?> </td>
                                                     <td><?= formatKrw($listCom->amount) ?> </td>
                                                     <td><?= $listCom->username ?> </td>
-                                                    <td> <?= date('d-m-Y', strtotime($listCom->tglbuat))?></td>
+                                                    <td> <?= date('d-m-Y', strtotime($listCom->tglBuat))?></td>
                                                     <td>
                                                         <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editCom/'. $listCom->idcom) ?> " title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>

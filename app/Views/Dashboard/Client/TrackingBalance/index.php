@@ -125,8 +125,8 @@
                                                     <td>
                                                         <?=$listTrack->payFor == 1 ? "Deposit" : "", $listTrack->payFor == 2 ? "Withdraw":"", $listTrack->payFor == 3 ? "Topup Client":"", $listTrack->payFor == 4 ? "Ho Withdraw":""?> 
                                                     </td>
-                                                    <td <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'"?>>
-                                                       <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ?  "+".formatKrw($listTrack->amountTB) : "-".formatKrw($listTrack->amountTB)?>
+                                                    <td <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? $listTrack->amountTB == null ? "" : "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'"?>>
+                                                       <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? $listTrack->amountTB == null ? "-" : "+".formatKrw($listTrack->amountTB) : "-".formatKrw($listTrack->amountTB)?>
                                                     </td>
                                                     <td>
                                                     <?=$listTrack->payFor == 1 || $listTrack->payFor == 2 ?  formatKrw($listTrack->amtVa) : "-"?>  

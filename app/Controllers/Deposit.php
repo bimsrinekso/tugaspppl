@@ -17,6 +17,7 @@ class Deposit extends BaseController
                 "dataRun" => $parseData->dataRun,
                 "dataExp" => $parseData->dataExp,
             ];
+            // dd($data);
             return view('Dashboard/Main/Deposit/listDeposit', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -100,7 +101,7 @@ class Deposit extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $data = [
-                "dataDepo" => $parseData,
+                "dataDepo" => $parseData[0],
             ];
             return view('Dashboard/Main/Deposit/editPending', $data);
         }else{

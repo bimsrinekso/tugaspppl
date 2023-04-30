@@ -57,7 +57,7 @@
                                                     <td><?= $listUser->holderName ?> </td>
                                                     <td><?= $listUser->payMethod ?></td>
                                                     <td><?= $listUser->action_by ?></td>
-                                                    <td><?= $listUser->vaStatus->name?></td>
+                                                    <td><?= $listUser->status_name?></td>
                                                     <td>
                                                         <a href="<?= base_url('/dashboard/editAccount/'. $listUser->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -120,7 +120,7 @@
                                                     <td><?= $listActive->holderName ?> </td>
                                                     <td><?= $listActive->payMethod ?></td>
                                                     <td><?= $listActive->action_by ?></td>
-                                                    <td><?= $listActive->vaStatus->name?></td>
+                                                    <td><?= $listActive->status_name?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editAccount/'. $listActive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -182,7 +182,7 @@
                                                     <td><?= $listInactive->holderName ?> </td>
                                                     <td><?= $listInactive->payMethod ?></td>
                                                     <td><?= $listInactive->action_by ?></td>
-                                                    <td><?= $listInactive->vaStatus->name?></td>
+                                                    <td><?= $listInactive->status_name?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editAccount/'. $listInactive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
