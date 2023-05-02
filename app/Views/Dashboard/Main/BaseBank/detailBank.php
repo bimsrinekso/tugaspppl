@@ -16,6 +16,10 @@
                                 <label for="formrow-firstname-input" class="form-label">Bank Name</label>
                                 <input type="text" class="form-control" name="bankName" value="<?=$dataBank->bankName?>" id="formrow-firstname-input" placeholder="Bank Name">
                             </div>
+                            <div class="col-md-6">
+                                <label for="formrow-firstname-input" class="form-label">Universal Name</label>
+                                <input type="text" class="form-control" name="universalName" id="formrow-firstname-input" value="<?=$dataBank->universalName?>" placeholder="Universal Name">
+                            </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Bank Code</label>

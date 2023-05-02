@@ -81,6 +81,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Bank Name</th>
+                                        <th>Universal Name</th>
                                         <th>Bank Code</th>
                                         <th>Region</th>
                                         <th>Region Code</th>
@@ -94,6 +95,7 @@
                                                 <tr>
                                                     <td></td>
                                                     <td><?=$listData->bankName?></td>
+                                                    <td><?=$listData->universalName?></td>
                                                     <td><?=$listData->bankCode?></td>
                                                     <td><?=$listData->region?></td>
                                                     <td><?=$listData->regionCode?>
@@ -169,7 +171,7 @@
         var table = $("#datatable-all").DataTable({
                 "scrollX": true,
                 "bDestroy": true,
-                "order": [[ 2, 'asc' ]]
+                "order": [[ 3, 'asc' ]]
             });
         table.on('order.dt search.dt', function () {
             let i = 1;

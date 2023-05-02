@@ -25,7 +25,8 @@ class Bank extends BaseController
             'bankName' => $this->request->getVar('bankName'),
             'bankCode' => $this->request->getVar('bankCode'),
             'region' => $this->request->getVar('region'),
-            'regionCode' => $this->request->getVar('regionCode')
+            'regionCode' => $this->request->getVar('regionCode'),
+            'universalName' => $this->request->getVar('universalName')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -63,7 +64,8 @@ class Bank extends BaseController
             'bankName' => $this->request->getVar('bankName'),
             'bankCode' => $this->request->getVar('bankCode'),
             'region' => $this->request->getVar('region'),
-            'regionCode' => $this->request->getVar('regionCode')
+            'regionCode' => $this->request->getVar('regionCode'),
+            'universalName' => $this->request->getVar('universalName')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
