@@ -13,11 +13,16 @@ class Deposit extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
+            if (is_object($parseData->dataRun) && !is_countable($parseData->dataRun)) {
+                $parseData->dataRun = [$parseData->dataRun];
+            }
+            if (is_object($parseData->dataExp) && !is_countable($parseData->dataExp)) {
+                $parseData->dataExp = [$parseData->dataExp];
+            }
             $data = [
                 "dataRun" => $parseData->dataRun,
                 "dataExp" => $parseData->dataExp,
             ];
-            // dd($data);
             return view('Dashboard/Main/Deposit/listDeposit', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -25,6 +30,12 @@ class Deposit extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
+            if (is_object($parseData->dataRun) && !is_countable($parseData->dataRun)) {
+                $parseData->dataRun = [$parseData->dataRun];
+            }
+            if (is_object($parseData->dataExp) && !is_countable($parseData->dataExp)) {
+                $parseData->dataExp = [$parseData->dataExp];
+            }
             $data = [
                 "dataRun" => $parseData->dataRun,
                 "dataExp" => $parseData->dataExp,
