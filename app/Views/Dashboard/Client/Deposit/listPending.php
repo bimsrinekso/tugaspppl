@@ -94,6 +94,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Trx ID</th>
+                                        <th>Order Number</th>
                                         <th>Virtual Account</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
@@ -117,6 +118,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listPen->trxId?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPen->dpOrderNo?> 
                                                     </td>
                                                     <td>
                                                         <?= $listPen->vaNumber?> 
