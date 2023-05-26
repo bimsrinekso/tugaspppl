@@ -216,7 +216,6 @@
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>User ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
@@ -253,9 +252,6 @@
                                                 </td>
                                                 <td>
                                                     Bank Transfer
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->userid ?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->senderName ?>

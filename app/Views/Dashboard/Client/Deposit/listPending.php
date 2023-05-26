@@ -99,11 +99,10 @@
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>
-                                        <th>Member ID</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
                                         <th>Actual Amount</th>
-                                        <th>Fee</th>
+                                        <th>VA Fee</th>
                                         <th>Actual Input</th>
                                         <th>Depo At</th>
                                     </tr>
@@ -133,9 +132,6 @@
                                                     </td>
                                                     <td>
                                                         Bank Transfer 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listPen->userid?> 
                                                     </td>
                                                     <td>
                                                         <?= $listPen->senderName?> 

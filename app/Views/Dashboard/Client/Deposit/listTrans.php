@@ -108,16 +108,16 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
+                                            <th>Order Number</th>
                                             <th>Virtual Account</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>Fee</th>
+                                            <th>VA Fee</th>
                                             <th>Actual Input</th>
                                             <th>Last Balance</th>
                                             <th>Depo At</th>
@@ -135,6 +135,9 @@
                                                     <?= $listTrans->trxId?>
                                                 </td>
                                                 <td>
+                                                    <?= $listTrans->dpOrderNo?>
+                                                </td>
+                                                <td>
                                                     <?= $listTrans->vaNumber?>
                                                 </td>
                                                 <td>
@@ -145,9 +148,6 @@
                                                 </td>
                                                 <td>
                                                     Bank Transfer
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->userid ?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->senderName ?>
@@ -207,16 +207,16 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
+                                            <th>Order Number</th>
                                             <th>Virtual Account</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>Fee</th>
+                                            <th>VA Fee</th>
                                             <th>Actual Input</th>
                                             <th>Depo At</th>
                                         </tr>
@@ -243,9 +243,6 @@
                                                 </td>
                                                 <td>
                                                     Bank Transfer
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->userid ?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->senderName ?>

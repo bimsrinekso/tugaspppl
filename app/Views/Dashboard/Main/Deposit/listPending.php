@@ -99,7 +99,6 @@
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>
-                                        <th>Member ID</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
                                         <th>Actual Amount</th>
