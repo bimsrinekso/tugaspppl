@@ -103,7 +103,6 @@
                                         <th>Currency</th>
                                         <th>Actual Amount</th>
                                         <th>VA Fee</th>
-                                        <th>Actual Input</th>
                                         <th>Depo At</th>
                                     </tr>
                                     </thead>
@@ -144,9 +143,6 @@
                                                     </td>
                                                     <td>
                                                         <?=  formatKrw($listPen->amtVa)?> 
-                                                    </td>
-                                                    <td>
-                                                        <?=  formatKrw($listPen->amt - $listPen->amtVa)?> 
                                                     </td>
                                                     <td>
                                                         <?= date('d-m-Y H:i:s', strtotime($listPen->tglbuat))?>

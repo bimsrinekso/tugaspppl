@@ -217,7 +217,6 @@
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
                                             <th>VA Fee</th>
-                                            <th>Actual Input</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -258,9 +257,6 @@
                                                 </td>
                                                 <td>
                                                     <?=  formatKrw($listTrans->amtVa) ?>
-                                                </td>
-                                                <td>
-                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
                                                     <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
