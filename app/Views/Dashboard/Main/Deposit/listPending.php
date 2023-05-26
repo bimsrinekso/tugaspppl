@@ -103,8 +103,8 @@
                                         <th>Depositor</th>
                                         <th>Currency</th>
                                         <th>Actual Amount</th>
-                                        <th>Fee</th>
-                                        <th>Actual Input</th>
+                                        <th>VA Fee</th>
+                                        <th>Commission</th>
                                         <th>Client Name</th>
                                         <th>Depo At</th>
                                         <th>Action</th>
@@ -152,7 +152,7 @@
                                                         <?=  formatKrw($listPen->amtVa)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatKrw($listPen->amt - $listPen->amtVa)?> 
+                                                        <?=  formatKrw($listPen->comission)?> 
                                                     </td>
                                                     <td>
                                                         <?=  $listPen->clientName?> 

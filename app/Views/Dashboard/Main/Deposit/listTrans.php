@@ -108,17 +108,17 @@
                                     <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
+                                            <th>Order Number</th>
                                             <th>Virtual Account</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>Fee</th>
-                                            <th>Actual Input</th>
+                                            <th>VA Fee</th>
+                                            <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
                                             <th>Depo At</th>
@@ -136,6 +136,9 @@
                                                     <?= $listTrans->trxId?>
                                                 </td>
                                                 <td>
+                                                    <?= $listTrans->dpOrderNo?>
+                                                </td>
+                                                <td>
                                                     <?= $listTrans->vaNumber?>
                                                 </td>
                                                 <td>
@@ -146,9 +149,6 @@
                                                 </td>
                                                 <td>
                                                     Bank Transfer
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->userid ?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->senderName ?>
@@ -166,8 +166,8 @@
                                                     <?=  formatKrw($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
-                                                </td>
+                                                        <?=  formatKrw($listTrans->comission)?> 
+                                            </td>
                                                 <td>
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
@@ -175,7 +175,7 @@
                                                     <?= $listTrans->clientName ?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
+                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
                                                 </td>
 
 
@@ -211,6 +211,7 @@
                                     <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
+                                            <th>Order Number</th>
                                             <th>Virtual Account</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
@@ -220,8 +221,9 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>Fee</th>
-                                            <th>Actual Input</th>
+                                            <th>VA Fee</th>
+                                            <th>Commission</th>
+                                            <th>Last Balance</th>
                                             <th>Client Name</th>
                                             <th>Depo At</th>
                                         </tr>
@@ -236,6 +238,9 @@
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->trxId?>
+                                                </td>
+                                                <td>
+                                                    <?= $listTrans->dpOrderNo?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->vaNumber?>
@@ -268,13 +273,15 @@
                                                     <?=  formatKrw($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
-                                                </td>
+                                                        <?=  formatKrw($listTrans->comission)?> 
+                                            </td>
                                                 <td>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
+                                                </td>
                                                     <?= $listTrans->clientName ?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y', strtotime($listTrans->tglbuat))?>
+                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
                                                 </td>
 
                                             </tr>

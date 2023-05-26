@@ -102,11 +102,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Trx ID</th>
+                                        <th>Order Number</th>
                                         <th>Virtual Account</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>
-                                        <th>Member ID</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
                                         <th>Client Name</th>
@@ -125,6 +125,9 @@
                                                         <?= $listDepo->transactionID ?> 
                                                     </td>
                                                     <td>
+                                                        <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
+                                                    </td>
+                                                    <td>
                                                         <?= $listDepo->vaNumber ?> 
                                                     </td>
                                                     <td>
@@ -136,8 +139,6 @@
                                                     <td>
                                                         <?= $listDepo->payMethod ?> 
                                                     </td>
-                                                    <td>
-                                                        <?= $listDepo->forUserid ?> 
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
@@ -179,11 +180,11 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
+                                            <th>Order Number</th>
                                             <th>Virtual Account</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
-                                            <th>Member ID</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Client Name</th>
@@ -203,6 +204,9 @@
                                                         <?= $listDepo->transactionID ?> 
                                                     </td>
                                                     <td>
+                                                        <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
+                                                    </td>
+                                                    <td>
                                                         <?= $listDepo->vaNumber ?> 
                                                     </td>
                                                     <td>
@@ -214,8 +218,6 @@
                                                     <td>
                                                         <?= $listDepo->payMethod ?> 
                                                     </td>
-                                                    <td>
-                                                        <?= $listDepo->forUserid ?> 
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
