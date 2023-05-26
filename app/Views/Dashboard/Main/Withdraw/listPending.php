@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Trx ID</th>
+                                        <th>Order Number</th>
                                         <th>Payment Method</th>
                                         <th>Amount</th>
                                         <th>Currency</th>
@@ -37,7 +38,7 @@
                                         <th>Customer Account Number</th>
                                         <th>Holder Name</th>
                                         <th>Client Name</th>
-                                        <th>Created Date</th>
+                                        <th>Request Date</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -51,6 +52,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->transactionID ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPenWd->wdOrderNo == null ? '-' : $listPenWd->wdOrderNo ?>
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->paymentMethod ?>

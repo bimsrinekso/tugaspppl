@@ -94,6 +94,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
+                                            <th>Order Number</th>
                                             <th>Status</th>
                                             <th>Payment Method</th>
                                             <th>Amount</th>
@@ -119,6 +120,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->idTransRWD ?>  
+                                                    </td>
+                                                    <td>
+                                                    <?= $listTranasWd->wdOrderNo == null ? '-' : $listTranasWd->wdOrderNo ?>
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->namestatus ?> 

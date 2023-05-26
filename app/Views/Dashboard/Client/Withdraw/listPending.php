@@ -30,13 +30,14 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Trx ID</th>
+                                        <th>Order Number</th>
                                         <th>Payment Method</th>
                                         <th>Amount</th>
                                         <th>Currency</th>
                                         <th>Bank Name</th>
                                         <th>Customer Account Number</th>
                                         <th>Holder Name</th>
-                                        <th>Created Date</th>
+                                        <th>Request Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -49,6 +50,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->transactionID ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $listPenWd->wdOrderNo == null ? '-' : $listPenWd->wdOrderNo ?>
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->paymentMethod ?>
@@ -69,7 +73,7 @@
                                                         <?= $listPenWd->holderName ?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listPenWd->tglbuat))?>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listPenWd->tglbuat))?>
                                                     </td>                                             
                                                 </tr>
                                                 <?php endforeach;?>
