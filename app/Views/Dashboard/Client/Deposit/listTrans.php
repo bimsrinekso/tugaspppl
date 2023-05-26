@@ -118,7 +118,6 @@
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
                                             <th>VA Fee</th>
-                                            <th>Actual Input</th>
                                             <th>Last Balance</th>
                                             <th>Depo At</th>
                                         </tr>
@@ -163,9 +162,6 @@
                                                 </td>
                                                 <td>
                                                     <?=  formatKrw($listTrans->amtVa) ?>
-                                                </td>
-                                                <td>
-                                                    <?=  formatKrw($listTrans->amt - $listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
