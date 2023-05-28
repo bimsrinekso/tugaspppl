@@ -71,6 +71,7 @@ class Deposit extends BaseController
                 "dataRej" => $parseData->dataRej,
 
             ];
+            // dd($data);
             return view('Dashboard/Client/Deposit/listTrans', $data);
         }
     }
@@ -217,6 +218,7 @@ class Deposit extends BaseController
                 'startDate'=> $this->request->getVar('startDate'),
                 'endDate'=> $this->request->getVar('endDate'),
                 'target'=> $this->request->getVar('target'),
+                'role' => $this->sesi->get('role')
             ];
             try {
                 $postData = $this->async->post($enp, $this->apimain, $dataBody);  
@@ -229,6 +231,8 @@ class Deposit extends BaseController
                 'startDate'=> $this->request->getVar('startDate'),
                 'endDate'=> $this->request->getVar('endDate'),
                 'target'=> $this->request->getVar('target'),
+                'userid'=> $this->sesi->get('userid'),
+                'role' => $this->sesi->get('role')
             ];
             try {
                 $postData = $this->async->post($enp, $this->apiclient, $dataBody);  
