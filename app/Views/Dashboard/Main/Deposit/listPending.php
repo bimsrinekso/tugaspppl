@@ -136,9 +136,6 @@
                                                         Bank Transfer 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->userid?> 
-                                                    </td>
-                                                    <td>
                                                         <?= $listPen->senderName?> 
                                                     </td>
                                                     <td>

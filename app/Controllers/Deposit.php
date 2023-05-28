@@ -58,6 +58,7 @@ class Deposit extends BaseController
                 "dataRej" => $parseData->dataRej,
 
             ];
+            // dd($data);
             return view('Dashboard/Main/Deposit/listTrans', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -87,6 +88,7 @@ class Deposit extends BaseController
                 "dataPen" => $parseData->dataPen,
 
             ];
+            // dd($data);
             return view('Dashboard/Main/Deposit/listPending', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [

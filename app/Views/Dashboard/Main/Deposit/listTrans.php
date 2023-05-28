@@ -167,7 +167,7 @@
                                                 </td>
                                                 <td>
                                                         <?=  formatKrw($listTrans->comission)?> 
-                                            </td>
+                                                 </td>
                                                 <td>
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
@@ -270,10 +270,11 @@
                                                 </td>
                                                 <td>
                                                         <?=  formatKrw($listTrans->comission)?> 
-                                            </td>
+                                                </td>
                                                 <td>
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
+                                                <td>
                                                     <?= $listTrans->clientName ?>
                                                 </td>
                                                 <td>
