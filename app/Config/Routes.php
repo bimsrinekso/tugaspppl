@@ -144,6 +144,7 @@ $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter'
 
 
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client']);
+$routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client']);
 
 /*
  * --------------------------------------------------------------------
