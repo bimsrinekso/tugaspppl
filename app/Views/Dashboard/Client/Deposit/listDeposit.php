@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-active" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="datatable-active" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
                                         <th>No</th>
@@ -171,7 +171,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-expired" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="datatable-expired" class="table table-striped table-bordered nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -303,191 +303,95 @@
             targetFilter = "datatable-expired";
             targetTgl = "Exp";
         }
-        console.log(targetFilter);
     }
+    function formatDate(dateStr, isEndDate) {
+    if (!dateStr || dateStr == '') return '';
+    dateStr = dateStr.replace(/\//g, '-').trim();
+    return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
+}
+
+
+function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+
+    function formatCurrency(num) {
+        return uang.format(num);
+    }
+
+function populateTable(table, data){
+        var i = 0;
+        $.each(data, function(a, b) {
+            var crtDate = new Date(b.dpcreat),
+                createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+                i++;
+                table.append(
+            "<tr>" +
+            "<td>" + i +"</td>" +
+            "<td>" + b.transactionID + "</td>" +
+            "<td>" + (b.dpOrderNo == null ? "-" : b.dpOrderNo) + "</td>" +
+            "<td>" + b.vaNumber +"</td>" +
+            "<td>" +b.bank +"</td>" +
+            "<td>" +b.holderName +"</td>" +
+            "<td>" +b.payMethod +"</td>" +
+            "<td>" +b.forUser +"</td>" +
+            "<td>" +"KRW" +"</td>" +
+            "<td>" +createdDate +"</td>" +
+            "</tr>"
+        );
+        });
+    }
+
+function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
     function filterTgl(){
         var tgl = $('input[name="daterange'+targetTgl+'"]').val();
         var splitTgl = tgl.split('-');
-        var startDate;
-        var endDate;
-        if (splitTgl[0] == '') {
-                startDate = '';
-                endDate = '';
-        } else {
-            startDate = splitTgl[0];
-            endDate = splitTgl[1];
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace(' ', '');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.slice(1);
-            // new date convert
-            startDate = startDate.split("-").reverse().join("-");
-            startDate = startDate + ' 00:00:00';
-            endDate = endDate.split("-").reverse().join("-");
-            endDate = endDate + ' 00:00:00';
-        }
-        var tableRun = $("#datatable-active tbody");
-        var tableExpired = $("#datatable-expired tbody");
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = targetFilter == "datatable-active" ? $("#datatable-active tbody") : $("#datatable-expired tbody");
         var isTable = $("#"+targetFilter);
-        if(targetFilter == "datatable-active"){
-            tableRun.empty();
-            tableRun.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: '<?=base_url("dashboard/monitorDepo")?>',
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "running"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableRun.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.dpcreat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableRun.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.transactionID +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            b.payMethod +
-                            "</td>" +
-                            "<td>" +
-                            b.forUserid +
-                            "</td>" +
-                            "<td>" +
-                            b.forUser +
-                            "</td>" +
-                            "<td>" +
-                            "KRW" +
-                            "</td>" +
-                            "<td>" +
-                           createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }else{
-            tableExpired.empty();
-            tableExpired.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: '<?=base_url("dashboard/monitorDepo")?>',
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "expired"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableExpired.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.dpcreat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableExpired.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.transactionID +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            b.payMethod +
-                            "</td>" +
-                            "<td>" +
-                            b.forUserid +
-                            "</td>" +
-                            "<td>" +
-                            b.forUser +
-                            "</td>" +
-                            "<td>" +
-                            "KRW" +
-                            "</td>" +
-                            "<td>" +
-                           createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }
+
+        clearAndShowLoader(table);
+        
+        $.ajax({
+            url: '<?=base_url("dashboard/monitorDepo")?>',
+            method: "POST",
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+                target: targetFilter == "datatable-active" ? "running" : "expired"
+            },
+            success: (response) => {
+                handleAjaxSuccess(response, isTable, table);
+            }
+        });
     }
     $(document).ready(function () {
         targetFilter = $("#btnFilterRun").data("tabactive");
@@ -525,7 +429,7 @@
        tableRun = $("#datatable-active").DataTable({
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
+            "scrollX" : true,
             "bDestroy": true
         });
         tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
@@ -533,7 +437,7 @@
         tableExp = $("#datatable-expired").DataTable({
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
+            "scrollX" : true,
             "bDestroy": true
         });
         tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");

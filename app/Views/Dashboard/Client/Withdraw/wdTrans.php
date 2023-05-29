@@ -151,10 +151,10 @@
                                                         <?= $listTranasWd->cusBank ?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listTranasWd->process))?> 
+                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listTranasWd->request))?> 
+                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
                                                     </td>                                               
                                                     <td>
                                                         <?= $listTranasWd->remark ?> 
@@ -225,39 +225,23 @@
         </script>
     <?php endif?>
 <script>
+     var targetFilter = 'datatable-all';
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
         });
-    function filterTgl() {
-        var tgl = $('input[name="daterangeAll"]').val();
-        var splitTgl = tgl.split('-');
-        var startDate;
-        var endDate;
-        if (splitTgl[0] == '') {
-            startDate = '';
-            endDate = '';
-        } else {
-            startDate = splitTgl[0];
-            endDate = splitTgl[1];
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace(' ', '');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.slice(1);
-            // new date convert
-            startDate = startDate.split("-").reverse().join("-");
-            startDate = startDate + ' 00:00:00';
-            endDate = endDate.split("-").reverse().join("-");
-            endDate = endDate + ' 00:00:00';
-        }
-        var tableWd = $("#datatable-all tbody");
-        var isTable = $("#datatable-all");
-        tableWd.empty();
-        tableWd.append(
+    
+        function formatDate(dateStr, isEndDate) {
+        if (!dateStr || dateStr == '') return '';
+        dateStr = dateStr.replace(/\//g, '-').trim();
+        return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
+    }
+
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
             "<tr>" +
             "<td colspan='14'>" +
             "<center>" +
@@ -266,6 +250,65 @@
             "</td>" +
             "</tr>"
         );
+    }
+
+    function formatCurrency(num) {
+        num = parseInt(num);
+        return uang.format(num);
+    }
+
+    function populateTable(table, data){
+        var i = 0;
+        $.each(data, function(a, b) {
+            i++;
+            table.append(
+                "<tr>" +
+                "<td>" + i + "</td>" +
+                "<td>" + b.idTransRWD + "</td>" +
+                "<td>" + (b.wdOrderNo == null ? "-" : b.wdOrderNo) + "</td>" +
+                "<td>" + b.namestatus + "</td>" +
+                "<td>" + b.paymentMethod + "</td>" +
+                "<td>" + b.rwdAmount + "</td>" +
+                "<td>" + (b.comission == null ? "-" : formatCurrency(b.comission)) + "</td>" +
+                "<td>" + (b.lastBalance == null ? "-" : formatCurrency(b.lastBalance)) + "</td>" +
+                "<td>" + b.currency + "</td>" +
+                "<td>" + b.bankName + "</td>" +
+                "<td>" + b.accountNumber + "</td>" +
+                "<td>" + b.cusBank + "</td>" +
+                "<td>" + moment(b.process).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + b.remark + "</td>" +
+                "<td>" + b.operator + "</td>" +
+                "</tr>"
+            );
+        });
+    }
+
+    function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        ikiTable.buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
+    function filterTgl(){
+        var tgl = $('input[name="daterangeAll"]').val();
+        var splitTgl = tgl.split('-');
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = $("#"+targetFilter+" tbody");
+        var isTable = $("#"+targetFilter);
+
+        clearAndShowLoader(table);
+        
         $.ajax({
             url: '<?=base_url("dashboard/filterWd")?>',
             method: "POST",
@@ -278,80 +321,7 @@
                 endDate: endDate,
             },
             success: (response) => {
-                isTable.DataTable().destroy();
-                tableWd.empty();
-                var dataT = response["response"];
-                var i = 0;
-                console.log(dataT);
-                $.each(dataT, function (a, b) {
-                    var proDate = new Date(b.process),
-                        prsDate = moment(proDate).format("DD-MM-YYYY");
-                    var reqDate = new Date(b.request),
-                        reqsDate = moment(reqDate).format("DD-MM-YYYY");
-                    i++;
-                    tableWd.append(
-                        "<tr>" +
-                        "<td>" +
-                        i +
-                        "</td>" +
-                        "<td>" +
-                        b.transactionID +
-                        "</td>" +
-                        "<td>" +
-                        b.namestatus +
-                        "</td>" +
-                        "<td>" +
-                        b.paymentMethod +
-                        "</td>" +
-                        "<td>" +
-                        uang.format(b.amount) +
-                        "</td>" +
-                        "<td>" +
-                        b.currency +
-                        "</td>" +
-                        "<td>" +
-                        b.bankName +
-                        "</td>" +
-                        "<td>" +
-                        b.accountNumber +
-                        "</td>" +
-                        "<td>" +
-                        b.cusBank +
-                        "</td>" +
-                        "<td>" +
-                        prsDate +
-                        "</td>" +
-                        "<td>" +
-                        reqsDate +
-                        "</td>" +
-                        "<td>" +
-                        b.remark +
-                        "</td>" +
-                        "<td>" +
-                       b.operator +
-                        "</td>" +
-                        "</tr>"
-                    );
-                });
-                var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["excel", {
-                        text: 'Confirm',
-                        action: function ( e, dt, node, config ) {
-                            $("#datatable-all").DataTable().search("Confirm").draw();
-                        },
-                    },{
-                        text: 'Rejected',
-                        action: function ( e, dt, node, config ) {
-                            $("#datatable-all").DataTable().search("Rejected").draw();
-                        }}],
-                        scrollCollapse: true,
-                        "bDestroy": true,
-                        "scrollX" : true,
-                    });
-                    ikiTable.buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
+                handleAjaxSuccess(response, isTable, table);
             }
         });
     }
