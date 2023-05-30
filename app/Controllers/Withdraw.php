@@ -26,6 +26,9 @@ class Withdraw extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
+            if (is_object($parseData->dataTrans) && !is_countable($parseData->dataTrans)) {
+                $parseData->dataTrans = [$parseData->dataTrans];
+            }
             $data = [
                 "dataTrans" => $parseData->dataTrans,
             ];
