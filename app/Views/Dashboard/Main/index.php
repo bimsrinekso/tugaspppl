@@ -77,26 +77,6 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Balance Client</p>
-                                        <h4 class="mb-0"><?= formatKRW($totalBlcClient)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bx-money font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Deposit</p>
                                         <h4 class="mb-0"><?= formatKRW($totalDepo)?></h4>
                                     </div>
@@ -117,8 +97,88 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Total Komisi Deposit</p>
+                                        <h4 class="mb-0"><?= formatKRW($totalKomisiDp)?></h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center ">
+                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                            <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bxs-credit-card font-size-24"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Total VA Fee Deposit</p>
+                                        <h4 class="mb-0"><?= formatKRW($totalFeeVaDp)?></h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center ">
+                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                            <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bxs-receipt font-size-24"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Withdraw</p>
                                         <h4 class="mb-0"><?= formatKRW($totalWd)?></h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center ">
+                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                            <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bxs-wallet-alt font-size-24"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Total Komisi Withdraw</p>
+                                        <h4 class="mb-0"><?= formatKRW($totalKomisiWd)?></h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center ">
+                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                            <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bxs-credit-card font-size-24"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Total Bank Transfer</p>
+                                        <h4 class="mb-0"><?= formatKRW($totalBankTransfer)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">

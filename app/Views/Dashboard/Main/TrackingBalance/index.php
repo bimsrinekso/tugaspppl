@@ -104,7 +104,9 @@
                                             <th>Transaction ID</th>
                                             <th>Remark</th>
                                             <th>Amount</th>
-                                            <th>Comission</th>
+                                            <th>VA Fee</th>
+                                            <th>Commission</th>
+                                            <th>Bank Transfer</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
                                             <th>Submit Time</th>
@@ -115,35 +117,36 @@
                                         <?php if($dataTrack != null):?>
                                         <?php $i = 1; ?>
                                             <?php foreach($dataTrack as $listTrack):?>
+                                                <?php
+                                                    $idTransTB = $listTrack->idTransTB;
+                                                    $payFor = $listTrack->payFor;
+                                                    $payForText = ($payFor == 1) ? "Deposit" : (($payFor == 2) ? "Withdraw" : (($payFor == 3) ? "Topup Client" : (($payFor == 4) ? "Ho Withdraw" : "")));
+                                                    $styleCondition = $payFor == 1 || $payFor == 3;
+                                                    $amountCondition = $listTrack->amountTB == null;
+                                                    $formattedAmount = formatKrw($listTrack->amountTB);
+                                                    $transactionAmount = $styleCondition ? ($amountCondition ? "-" : "+". $formattedAmount) : "-". $formattedAmount;
+                                                    $amtVaFormatted = $payFor == 1 ? formatKrw($listTrack->amtVa) : "-";
+                                                    $komisiFormatted = ($payFor == 1) ? formatKrw($listTrack->depoCom) : ($payFor == 2 ? formatKrw($listTrack->wdCom) : "-");
+                                                    $btFormatted = $payFor == 2 ? formatKrw($listTrack->bankTransfer) : "-";
+                                                    $lastBalance = formatKrw($listTrack->lastBalance);
+                                                    $name = $listTrack->name;
+                                                    $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
+                                                    $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
+                                                ?>
                                                 <tr>
-                                                    <td>
-                                                        <?= $i++ ?> 
+                                                    <td><?= $i++ ?></td>
+                                                    <td><?= $idTransTB ?></td>
+                                                    <td><?= $payForText ?></td>
+                                                    <td <?= $styleCondition ? ($amountCondition ? "" : "style='color:#2ecc71;font-weight: 500;'") : "style='color:#e74c3c;font-weight: 500;'"?>>
+                                                    <?= $transactionAmount ?>
                                                     </td>
-                                                    <td>
-                                                        <?=$listTrack->idTransTB?> 
-                                                    </td>
-                                                    <td>
-                                                        <?=$listTrack->payFor == 1 ? "Deposit" : "", $listTrack->payFor == 2 ? "Withdraw":"", $listTrack->payFor == 3 ? "Topup Client":"", $listTrack->payFor == 4 ? "Ho Withdraw":""?> 
-                                                    </td>
-                                                    <td <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? $listTrack->amountTB == null ? "" : "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'"?>>
-                                                       <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? $listTrack->amountTB == null ? "-" : "+".formatKrw($listTrack->amountTB) : "-".formatKrw($listTrack->amountTB)?>
-                                                    </td>
-                                                    <td>
-                                                    <?=$listTrack->payFor == 1 || $listTrack->payFor == 2 ?  formatKrw($listTrack->amtVa) : "-"?> 
-                                                    </td>
-                                                    <td>
-                                                        <?=formatKrw($listTrack->lastBalance)?> 
-                                                    </td>
-                                                    <td>
-                                                        <?=$listTrack->name?> 
-                                                    </td>
-                                                    <td>
-                                                    <?= date("d-m-Y H:i:s", strtotime($listTrack->submitTime))?>
-                                                    </td>
-                                                    <td>
-                                                    <?= date("d-m-Y H:i:s", strtotime($listTrack->updatedTime))?>
-                                                    </td>
-                                                   
+                                                    <td><?= $amtVaFormatted ?></td>
+                                                    <td><?= $komisiFormatted ?></td>
+                                                    <td><?= $btFormatted ?></td>
+                                                    <td><?= $lastBalance ?></td>
+                                                    <td><?= $name ?></td>
+                                                    <td><?= $submitTime ?></td>
+                                                    <td><?= $updatedTime ?></td>
                                                 </tr>
                                           
                                           <?php endforeach;?>

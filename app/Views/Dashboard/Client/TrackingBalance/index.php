@@ -99,12 +99,14 @@
                                 </div>
                                 <table id="datatable-active" class="table table-bordered dt-responsive nowrap w-100">
                                 <thead>
-                                        <tr>
+                                <tr>
                                             <th>No</th>
                                             <th>Transaction ID</th>
                                             <th>Remark</th>
                                             <th>Amount</th>
-                                            <th>Comission</th>
+                                            <th>VA Fee</th>
+                                            <th>Commission</th>
+                                            <th>Bank Transfer</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
                                             <th>Submit Time</th>
@@ -115,35 +117,36 @@
                                         <?php if($dataTrack != null):?>
                                         <?php $i = 1; ?>
                                             <?php foreach($dataTrack as $listTrack):?>
+                                                <?php
+                                                    $idTransTB = $listTrack->idTransTB;
+                                                    $payFor = $listTrack->payFor;
+                                                    $payForText = ($payFor == 1) ? "Deposit" : (($payFor == 2) ? "Withdraw" : (($payFor == 3) ? "Topup Client" : (($payFor == 4) ? "Ho Withdraw" : "")));
+                                                    $styleCondition = $payFor == 1 || $payFor == 3;
+                                                    $amountCondition = $listTrack->amountTB == null;
+                                                    $formattedAmount = formatKrw($listTrack->amountTB);
+                                                    $transactionAmount = $styleCondition ? ($amountCondition ? "-" : "+". $formattedAmount) : "-". $formattedAmount;
+                                                    $amtVaFormatted = $payFor == 1 ? formatKrw($listTrack->amtVa) : "-";
+                                                    $komisiFormatted = ($payFor == 1) ? formatKrw($listTrack->depoCom) : ($payFor == 2 ? formatKrw($listTrack->wdCom) : "-");
+                                                    $btFormatted = $payFor == 2 ? formatKrw($listTrack->bankTransfer) : "-";
+                                                    $lastBalance = formatKrw($listTrack->lastBalance);
+                                                    $name = $listTrack->name;
+                                                    $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
+                                                    $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
+                                                ?>
                                                 <tr>
-                                                    <td>
-                                                        <?= $i++ ?> 
+                                                    <td><?= $i++ ?></td>
+                                                    <td><?= $idTransTB ?></td>
+                                                    <td><?= $payForText ?></td>
+                                                    <td <?= $styleCondition ? ($amountCondition ? "" : "style='color:#2ecc71;font-weight: 500;'") : "style='color:#e74c3c;font-weight: 500;'"?>>
+                                                    <?= $transactionAmount ?>
                                                     </td>
-                                                    <td>
-                                                        <?=$listTrack->idTransTB?> 
-                                                    </td>
-                                                    <td>
-                                                        <?=$listTrack->payFor == 1 ? "Deposit" : "", $listTrack->payFor == 2 ? "Withdraw":"", $listTrack->payFor == 3 ? "Topup Client":"", $listTrack->payFor == 4 ? "Ho Withdraw":""?> 
-                                                    </td>
-                                                    <td <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? $listTrack->amountTB == null ? "" : "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'"?>>
-                                                       <?=$listTrack->payFor == 1 || $listTrack->payFor == 3 ? $listTrack->amountTB == null ? "-" : "+".formatKrw($listTrack->amountTB) : "-".formatKrw($listTrack->amountTB)?>
-                                                    </td>
-                                                    <td>
-                                                    <?=$listTrack->payFor == 1 || $listTrack->payFor == 2 ?  formatKrw($listTrack->amtVa) : "-"?>  
-                                                    </td>
-                                                    <td>
-                                                        <?=formatKrw($listTrack->lastBalance)?> 
-                                                    </td>
-                                                    <td>
-                                                        <?=$listTrack->name?> 
-                                                    </td>
-                                                    <td>
-                                                    <?= date("d-m-Y H:i:s", strtotime($listTrack->submitTime))?>
-                                                    </td>
-                                                    <td>
-                                                    <?= date("d-m-Y H:i:s", strtotime($listTrack->updatedTime))?>
-                                                    </td>
-                                                   
+                                                    <td><?= $amtVaFormatted ?></td>
+                                                    <td><?= $komisiFormatted ?></td>
+                                                    <td><?= $btFormatted ?></td>
+                                                    <td><?= $lastBalance ?></td>
+                                                    <td><?= $name ?></td>
+                                                    <td><?= $submitTime ?></td>
+                                                    <td><?= $updatedTime ?></td>
                                                 </tr>
                                           
                                           <?php endforeach;?>
@@ -245,6 +248,9 @@
 
     function formatCurrency(num) {
         num = parseInt(num);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
@@ -269,9 +275,15 @@
             default:
                 payForStr = '';
         }
-        let amountStyle = (listTrack.payFor == 1 || listTrack.payFor == 3) ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'";
-        let amountStr = (listTrack.payFor == 1 || listTrack.payFor == 3) ? (listTrack.amountTB == null ? "-" : "+" + formatCurrency(listTrack.amountTB)) : "-" + formatCurrency(listTrack.amountTB);
-        let amtVaStr = (listTrack.payFor == 1 || listTrack.payFor == 2) ? formatCurrency(listTrack.amtVa) : "-";
+        let amountStyle = (listTrack.payFor == 1 || listTrack.payFor == 3) && listTrack.amountTB !== null ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'";
+        let amountStr = (listTrack.payFor == 1 || listTrack.payFor == 3) ? (listTrack.amountTB === null ? "-" : "+" + formatCurrency(listTrack.amountTB)) : "-" + formatCurrency(listTrack.amountTB);
+        let amtVaStr = listTrack.payFor == 1 ? formatCurrency(listTrack.amtVa) : "-";
+        let komisiFormatted = (listTrack.payFor == 1) ? formatCurrency(listTrack.depoCom) : (listTrack.payFor == 2 ? formatCurrency(listTrack.wdCom) : "-");
+        let btFormatted = (listTrack.payFor == 2) ? formatCurrency(listTrack.bankTransfer) : "-";
+        let lastBalance = formatCurrency(listTrack.lastBalance);
+        let name = listTrack.name;
+        let submitTime = moment(listTrack.submitTime).format('DD-MM-YYYY HH:mm:ss');
+        let updatedTime = moment(listTrack.updatedTime).format('DD-MM-YYYY HH:mm:ss');
 
         table.append(`
             <tr>
@@ -280,10 +292,12 @@
                 <td>${payForStr}</td>
                 <td ${amountStyle}>${amountStr}</td>
                 <td>${amtVaStr}</td>
-                <td>${formatCurrency(listTrack.lastBalance)}</td>
-                <td>${listTrack.name}</td>
-                <td>${moment(listTrack.submitTime).format('DD-MM-YYYY HH:mm:ss')}</td>
-                <td>${moment(listTrack.updatedTime).format('DD-MM-YYYY HH:mm:ss')}</td>
+                <td>${komisiFormatted}</td>
+                <td>${btFormatted}</td>
+                <td>${lastBalance}</td>
+                <td>${name}</td>
+                <td>${submitTime}</td>
+                <td>${updatedTime}</td>
             </tr>
         `);
     });

@@ -23,6 +23,10 @@ class Dashboard extends BaseController
                 "totalSettle" => $parseData->totalSettle,
                 "totalHo" => $parseData->totalHo,
                 "totalTopup" => $parseData->totalTopup,
+                "totalKomisiDp" => $parseData->totalKomisiDp,
+                "totalFeeVaDp" => $parseData->totalFeeVaDp,
+                "totalKomisiWd" => $parseData->totalKomisiWd,
+                "totalBankTransfer" => $parseData->totalBankTransfer,
             ];
             return view('Dashboard/Main/index', $data);
         } elseif($this->sesi->get('role') == 2) {
@@ -37,6 +41,10 @@ class Dashboard extends BaseController
                 "totalDepo" => $parseData->totalDepo,
                 "totalWd" => $parseData->totalWd,
                 "totalHo" => $parseData->totalHo,
+                "totalKomisiDp" => $parseData->totalKomisiDp,
+                "totalFeeVaDp" => $parseData->totalFeeVaDp,
+                "totalKomisiWd" => $parseData->totalKomisiWd,
+                "totalBankTransfer" => $parseData->totalBankTransfer,
             ];
             return view('Dashboard/Client/index', $data);
         }else{
