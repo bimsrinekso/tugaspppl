@@ -12,7 +12,10 @@ class setBank extends BaseController
                 'userid'=> $this->sesi->get('userid')
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-            $parseData = $postData->response;
+            $parseData = [];
+            if(isset($postData->response)){
+                $parseData = $postData->response;
+            }
             $data = [
                 "dataBank" => $parseData,
             ];
