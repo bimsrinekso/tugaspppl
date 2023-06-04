@@ -13,6 +13,9 @@ class Settlement extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
+            if (is_object($parseData->dataSettle) && !is_countable($parseData->dataSettle)) {
+                $parseData->dataSettle = [$parseData->dataSettle];
+            }
             $data = [
                 "dataSettle" => $parseData->dataSettle,
             ];
