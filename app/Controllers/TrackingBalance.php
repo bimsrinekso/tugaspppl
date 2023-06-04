@@ -14,6 +14,9 @@ class TrackingBalance extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
+            if (is_object($parseData) && !is_countable($parseData)) {
+                $parseData = [$parseData];
+            }
             $data = [
                 "dataTrack" => $parseData,
             ];
@@ -25,6 +28,9 @@ class TrackingBalance extends BaseController
                 $postData = $this->async->post($enp, $this->apiclient, $dataBody);
                 if($postData->status == 200){
                     $parseData = $postData->response;
+                    if (is_object($parseData) && !is_countable($parseData)) {
+                        $parseData = [$parseData];
+                    }
                 $data = [
                     "dataTrack" => $parseData,
                 ];
