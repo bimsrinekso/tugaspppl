@@ -37,13 +37,14 @@ class Settlement extends BaseController
         $enp = 'api/settle/createSettle';
         $dataBody = [
             'amount'=> $this->request->getVar('amount'),
+            'remark' => $this->request->getVar('remark'),
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Settlement");
-            return redirect()->to('dashboard/makeSettlement');
+            return redirect()->to('dashboard/makeAdjustment');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/createSettlement');
@@ -64,7 +65,7 @@ class Settlement extends BaseController
             return view('Dashboard/Main/Settle/editSettle', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('dashboard/makeSettlement');
+            return redirect()->to('dashboard/makeAdjustment');
         }
     }
 
@@ -76,22 +77,23 @@ class Settlement extends BaseController
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
             $this->sesi->setFlashdata('validation', $oneline);
-            return redirect()->to('dashboard/editSettle/'.$id);
+            return redirect()->to('dashboard/editAdj/'.$id);
         }
         $enp = 'api/settle/updateSettle';
         $dataBody = [
             'settle_id' => $id,
             'amount'=> $this->request->getVar('amount'),
+            'remark' => $this->request->getVar('remark'),
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Settlement");
-            return redirect()->to('dashboard/makeSettlement');
+            return redirect()->to('dashboard/makeAdjustment');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/editSettle/'.$id);
+            return redirect()->to('dashboard/editAdj/'.$id);
         }
     }
 
@@ -104,10 +106,10 @@ class Settlement extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data Settlement");
-            return redirect()->to('dashboard/makeSettlement');
+            return redirect()->to('dashboard/makeAdjustment');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/makeSettlement');
+            return redirect()->to('dashboard/makeAdjustment');
         }
     }
 

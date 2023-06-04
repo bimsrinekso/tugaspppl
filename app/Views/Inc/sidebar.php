@@ -53,7 +53,7 @@
                         <span key="t-settlement">Settlement</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="<?= base_url('dashboard/makeSettlement')?>" key="t-tui-calendar">Make Settlement</a></li>
+                        <li><a href="<?= base_url('dashboard/makeAdjustment')?>" key="t-tui-calendar">Adjustment</a></li>
                         <li><a href="<?= base_url('dashboard/calculateComission')?>" key="t-full-calendar">Calculate Commission</a></li>
                         <li><a href="<?= base_url('dashboard/hoWithdraw')?>" key="t-full-calendar">HO Withdraw</a></li>
                         <li><a href="<?= base_url('dashboard/topUp')?>" key="t-full-calendar">Top Up Client</a></li>

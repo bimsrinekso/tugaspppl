@@ -130,12 +130,14 @@
                                                     $btFormatted = $payFor == 2 ? formatKrw($listTrack->bankTransfer) : "-";
                                                     $lastBalance = formatKrw($listTrack->lastBalance);
                                                     $name = $listTrack->name;
+                                                    $orderNo = $komisiFormatted = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
                                                     $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
                                                 ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
                                                     <td><?= $idTransTB ?></td>
+                                                    <td><?=$orderNo?></td>
                                                     <td><?= $payForText ?></td>
                                                     <td <?= $styleCondition ? ($amountCondition ? "" : "style='color:#2ecc71;font-weight: 500;'") : "style='color:#e74c3c;font-weight: 500;'"?>>
                                                     <?= $transactionAmount ?>

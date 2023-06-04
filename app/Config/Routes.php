@@ -99,12 +99,12 @@ $routes->get('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::editWd/$1', ['
 $routes->post('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::updateWd/$1', ['filter' => 'role:main, client']);
 $routes->post('/dashboard/filterWd', 'Withdraw::filterWd', ['filter' => 'role:main, client']);
 //settle
-$routes->get('/dashboard/makeSettlement', 'Settlement::indexSettle', ['filter' => 'role:main']);
-$routes->get('/dashboard/createSettlement', 'Settlement::createSettle', ['filter' => 'role:main']);
-$routes->post('/dashboard/createSettlement', 'Settlement::saveSettle', ['filter' => 'role:main']);
-$routes->get('/dashboard/editSettle/(:num)', 'Settlement::editSettle/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/editSettle/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main']);
-$routes->delete('/dashboard/deleteSettle/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/makeAdjustment', 'Settlement::indexSettle', ['filter' => 'role:main']);
+$routes->get('/dashboard/createAdj', 'Settlement::createSettle', ['filter' => 'role:main']);
+$routes->post('/dashboard/createAdj', 'Settlement::saveSettle', ['filter' => 'role:main']);
+$routes->get('/dashboard/editAdj/(:num)', 'Settlement::editSettle/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main']);
 
 // api
 $routes->get('/dashboard/generateApis', 'GenerateApi::index', ['filter' => 'role:main']);

@@ -102,6 +102,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Transaction ID</th>
+                                            <th>Order No</th>
                                             <th>Remark</th>
                                             <th>Amount</th>
                                             <th>VA Fee</th>
@@ -129,6 +130,8 @@
                                                     $komisiFormatted = ($payFor == 1) ? formatKrw($listTrack->depoCom) : ($payFor == 2 ? formatKrw($listTrack->wdCom) : "-");
                                                     $btFormatted = $payFor == 2 ? formatKrw($listTrack->bankTransfer) : "-";
                                                     $lastBalance = formatKrw($listTrack->lastBalance);
+                                                    $orderNo = $komisiFormatted = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
+                                                    $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $name = $listTrack->name;
                                                     $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
                                                     $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
@@ -136,6 +139,7 @@
                                                 <tr>
                                                     <td><?= $i++ ?></td>
                                                     <td><?= $idTransTB ?></td>
+                                                    <td><?=$orderNo?></td>
                                                     <td><?= $payForText ?></td>
                                                     <td <?= $styleCondition ? ($amountCondition ? "" : "style='color:#2ecc71;font-weight: 500;'") : "style='color:#e74c3c;font-weight: 500;'"?>>
                                                     <?= $transactionAmount ?>

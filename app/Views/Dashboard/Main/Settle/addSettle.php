@@ -15,6 +15,10 @@
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
                                 <input type="text" class="form-control" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Remark</label>
+                                <input type="text" class="form-control" name="remark" placeholder="Enter Remark">
+                            </div>
                             <div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                             </div>

@@ -16,11 +16,11 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">List Settlement</h4>
+                        <h4 class="card-title">List Adjustment</h4>
                         <div class="card-title-desc">
-                            <p>You can create, edit, delete and report settlement
+                            <p>You can create, edit, delete and report Adjustment
                             </p>
-                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createSettlement') ?> ">Create Settlement</a>
+                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createAdj') ?> ">Create Adjustment</a>
                         </div>
                        
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Amount</th>
+                                        <th>Remark</th>
                                         <th>Operator</th>
                                         <th>Created At</th>
                                         <th>Action</th>
@@ -48,10 +49,11 @@
                                                 <tr>
                                                     <td><?= $i++ ?> </td>
                                                     <td><?= formatKrw($listSettle->amount) ?> </td>
+                                                    <td><?=$listSettle->remark == null ? '-' : $listSettle->remark?></td>
                                                     <td><?= $listSettle->username ?> </td>
                                                     <td><?= date('d-m-Y', strtotime($listSettle->tglbuat))?> </td>
                                                     <td>
-                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editSettle/'. $listSettle->idsettle) ?> " title="Edit">
+                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editAdj/'. $listSettle->idsettle) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                     <a class="btn btn-outline-danger btn-sm edit" data-bs-toggle="modal" data-bs-target="#hapus<?=$listSettle->idsettle?>">
@@ -68,7 +70,7 @@
                                                                         <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="<?=base_url("dashboard/deleteSettle/". $listSettle->idsettle)?>" method="post">
+                                                                    <form action="<?=base_url("dashboard/deleteAdj/". $listSettle->idsettle)?>" method="post">
                                                                         <input value="DELETE" type="hidden" name="_method" name="id">
                                                                         <div class="modal-body">
                                                                             <p>Are you sure want to delete this data?</p>
