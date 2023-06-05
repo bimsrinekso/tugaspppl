@@ -130,7 +130,8 @@
                                                     $btFormatted = $payFor == 2 ? formatKrw($listTrack->bankTransfer) : "-";
                                                     $lastBalance = formatKrw($listTrack->lastBalance);
                                                     $name = $listTrack->name;
-                                                    $orderNo = $komisiFormatted = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
+                                                    $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
+                                                    $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
                                                     $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
                                                 ?>
