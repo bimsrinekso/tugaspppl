@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-active" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="datatable-active" class="table table-bordered nowrap w-100">
                                 <thead>
                                         <tr>
                                             <th>No</th>
@@ -511,7 +511,7 @@
        tableRun = $("#datatable-active").DataTable({
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
+            scrollX: true,
             "bDestroy": true
         });
         tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
@@ -519,7 +519,7 @@
         tableExp = $("#datatable-expired").DataTable({
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
+            scrollX: true,
             "bDestroy": true
         });
         tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");

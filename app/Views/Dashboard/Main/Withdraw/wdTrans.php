@@ -99,6 +99,7 @@
                                             <th>Payment Method</th>
                                             <th>Amount</th>
                                             <th>Comission</th>
+                                            <th>Fee Bank Transfer</th>
                                             <th>Last Balance</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
@@ -136,6 +137,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->comission == null ? "-" : formatKrw($listTranasWd->comission) ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listTranasWd->bankTransfer == null ? "-" : formatKrw($listTranasWd->bankTransfer) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->lastBalance == null ? "-" : formatKrw($listTranasWd->lastBalance) ?> 
