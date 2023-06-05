@@ -99,7 +99,7 @@
                                             <th>Payment Method</th>
                                             <th>Amount</th>
                                             <th>Comission</th>
-                                            <th>Fee Bank Transfer</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Last Balance</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
