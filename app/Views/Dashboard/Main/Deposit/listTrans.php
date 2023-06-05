@@ -360,213 +360,99 @@
             targetTgl = "Rej";
         }
     }
+    function formatDate(dateStr, isEndDate) {
+    if (!dateStr || dateStr == '') return '';
+    dateStr = dateStr.replace(/\//g, '-').trim();
+    return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
+}
+
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+
+    function formatCurrency(num) {
+        return uang.format(num);
+    }
+
+    function populateTable(table, data){
+        var i = 0;
+        $.each(data, function(a, b) {
+            var crtDate = new Date(b.tglbuat),
+                createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+                i++;
+            table.append(
+                "<tr>" +
+                "<td>" + i + "</td>" +
+                "<td>" + b.trxId + "</td>" +
+                "<td>" + b.dpOrderNo + "</td>" +
+                "<td>" + b.vaNumber + "</td>" +
+                "<td>" + b.bank + "</td>" +
+                "<td>" + b.holderName + "</td>" +
+                "<td>Bank Transfer</td>" +
+                "<td>" + b.senderName + "</td>" +
+                "<td>" + b.currency + "</td>" +
+                "<td>" + formatCurrency(b.amt) + "</td>" +
+                "<td>" + formatCurrency(b.actualAmount) + "</td>" +
+                "<td>" + formatCurrency(b.amtVa) + "</td>" +
+                "<td>" + (b.comission == null ? "-" : formatCurrency(b.comission)) + "</td>" +
+                "<td>" + (b.lastBalance == null ? "₩0" : formatCurrency(b.lastBalance)) + "</td>" +
+                "<td>" + b.clientName + "</td>" +
+                "<td>" + createdDate + "</td>" +
+                "</tr>"
+            );
+        });
+    }
+
+    function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
     function filterTgl(){
         var tgl = $('input[name="daterange'+targetTgl+'"]').val();
         var splitTgl = tgl.split('-');
-        var startDate;
-        var endDate;
-        if (splitTgl[0] == '') {
-                startDate = '';
-                endDate = '';
-        } else {
-            startDate = splitTgl[0];
-            endDate = splitTgl[1];
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace(' ', '');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.slice(1);
-            // new date convert
-            startDate = startDate.split("-").reverse().join("-");
-            startDate = startDate + ' 00:00:00';
-            endDate = endDate.split("-").reverse().join("-");
-            endDate = endDate + ' 00:00:00';
-        }
-        var tableConfirm = $("#datatable-active tbody");
-        var tableRejected = $("#datatable-inactive tbody");
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = targetFilter == "datatable-active" ? $("#datatable-active tbody") : $("#datatable-inactive tbody");
         var isTable = $("#"+targetFilter);
-        if(targetFilter == "datatable-active"){
-            tableConfirm.empty();
-            tableConfirm.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: "<?= base_url('dashboard/filterDate')?>",
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "confirmed"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableConfirm.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.tglbuat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableConfirm.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.trxId +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            "Bank Transfer"+
-                            "</td>" +
-                            "<td>" +
-                            b.userid +
-                            "</td>" +
-                            "<td>" +
-                            b.senderName +
-                            "</td>" +
-                            "<td>" +
-                            b.currency +
-                            "</td>" +
-                            "<td>" +
-                            uang.format(b.amt) +
-                            "</td>" +
-                            "<td>" +
-                            uang.format(b.actualAmount) +
-                            "</td>" +
-                            "<td>" +
-                            uang.format(b.amtVa) +
-                            "</td>" +
-                            "<td>" +
-                            (uang.format(b.amt - b.amtVa)) +
-                            "</td>" +
-                            "<td>" +
-                            createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollX: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }else{
-            tableRejected.empty();
-            tableRejected.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: "<?= base_url('dashboard/filterDate')?>",
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "rejected"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableRejected.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.tglbuat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableRejected.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.trxId +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            "Bank Transfer"+
-                            "</td>" +
-                            "<td>" +
-                            b.userid +
-                            "</td>" +
-                            "<td>" +
-                            b.senderName +
-                            "</td>" +
-                            "<td>" +
-                            b.currency +
-                            "</td>" +
-                            "<td>" +
-                            uang.format(b.amt) +
-                            "</td>" +
-                            "<td>" +
-                            uang.format(b.actualAmount) +
-                            "</td>" +
-                            "<td>" +
-                            uang.format(b.amtVa) +
-                            "</td>" +
-                            "<td>" +
-                            (uang.format(b.amt - b.amtVa)) +
-                            "</td>" +
-                            "<td>" +
-                            createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollX: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }
+
+        clearAndShowLoader(table);
+        
+        $.ajax({
+            url: '<?=base_url("dashboard/filterDate")?>',
+            method: "POST",
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+                target: targetFilter == "datatable-active" ? "confirmed" : "rejected"
+            },
+            success: (response) => {
+                handleAjaxSuccess(response, isTable, table);
+            }
+        });
     }
     $(document).ready(function () {
         targetFilter = $("#btnFilterCon").data("tabactive");

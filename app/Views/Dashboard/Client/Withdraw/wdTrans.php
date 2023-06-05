@@ -229,7 +229,7 @@
         </script>
     <?php endif?>
 <script>
-     var targetFilter = 'datatable-all';
+    var targetFilter = 'datatable-all';
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',

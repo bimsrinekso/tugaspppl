@@ -233,7 +233,7 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<script>
+<!-- <script>
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
@@ -361,6 +361,142 @@
                     ikiTable.buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
                     ".dataTables_length select").addClass("form-select form-select-sm");
                     $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
+            }
+        });
+    }
+    $(document).ready(function () {
+        $('input[name="daterangeAll"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'DD/MM/YYY'
+                }
+            });
+            $('input[name="daterangeAll"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            });
+            $('input[name="daterangeAll"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        $("#datatable").DataTable(), $("#datatable-all").DataTable({
+            lengthChange: !1,
+            buttons: ["excel", "colvis", {
+                text: 'Confirm',
+                action: function ( e, dt, node, config ) {
+                    $("#datatable-all").DataTable().search("Confirm").draw();
+                },
+            },{
+                text: 'Rejected',
+                action: function ( e, dt, node, config ) {
+                    $("#datatable-all").DataTable().search("Rejected").draw();
+                }}],
+            "scrollX" : true,
+            "bDestroy": true
+        }).buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
+            ".dataTables_length select").addClass("form-select form-select-sm");
+    });
+</script> -->
+
+<script>
+    var targetFilter = 'datatable-all';
+    const uang = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'KRW',
+    minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+    
+        function formatDate(dateStr, isEndDate) {
+        if (!dateStr || dateStr == '') return '';
+        dateStr = dateStr.replace(/\//g, '-').trim();
+        return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
+    }
+
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+
+    function formatCurrency(num) {
+        num = parseInt(num);
+        return uang.format(num);
+    }
+
+    function populateTable(table, data){
+        var i = 0;
+        $.each(data, function(a, b) {
+            i++;
+            table.append(
+                "<tr>" +
+                "<td>" + i + "</td>" +
+                "<td>" + b.idTransRWD + "</td>" +
+                "<td>" + (b.wdOrderNo == null ? "-" : b.wdOrderNo) + "</td>" +
+                "<td>" + b.namestatus + "</td>" +
+                "<td>" + b.paymentMethod + "</td>" +
+                "<td>" + b.rwdAmount + "</td>" +
+                "<td>" + (b.comission == null ? "-" : formatCurrency(b.comission)) + "</td>" +
+                "<td>" + (b.bankTransfer == null ? "-" : formatCurrency(b.bankTransfer)) + "</td>" +
+                "<td>" + (b.lastBalance == null ? "-" : formatCurrency(b.lastBalance)) + "</td>" +
+                "<td>" + b.currency + "</td>" +
+                "<td>" + b.bankName + "</td>" +
+                "<td>" + b.accountNumber + "</td>" +
+                "<td>" + b.cusBank + "</td>" +
+                "<td>" + b.clientName + "</td>" +
+                "<td>" + moment(b.process).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + b.remark + "</td>" +
+                "<td>" + b.operator + "</td>" +
+                "</tr>"
+            );
+        });
+    }
+
+    function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        ikiTable.buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
+    function filterTgl(){
+        var tgl = $('input[name="daterangeAll"]').val();
+        var splitTgl = tgl.split('-');
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = $("#"+targetFilter+" tbody");
+        var isTable = $("#"+targetFilter);
+
+        clearAndShowLoader(table);
+        
+        $.ajax({
+            url: '<?=base_url("dashboard/filterWd")?>',
+            method: "POST",
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+            },
+            success: (response) => {
+                handleAjaxSuccess(response, isTable, table);
             }
         });
     }

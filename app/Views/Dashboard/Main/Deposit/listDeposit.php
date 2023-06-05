@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-active" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="datatable-active" class="table table-bordered  nowrap " style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>No</th>
@@ -175,7 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-expired" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="datatable-expired" class="table table-striped table-bordered nowrap" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -269,7 +269,7 @@
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- Datatable init js -->
-<!-- <script src="/js/pages/datatables.init.js"></script> -->
+<script src="/js/pages/datatables.init.js"></script>
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -289,7 +289,7 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<script>
+<!-- <script>
     var targetFilter;
     var tableRun;
     var tableExp;
@@ -297,8 +297,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, //
-    maximumFractionDigits: 0, //
+    minimumFractionDigits: 0, 
+    maximumFractionDigits: 0, 
         });
 
     function cbHref(isi){
@@ -311,6 +311,7 @@
             targetTgl = "Exp";
         }
     }
+ 
     function filterTgl(){
         var tgl = $('input[name="daterange'+targetTgl+'"]').val();
         var splitTgl = tgl.split('-');
@@ -540,6 +541,169 @@
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
             scrollCollapse: true,
+            "bDestroy": true
+        });
+        tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");
+    });
+</script> -->
+
+<script>
+    var targetFilter;
+    var tableRun;
+    var tableExp;
+    var targetTgl = 'Run';
+    const uang = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'KRW',
+    minimumFractionDigits: 0, //
+    maximumFractionDigits: 0, //
+        });
+
+    function cbHref(isi){
+        var target = $(isi).data("bs-target");
+        if(target == "#running"){
+           targetFilter = "datatable-active";
+           targetTgl = 'Run';
+        }else{
+            targetFilter = "datatable-expired";
+            targetTgl = "Exp";
+        }
+    }
+    function formatDate(dateStr, isEndDate) {
+    if (!dateStr || dateStr == '') return '';
+    dateStr = dateStr.replace(/\//g, '-').trim();
+    return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
+}
+
+
+function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+
+    function formatCurrency(num) {
+        return uang.format(num);
+    }
+
+function populateTable(table, data){
+        var i = 0;
+        $.each(data, function(a, b) {
+            var crtDate = new Date(b.dpcreat),
+                createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+                i++;
+                table.append(
+            "<tr>" +
+            "<td>" + i +"</td>" +
+            "<td>" + b.transactionID + "</td>" +
+            "<td>" + (b.dpOrderNo == null ? "-" : b.dpOrderNo) + "</td>" +
+            "<td>" + b.vaNumber +"</td>" +
+            "<td>" +b.bank +"</td>" +
+            "<td>" +b.holderName +"</td>" +
+            "<td>" +b.payMethod +"</td>" +
+            "<td>" +b.forUser +"</td>" +
+            "<td>" +"KRW" +"</td>" +
+            "<td>" +b.name +"</td>" +
+            "<td>" +createdDate +"</td>" +
+            "</tr>"
+        );
+        });
+    }
+
+function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
+    function filterTgl(){
+        var tgl = $('input[name="daterange'+targetTgl+'"]').val();
+        var splitTgl = tgl.split('-');
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = targetFilter == "datatable-active" ? $("#datatable-active tbody") : $("#datatable-expired tbody");
+        var isTable = $("#"+targetFilter);
+
+        clearAndShowLoader(table);
+        
+        $.ajax({
+            url: '<?=base_url("dashboard/monitorDepo")?>',
+            method: "POST",
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+                target: targetFilter == "datatable-active" ? "running" : "expired"
+            },
+            success: (response) => {
+                handleAjaxSuccess(response, isTable, table);
+            }
+        });
+    }
+    $(document).ready(function () {
+        targetFilter = $("#btnFilterRun").data("tabactive");
+        $('input[name="daterangeRun"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'DD/MM/YYY'
+                }
+            });
+            $('input[name="daterangeRun"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            });
+            $('input[name="daterangeRun"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+            $('input[name="daterangeExp"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'DD/MM/YYY'
+                }
+            });
+            $('input[name="daterangeExp"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            });
+            $('input[name="daterangeExp"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $.fn.dataTable
+        .tables( { visible: true, api: true } )
+        .columns.adjust();
+        });
+       tableRun = $("#datatable-active").DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
+            ".dataTables_length select").addClass("form-select form-select-sm");
+        tableExp = $("#datatable-expired").DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            "scrollX" : true,
             "bDestroy": true
         });
         tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");

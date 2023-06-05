@@ -150,4 +150,42 @@ class Withdraw extends BaseController
         }
           
     }
+    public function filterPending(){
+        $enp = 'api/wd/wdPending';
+        if ($this->sesi->get('role') == 1) {
+            $dataBody = [
+                'startDate'=> $this->request->getVar('startDate'),
+                'endDate'=> $this->request->getVar('endDate'),
+                'target'=> $this->request->getVar('target'),
+                'role' => $this->sesi->get('role')
+            ];
+            try {
+                $postData = $this->async->post($enp, $this->apimain, $dataBody);  
+                if (is_object($postData->response) && !is_countable($postData->response)) {
+                    $postData->response = [$postData->response];
+                } 
+                echo json_encode($postData);
+            } catch (\Exception $e) {
+                echo json_encode($e->getMessage());
+            }    
+        } elseif($this->sesi->get('role') == 2) {
+            $dataBody = [
+                'startDate'=> $this->request->getVar('startDate'),
+                'endDate'=> $this->request->getVar('endDate'),
+                'target'=> $this->request->getVar('target'),
+                'userid'=> $this->sesi->get('userid'),
+                'role' => $this->sesi->get('role')
+            ];
+            try {
+                $postData = $this->async->post($enp, $this->apiclient, $dataBody); 
+                if (is_object($postData->response) && !is_countable($postData->response)) {
+                    $postData->response = [$postData->response];
+                } 
+                echo json_encode($postData);
+            } catch (\Exception $e) {
+                echo json_encode($e->getMessage());
+            }    
+        }
+          
+    }
 }

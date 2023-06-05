@@ -98,6 +98,8 @@ $routes->get('/dashboard/withdrawPending', 'Withdraw::listPending', ['filter' =>
 $routes->get('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::editWd/$1', ['filter' => 'role:main, client']);
 $routes->post('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::updateWd/$1', ['filter' => 'role:main, client']);
 $routes->post('/dashboard/filterWd', 'Withdraw::filterWd', ['filter' => 'role:main, client']);
+$routes->post('/dashboard/filterPending', 'Withdraw::filterPending', ['filter' => 'role:main, client']);
+
 //settle
 $routes->get('/dashboard/makeAdjustment', 'Settlement::indexSettle', ['filter' => 'role:main']);
 $routes->get('/dashboard/createAdj', 'Settlement::createSettle', ['filter' => 'role:main']);
