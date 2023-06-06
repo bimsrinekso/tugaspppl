@@ -1,6 +1,7 @@
 <?php $this->extend('Inc/main');?>
 <?php $this->section('css');?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/material.min.css" />
 <style>
     .CodeMirror{
         height:auto !important;
@@ -739,7 +740,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/php/php.min.js"></script>
 <script src="/assets/js/app-api-doc.js"></script>
 <script>
-    var apiKey = '<?=$dataKey->apiKey == null ? "-" : $dataKey->apiKey?>';
-    var md5key = '<?=$dataKey->md5key == null ? "-" : $dataKey->md5key?>';
+    var apiKey = "<?=$dataKey->apiKey == null ? "-" : $dataKey->apiKey?>";
+    var md5key = "<?=$dataKey->md5key == null ? "-" : $dataKey->md5key?>";
 </script>
 <?php $this->endSection();?>
