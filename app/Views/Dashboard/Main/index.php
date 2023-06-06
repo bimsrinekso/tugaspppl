@@ -97,7 +97,7 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Komisi Deposit</p>
+                                        <p class="text-muted fw-medium">Total Deposit Comission</p>
                                         <h4 class="mb-0"><?= formatKRW($totalKomisiDp)?></h4>
                                     </div>
 
@@ -157,7 +157,7 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Komisi Withdraw</p>
+                                        <p class="text-muted fw-medium">Total Withdraw Commision</p>
                                         <h4 class="mb-0"><?= formatKRW($totalKomisiWd)?></h4>
                                     </div>
 
