@@ -276,7 +276,7 @@
                 "<td>" + (b.comission == null ? "-" : formatCurrency(b.comission)) + "</td>" +
                 "<td>" + b.clientName + "</td>" +
                 "<td>" + createdDate + "</td>" +
-                "<td><a href='<?= base_url("dashboard/depoPending/update/" . $listPen->depoid)?>' class='btn btn-outline-secondary btn-sm edit' title='Edit'><i class='fas fa-pencil-alt'></i></a></td>" +
+                "<td><a href='<?= base_url("dashboard/depoPending/update")?>/"+b.depoid+"' class='btn btn-outline-secondary btn-sm edit' title='Edit'><i class='fas fa-pencil-alt'></i></a></td>" +
                 "</tr>"
             );
         });
