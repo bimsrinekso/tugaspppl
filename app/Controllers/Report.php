@@ -62,4 +62,23 @@ class Report extends BaseController
     
         echo json_encode($response);
     }
+
+    public function listSm()
+    {        
+        $param = $_REQUEST;        
+        $enp = 'api/reportSummary';
+        $dataBody = [
+            'userid'=> $this->sesi->get('userid'),
+            'param' => $param
+        ];
+        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data
+        ];
+    
+        echo json_encode($response);
+    }
 }

@@ -87,6 +87,9 @@ class Account extends BaseController
         ];
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
         $parseData = $postData->response;
+        if (is_countable($parseData)) {
+            $parseData = $parseData[0];
+        }
         if($postData->status == '200'){
             $data = [
                 "dataKey" => $parseData,

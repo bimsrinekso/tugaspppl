@@ -136,13 +136,13 @@
                                 <th>Bank Charge</th>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>

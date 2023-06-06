@@ -102,6 +102,7 @@
                                 <tr>
                                             <th>No</th>
                                             <th>Transaction ID</th>
+                                            <th>Order No</th>
                                             <th>Remark</th>
                                             <th>Amount</th>
                                             <th>VA Fee</th>
@@ -278,6 +279,9 @@
             default:
                 payForStr = '';
         }
+        let orderNo = (listTrack.payFor == 1) ? listTrack.dpOrderNo : (listTrack.payFor == 2 ? listTrack.wdOrderNo : "-");
+        console.log(orderNo);
+        orderNo = orderNo == null ? '-' : orderNo;
         let amountStyle = (listTrack.payFor == 1 || listTrack.payFor == 3) && listTrack.amountTB !== null ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'";
         let amountStr = (listTrack.payFor == 1 || listTrack.payFor == 3) ? (listTrack.amountTB === null ? "-" : "+" + formatCurrency(listTrack.amountTB)) : "-" + formatCurrency(listTrack.amountTB);
         let amtVaStr = listTrack.payFor == 1 ? formatCurrency(listTrack.amtVa) : "-";
@@ -292,6 +296,7 @@
             <tr>
                 <td>${i}</td>
                 <td>${listTrack.idTransTB}</td>
+                <td>${orderNo}</td>
                 <td>${payForStr}</td>
                 <td ${amountStyle}>${amountStr}</td>
                 <td>${amtVaStr}</td>

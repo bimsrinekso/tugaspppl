@@ -269,7 +269,7 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<script>
+    <script>
     var targetFilter;
     var tableRun;
     var tableExp;
@@ -291,190 +291,126 @@
             targetTgl = "Exp";
         }
     }
-    function filterTgl(){
-        var tgl = $('input[name="daterange'+targetTgl+'"]').val();
-        var splitTgl = tgl.split('-');
-        var startDate;
-        var endDate;
-        if (splitTgl[0] == '') {
-                startDate = '';
-                endDate = '';
-        } else {
-            startDate = splitTgl[0];
-            endDate = splitTgl[1];
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace(' ', '');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.slice(1);
-            // new date convert
-            startDate = startDate.split("-").reverse().join("-");
-            startDate = startDate + ' 00:00:00';
-            endDate = endDate.split("-").reverse().join("-");
-            endDate = endDate + ' 00:00:00';
-        }
-        var tableRun = $("#datatable-active tbody");
-        var tableExpired = $("#datatable-expired tbody");
-        var isTable = $("#"+targetFilter);
-        if(targetFilter == "datatable-active"){
-            tableRun.empty();
-            tableRun.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: '',
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "running"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableRun.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.dpcreat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableRun.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.transactionID +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            b.payMethod +
-                            "</td>" +
-                            "<td>" +
-                            b.forUserid +
-                            "</td>" +
-                            "<td>" +
-                            b.forUser +
-                            "</td>" +
-                            "<td>" +
-                            "KRW" +
-                            "</td>" +
-                            "<td>" +
-                           createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }else{
-            tableExpired.empty();
-            tableExpired.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: '',
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "expired"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableExpired.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.dpcreat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableExpired.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.transactionID +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            b.payMethod +
-                            "</td>" +
-                            "<td>" +
-                            b.forUserid +
-                            "</td>" +
-                            "<td>" +
-                            b.forUser +
-                            "</td>" +
-                            "<td>" +
-                            "KRW" +
-                            "</td>" +
-                            "<td>" +
-                           createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }
+    function formatDate(dateStr, isEndDate) {
+        if (!dateStr || dateStr == '') return '';
+        dateStr = dateStr.replace(/\//g, '-').trim();
+        return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
     }
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+
+    function formatCurrency(num) {
+        num = parseInt(num);
+        if(isNaN(num)){
+            num = 0;
+        }
+        return uang.format(num);
+    }
+
+    function populateTable(table, data) {
+    let i = 0;
+    $.each(data, (a, listTrack) => {
+        i++;
+        let payForStr = '';
+        switch(listTrack.payFor) {
+            case 1: 
+                payForStr = "Deposit";
+                break;
+            case 2: 
+                payForStr = "Withdraw";
+                break;
+            case 3: 
+                payForStr = "Topup Client";
+                break;
+            case 4: 
+                payForStr = "Ho Withdraw";
+                break;
+            default:
+                payForStr = '';
+        }
+        let orderNo = (listTrack.payFor == 1) ? listTrack.dpOrderNo : (listTrack.payFor == 2 ? listTrack.wdOrderNo : "-");
+        orderNo = orderNo == null ? '-' : orderNo;
+        let amountStyle = (listTrack.payFor == 1 || listTrack.payFor == 3) && listTrack.amountTB !== null ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'";
+        let amountStr = (listTrack.payFor == 1 || listTrack.payFor == 3) ? (listTrack.amountTB === null ? "-" : "+" + formatCurrency(listTrack.amountTB)) : "-" + formatCurrency(listTrack.amountTB);
+        let amtVaStr = listTrack.payFor == 1 ? formatCurrency(listTrack.amtVa) : "-";
+        let komisiFormatted = (listTrack.payFor == 1) ? formatCurrency(listTrack.depoCom) : (listTrack.payFor == 2 ? formatCurrency(listTrack.wdCom) : "-");
+        let btFormatted = (listTrack.payFor == 2) ? formatCurrency(listTrack.bankTransfer) : "-";
+        let lastBalance = formatCurrency(listTrack.lastBalance);
+        let name = listTrack.name;
+        let submitTime = moment(listTrack.submitTime).format('DD-MM-YYYY HH:mm:ss');
+        let updatedTime = moment(listTrack.updatedTime).format('DD-MM-YYYY HH:mm:ss');
+
+        table.append(`
+            <tr>
+                <td>${i}</td>
+                <td>${listTrack.idTransTB}</td>
+                <td>${orderNo}</td>
+                <td>${payForStr}</td>
+                <td ${amountStyle}>${amountStr}</td>
+                <td>${amtVaStr}</td>
+                <td>${komisiFormatted}</td>
+                <td>${btFormatted}</td>
+                <td>${lastBalance}</td>
+                <td>${name}</td>
+                <td>${submitTime}</td>
+                <td>${updatedTime}</td>
+            </tr>
+        `);
+    });
+}
+
+    function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        ikiTable.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
+    function filterTgl(){
+        var tgl = $('input[name="daterangeRun"]').val();
+        var splitTgl = tgl.split('-');
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = $("#"+targetFilter+" tbody");
+        var isTable = $("#"+targetFilter);
+
+        clearAndShowLoader(table);
+        
+        $.ajax({
+            url: '<?=base_url("dashboard/filter/tracking")?>',
+            method: "POST",
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+            },
+            success: (response) => {
+                handleAjaxSuccess(response, isTable, table);
+            }
+        });
+    }
+    
     $(document).ready(function () {
         targetFilter = $("#btnFilterRun").data("tabactive");
         $('input[name="daterangeRun"]').daterangepicker({
