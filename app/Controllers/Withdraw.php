@@ -95,11 +95,12 @@ class Withdraw extends BaseController
             return redirect()->to('dashboard/withdrawPending/edit/'.$id);
         }
         $enp = 'api/wd/updatePending/' . $id;
+        $feeBankTransfer= filter_var($this->request->getVar('bankTransfer'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'reqwd_id' => $id,
             'status'=> $this->request->getVar('status'), 
             'remark'=> $this->request->getVar('remark'), 
-            'bankTransfer' => $this->request->getVar('bankTransfer'),
+            'bankTransfer' => $feeBankTransfer,
             'userID' => $this->sesi->get('userid'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
