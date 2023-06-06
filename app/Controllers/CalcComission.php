@@ -36,8 +36,9 @@ class CalcComission extends BaseController
             return redirect()->to('dashboard/createCom');
         }
         $enp = 'api/calcom/createCom';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
@@ -80,9 +81,10 @@ class CalcComission extends BaseController
             return redirect()->to('dashboard/editCom/'.$id);
         }
         $enp = 'api/calcom/updateCom';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'com_id' => $id,
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);

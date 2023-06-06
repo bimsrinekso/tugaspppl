@@ -32,7 +32,7 @@
                           </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                                <table id="datatable-all" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="datatable-all" class="table table-bordered nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -98,7 +98,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-                                <table id="datatable-pending" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="datatable-pending" class="table table-bordered  nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th>No</th>

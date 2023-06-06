@@ -61,8 +61,9 @@ class HoWithdraw extends BaseController
     public function saveHo()
     {
         $enp = 'api/ho/saveClientHo';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'userID' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
