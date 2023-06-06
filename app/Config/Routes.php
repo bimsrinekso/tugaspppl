@@ -55,6 +55,9 @@ $routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filte
 $routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client']);
 $routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:main, client']);
 $routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client']);
+// documentation
+$routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
+
 //
 $routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/createAccount', 'VirtualAccount::createAcc', ['filter' => 'role:main']);

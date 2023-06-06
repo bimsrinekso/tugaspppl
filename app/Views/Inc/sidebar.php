@@ -115,6 +115,13 @@
                         <span key="t-reportDaily">Daily Report</span>
                     </a>
                 </li>
+                <li class="menu-title" key="t-report">Documentation</li>
+                <li>
+                    <a href="<?= base_url('dashboard/documentationAPI') ?>" class="waves-effect">
+                        <i class="bx bx-file"></i>
+                        <span key="t-documentationAPI">API Documentation</span>
+                    </a>
+                </li>
                 <?php elseif($_SESSION['role'] == 2):?>
                     <li class="menu-title" key="t-menu">Menu</li>
                     <li>
@@ -194,6 +201,13 @@
                         <a href="<?= base_url('dashboard/reportDaily') ?>" class="waves-effect">
                             <i class="bx bxs-bar-chart-alt-2"></i>
                             <span key="t-reportDaily">Daily Report</span>
+                        </a>
+                    </li>
+                    <li class="menu-title" key="t-report">Documentation</li>
+                    <li>
+                        <a href="<?= base_url('dashboard/documentationAPI') ?>" class="waves-effect">
+                            <i class="bx bx-file"></i>
+                            <span key="t-documentationAPI">API Documentation</span>
                         </a>
                     </li>
                 <?php elseif($_SESSION['role']== 3):?>
