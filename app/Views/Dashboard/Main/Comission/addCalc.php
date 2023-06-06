@@ -1,6 +1,7 @@
 <?php $this->extend('Inc/main');?>
 <?php $this->section('css');?>
 <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">
+<link href="/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -48,6 +49,15 @@
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
                                 <input type="text" id="Amount" class="form-control" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
                             </div>
+                            <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2 ">
+                                            <option>Select Client</option>
+                                            <?php foreach ($dataClient as $listClient): ?>
+                                                <option value="<?=$listClient->id?>"><?=$listClient->name?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
                             <div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                             </div>
@@ -70,9 +80,13 @@
   <!-- validation init -->
   <script src="/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+  <script src="/assets/libs/select2/js/select2.min.js"></script>
 
   <!-- toastr init -->
   <script src="/js/pages/toastr.init.js"></script>
+
+   <!-- form advanced init -->
+        <script src="/assets/js/pages/form-advanced.init.js"></script>
 
   <script>
     $("#subCom").click(function(){
