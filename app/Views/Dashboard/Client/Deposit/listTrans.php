@@ -118,6 +118,7 @@
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
                                             <th>VA Fee</th>
+                                            <th>Comission</th>
                                             <th>Last Balance</th>
                                             <th>Depo At</th>
                                         </tr>
@@ -162,6 +163,9 @@
                                                 </td>
                                                 <td>
                                                     <?=  formatKrw($listTrans->amtVa) ?>
+                                                </td>
+                                                <td>
+                                                    <?=  formatKrw($listTrans->comission) ?>
                                                 </td>
                                                 <td>
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
@@ -213,6 +217,7 @@
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
                                             <th>VA Fee</th>
+                                            <th>Comission</th>
                                             <th>Last Balance</th>
                                             <th>Depo At</th>
                                         </tr>
@@ -257,6 +262,9 @@
                                                 </td>
                                                 <td>
                                                     <?=  formatKrw($listTrans->amtVa) ?>
+                                                </td>
+                                                <td>
+                                                    <?=  formatKrw($listTrans->comission) ?>
                                                 </td>
                                                 <td>
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
@@ -390,6 +398,7 @@
                 "<td>" + formatCurrency(b.amt) + "</td>" +
                 "<td>" + formatCurrency(b.actualAmount) + "</td>" +
                 "<td>" + formatCurrency(b.amtVa) + "</td>" +
+                "<td>" + formatCurrency(b.comission) + "</td>" +
                 "<td>" + (b.lastBalance == null ? "₩0" : formatCurrency(b.lastBalance)) + "</td>" +
                 "<td>" + createdDate + "</td>" +
                 "</tr>"
