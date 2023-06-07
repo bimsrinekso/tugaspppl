@@ -258,7 +258,7 @@
     var i = 0;
         $.each(data, function(a, b) {
             var crtDate = new Date(b.tglbuat);
-            var createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+            var createdDate = moment(crtDate).format("DD-MM-YYYY hh:mm:ss");
             i++;
             table.append(
                 "<tr>" +
