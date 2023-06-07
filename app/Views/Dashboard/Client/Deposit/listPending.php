@@ -195,6 +195,7 @@
 <!-- validation init -->
 <script src="/js/pages/validation.init.js"></script>
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
 
 <!-- toastr init -->
 <script src="/js/pages/toastr.init.js"></script>
@@ -245,8 +246,7 @@
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var crtDate = new Date(b.tglbuat),
-                createdDate = moment(crtDate).format("DD-MM-YYYY HH:mm:ss");
+                var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
                 i++;
             table.append(
                 "<tr>" +

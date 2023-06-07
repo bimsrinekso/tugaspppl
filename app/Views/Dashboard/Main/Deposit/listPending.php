@@ -201,7 +201,7 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
 <!-- Datatable init js -->
 <script src="/assets/js/pages/datatables.init.js"></script>
 <!-- validation init -->
@@ -257,8 +257,7 @@
     function populateTable(table, data) {
     var i = 0;
         $.each(data, function(a, b) {
-            var crtDate = new Date(b.tglbuat);
-            var createdDate = moment(crtDate).format("DD-MM-YYYY HH:mm:ss");
+            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
                 "<tr>" +
