@@ -154,12 +154,12 @@
                                                     <td>
                                                         <?= $listTranasWd->cusBank ?> 
                                                     </td>
+                                                     <td>
+                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
+                                                    </td> 
                                                     <td>
                                                         <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
-                                                    </td>                                               
+                                                    </td>                                          
                                                     <td>
                                                         <?= $listTranasWd->remark ?> 
                                                     </td>
@@ -264,6 +264,7 @@
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
+            
             i++;
             table.append(
                 "<tr>" +
@@ -280,8 +281,8 @@
                 "<td>" + b.bankName + "</td>" +
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
-                "<td>" + moment(b.process).format("DD-MM-YYYY h:mm:ss") + "</td>" +
-                "<td>" + moment(b.request).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.process).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"

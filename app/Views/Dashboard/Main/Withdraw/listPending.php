@@ -269,7 +269,7 @@
                     "<td>" + b.accountNumber + "</td>" +
                     "<td>" + b.holderName + "</td>" +
                     "<td>" + b.clientName + "</td>" +
-                    "<td>" + moment(b.tglbuat).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                    "<td>" + moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
                     "<td><a href='<?= base_url("dashboard/withdrawPending/edit") ?>/"+b.reqwd_id+"' class='btn btn-outline-secondary btn-sm edit' title='Edit'><i class='fas fa-pencil-alt'></i></a></td>" +
                     "</tr>"
                 );

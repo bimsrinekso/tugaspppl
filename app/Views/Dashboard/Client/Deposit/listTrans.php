@@ -381,8 +381,7 @@
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var crtDate = new Date(b.tglbuat),
-                createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
                 i++;
             table.append(
                 "<tr>" +

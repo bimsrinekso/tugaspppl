@@ -450,8 +450,8 @@
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
                 "<td>" + b.clientName + "</td>" +
-                "<td>" + moment(b.process).format("DD-MM-YYYY h:mm:ss") + "</td>" +
-                "<td>" + moment(b.request).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.process).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"
