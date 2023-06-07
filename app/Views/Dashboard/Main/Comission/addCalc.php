@@ -47,7 +47,7 @@
                         <form action="" method="post">
                             <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
-                                <input type="text" id="Amount" class="form-control" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
+                                <input type="text" id="Amount" class="form-control" name="amount" id="formrow-firstname-input" placeholder="Enter Amount" required>
                             </div>
                             <div class="mb-3">
                                         <label for="pickClient" class="form-label">Client</label>

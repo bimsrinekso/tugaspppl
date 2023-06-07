@@ -39,7 +39,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Actual Amount</label>
-                                        <input type="text" id="Amount" name="actualAmount" value="<?=$dataDepo->actualAmount?>" class="form-control">
+                                        <input type="text" id="Amount" name="actualAmount" value="<?=$dataDepo->actualAmount?>" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
