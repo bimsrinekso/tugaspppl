@@ -83,9 +83,9 @@
                                     </div>
 
                                 </form>
-                                <div class="mt-4 text-center">
+                                <!-- <div class="mt-4 text-center">
                                             <a href="<?= base_url('forgot-password') ?>" class="text-muted"><i class="mdi mdi-lock me-1"></i> Forgot your password?</a>
-                                        </div>
+                                        </div> -->
                             </div>
 
                         </div>
