@@ -136,9 +136,10 @@ class Deposit extends BaseController
             return redirect()->to('dashboard/depoPending/update/'.$id);
         }
         $enp = 'api/updatePending';
+        $amount= filter_var($this->request->getVar('actualAmount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'iddepo' => $id,
-            'actualAmount'=> $this->request->getVar('actualAmount'),
+            'actualAmount'=> $amount,
             'status'=> $this->request->getVar('status'),
             'actionBy'=> $this->sesi->get('userid')
         ];

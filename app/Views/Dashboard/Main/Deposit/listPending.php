@@ -201,7 +201,7 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
 <!-- Datatable init js -->
 <script src="/assets/js/pages/datatables.init.js"></script>
 <!-- validation init -->
@@ -226,7 +226,7 @@
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    maximumFractionDigits: 3, // (causes 2500.99 to be printed as $2,501)
         });
     
     
@@ -250,15 +250,17 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
     function populateTable(table, data) {
     var i = 0;
         $.each(data, function(a, b) {
-            var crtDate = new Date(b.tglbuat);
-            var createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
                 "<tr>" +

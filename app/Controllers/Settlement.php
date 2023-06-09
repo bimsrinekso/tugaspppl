@@ -38,8 +38,9 @@ class Settlement extends BaseController
             return redirect()->to('dashboard/createSettlement');
         }
         $enp = 'api/settle/createSettle';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'remark' => $this->request->getVar('remark'),
             'actionBy' => $this->sesi->get('userid')
         ];
@@ -83,9 +84,10 @@ class Settlement extends BaseController
             return redirect()->to('dashboard/editAdj/'.$id);
         }
         $enp = 'api/settle/updateSettle';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'settle_id' => $id,
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'remark' => $this->request->getVar('remark'),
             'actionBy' => $this->sesi->get('userid')
         ];

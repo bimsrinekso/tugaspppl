@@ -133,8 +133,10 @@
                                                     $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $name = $listTrack->name;
-                                                    $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
-                                                    $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
+                                                    $cektimesu = \CodeIgniter\I18n\Time::createFromFormat('Y-m-d\TH:i:s.u\Z', $listTrack->submitTime, 'UTC');
+                                                    $submitTime = $cektimesu->format('d-m-Y H:i:s');
+                                                    $cektime = \CodeIgniter\I18n\Time::createFromFormat('Y-m-d\TH:i:s.u\Z', $listTrack->updatedTime, 'UTC');
+                                                    $updatedTime = $cektime->format('d-m-Y H:i:s');
                                                 ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
@@ -278,7 +280,7 @@
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, //
-    maximumFractionDigits: 0, //
+    maximumFractionDigits: 3, //
         });
 
     function cbHref(isi){
@@ -310,7 +312,7 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
         if(isNaN(num)){
             num = 0;
         }
@@ -347,8 +349,8 @@
         let btFormatted = (listTrack.payFor == 2) ? formatCurrency(listTrack.bankTransfer) : "-";
         let lastBalance = formatCurrency(listTrack.lastBalance);
         let name = listTrack.name;
-        let submitTime = moment(listTrack.submitTime).format('DD-MM-YYYY HH:mm:ss');
-        let updatedTime = moment(listTrack.updatedTime).format('DD-MM-YYYY HH:mm:ss');
+        let submitTime = moment(listTrack.submitTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+        let updatedTime = moment(listTrack.updatedTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
 
         table.append(`
             <tr>

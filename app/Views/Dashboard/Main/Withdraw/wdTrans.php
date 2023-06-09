@@ -214,6 +214,7 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
 
 <!-- Datatable init js -->
 <script src="/js/pages/datatables.init.js"></script>
@@ -403,7 +404,7 @@
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    maximumFractionDigits: 3, // (causes 2500.99 to be printed as $2,501)
         });
     
         function formatDate(dateStr, isEndDate) {
@@ -426,7 +427,10 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
@@ -450,8 +454,8 @@
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
                 "<td>" + b.clientName + "</td>" +
-                "<td>" + moment(b.process).format("DD-MM-YYYY h:mm:ss") + "</td>" +
-                "<td>" + moment(b.request).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.process).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"

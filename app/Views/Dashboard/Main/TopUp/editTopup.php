@@ -14,7 +14,7 @@
                         <form action="" method="post">
                             <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
-                                <input type="text" class="form-control" value="<?=$dataTopup->amount?>" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
+                                <input type="text" id="Amount" class="form-control" value="<?=$dataTopup->amount?>" name="amount" id="formrow-firstname-input" placeholder="Enter Amount" required>
                             </div>
                             <div class="mb-3">
                                     <label for="pickClient" class="form-label">Client</label>
@@ -77,5 +77,20 @@
             language: "en",
         });
     });
+    </script>
+    <script>
+        Amount.addEventListener('input', function(e){
+        Amount.value = formatCurrency(this.value);
+    });
+
+    function formatCurrency(angka) {
+        var number_string = angka.replace(/[^0-9]/g, '');
+        var rupiah = Number(number_string);
+
+        // Format as KRW with symbol and thousands separators
+        var formattedAmount = '₩' + rupiah.toLocaleString('ko-KR');
+
+        return formattedAmount;
+    }
     </script>
 <?php $this->endSection();?>

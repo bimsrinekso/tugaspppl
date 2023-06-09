@@ -32,9 +32,19 @@ class Topup extends BaseController
     }
 
     public function saveTopup(){
+        $isValid = [
+            'amount' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/topUp');
+        }
         $enp = 'api/topup/saveTopup';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'clientID'=> $this->request->getVar('clientID'),
             'actionBy' => $this->sesi->get('userid')
         ];
@@ -72,10 +82,20 @@ class Topup extends BaseController
     }
 
     public function updateTopup($id = null){
+        $isValid = [
+            'amount' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/topUp');
+        }
         $enp = 'api/topup/updateTopup';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'topup_id' => $id,
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);

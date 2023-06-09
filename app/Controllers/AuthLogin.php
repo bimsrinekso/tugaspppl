@@ -14,6 +14,17 @@ class AuthLogin extends BaseController
     }
 
     public function cekLogin(){
+        $isValid = [
+            'username' => 'required',
+            'password' => 'required'
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('login');
+        }
+        
         $dataBody = [
             "username" => $this->request->getVar('username'),
             "password" => $this->request->getVar('password')

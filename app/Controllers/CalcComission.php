@@ -21,7 +21,21 @@ class CalcComission extends BaseController
     }
 
     public function createCalc(){
-        return view('Dashboard/Main/Comission/addCalc');
+        $enp ='api/calcom/listcom';
+         if ($this->sesi->get('role') == 1) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            $data = [
+                "dataClient" => $parseData,
+            ];
+            // dd($data);
+            return view('Dashboard/Main/Comission/addCalc',$data);
+        }
+        
+        
     }
 
 
@@ -36,10 +50,13 @@ class CalcComission extends BaseController
             return redirect()->to('dashboard/createCom');
         }
         $enp = 'api/calcom/createCom';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
-            'amount'=> $this->request->getVar('amount'),
-            'actionBy' => $this->sesi->get('userid')
+            'amount'=> $amount,
+            'actionBy' => $this->sesi->get('userid'),
+            'clientID' => $this->request->getVar('clientID')
         ];
+        // dd($dataBody);
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -80,9 +97,10 @@ class CalcComission extends BaseController
             return redirect()->to('dashboard/editCom/'.$id);
         }
         $enp = 'api/calcom/updateCom';
+        $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'com_id' => $id,
-            'amount'=> $this->request->getVar('amount'),
+            'amount'=> $amount,
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);

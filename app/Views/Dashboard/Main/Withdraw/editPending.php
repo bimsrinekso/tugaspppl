@@ -67,7 +67,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Fee Bank Transfer</label>
-                                        <input type="text" name="bankTransfer" class="form-control" placeholder="Enter Amount Bank Transfer">
+                                        <input type="text" id="fee" name="bankTransfer" class="form-control" placeholder="Enter Amount Bank Transfer" required>
                                     </div>
                                 </div>
                             </div>
@@ -116,4 +116,20 @@
             });
         </script>
     <?php endif?>
+
+    <script>
+        fee.addEventListener('input', function(e){
+        fee.value = formatCurrency(this.value);
+    });
+
+    function formatCurrency(angka) {
+        var number_string = angka.replace(/[^0-9]/g, '');
+        var rupiah = Number(number_string);
+
+        // Format as KRW with symbol and thousands separators
+        var formattedAmount = '₩' + rupiah.toLocaleString('ko-KR');
+
+        return formattedAmount;
+    }
+    </script>
 <?php $this->endSection();?>

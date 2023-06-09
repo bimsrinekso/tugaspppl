@@ -56,6 +56,9 @@ $routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main,
 $routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:main, client']);
 $routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client']);
 $routes->get('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client']);
+// documentation
+$routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
+
 //
 $routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/createAccount', 'VirtualAccount::createAcc', ['filter' => 'role:main']);
@@ -149,6 +152,14 @@ $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter'
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client']);
 $routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client']);
 
+
+//Forgot Pasword
+$routes->get('/forgot-password', 'ForgotPassword::index');
+$routes->post('/forgot-password', 'ForgotPassword::forgotPassword');
+
+//Reset Password
+$routes->get('/reset-password/(:segment)', 'ResetPassword::index/$1');
+$routes->post('/reset-password/(:segment)', 'ResetPassword::updatePassword/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -36,7 +36,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Amount</label>
-                                            <input type="text" name="amount" class="form-control" placeholder="Enter Amount">
+                                            <input type="text" id ="Amount" name="amount" class="form-control" placeholder="Enter Amount">
                                         </div>
                                     </div>
                                 </div>
@@ -76,4 +76,20 @@
           toastr.error("<?= session()->getFlashData("error"); ?>");
       </script>
   <?php endif?>
+
+  <script>
+        Amount.addEventListener('input', function(e){
+        Amount.value = formatCurrency(this.value);
+    });
+
+    function formatCurrency(angka) {
+        var number_string = angka.replace(/[^0-9]/g, '');
+        var rupiah = Number(number_string);
+
+        // Format as KRW with symbol and thousands separators
+        var formattedAmount = '₩' + rupiah.toLocaleString('ko-KR');
+
+        return formattedAmount;
+    }
+    </script>
 <?php $this->endSection();?>

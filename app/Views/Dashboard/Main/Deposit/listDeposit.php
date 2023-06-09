@@ -273,6 +273,7 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
   <!-- validation init -->
   <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
@@ -556,7 +557,7 @@
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, //
-    maximumFractionDigits: 0, //
+    maximumFractionDigits: 3, //
         });
 
     function cbHref(isi){
@@ -590,14 +591,17 @@ function clearAndShowLoader(table){
     }
 
     function formatCurrency(num) {
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
 function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var crtDate = new Date(b.dpcreat),
-                createdDate = moment(crtDate).format("DD-MM-YYYY h:mm:ss");
+            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
                 i++;
                 table.append(
             "<tr>" +
