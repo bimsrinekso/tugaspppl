@@ -171,7 +171,7 @@
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
+                                                    <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
                                                 </td>
 
 
@@ -270,7 +270,7 @@
                                                     <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
+                                                    <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
                                                 </td>
 
                                             </tr>

@@ -145,7 +145,7 @@
                                                        KRW
                                                     </td>
                                                     <td>
-                                                     <?= date('d-m-Y H:i:s', strtotime($listDepo->dpcreat))?>
+                                                    <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
                                                      </td>
                                                    
                                                 </tr>
@@ -220,7 +220,7 @@
                                                        KRW
                                                     </td>
                                                      <td>
-                                                     <?= date('d-m-Y H:i:s', strtotime($listDepo->dpcreat))?>
+                                                     <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
                                                      </td>
                                                    
                                                 </tr>
@@ -336,7 +336,7 @@ function clearAndShowLoader(table){
 function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            var createdDate = moment(b.dpcreat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
                 i++;
                 table.append(
             "<tr>" +

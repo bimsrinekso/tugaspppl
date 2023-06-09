@@ -154,7 +154,7 @@
                                                         <?=  $listPen->clientName?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y', strtotime($listPen->tglbuat))?>
+                                                         <?= format_date($listPen->tglbuat, 'd-m-Y H:i:s');?>
                                                     </td>
                                                     <td><a href="<?= base_url("dashboard/depoPending/update/" . $listPen->depoid)?> " class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
@@ -260,7 +260,9 @@
     function populateTable(table, data) {
     var i = 0;
         $.each(data, function(a, b) {
+            console.log(data);
             var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            console.log(createdDate);
             i++;
             table.append(
                 "<tr>" +
@@ -323,6 +325,7 @@
             },
             success: (response) => {
                 handleAjaxSuccess(response, isTable, table);
+                console.log(startDate);
             }
         });
     }

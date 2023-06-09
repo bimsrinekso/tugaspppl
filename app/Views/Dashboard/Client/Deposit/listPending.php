@@ -145,7 +145,7 @@
                                                         <?=  formatKrw($listPen->amtVa)?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listPen->tglbuat))?>
+                                                        <?= format_date($listPen->tglbuat, 'd-m-Y H:i:s');?>
                                                     </td>
                                                     
                                                 </tr>

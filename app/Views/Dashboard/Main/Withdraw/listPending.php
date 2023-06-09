@@ -142,7 +142,7 @@
                                                         <?= $listPenWd->clientName ?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listPenWd->tglbuat))?>
+                                                         <?= format_date($listPenWd->tglbuat, 'd-m-Y H:i:s');?>
                                                     </td>
                                                     <td><a href="<?= base_url("dashboard/withdrawPending/edit/" . $listPenWd->reqwd_id) ?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>

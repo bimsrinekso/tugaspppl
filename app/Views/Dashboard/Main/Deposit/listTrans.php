@@ -175,7 +175,7 @@
                                                     <?= $listTrans->clientName ?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
+                                                    <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
                                                 </td>
 
 
@@ -278,7 +278,7 @@
                                                     <?= $listTrans->clientName ?>
                                                 </td>
                                                 <td>
-                                                    <?= date('d-m-Y H:i:s', strtotime($listTrans->tglbuat))?>
+                                                    <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
                                                 </td>
 
                                             </tr>
@@ -401,7 +401,7 @@
                 "<td>" + b.vaNumber + "</td>" +
                 "<td>" + b.bank + "</td>" +
                 "<td>" + b.holderName + "</td>" +
-                "<td>Bank Transfer</td>" +
+                "<td>" +"Bank Transfer" +"</td>" +
                 "<td>" + b.senderName + "</td>" +
                 "<td>" + b.currency + "</td>" +
                 "<td>" + formatCurrency(b.amt) + "</td>" +

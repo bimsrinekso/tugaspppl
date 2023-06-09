@@ -14,3 +14,21 @@ if (!function_exists('formatKRW')) {
         return $formatted_amount;
     }
 }
+
+if (!function_exists('format_date')) {
+    /**
+     * Format a date using DateTime
+     *
+     * @param string $date The date in the format 'Y-m-d\TH:i:s.u\Z'
+     * @param string $format The desired format, e.g., 'd-m-Y H:i:s'
+     * @param string $timezone The desired timezone, default is 'UTC'
+     * @return string The formatted date
+     */
+    function format_date(string $date, string $format, string $timezone = 'UTC'): string
+    {
+        $dateTime = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date, new DateTimeZone('UTC'));
+        $dateTime->setTimezone(new DateTimeZone($timezone));
+        return $dateTime->format($format);
+    }
+}
+
