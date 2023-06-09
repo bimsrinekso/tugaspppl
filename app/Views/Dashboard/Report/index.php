@@ -67,12 +67,6 @@
             <div class="col-md-6">
                 <h2>Management Report</h2>
             </div>
-            <!-- <label for="startDate">Start Date:</label>
-<input type="date" id="startDate">
-
-<label for="endDate">End Date:</label>
-<input type="date" id="endDate"> -->
-<input type="text" id="dateRangePicker" name="asu" />
             <div class="col-md-6">
                 <div class="d-flex justify-content-end">
                     <div class="form-group">
@@ -87,19 +81,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-        <div class="col-md-4 pull-right">
-            <div class="input-group input-daterange">
-
-            <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="From:">
-
-            <div class="input-group-addon">to</div>
-
-            <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="To:">
-
-            </div>
-        </div>
         </div>
         <div class="row mb-3">
             <div class="col-lg-12" id="filter-container">
@@ -312,35 +293,7 @@
         </script>
     <?php endif?>
 <script>
-    // Bootstrap datepicker
-$('.input-daterange input').each(function() {
-  $(this).datepicker('clearDates');
-});
 
-
-// Extend dataTables search
-$.fn.dataTable.ext.search.push(
-  function(settings, data, dataIndex) {
-    var min = $('#min-date').val();
-    var max = $('#max-date').val();
-    var createdAt = data[2] || 0; // Our date column in the table
-
-    if (
-      (min == "" || max == "") ||
-      (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
-    ) {
-      return true;
-    }
-    return false;
-  }
-);
-
-// Re-draw the table when the a date range filter changes
-$('.date-range-filter').change(function() {
-  table.draw();
-});
-
-$('#tableSummary_filter').hide();
     // formatKrw = (money) => {
 	// return new Intl.NumberFormat("id-ID", {
 	// 	style: "currency",
@@ -351,8 +304,8 @@ $('#tableSummary_filter').hide();
     
     // formatDuid = (nominal) => {
     //     const convert = Intl.NumberFormat({
-    //         minimumFractionDigits: 0,
-    //         maximumFractionDigits: 0,
+    //         minimumFractionDigits: 2,
+    //         maximumFractionDigits: 2,
     //     });
     //     var parsing = convert.format(nominal).replace(',', '.');
     //     return parsing;
@@ -369,10 +322,9 @@ $('#tableSummary_filter').hide();
     // var tableSummary = $('#tableSummary').DataTable({
     //   serverSide: true,
     //   ajax: {
-    //     url: '<?=base_url("dashboard/filter/tracking")?>',
+    //     url: '',
     //     type: 'POST',
     //     data: function (d) {
-    //       // Tambahkan parameter filter berdasarkan rentang tanggal yang dipilih
     //         var dateRange = $('#dateRangePicker').val().split(' - ');
     //         d.startDate = dateRange[0];
     //         d.endDate = dateRange[1];
@@ -493,10 +445,6 @@ $('#tableSummary_filter').hide();
     //         }
     //     },
     //   ]
-    // });
-
-    // $('#dateRangePicker').on('apply.daterangepicker', function(ev, picker) {
-    //   tableSummary.draw();
     // });
 </script>
 <?php $this->endSection();?>

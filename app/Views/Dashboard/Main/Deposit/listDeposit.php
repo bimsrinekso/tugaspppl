@@ -298,8 +298,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, 
-    maximumFractionDigits: 0, 
+    minimumFractionDigits: 2, 
+    maximumFractionDigits: 2, 
         });
 
     function cbHref(isi){
@@ -557,7 +557,7 @@
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, //
-    maximumFractionDigits: 3, //
+    maximumFractionDigits: 2, //
         });
 
     function cbHref(isi){

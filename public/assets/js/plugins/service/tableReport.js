@@ -7,58 +7,124 @@ formatKrw = (money) => {
 };
 formatDuid = (nominal) => {
 	const convert = Intl.NumberFormat({
-		minimumFractionDigits: 0,
-		maximumFractionDigits: 0,
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
 	});
 	var parsing = convert.format(nominal).replace(',', '.');
 	return parsing;
 }
 
 generateTable = (idTable, url, columns, order) => {
-    var table = $(idTable).DataTable({
-        processing: false,
-        serverSide: false,
-        ajax: {
-            url: url,
-            data: function (d) {
-            },
-            dataSrc: 'data',
-            beforeSend: function () {
-                $(idTable + " tbody").empty();
-                $(idTable + " tbody").append(
-                    "<tr>" +
-                    "<td colspan='14'>" +
-                    "<center>" +
-                    "<div class='loader' id='loader-1'></div>" +
-                    "</center>" +
-                    "</td>" +
-                    "</tr>"
-                );
-            },
-            error: function (xhr, error, thrown) {
-                console.log('XHR:', xhr);
-                console.log('Error:', error);
-                console.log('Thrown:', thrown);
-            }
-        },
-        columns: columns,
-        lengthChange: true,
-        lengthMenu: [
-            [10, 25, 50, -1],
-            [10, 25, 50, "All"]
-        ],
-        scrollX: true,
-        "bDestroy": true,
-        order: order,
-    });
-    table.on('order.dt search.dt', function () {
-      let i = 1;
+  var table;
 
-      table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-          this.data(i++);
-      });
-  }).draw();
-    return table;
+  function fetchData(start, end) {
+    $.ajax({
+      url: url,
+      data: {
+        start: start,
+        end: end
+      },
+      beforeSend: function () {
+        $(idTable + " tbody").empty();
+        $(idTable + " tbody").append(
+          "<tr>" +
+          "<td colspan='14'>" +
+          "<center>" +
+          "<div class='loader' id='loader-1'></div>" +
+          "</center>" +
+          "</td>" +
+          "</tr>"
+        );
+      },
+      success: function (data) {
+        table.clear().rows.add(data).draw();
+      },
+      error: function (xhr, error, thrown) {
+        console.log('XHR:', xhr);
+        console.log('Error:', error);
+        console.log('Thrown:', thrown);
+      }
+    });
+  }
+
+  function initializeTable() {
+    table = $(idTable).DataTable({
+      processing: false,
+      serverSide: false,
+      ajax: {
+        url: url,
+        data: function (d) {
+          var dateRange = $('#date-range').val().split(' - ');
+          var start = dateRange[0];
+          var end = dateRange[1];
+          d.start = start;
+          d.end = end;
+          console.log(d.start);
+          console.log(d.end);
+          console.log("sadasdsADSADSAD");
+          console.log(start);
+          console.log(end);
+        },
+        dataSrc: 'data',
+        beforeSend: function () {
+          $(idTable + " tbody").empty();
+          $(idTable + " tbody").append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+          );
+        },
+        complete: function () {
+          $('#loader-1').remove();
+        }
+      },
+      columns: columns,
+      lengthChange: true,
+      lengthMenu: [
+        [10, 25, 50, -1],
+        [10, 25, 50, "All"]
+      ],
+      scrollX: true,
+      destroy: true,
+      order: order
+    });
+
+    $('#date-range').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+        cancelLabel: 'Clear'
+      }
+    });
+
+    $('#date-range').on('apply.daterangepicker', function (ev, picker) {
+      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+    });
+
+    $('#date-range').on('cancel.daterangepicker', function (ev, picker) {
+      $(this).val('');
+    });
+
+    $('#filter-button').on('click', function () {
+      var dateRange = $('#date-range').val().split(' - ');
+      var start = dateRange[0];
+      var end = dateRange[1];
+      fetchData(start, end);
+    });
+  }
+
+  initializeTable();
+  //     table.on('order.dt search.dt', function () {
+  //     let i = 1;
+
+  //     table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+  //         this.data(i++);
+  //     });
+  // }).draw();
+  return table;
 }
 
 $(document).ready(function(){
@@ -66,7 +132,10 @@ $(document).ready(function(){
     // table SM
     var columnsSm = [
       {
-        data: "id",
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
       },
       { data: 'idTransTB' },
       {
