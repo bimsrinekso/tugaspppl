@@ -35,7 +35,7 @@ class ForgotPassword extends BaseController
             // dd($postData);
             $this->sesi->setFlashdata('sukses', "Congratulation, your email has been sent ");
         }else{
-            dd($res);
+            // dd($res);
             $this->sesi->setFlashdata('error', $res);
             return redirect()->to('forgot-password');
         }
