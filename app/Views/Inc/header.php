@@ -41,7 +41,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    
+                     <?php if($_SESSION['role'] == 2):?> 
+                        <a class="dropdown-item" href="<?= base_url("dashboard/editProfile") ?>"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
+                    <?php endif ?>
                     <a class="dropdown-item text-danger" href="<?= base_url("dashboard/logout") ?>"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
                 </div>
             </div>
