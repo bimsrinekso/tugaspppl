@@ -292,7 +292,7 @@
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, //
-    maximumFractionDigits: 0, //
+    maximumFractionDigits: 3, //
         });
 
     function cbHref(isi){
@@ -326,6 +326,10 @@ function clearAndShowLoader(table){
     }
 
     function formatCurrency(num) {
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
