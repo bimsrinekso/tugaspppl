@@ -47,21 +47,15 @@ if (!function_exists('format_date')) {
     function format_date(string $date, string $format, string $timezone = 'Asia/Manila'): string
     {
         $dateTime = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date, new DateTimeZone('UTC'));
-        
+
         if ($dateTime === false) {
             // Date parsing failed
             return 'Invalid date';
         }
-        
+
         $targetTimezone = new DateTimeZone($timezone);
         $dateTime->setTimezone($targetTimezone);
-        
-        // Check if DST is in effect for the target timezone
-        if ($targetTimezone->getTransitions($dateTime->getTimestamp(), $dateTime->getTimestamp())) {
-            // DST is in effect, subtract 1 hour
-            $dateTime->sub(new DateInterval('PT1H'));
-        }
-        
+
         return $dateTime->format($format);
     }
 }
