@@ -226,10 +226,10 @@
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->name ?> 
+                                                    <td>
+                                                        <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s'); ?>
                                                     </td>
-                                                     <td>
-                                                     <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
-                                                     </td>
+                                                     
                                                    
                                                 </tr>
                                                 <?php endforeach;?>
@@ -601,9 +601,9 @@ function clearAndShowLoader(table){
 function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var createdDate = moment(b.dpcreat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-                i++;
-                table.append(
+            var createdDate = moment.tz(b.dpcreat, "UTC").tz("Asia/Manila").subtract(1, 'hour').format("DD-MM-YYYY HH:mm:ss");
+            i++;
+            table.append(
             "<tr>" +
             "<td>" + i +"</td>" +
             "<td>" + b.transactionID + "</td>" +

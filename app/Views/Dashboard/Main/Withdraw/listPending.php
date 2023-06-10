@@ -260,8 +260,9 @@
     function populateTable(table, data) {
     var i = 0;
             $.each(data, function(a, b) {
-                i++;
-                table.append(
+                var createdDate = moment.tz(b.tglbuat, "UTC").tz("Asia/Manila").subtract(1, 'hour').format("DD-MM-YYYY HH:mm:ss");
+            i++;
+            table.append(
                     "<tr>" +
                     "<td>" + i + "</td>" +
                     "<td>" + b.transactionID + "</td>" +
@@ -273,7 +274,7 @@
                     "<td>" + b.accountNumber + "</td>" +
                     "<td>" + b.holderName + "</td>" +
                     "<td>" + b.clientName + "</td>" +
-                    "<td>" + moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                    "<td>" + createdDate+ "</td>" +
                     "<td><a href='<?= base_url("dashboard/withdrawPending/edit") ?>/"+b.reqwd_id+"' class='btn btn-outline-secondary btn-sm edit' title='Edit'><i class='fas fa-pencil-alt'></i></a></td>" +
                     "</tr>"
                 );

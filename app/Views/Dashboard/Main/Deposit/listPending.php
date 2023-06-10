@@ -261,8 +261,7 @@
     var i = 0;
         $.each(data, function(a, b) {
             console.log(data);
-            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-            console.log(createdDate);
+            var createdDate = moment.tz(b.dpcreat, "UTC").tz("Asia/Manila").subtract(1, 'hour').format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
                 "<tr>" +
