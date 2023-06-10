@@ -160,10 +160,10 @@
                                                         <?= $listTranasWd->clientName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 
+                                                        <?= format_date($listTranasWd->request, 'd-m-Y H:i:s');?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
+                                                        <?= format_date($listTranasWd->process, 'd-m-Y H:i:s');?>
                                                     </td>                                               
                                                     <td>
                                                         <?= $listTranasWd->remark ?> 
@@ -234,177 +234,13 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<!-- <script>
-    const uang = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'KRW',
-    minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-        });
-    function filterTgl() {
-        var tgl = $('input[name="daterangeAll"]').val();
-        var splitTgl = tgl.split('-');
-        var startDate;
-        var endDate;
-        if (splitTgl[0] == '') {
-            startDate = '';
-            endDate = '';
-        } else {
-            startDate = splitTgl[0];
-            endDate = splitTgl[1];
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace(' ', '');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.slice(1);
-            // new date convert
-            startDate = startDate.split("-").reverse().join("-");
-            startDate = startDate + ' 00:00:00';
-            endDate = endDate.split("-").reverse().join("-");
-            endDate = endDate + ' 00:00:00';
-        }
-        var tableWd = $("#datatable-all tbody");
-        var isTable = $("#datatable-all");
-        tableWd.empty();
-        tableWd.append(
-            "<tr>" +
-            "<td colspan='14'>" +
-            "<center>" +
-            "<div class='loader' id='loader-1'></div>" +
-            "</center>" +
-            "</td>" +
-            "</tr>"
-        );
-        $.ajax({
-            url: '<?=base_url("dashboard/filterWd")?>',
-            method: "POST",
-            xhrFields: {
-                withCredentials: true
-            },
-            dataType: "json",
-            data: {
-                startDate: startDate,
-                endDate: endDate,
-            },
-            success: (response) => {
-                isTable.DataTable().destroy();
-                tableWd.empty();
-                var dataT = response["response"];
-                var i = 0;
-                console.log(dataT);
-                $.each(dataT, function (a, b) {
-                    var proDate = new Date(b.process),
-                        prsDate = moment(proDate).format("DD-MM-YYYY");
-                    var reqDate = new Date(b.request),
-                        reqsDate = moment(reqDate).format("DD-MM-YYYY");
-                    i++;
-                    tableWd.append(
-                        "<tr>" +
-                        "<td>" +
-                        i +
-                        "</td>" +
-                        "<td>" +
-                        b.transactionID +
-                        "</td>" +
-                        "<td>" +
-                        b.namestatus +
-                        "</td>" +
-                        "<td>" +
-                        b.paymentMethod +
-                        "</td>" +
-                        "<td>" +
-                        uang.format(b.amount) +
-                        "</td>" +
-                        "<td>" +
-                        b.currency +
-                        "</td>" +
-                        "<td>" +
-                        b.bankName +
-                        "</td>" +
-                        "<td>" +
-                        b.accountNumber +
-                        "</td>" +
-                        "<td>" +
-                        b.cusBank +
-                        "</td>" +
-                        "<td>" +
-                        prsDate +
-                        "</td>" +
-                        "<td>" +
-                        reqsDate +
-                        "</td>" +
-                        "<td>" +
-                        b.remark +
-                        "</td>" +
-                        "<td>" +
-                       b.operator +
-                        "</td>" +
-                        "</tr>"
-                    );
-                });
-                var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["excel", {
-                        text: 'Confirm',
-                        action: function ( e, dt, node, config ) {
-                            $("#datatable-all").DataTable().search("Confirm").draw();
-                        },
-                    },{
-                        text: 'Rejected',
-                        action: function ( e, dt, node, config ) {
-                            $("#datatable-all").DataTable().search("Rejected").draw();
-                        }}],
-                        scrollCollapse: true,
-                        "bDestroy": true,
-                        "scrollX" : true,
-                    });
-                    ikiTable.buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-            }
-        });
-    }
-    $(document).ready(function () {
-        $('input[name="daterangeAll"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangeAll"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangeAll"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
-        $("#datatable").DataTable(), $("#datatable-all").DataTable({
-            lengthChange: !1,
-            buttons: ["excel", "colvis", {
-                text: 'Confirm',
-                action: function ( e, dt, node, config ) {
-                    $("#datatable-all").DataTable().search("Confirm").draw();
-                },
-            },{
-                text: 'Rejected',
-                action: function ( e, dt, node, config ) {
-                    $("#datatable-all").DataTable().search("Rejected").draw();
-                }}],
-            "scrollX" : true,
-            "bDestroy": true
-        }).buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-    });
-</script> -->
-
 <script>
     var targetFilter = 'datatable-all';
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
     minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    maximumFractionDigits: 3, // (causes 2500.99 to be printed as $2,501)
         });
     
         function formatDate(dateStr, isEndDate) {
@@ -427,7 +263,10 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
@@ -451,11 +290,13 @@
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
                 "<td>" + b.clientName + "</td>" +
-                "<td>" + moment(b.process).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
-                "<td>" + moment(b.request).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss') + "</td>" +
+                "<td>" + moment(b.process).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss') + "</td>" +
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"
+                
+
             );
         });
     }

@@ -142,7 +142,7 @@
                                                         <?= $listPenWd->clientName ?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listPenWd->tglbuat))?>
+                                                         <?= format_date($listPenWd->tglbuat, 'd-m-Y H:i:s');?>
                                                     </td>
                                                     <td><a href="<?= base_url("dashboard/withdrawPending/edit/" . $listPenWd->reqwd_id) ?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
@@ -226,8 +226,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
         });
     
         function formatDate(dateStr, isEndDate) {
@@ -250,7 +250,10 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 

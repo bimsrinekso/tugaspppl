@@ -145,7 +145,7 @@
                                                        KRW
                                                     </td>
                                                     <td>
-                                                     <?= date('d-m-Y H:i:s', strtotime($listDepo->dpcreat))?>
+                                                    <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
                                                      </td>
                                                    
                                                 </tr>
@@ -220,7 +220,7 @@
                                                        KRW
                                                     </td>
                                                      <td>
-                                                     <?= date('d-m-Y H:i:s', strtotime($listDepo->dpcreat))?>
+                                                     <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
                                                      </td>
                                                    
                                                 </tr>
@@ -291,8 +291,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, //
-    maximumFractionDigits: 0, //
+    minimumFractionDigits: 2, //
+    maximumFractionDigits: 2, //
         });
 
     function cbHref(isi){
@@ -326,13 +326,17 @@ function clearAndShowLoader(table){
     }
 
     function formatCurrency(num) {
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
 function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var createdDate = moment(b.tglbuat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            var createdDate = moment(b.dpcreat).tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
                 i++;
                 table.append(
             "<tr>" +

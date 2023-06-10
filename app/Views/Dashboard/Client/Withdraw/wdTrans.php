@@ -154,12 +154,12 @@
                                                     <td>
                                                         <?= $listTranasWd->cusBank ?> 
                                                     </td>
-                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
-                                                    </td> 
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 
-                                                    </td>                                          
+                                                        <?= format_date($listTranasWd->request, 'd-m-Y H:i:s');?>
+                                                    </td>
+                                                    <td>
+                                                        <?= format_date($listTranasWd->process, 'd-m-Y H:i:s');?>
+                                                    </td>                                        
                                                     <td>
                                                         <?= $listTranasWd->remark ?> 
                                                     </td>
@@ -234,8 +234,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
         });
     
         function formatDate(dateStr, isEndDate) {
@@ -258,14 +258,16 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            
             i++;
             table.append(
                 "<tr>" +
@@ -282,8 +284,8 @@
                 "<td>" + b.bankName + "</td>" +
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
-                "<td>" + moment(b.request).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
-                "<td>" + moment(b.process).tz("Asia/Manila").format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + moment(b.request).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss') + "</td>" +
+                "<td>" + moment(b.process).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss') + "</td>" +
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"
