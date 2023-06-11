@@ -285,6 +285,7 @@
                 "<td>" + b.currency + "</td>" +
                 "<td>" + b.bankName + "</td>" +
                 "<td>" + b.accountNumber + "</td>" +
+                "<td>" + b.cusBank + "</td>" +
                 "<td>" + createdDate + "</td>" +
                 "<td>" + processedDate + "</td>"+
                 "<td>" + b.remark + "</td>" +
