@@ -601,7 +601,8 @@ function clearAndShowLoader(table){
 function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
-            var createdDate = moment.tz(b.dpcreat, "UTC").tz("Asia/Manila").subtract(1, 'hour').format("DD-MM-YYYY HH:mm:ss");
+            console.log(data);
+            var createdDate = moment.tz(b.dpcreat, "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
             "<tr>" +

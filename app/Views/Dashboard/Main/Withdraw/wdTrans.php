@@ -273,6 +273,8 @@
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
+            var createdDate = moment.tz(b.request, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            var processedDate = moment.tz(b.process, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
                 "<tr>" +
@@ -290,8 +292,8 @@
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
                 "<td>" + b.clientName + "</td>" +
-                "<td>" + moment(b.request).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss') + "</td>" +
-                "<td>" + moment(b.process).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss') + "</td>" +
+                "<td>" + createdDate + "</td>" +
+                "<td>" + processedDate + "</td>"+
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"
