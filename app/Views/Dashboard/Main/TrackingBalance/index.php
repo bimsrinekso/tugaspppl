@@ -133,10 +133,8 @@
                                                     $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $name = $listTrack->name;
-                                                    $cektimesu = \CodeIgniter\I18n\Time::createFromFormat('Y-m-d\TH:i:s.u\Z', $listTrack->submitTime, 'UTC');
-                                                    $submitTime = $cektimesu->format('d-m-Y H:i:s');
-                                                    $cektime = \CodeIgniter\I18n\Time::createFromFormat('Y-m-d\TH:i:s.u\Z', $listTrack->updatedTime, 'UTC');
-                                                    $updatedTime = $cektime->format('d-m-Y H:i:s');
+                                                    $submitTime = format_date($listTrack->submitTime, 'd-m-Y H:i:s');
+                                                    $updatedTime = format_date($listTrack->updatedTime, 'd-m-Y H:i:s');
                                                 ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
