@@ -253,6 +253,7 @@
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
+            var createdDate = moment.tz(b.tglbuat, "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
                 "<tr>" +
@@ -265,7 +266,7 @@
                 "<td>" + b.bankName + "</td>" +
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.holderName + "</td>" +
-                "<td>" + moment(b.tglbuat).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + createdDate+ "</td>" +
                 "</tr>"
             );
         });
