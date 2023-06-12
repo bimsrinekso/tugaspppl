@@ -113,7 +113,7 @@ class Deposit extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $data = [
-                "dataDepo" => $parseData[0],
+                "dataDepo" => $parseData,
             ];
             return view('Dashboard/Main/Deposit/editPending', $data);
         }else{
