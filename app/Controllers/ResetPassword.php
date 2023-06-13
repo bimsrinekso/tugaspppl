@@ -59,7 +59,7 @@ class ResetPassword extends BaseController
             'confirmPassword' => $confirmpassword
         ];
 
-        $enp = 'api/updatePassword';
+        $enp = 'api/changePassword';
         $postData = $this->async->post($enp, '', $dataBody);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
         $res = $postData->response;
         if($postData->status == 200){

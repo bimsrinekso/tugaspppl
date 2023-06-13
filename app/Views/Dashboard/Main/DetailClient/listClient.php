@@ -51,45 +51,41 @@
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editClient/'. $listClient->id) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
-                                                    <a class="btn btn-outline-danger btn-sm edit" data-bs-toggle="modal" data-bs-target="#hapus<?=$listClient->id?>">
+                                                    <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listClient->id?>)">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach?>
-                                            <?php foreach($dataClient as $listClient) : ?>
-                                                        <div class="modal fade" id="hapus<?=$listClient->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <form action="<?=base_url("dashboard/deleteClient/". $listClient->id)?>" method="post">
-                                                                        <input value="DELETE" type="hidden" name="_method" name="id">
-                                                                        <div class="modal-body">
-                                                                            <p>Are you sure want to delete this data?</p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
                                         <?php endif;?> 
                                     </tbody>
                                 </table>
                             </div>
                           </div>
-                        
                     </div>
                 </div>
             </div> <!-- end col -->
         </div> <!-- end row -->
-
+        <div class="modal fade" id="noticeDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="formDelete" method="post">
+                        <input value="DELETE" type="hidden" name="_method" name="id">
+                        <div class="modal-body">
+                            <p>Are you sure want to delete this data?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnCloseModal" class="btn btn-primary">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
@@ -115,6 +111,13 @@
 <!-- Datatable init js -->
 <script src="/assets/js/pages/datatables.init.js"></script>
 <script>
+     $("#btnCloseModal").on("click", function(){
+        $("#noticeDelete").modal("hide");
+    })
+    function cbModal(id){
+        $("#noticeDelete").modal("show");
+        $("#formDelete").attr("action", "<?= base_url('dashboard/deleteClient'); ?>/" + id);
+    }
     $(document).ready(function () {
         $("#datatable").DataTable(), $("#datatable-active").DataTable({
             lengthChange: !1,
