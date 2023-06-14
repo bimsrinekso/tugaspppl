@@ -184,17 +184,6 @@
                             <li><a href="<?= base_url('dashboard/trackingBalance')?>" key="t-tui-calendar">Detail</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bxs-lock"></i>
-                            <span key="t-withdraw">Setting Account</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="<?= base_url('dashboard/changePassword')?>" key="t-tui-calendar">Change Password</a></li>
-                            <li><a href="<?= base_url('dashboard/editProfile')?>" key="t-full-calendar">Edit Profile</a></li>
-                            <li><a href="<?= base_url('dashboard/personalKey')?>" key="t-full-calendar">Personal Key</a></li>
-                        </ul>
-                    </li>
                     
                     <li class="menu-title" key="t-report">Report</li>
                     <li>
