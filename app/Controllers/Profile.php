@@ -2,11 +2,38 @@
 
 namespace App\Controllers;
 
-class Account extends BaseController
+class Profile extends BaseController
 {
-    public function editPassword(){
-        return view('Dashboard/Account/changePassword');
+    public function index(){
+        $userid = session()->get('userid');
+        $enp1 = 'api/editProfile';
+        $dataBody1 = [
+            'userID' => $userid
+        ];
+        $postData1 = $this->async->post($enp1, $this->apiclient, $dataBody1);
+        $parseData1 = $postData1->response;
+        $enp = 'api/account/personalKey';
+        $dataBody = [
+            'userID' => $userid
+        ];
+        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+        $parseData = $postData->response;
+        if (is_countable($parseData)) {
+            $parseData = $parseData[0];
+        }
+        if($postData->status == '200' && $postData1->status == '200'){
+            $data = [
+                "dataKey" => $parseData,
+                "dataUser" => $parseData1,
+            ];
+            return view('Dashboard/Profile/index', $data);
+        }else{
+            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
+            return redirect()->to('dashboard/editProfile');
+        }
+        return view('Dashboard/Profile/index');
     }
+
     public function updatePassword(){
         $isValid = [
             'currentPw' => 'required',
@@ -24,7 +51,7 @@ class Account extends BaseController
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
             $this->sesi->setFlashdata('validation', $oneline);
-            return redirect()->to('dashboard/changePassword');
+            return redirect()->to('dashboard/editProfile');
         }
         $userid = session()->get('userid');
         $enp = 'api/updatePassword';
@@ -36,35 +63,26 @@ class Account extends BaseController
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update password");
-            return redirect()->to('dashboard/changePassword');
+            $this->sesi->setFlashdata('sukses-password', "Congratulations, you have successfully update password");
+            return redirect()->to('dashboard/editProfile');
         }else{
             $this->sesi->setFlashdata('error', $parseData);
-            return redirect()->to('dashboard/changePassword');
-        }
-    }
-
-    public function editProfile(){
-        $userid = session()->get('userid');
-        $enp = 'api/editProfile';
-        $dataBody = [
-            'userID' => $userid
-        ];
-        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-        $parseData = $postData->response;
-        if($postData->status == '200'){
-            $data = [
-                "dataUser" => $parseData,
-            ];
-            return view('Dashboard/Account/editProfile', $data);
-        }else{
-            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/editProfile');
         }
     }
 
     public function updateProfile(){
         $enp = 'api/updateProfile';
+        $isValid = [
+            'username' => 'required',
+            'email' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/editProfile');
+        }
         $dataBody = [
             'userid' => $this->sesi->get('userid'),
             'username'=> $this->request->getVar('username'),
@@ -73,31 +91,11 @@ class Account extends BaseController
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update profile");
+            $this->sesi->setFlashdata('sukses-profile', "Congratulations, you have successfully update profile");
             return redirect()->to('dashboard/editProfile');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/editProfile');
-        }
-    }
-    public function detailPersonalKey(){
-        $enp = 'api/account/personalKey';
-        $dataBody = [
-            'userID' => $this->sesi->get('userid')
-        ];
-        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-        $parseData = $postData->response;
-        if (is_countable($parseData)) {
-            $parseData = $parseData[0];
-        }
-        if($postData->status == '200'){
-            $data = [
-                "dataKey" => $parseData,
-            ];
-            return view('Dashboard/Account/personalKey', $data);
-        }else{
-            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('dashboard');
         }
     }
 }

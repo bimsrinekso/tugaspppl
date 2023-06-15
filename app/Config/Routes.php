@@ -75,11 +75,11 @@ $routes->post('/dashboard/editUser/(:num)', 'UserManagement::updateUser/$1', ['f
 $routes->delete('/dashboard/deleteUser/(:num)', 'UserManagement::delUser/$1', ['filter' => 'role:main']);
 
 // setting profile
-$routes->get('/dashboard/changePassword', 'Account::editPassword', ['filter' => 'role:client']);
-$routes->get('/dashboard/editProfile', 'Account::editProfile', ['filter' => 'role:client']);
-$routes->post('/dashboard/editProfile', 'Account::updateProfile', ['filter' => 'role:client']);
-$routes->post('/dashboard/changePassword', 'Account::updatePassword', ['filter' => 'role:client']);
-$routes->get('/dashboard/personalKey', 'Account::detailPersonalKey', ['filter' => 'role:client']);
+$routes->get('/dashboard/changePassword', 'Profile::editPassword', ['filter' => 'role:client']);
+$routes->get('/dashboard/editProfile', 'Profile::index', ['filter' => 'role:client']);
+$routes->post('/dashboard/editProfile', 'Profile::updateProfile', ['filter' => 'role:client']);
+$routes->post('/dashboard/changePassword', 'Profile::updatePassword', ['filter' => 'role:client']);
+$routes->get('/dashboard/personalKey', 'Profile::detailPersonalKey', ['filter' => 'role:client']);
 //depo
 $routes->get('/dashboard/listDeposit', 'Deposit::listDeposit', ['filter' => 'role:main, client']);
 $routes->get('/dashboard/depoTransaction', 'Deposit::listTrans', ['filter' => 'role:main, client']);
