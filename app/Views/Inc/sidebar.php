@@ -15,7 +15,6 @@
                         <span key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
-
                 <li class="menu-title" key="t-apps">Apps</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -113,6 +112,10 @@
                     <a href="<?= base_url('dashboard/reportDaily') ?>" class="waves-effect">
                         <i class="bx bxs-bar-chart-alt-2"></i>
                         <span key="t-reportDaily">Daily Report</span>
+                    </a>
+                    <a href="<?= base_url('dashboard/monitoringLog') ?>" class="waves-effect">
+                        <i class="bx bx-cog"></i>
+                        <span key="t-reportDaily">Monitoring Log</span>
                     </a>
                 </li>
                 <li class="menu-title" key="t-report">Documentation</li>
