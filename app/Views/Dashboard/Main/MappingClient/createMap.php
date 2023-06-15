@@ -18,9 +18,12 @@
                                         <label for="pickApi" class="form-label">Api</label>
                                         <select id="pickApi" name="apiKeyID" class="form-select select2">
                                             <option value=""></option>
+                                            <?php if($dataApi != null):?>
                                             <?php foreach ($dataApi as $listApi): ?>
                                                 <option value="<?=$listApi->id?>"><?=$listApi->apiKey?></option>
                                             <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
                                         </select>
                                     </div>
                                 </div>
@@ -29,9 +32,12 @@
                                         <label for="pickClient" class="form-label">Client</label>
                                         <select id="pickClient" name="clientID" class="form-select select2">
                                             <option value=""></option>
+                                            <?php if($dataClient != null):?>
                                             <?php foreach ($dataClient as $listClient): ?>
                                                 <option value="<?=$listClient->id?>"><?=$listClient->name?></option>
                                             <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
                                         </select>
                                     </div>
                                 </div>
@@ -43,9 +49,12 @@
                                         <label for="pickUser" class="form-label">User</label>
                                         <select id="pickUser" name="UserID" class="form-select select2">
                                             <option value=""></option>
+                                            <?php if($dataUser != null):?>
                                             <?php foreach ($dataUser as $listUser): ?>
                                                 <option value="<?=$listUser->id?>"><?=$listUser->username?></option>
                                             <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
                                         </select>
                                     </div>
                                 </div>
