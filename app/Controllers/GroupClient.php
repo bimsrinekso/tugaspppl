@@ -72,6 +72,18 @@ class GroupClient extends BaseController
     }
 
     public function updateClient($id = null){
+        $isValid = [
+            'name'=> 'required',
+            'va'=> 'required',
+            'comDepo'=> 'required',
+            'comWd'=> 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/editClient/'.$id);
+        }
         $enp = 'api/updateClient';
         $dataBody = [
             'clientID' => $id,
@@ -193,6 +205,17 @@ class GroupClient extends BaseController
     }
 
     public function saveMap(){
+        $isValid = [
+            'apiKeyID'=> 'required',
+            'UserID'=> 'required',
+            'clientID'=> 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/createMap');
+        }
         $enp = 'api/saveGroupCl';
         $dataBody = [
             'apiKeyID'=> $this->request->getVar('apiKeyID'),
@@ -203,7 +226,7 @@ class GroupClient extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully mapping");
-            return redirect()->to('dashboard/createMap');
+            return redirect()->to('dashboard/listMap');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/createMap');

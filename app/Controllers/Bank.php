@@ -19,6 +19,19 @@ class Bank extends BaseController
     }
 
     public function saveBank(){
+         $isValid = [
+            'bankName' => 'required',
+            'bankCode' => 'required',
+            'region' => 'required',
+            'regionCode' => 'required',
+            'universalName' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/baseBank/create');
+        }
         $enp = 'api/bank/saveBank';
         $dataBody = [
             'userid' => $this->sesi->get('userid'),
