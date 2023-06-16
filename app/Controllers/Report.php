@@ -24,7 +24,7 @@ class Report extends BaseController
             ];
         return view('Dashboard/Report/index', $data);
     }
-
+    
     public function listDepo()
     {        
         $param = $_REQUEST;        
@@ -64,21 +64,149 @@ class Report extends BaseController
     }
 
     public function listSm()
-    {        
-        $param = $_REQUEST;        
-        $enp = 'api/reportSummary';
-        $dataBody = [
-            'userid'=> $this->sesi->get('userid'),
-            'param' => $param
-        ];
-        $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-        $response = [
-            "draw" => isset($param['draw']) ? $param['draw'] : 0,
-            "recordsTotal" => $postData->response->recordsTotal,
-            "recordsFiltered" => $postData->response->recordsFiltered,
-            "data" => $postData->response->data
-        ];
-    
-        echo json_encode($response);
+    {   
+        $start = $this->request->getVar('startDate');
+        $end = $this->request->getVar('endDate');
+        $param = $_REQUEST;
+        $enpSm = 'api/reportSummary';
+        $enpDp = 'api/reportDepo';
+        $enpWd = 'api/reportWd';
+        if ($this->sesi->get('role') == 1) {
+            if ($start != '') {
+                $dataBody = [
+                    'userid'=> $this->sesi->get('userid'),
+                    'param' => $param,
+                    'startDate'=> $start,
+                    'endDate'=> $end,
+                ];
+                $postDataSm = $this->async->post($enpSm, $this->apimain, $dataBody);
+                $postDataDp = $this->async->post($enpDp, $this->apimain, $dataBody);
+                $postDataWd = $this->async->post($enpWd, $this->apimain, $dataBody);
+                $response = [
+                    "summary" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataSm->response->recordsTotal,
+                        "recordsFiltered" => $postDataSm->response->recordsFiltered,
+                        "data" => $postDataSm->response->data,
+                        "param" => $param
+                    ],
+                    "deposit" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataDp->response->recordsTotal,
+                        "recordsFiltered" => $postDataDp->response->recordsFiltered,
+                        "data" => $postDataDp->response->data,
+                        "param" => $param
+                    ],
+                    "withdraw" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataWd->response->recordsTotal,
+                        "recordsFiltered" => $postDataWd->response->recordsFiltered,
+                        "data" => $postDataWd->response->data,
+                        "param" => $param
+                    ]
+                ];
+                echo json_encode($response);
+            } else {
+                $dataBody = [
+                    'userid'=> $this->sesi->get('userid'),
+                    'param' => $param,
+                ];
+                $postDataSm = $this->async->post($enpSm, $this->apimain, $dataBody);
+                $postDataDp = $this->async->post($enpDp, $this->apimain, $dataBody);
+                $postDataWd = $this->async->post($enpWd, $this->apimain, $dataBody);
+                $response = [
+                    "summary" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataSm->response->recordsTotal,
+                        "recordsFiltered" => $postDataSm->response->recordsFiltered,
+                        "data" => $postDataSm->response->data,
+                        "param" => $param
+                    ],
+                    "deposit" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataDp->response->recordsTotal,
+                        "recordsFiltered" => $postDataDp->response->recordsFiltered,
+                        "data" => $postDataDp->response->data,
+                        "param" => $param
+                    ],
+                    "withdraw" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataWd->response->recordsTotal,
+                        "recordsFiltered" => $postDataWd->response->recordsFiltered,
+                        "data" => $postDataWd->response->data,
+                        "param" => $param
+                    ]
+                ];
+                echo json_encode($response);
+            }
+        } else if($this->sesi->get('role') == 2) {
+            if ($start != '') {
+                $dataBody = [
+                    'userid'=> $this->sesi->get('userid'),
+                    'param' => $param,
+                    'startDate'=> $start,
+                    'endDate'=> $end,
+                ];
+                $postDataSm = $this->async->post($enpSm, $this->apimain, $dataBody);
+                $postDataDp = $this->async->post($enpDp, $this->apimain, $dataBody);
+                $postDataWd = $this->async->post($enpWd, $this->apimain, $dataBody);
+                $response = [
+                    "summary" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataSm->response->recordsTotal == null ? 0 : $postDataSm->response->recordsTotal,
+                        "recordsFiltered" => $postDataSm->response->recordsFiltered == null ? 0 : $postDataSm->response->recordsFiltered,
+                        "data" => $postDataSm->response->data == null ? [] : $postDataSm->response->data,
+                        "param" => $param
+                    ],
+                    "deposit" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataDp->response->recordsTotal == null ? 0 : $postDataDp->response->recordsTotal,
+                        "recordsFiltered" => $postDataDp->response->recordsFiltered == null ? 0 :$postDataDp->response->recordsFiltered,
+                        "data" => $postDataDp->response->data == null ? [] : $postDataDp->response->data,
+                        "param" => $param
+                    ],
+                    "withdraw" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataWd->response->recordsTotal == null ? 0 : $postDataWd->response->recordsTotal,
+                        "recordsFiltered" => $postDataWd->response->recordsFiltered == null ? 0 : $postDataWd->response->recordsFiltered,
+                        "data" => $postDataWd->response->data == null ? [] : $postDataWd->response->data,
+                        "param" => $param
+                    ]
+                ];
+                echo json_encode($response);
+            } else {
+                $dataBody = [
+                    'userid'=> $this->sesi->get('userid'),
+                    'param' => $param,
+                ];
+                $postDataSm = $this->async->post($enpSm, $this->apiclient, $dataBody);
+                $postDataDp = $this->async->post($enpDp, $this->apiclient, $dataBody);
+                $postDataWd = $this->async->post($enpWd, $this->apiclient, $dataBody);
+                $response = [
+                    "summary" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataSm->response->recordsTotal == null ? 0 : $postDataSm->response->recordsTotal,
+                        "recordsFiltered" => $postDataSm->response->recordsFiltered == null ? 0 : $postDataSm->response->recordsFiltered,
+                        "data" => $postDataSm->response->data == null ? [] : $postDataSm->response->data,
+                        "param" => $param
+                    ],
+                    "deposit" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataDp->response->recordsTotal == null ? 0 : $postDataDp->response->recordsTotal,
+                        "recordsFiltered" => $postDataDp->response->recordsFiltered == null ? 0 :$postDataDp->response->recordsFiltered,
+                        "data" => $postDataDp->response->data == null ? [] : $postDataDp->response->data,
+                        "param" => $param
+                    ],
+                    "withdraw" => [
+                        "draw" => isset($param['draw']) ? $param['draw'] : 0,
+                        "recordsTotal" => $postDataWd->response->recordsTotal == null ? 0 : $postDataWd->response->recordsTotal,
+                        "recordsFiltered" => $postDataWd->response->recordsFiltered == null ? 0 : $postDataWd->response->recordsFiltered,
+                        "data" => $postDataWd->response->data == null ? [] : $postDataWd->response->data,
+                        "param" => $param
+                    ]
+                ];
+                echo json_encode($response);
+            }
+        }
     }
 }

@@ -87,29 +87,25 @@
                 <div class="card">
                     <div class="card-body">
                     <div class="column" class="mb-2">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="daterange" class="control-label">Filter Date</label>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Choose date range" name="daterangeConf"
-                                                        id="daterange" value="" />
-                                                </div>
-                                                <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light"
-                                                        id="btnFilterCon" data-tabactive="datatable-active"
-                                                        onclick="filterTgl()" type="button">Filter</button>
-                                                </div>
-                                            </div>
-
+                            <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="daterange" class="control-label">Filter Date</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="Choose date range" name="daterangeConf" id="daterange" value="" />
+                                        </div>
+                                        <div class="col-4">
+                                        <button class="btn btn-secondary waves-effect waves-light" id="btnFilterCon" data-tabactive="datatable-active" type="button">Filter</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                    <button class="btn btn-success waves-effect waves-light"
-                                                        id="btnFilterCon" data-tabactive="datatable-active"
-                                                        type="button"><i class="fas fa-file-excel"></i> Export to Excel</button>
-                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                            <button class="btn btn-success waves-effect waves-light"
+                                id="btnFilterCon" data-tabactive="datatable-active"
+                                type="button"><i class="fas fa-file-excel"></i> Export to Excel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -244,6 +240,9 @@
                     </div>
                 </div>
             </div> <!-- end col -->
+            <div id="summaryTableContainer"></div>
+            <div id="depositTableContainer"></div>
+            <div id="withdrawTableContainer"></div>
         </div> <!-- end row -->
 
     </div> <!-- container-fluid -->
@@ -270,6 +269,7 @@
 
     <!-- date range -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!-- Datatable init js -->
@@ -283,7 +283,7 @@
     <script src="/assets/js/plugins/service/tableReport.js"></script>
     <!-- apexcharts -->
     <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
-<?php if(session()->getFlashdata('sukses')):?>
+    <?php if(session()->getFlashdata('sukses')):?>
         <script>
               toastr.success("<?= session()->getFlashData("sukses"); ?>");
         </script>
@@ -292,159 +292,7 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<script>
-
-    // formatKrw = (money) => {
-	// return new Intl.NumberFormat("id-ID", {
-	// 	style: "currency",
-	// 	currency: "KRW",
-	// 	minimumFractionDigits: 0,
-	// }).format(money);
-    // };
-    
-    // formatDuid = (nominal) => {
-    //     const convert = Intl.NumberFormat({
-    //         minimumFractionDigits: 2,
-    //         maximumFractionDigits: 2,
-    //     });
-    //     var parsing = convert.format(nominal).replace(',', '.');
-    //     return parsing;
-    // }
-    
-    // $('#dateRangePicker').daterangepicker({
-    //     autoUpdateInput: false,
-    //     locale: {
-    //         cancelLabel: 'Clear',
-    //         format: 'YYYY-MM-DD'
-    //     }
-    // });
-
-    // var tableSummary = $('#tableSummary').DataTable({
-    //   serverSide: true,
-    //   ajax: {
-    //     url: '',
-    //     type: 'POST',
-    //     data: function (d) {
-    //         var dateRange = $('#dateRangePicker').val().split(' - ');
-    //         d.startDate = dateRange[0];
-    //         d.endDate = dateRange[1];
-    //         return d;
-    //     },  
-       
-    //   },
-    //   columns: [
-    //     {
-    //     data: "id",
-    //     },
-    //     { data: 'idTransTB' },
-    //     {
-    //         data: function (row, type, set) {
-    //         if (row.payFor === 1) {
-    //             return row.dpOrderNo == null ? "-" : row.dpOrderNo;
-    //         } else if (row.payFor === 2) {
-    //             return row.wdOrderNo == null ? "-" : row.wdOrderNo;
-    //         } else if (row.payFor === 3) {
-    //             return '-';
-    //         } else if (row.payFor === 4) {
-    //             return '-';
-    //         } else {
-    //             return '-';
-    //         }
-    //         }
-    //     },
-    //     {
-    //         data: 'payFor',
-    //         render: function(data, type, row, meta) {
-    //         if (data === 1) {
-    //             return 'Deposit';
-    //         } else if (data === 2) {
-    //             return 'Withdraw';
-    //         } else if (data === 3) {
-    //             return 'Topup Client';
-    //         } else if (data === 4) {
-    //             return 'Ho Withdraw';
-    //         } else {
-    //             return 'Unknown';
-    //         }
-    //         }
-    //     },
-    //     {
-    //         data: 'amountTB',
-    //         render: function(data, type, row, meta) {
-    //         var amountCondition = data === null;
-    //         var formattedAmount = formatKrw(data);
-    //         var payFor = row.payFor;
-    //         var styleCondition = payFor === 1 || payFor === 3;
+    <script>
         
-    //         var transactionAmount = styleCondition ? (amountCondition ? "-" : "+" + formattedAmount) : "-" + formattedAmount;
-        
-    //         var tdStyle = styleCondition ? (amountCondition ? "" : "color:#2ecc71;font-weight: 500;") : "color:#e74c3c;font-weight: 500;";
-        
-    //         return '<td><span style="' + tdStyle + '">' + transactionAmount + '</span></td>';
-    //         }
-    //     },      
-    //     {
-    //         data: 'amtVa',
-    //         render: function(data, type, row, meta) {
-    //         var payFor = row.payFor;
-    //         var amtVaFormatted = payFor === 1 ? formatKrw(data) : "-";
-        
-    //         return amtVaFormatted;
-    //         }
-    //     },
-    //     {
-    //         data: function (row, type, set) {
-    //         if (row.payFor === 1) {
-    //             return formatKrw(row.depoCom);
-    //         } else if (row.payFor === 2) {
-    //             return formatKrw(row.wdCom);
-    //         } else {
-    //             return '-';
-    //         }
-    //         }
-    //     },
-    //     {
-    //         data: 'bankTransfer',
-    //         render: function(data, type, row, meta) {
-    //         var btFormatted = (row.payFor == 2) ? formatKrw(data) : "-";
-        
-    //         return btFormatted;
-    //         }
-    //     },
-    //     {
-    //         data: 'lastBalance',
-    //         render: function (data, type, row, meta) {
-    //         return formatKrw(data);
-    //         }
-    //     },
-    //     { data: 'name' },
-    //     {
-    //         data: 'submitTime',
-    //         render: function(data, type, row, meta) {
-    //         var date = new Date(data);
-    //         var year = date.getFullYear();
-    //         var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    //         var day = ('0' + date.getDate()).slice(-2);
-    //         var hours = ('0' + date.getHours()).slice(-2);
-    //         var minutes = ('0' + date.getMinutes()).slice(-2);
-    //         var seconds = ('0' + date.getSeconds()).slice(-2);
-    //         return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-    //         }
-    //     },
-    //     {
-    //         data: 'updatedTime',
-    //         render: function(data, type, row, meta) {
-    //         var date = new Date(data);
-    //         var year = date.getFullYear();
-    //         var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    //         var day = ('0' + date.getDate()).slice(-2);
-    //         var hours = ('0' + date.getHours()).slice(-2);
-    //         var minutes = ('0' + date.getMinutes()).slice(-2);
-    //         var seconds = ('0' + date.getSeconds()).slice(-2);
-    //         return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-    //         }
-    //     },
-    //   ]
-    // });
-</script>
+    </script>
 <?php $this->endSection();?>

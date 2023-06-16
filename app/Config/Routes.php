@@ -55,7 +55,7 @@ $routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filte
 $routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client']);
 $routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:main, client']);
 $routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client']);
-$routes->get('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client']);
+$routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client']);
 // documentation
 $routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
 
