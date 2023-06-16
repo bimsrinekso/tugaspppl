@@ -118,7 +118,7 @@ class Deposit extends BaseController
             return view('Dashboard/Main/Deposit/editPending', $data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry the data already updated");
-            return redirect()->to('/dashboard/listAccounts');
+            return redirect()->to('/dashboard/depoPending');
         }
     }
 
