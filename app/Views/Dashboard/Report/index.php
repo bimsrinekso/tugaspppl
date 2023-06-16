@@ -112,6 +112,18 @@
             </div>
         </div>
         <div class="row">
+        <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap align-items-start">
+                            <h5 class="card-title me-2">Statistik Per Week <?= $rangeHari ?></h5>
+                        </div>
+                        <hr class="mb-4">
+                        
+                        <div class="apex-charts" data-colors='["--bs-primary", "--bs-warning"]' id="area-chart" dir="ltr"></div>
+                    </div>
+                </div>
+            </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -139,18 +151,6 @@
 
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap align-items-start">
-                            <h5 class="card-title me-2">Statistik Per Week <?= $rangeHari ?></h5>
-                        </div>
-                        <hr class="mb-4">
-                        
-                        <div class="apex-charts" data-colors='["--bs-primary", "--bs-warning"]' id="area-chart" dir="ltr"></div>
                     </div>
                 </div>
             </div>
@@ -292,7 +292,5 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-    <script>
-        
-    </script>
+ 
 <?php $this->endSection();?>

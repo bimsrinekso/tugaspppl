@@ -71,6 +71,7 @@ class Report extends BaseController
         $enpSm = 'api/reportSummary';
         $enpDp = 'api/reportDepo';
         $enpWd = 'api/reportWd';
+        $enpCt = 'api/getReport';
         if ($this->sesi->get('role') == 1) {
             if ($start != '') {
                 $dataBody = [
@@ -82,27 +83,30 @@ class Report extends BaseController
                 $postDataSm = $this->async->post($enpSm, $this->apimain, $dataBody);
                 $postDataDp = $this->async->post($enpDp, $this->apimain, $dataBody);
                 $postDataWd = $this->async->post($enpWd, $this->apimain, $dataBody);
+                $postDataCt = $this->async->post($enpCt, $this->apimain, $dataBody);
+                $parseDataCt = $postDataCt->response;
                 $response = [
                     "summary" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataSm->response->recordsTotal,
                         "recordsFiltered" => $postDataSm->response->recordsFiltered,
                         "data" => $postDataSm->response->data,
-                        "param" => $param
+                        "weekWithdraw" => $parseDataCt->weekWithdraw,
+                        "weekDeposit" => $parseDataCt->weekDeposit
                     ],
                     "deposit" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataDp->response->recordsTotal,
                         "recordsFiltered" => $postDataDp->response->recordsFiltered,
                         "data" => $postDataDp->response->data,
-                        "param" => $param
+                        
                     ],
                     "withdraw" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataWd->response->recordsTotal,
                         "recordsFiltered" => $postDataWd->response->recordsFiltered,
                         "data" => $postDataWd->response->data,
-                        "param" => $param
+                        
                     ]
                 ];
                 echo json_encode($response);
@@ -114,27 +118,30 @@ class Report extends BaseController
                 $postDataSm = $this->async->post($enpSm, $this->apimain, $dataBody);
                 $postDataDp = $this->async->post($enpDp, $this->apimain, $dataBody);
                 $postDataWd = $this->async->post($enpWd, $this->apimain, $dataBody);
+                $postDataCt = $this->async->post($enpCt, $this->apimain, $dataBody);
+                $parseDataCt = $postDataCt->response;
                 $response = [
                     "summary" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataSm->response->recordsTotal,
                         "recordsFiltered" => $postDataSm->response->recordsFiltered,
                         "data" => $postDataSm->response->data,
-                        "param" => $param
+                        "weekWithdraw" => $parseDataCt->weekWithdraw,
+                        "weekDeposit" => $parseDataCt->weekDeposit
                     ],
                     "deposit" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataDp->response->recordsTotal,
                         "recordsFiltered" => $postDataDp->response->recordsFiltered,
                         "data" => $postDataDp->response->data,
-                        "param" => $param
+                        
                     ],
                     "withdraw" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataWd->response->recordsTotal,
                         "recordsFiltered" => $postDataWd->response->recordsFiltered,
                         "data" => $postDataWd->response->data,
-                        "param" => $param
+                        
                     ]
                 ];
                 echo json_encode($response);
@@ -150,27 +157,30 @@ class Report extends BaseController
                 $postDataSm = $this->async->post($enpSm, $this->apimain, $dataBody);
                 $postDataDp = $this->async->post($enpDp, $this->apimain, $dataBody);
                 $postDataWd = $this->async->post($enpWd, $this->apimain, $dataBody);
+                $postDataCt = $this->async->post($enpCt, $this->apimain, $dataBody);
+                $parseDataCt = $postDataCt->response;
                 $response = [
                     "summary" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataSm->response->recordsTotal == null ? 0 : $postDataSm->response->recordsTotal,
                         "recordsFiltered" => $postDataSm->response->recordsFiltered == null ? 0 : $postDataSm->response->recordsFiltered,
                         "data" => $postDataSm->response->data == null ? [] : $postDataSm->response->data,
-                        "param" => $param
+                        "weekWithdraw" => $parseDataCt->weekWithdraw,
+                        "weekDeposit" => $parseDataCt->weekDeposit
                     ],
                     "deposit" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataDp->response->recordsTotal == null ? 0 : $postDataDp->response->recordsTotal,
                         "recordsFiltered" => $postDataDp->response->recordsFiltered == null ? 0 :$postDataDp->response->recordsFiltered,
                         "data" => $postDataDp->response->data == null ? [] : $postDataDp->response->data,
-                        "param" => $param
+                        
                     ],
                     "withdraw" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataWd->response->recordsTotal == null ? 0 : $postDataWd->response->recordsTotal,
                         "recordsFiltered" => $postDataWd->response->recordsFiltered == null ? 0 : $postDataWd->response->recordsFiltered,
                         "data" => $postDataWd->response->data == null ? [] : $postDataWd->response->data,
-                        "param" => $param
+                        
                     ]
                 ];
                 echo json_encode($response);
@@ -182,27 +192,30 @@ class Report extends BaseController
                 $postDataSm = $this->async->post($enpSm, $this->apiclient, $dataBody);
                 $postDataDp = $this->async->post($enpDp, $this->apiclient, $dataBody);
                 $postDataWd = $this->async->post($enpWd, $this->apiclient, $dataBody);
+                $postDataCt = $this->async->post($enpCt, $this->apimain, $dataBody);
+                $parseDataCt = $postDataCt->response;
                 $response = [
                     "summary" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataSm->response->recordsTotal == null ? 0 : $postDataSm->response->recordsTotal,
                         "recordsFiltered" => $postDataSm->response->recordsFiltered == null ? 0 : $postDataSm->response->recordsFiltered,
                         "data" => $postDataSm->response->data == null ? [] : $postDataSm->response->data,
-                        "param" => $param
+                        "weekWithdraw" => $parseDataCt->weekWithdraw,
+                        "weekDeposit" => $parseDataCt->weekDeposit
                     ],
                     "deposit" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataDp->response->recordsTotal == null ? 0 : $postDataDp->response->recordsTotal,
                         "recordsFiltered" => $postDataDp->response->recordsFiltered == null ? 0 :$postDataDp->response->recordsFiltered,
                         "data" => $postDataDp->response->data == null ? [] : $postDataDp->response->data,
-                        "param" => $param
+                        
                     ],
                     "withdraw" => [
                         "draw" => isset($param['draw']) ? $param['draw'] : 0,
                         "recordsTotal" => $postDataWd->response->recordsTotal == null ? 0 : $postDataWd->response->recordsTotal,
                         "recordsFiltered" => $postDataWd->response->recordsFiltered == null ? 0 : $postDataWd->response->recordsFiltered,
                         "data" => $postDataWd->response->data == null ? [] : $postDataWd->response->data,
-                        "param" => $param
+                        
                     ]
                 ];
                 echo json_encode($response);
