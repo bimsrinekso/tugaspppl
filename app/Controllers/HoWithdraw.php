@@ -98,6 +98,15 @@ class HoWithdraw extends BaseController
 
     public function updateWdHo($id = null)
     {
+        $isValid = [
+            'bankTransfer' => 'required'
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/hoWithdraw/edit/'. $id);
+        }
         $enp = 'api/ho/updateWdHo';
         $dataBody = [
             'reqho_id' => $id,
@@ -113,7 +122,7 @@ class HoWithdraw extends BaseController
             return redirect()->to('dashboard/hoWithdraw');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/hoWithdraw/edit');
+            return redirect()->to('dashboard/hoWithdraw/edit/'. $id);
         }
     }
 

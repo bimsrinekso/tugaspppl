@@ -25,6 +25,18 @@ class UserManagement extends BaseController
     }
 
     public function saveUser(){
+        $isValid = [
+            'username' => 'required',
+            'email' => 'required|valid_email',
+            'password' => 'required',
+            'role' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/createUser');
+        }
         $enp = 'api/saveUser';
         $dataBody = [
             'username'=> $this->request->getVar('username'),
