@@ -108,6 +108,7 @@
                                             <th>VA Fee</th>
                                             <th>Commission</th>
                                             <th>Bank Transfer</th>
+                                            <th>Remark</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
                                             <th>Submit Time</th>
@@ -135,6 +136,7 @@
                                                     $name = $listTrack->name;
                                                     $submitTime = format_date($listTrack->submitTime, 'd-m-Y H:i:s');
                                                     $updatedTime = format_date($listTrack->updatedTime, 'd-m-Y H:i:s');
+                                                    $topupremark = $listTrack->topupremark == null ? '-' : $listTrack->topupremark;
                                                 ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
@@ -147,6 +149,7 @@
                                                     <td><?= $amtVaFormatted ?></td>
                                                     <td><?= $komisiFormatted ?></td>
                                                     <td><?= $btFormatted ?></td>
+                                                    <td><?=$topupremark?></td>
                                                     <td><?= $lastBalance ?></td>
                                                     <td><?= $name ?></td>
                                                     <td><?= $submitTime ?></td>
@@ -175,47 +178,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-expired" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Transaction Detail</th>
-                                            <th>Remark</th>
-                                            <th>Amount</th>
-                                            <th>Last Balance</th>
-                                            <th>Update Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if($dataTrack != null):?>
-                                        <?php $i = 1; ?>
-                                            <?php foreach($dataTrack as $listTrack):?>
-                                                <tr>
-                                                    <td>
-                                                        <?= $i++ ?> 
-                                                    </td>
-                                                    <td>
-                                                        a 
-                                                    </td>
-                                                    <td>
-                                                        b 
-                                                    </td>
-                                                    <td>
-                                                       c
-                                                    </td>
-                                                    <td>
-                                                        d 
-                                                    </td>
-                                                    <td>
-                                                    <?= date('d-m-Y H:i:s', strtotime($listTrack->createdAt))?>
-                                                    </td>
-                                                   
-                                                </tr>
-                                          
-                                          <?php endforeach;?>
-                                          <?php endif;?>
-                                    </tbody>
-                                </table>
                             </div>
                           </div>
                         
@@ -349,6 +311,7 @@
         let name = listTrack.name;
         let submitTime = moment(listTrack.submitTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
         let updatedTime = moment(listTrack.updatedTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+        let topupremark = listTrack.topupremark == null ? '-' : listTrack.topupremark;
 
         table.append(`
             <tr>
@@ -360,6 +323,7 @@
                 <td>${amtVaStr}</td>
                 <td>${komisiFormatted}</td>
                 <td>${btFormatted}</td>
+                <td>${topupremark}</td>
                 <td>${lastBalance}</td>
                 <td>${name}</td>
                 <td>${submitTime}</td>

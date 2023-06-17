@@ -36,6 +36,7 @@
                                         <th>No</th>
                                         <th>Transaction ID</th>
                                         <th>Amount</th>
+                                        <th>Remark</th>
                                         <th>Operator</th>
                                         <th>Client Name</th>
                                         <th>Created At</th>
@@ -50,6 +51,7 @@
                                                     <td><?= $i++ ?> </td>
                                                     <th><?= $listTopup->transactionID == null ? "-" : $listTopup->transactionID?></th>
                                                     <td><?= formatKrw($listTopup->amount) ?> </td>
+                                                    <td><?= $listTopup->remark == null ? '-' : $listTopup->remark ?> </td>
                                                     <td><?= $listTopup->username ?> </td>
                                                     <td><?= $listTopup->clientName ?> </td>
                                                     <td> <?= date('d-m-Y', strtotime($listTopup->tglbuat))?> </td>

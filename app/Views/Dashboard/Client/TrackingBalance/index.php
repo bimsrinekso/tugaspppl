@@ -108,6 +108,7 @@
                                             <th>VA Fee</th>
                                             <th>Commission</th>
                                             <th>Bank Transfer</th>
+                                            <th>Remark</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
                                             <th>Submit Time</th>
@@ -136,6 +137,7 @@
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $submitTime = format_date($listTrack->submitTime, 'd-m-Y H:i:s');
                                                     $updatedTime = format_date($listTrack->updatedTime, 'd-m-Y H:i:s');
+                                                    $topupremark = $listTrack->topupremark == null ? '-' : $listTrack->topupremark;
                                                 ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
@@ -148,6 +150,7 @@
                                                     <td><?= $amtVaFormatted ?></td>
                                                     <td><?= $komisiFormatted ?></td>
                                                     <td><?= $btFormatted ?></td>
+                                                    <td><?=$topupremark?></td>
                                                     <td><?= $lastBalance ?></td>
                                                     <td><?= $name ?></td>
                                                     <td><?= $submitTime ?></td>
@@ -291,6 +294,7 @@
         let name = listTrack.name;
         let submitTime = moment(listTrack.submitTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
         let updatedTime = moment(listTrack.updatedTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+        let topupremark = listTrack.topupremark == null ? '-' : listTrack.topupremark;
 
         table.append(`
             <tr>
@@ -302,6 +306,7 @@
                 <td>${amtVaStr}</td>
                 <td>${komisiFormatted}</td>
                 <td>${btFormatted}</td>
+                <td>${topupremark}</td>
                 <td>${lastBalance}</td>
                 <td>${name}</td>
                 <td>${submitTime}</td>

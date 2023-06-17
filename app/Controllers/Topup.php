@@ -34,6 +34,7 @@ class Topup extends BaseController
     public function saveTopup(){
         $isValid = [
             'amount' => 'required',
+            'remark' => 'required',
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -45,6 +46,7 @@ class Topup extends BaseController
         $amount= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'amount'=> $amount,
+            'remark' => $this->request->getVar('remark'),
             'clientID'=> $this->request->getVar('clientID'),
             'actionBy' => $this->sesi->get('userid')
         ];
@@ -84,6 +86,7 @@ class Topup extends BaseController
     public function updateTopup($id = null){
         $isValid = [
             'amount' => 'required',
+            'remark' => 'required'
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -96,6 +99,7 @@ class Topup extends BaseController
         $dataBody = [
             'topup_id' => $id,
             'amount'=> $amount,
+            'remark' => $this->request->getVar('remark'),
             'actionBy' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);

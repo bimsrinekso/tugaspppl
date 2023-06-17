@@ -14,7 +14,11 @@
                         <form action="" method="post">
                             <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
-                                <input type="text" id="Amount" class="form-control" value="<?=$dataTopup->amount?>" name="amount" id="formrow-firstname-input" placeholder="Enter Amount" required>
+                                <input type="text" id="Amount" class="form-control" value="<?=$dataTopup->amount?>" name="amount" placeholder="Enter Amount" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formrow-firstname-input" class="form-label">Remark</label>
+                                <input type="text" id="remark" class="form-control" name="remark" value="<?=$dataTopup->remark?>" placeholder="Enter Remark" required>
                             </div>
                             <div class="mb-3">
                                     <label for="pickClient" class="form-label">Client</label>
