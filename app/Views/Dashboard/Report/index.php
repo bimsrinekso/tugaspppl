@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">      
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <style>
     .loader {
             margin-top: 10px;
@@ -86,69 +87,32 @@
                 <div class="card">
                     <div class="card-body">
                     <div class="column" class="mb-2">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-group">
-                                            <label for="daterange" class="control-label">Filter Date</label>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Choose date range" name="daterangeConf"
-                                                        id="daterange" value="" />
-                                                </div>
-                                                <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light"
-                                                        id="btnFilterCon" data-tabactive="datatable-active"
-                                                        onclick="filterTgl()" type="button">Filter</button>
-                                                </div>
-                                            </div>
-
+                            <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="daterange" class="control-label">Filter Date</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="Choose date range" name="daterangeConf" id="daterange" value="" />
+                                        </div>
+                                        <div class="col-4">
+                                        <button class="btn btn-secondary waves-effect waves-light" id="btnFilterCon" data-tabactive="datatable-active" type="button">Filter</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                    <button class="btn btn-success waves-effect waves-light"
-                                                        id="btnFilterCon" data-tabactive="datatable-active"
-                                                        type="button"><i class="fas fa-file-excel"></i> Export to Excel</button>
-                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                            <button class="btn btn-success waves-effect waves-light"
+                                id="btnFilterCon" data-tabactive="datatable-active"
+                                type="button"><i class="fas fa-file-excel"></i> Export to Excel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                    <div class="d-flex flex-wrap align-items-start">
-                            <h5 class="card-title me-2">Summary Report</h5>
-                        </div>
-                        <table id="tableSummary" class="table table-striped table-bordered nowrap w-100">
-                            <thead>
-                                <th>
-                                    Opening Balance
-                                </th>
-                                <th>
-                                    Deposit
-                                </th>
-                                <th>
-                                    VA FEE
-                                </th>
-                                <th>Withdraw</th>
-                                <th>Bank Charge</th>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
+        <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-wrap align-items-start">
@@ -157,6 +121,36 @@
                         <hr class="mb-4">
                         
                         <div class="apex-charts" data-colors='["--bs-primary", "--bs-warning"]' id="area-chart" dir="ltr"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-start">
+                            <h5 class="card-title me-2">Summary Report</h5>
+                        </div>
+                        <table id="tableSummary" class="table table-striped table-bordered nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Transaction ID</th>
+                                    <th>Order No</th>
+                                    <th>Remark</th>
+                                    <th>Amount</th>
+                                    <th>VA Fee</th>
+                                    <th>Commission</th>
+                                    <th>Bank Transfer</th>
+                                    <th>Last Balance</th>
+                                    <th>Client Name</th>
+                                    <th>Submit Time</th>
+                                    <th>Update Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -246,6 +240,9 @@
                     </div>
                 </div>
             </div> <!-- end col -->
+            <div id="summaryTableContainer"></div>
+            <div id="depositTableContainer"></div>
+            <div id="withdrawTableContainer"></div>
         </div> <!-- end row -->
 
     </div> <!-- container-fluid -->
@@ -272,6 +269,7 @@
 
     <!-- date range -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!-- Datatable init js -->
@@ -282,11 +280,10 @@
 
     <!-- toastr init -->
     <script src="/assets/js/pages/toastr.init.js"></script>
-    <script src="/assets/js/tableReport.js"></script>
     <script src="/assets/js/plugins/service/tableReport.js"></script>
     <!-- apexcharts -->
     <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
-<?php if(session()->getFlashdata('sukses')):?>
+    <?php if(session()->getFlashdata('sukses')):?>
         <script>
               toastr.success("<?= session()->getFlashData("sukses"); ?>");
         </script>
@@ -295,163 +292,5 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<script>
-    var weekDeposit = "<?php echo json_encode($weekDeposit); ?>;";
-    weekDeposit = weekDeposit.split(",");
-    var weekWithdraw = "<?php echo json_encode($weekWithdraw); ?>;"
-    weekWithdraw = weekWithdraw.split(",");
-    $(document).ready(function () {
-        tableSummary = $("#tableSummary").DataTable({
-            lengtChange: !1,
-            "scrollX": true,
-            "bDestroy": true
-        })
-        // tableConf = $("#datatable-active").DataTable({
-        //     lengthChange: !1,
-        //     "scrollX": true,
-        //     "bDestroy": true
-        // });
-        tableRej = $("#datatable-inactive").DataTable({
-            lengthChange: !1,
-            "scrollX": true,
-            "bDestroy": true
-        });
-        var tableWithdraw = $("#datatable-all").DataTable({
-            lengthChange: !1,
-            "scrollX" : true,
-            "bDestroy": true
-        });
-        targetFilter = $("#btnFilterCon").data("tabactive");
-        $('input[name="daterangeConf"]').daterangepicker({
-            timePicker: true,
-            autoUpdateInput: false,
-            startDate: moment().startOf('hour'),
-            endDate: moment().startOf('hour').add(32, 'hour'),
-            locale: {
-                cancelLabel: 'Clear',
-                format: 'DD/MM/YYY hh:mm A'
-            }
-        });
-        $('input[name="daterangeConf"]').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('DD/MM/YYYY hh:mm A') + ' - ' + picker.endDate.format(
-                'DD/MM/YYYY hh:mm A'));
-        });
-        $('input[name="daterangeConf"]').on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val('');
-        });
-        $('input[name="daterangeRej"]').daterangepicker({
-            timePicker: true,
-            autoUpdateInput: false,
-            startDate: moment().startOf('hour'),
-            endDate: moment().startOf('hour').add(32, 'hour'),
-            locale: {
-                cancelLabel: 'Clear',
-                format: 'DD/MM/YYY hh:mm A'
-            }
-        });
-        $('input[name="daterangeRej"]').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('DD/MM/YYYY hh:mm A') + ' - ' + picker.endDate.format(
-                'DD/MM/YYYY hh:mm A'));
-        });
-        $('input[name="daterangeRej"]').on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val('');
-        });
-        $('input[name="daterangeAll"]').daterangepicker({
-            timePicker: true,
-            autoUpdateInput: false,
-            startDate: moment().startOf('hour'),
-            endDate: moment().startOf('hour').add(32, 'hour'),
-            locale: {
-                cancelLabel: 'Clear',
-                format: 'DD/MM/YYY hh:mm A'
-            }
-        });
-        $('input[name="daterangeAll"]').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('DD/MM/YYYY hh:mm A') + ' - ' + picker.endDate.format(
-                'DD/MM/YYYY hh:mm A'));
-        });
-        $('input[name="daterangeAll"]').on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val('');
-        });
-    });
-
-    function getChartColorsArray(e) {
-        if (null !== document.getElementById(e)) {
-            var t = document.getElementById(e).getAttribute("data-colors");
-            if (t) return (t = JSON.parse(t)).map(function (e) {
-                var t = e.replace(" ", "");
-                if (-1 === t.indexOf(",")) {
-                    var r = getComputedStyle(document.documentElement).getPropertyValue(t);
-                    return r || t
-                }
-                var a = e.split(",");
-                return 2 != a.length ? t : "rgba(" + getComputedStyle(document.documentElement)
-                    .getPropertyValue(a[0]) + "," + a[1] + ")"
-            });
-            console.warn("data-colors Attribute not found on:", e)
-        }
-    }
-    var options, chart, areaChartColors = getChartColorsArray("area-chart");
-    areaChartColors && (options = {
-        series: [{
-            name: "Deposit",
-            data: weekDeposit
-        }, {
-            name: "Withdraw",
-            data: weekWithdraw
-        }],
-        chart: {
-            height: 350,
-            type: "area",
-            toolbar: {
-                show: !1
-            }
-        },
-        colors: areaChartColors,
-        dataLabels: {
-            enabled: !1
-        },
-        stroke: {
-            curve: "smooth",
-            width: 2
-        },
-        fill: {
-            type: "gradient",
-            gradient: {
-                shadeIntensity: 1,
-                inverseColors: !1,
-                opacityFrom: .45,
-                opacityTo: .05,
-                stops: [20, 100, 100, 100]
-            }
-        },
-        yaxis: {
-            labels: {
-                formatter: function (value) {
-                    return cvUang.format(value);
-                }
-            },
-        },
-        xaxis: {
-            categories: ["Sun", "Mon", "Tues", "Wed", "Thus", "Fri", "Sat"],
-            labels: {
-                formatter: function (value) {
-                    return value;
-                }
-            }
-        },
-        markers: {
-            size: 3,
-            strokeWidth: 3,
-            hover: {
-                size: 4,
-                sizeOffset: 2
-            }
-        },
-        legend: {
-            position: "top",
-            horizontalAlign: "right"
-        }
-    }, (chart = new ApexCharts(document.querySelector("#area-chart"), options)).render());
-</script>
+ 
 <?php $this->endSection();?>

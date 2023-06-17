@@ -35,7 +35,7 @@
                           </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                                <table id="tabListAll" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="tabListAll" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
                                         <th>Virtual Account Number</th>
@@ -62,34 +62,12 @@
                                                         <a href="<?= base_url('/dashboard/editAccount/'. $listUser->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" data-bs-toggle="modal" data-bs-target="#hapus<?=$listUser->id?>">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listUser->id?>)">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </td>
 
                                                 </tr>
-                                                    <?php foreach($dataUser as $listUser) : ?>
-                                                        <div class="modal fade" id="hapus<?=$listUser->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <form action="<?=base_url("dashboard/deleteAccount/". $listUser->id)?>" method="post">
-                                                                        <input value="DELETE" type="hidden" name="_method" name="id">
-                                                                        <div class="modal-body">
-                                                                            <p>Are you sure want to delete this data?</p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
                                             <?php endforeach; ?> 
                                         <?php else: ?>
         
@@ -98,7 +76,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="active" role="tabpanel" aria-labelledby="active-tab">
-                                <table id="tabListActive" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="tabListActive" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
                                         <th>Virtual Account Number</th>
@@ -125,34 +103,12 @@
                                                     <a href="<?= base_url('/dashboard/editAccount/'. $listActive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" data-bs-toggle="modal" data-bs-target="#hapusA<?=$listActive->id?>">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listActive->id?>)">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                 </td>
                                                 </tr>
                                                 <?php  endforeach ?> 
-                                                <?php foreach($dataActive as $listActive) : ?>
-                                                        <div class="modal fade" id="hapusA<?=$listActive->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <form action="<?=base_url("dashboard/deleteAccount/". $listActive->id)?>" method="post">
-                                                                        <input value="DELETE" type="hidden" name="_method" name="id">
-                                                                        <div class="modal-body">
-                                                                            <p>Are you sure want to delete this data?</p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
                                                 <?php else: ?>
         
                                      <?php endif ?> 
@@ -160,7 +116,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="inactive" role="tabpanel" aria-labelledby="inactive-tab">
-                                <table id="tabListRun" class="table table-bordered dt-responsive nowrap w-100">
+                                <table id="tabListRun" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
                                         <th>Virtual Account Number</th>
@@ -187,34 +143,12 @@
                                                     <a href="<?= base_url('/dashboard/editAccount/'. $listInactive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" data-bs-toggle="modal" data-bs-target="#hapusIN<?=$listInactive->id?>">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listInactive->id?>)">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                 </td>
                                                 </tr>
                                                 <?php  endforeach ?> 
-                                                <?php foreach($dataInactive as $listInactive) : ?>
-                                                        <div class="modal fade" id="hapusIN<?=$listInactive->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <form action="<?=base_url("dashboard/deleteAccount/". $listInactive->id)?>" method="post">
-                                                                        <input value="DELETE" type="hidden" name="_method" name="id">
-                                                                        <div class="modal-body">
-                                                                            <p>Are you sure want to delete this data?</p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
                                                 <?php else: ?>
         
                                         <?php endif ?> 
@@ -227,7 +161,26 @@
                 </div>
             </div> <!-- end col -->
         </div> <!-- end row -->
-
+        <div class="modal fade" id="noticeDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="formDelete" method="post">
+                        <input value="DELETE" type="hidden" name="_method" name="id">
+                        <div class="modal-body">
+                            <p>Are you sure want to delete this data?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnCloseModal" class="btn btn-primary">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
@@ -261,6 +214,13 @@
   <!-- toastr init -->
   <script src="/assets/js/pages/toastr.init.js"></script>
 <script>
+    $("#btnCloseModal").on("click", function(){
+        $("#noticeDelete").modal("hide");
+    })
+    function cbModal(id){
+        $("#noticeDelete").modal("show");
+        $("#formDelete").attr("action", "<?= base_url('dashboard/deleteAccount'); ?>/" + id);
+    }
     $(document).ready(function () {
         $("#tabListAll").DataTable({
             lengthChange: !1,

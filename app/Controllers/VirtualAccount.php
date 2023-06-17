@@ -48,6 +48,19 @@ class VirtualAccount extends BaseController
         return view('Dashboard/Main/virtualAccount/createAcc', $data);
     }
     public function saveAcc(){
+        $isValid = [
+            'bank'=> 'required|regex_match[/^[\p{L}\p{Zs}\p{Script=Hangul}]*$/u]',
+            'vaNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+            'holderName' => 'required|regex_match[/^[\p{L}\p{Zs}\p{Script=Hangul}]*$/u]',
+            'payMethod' => 'regex_match[/^[\p{L}\p{Zs}\p{Script=Hangul}]*$/u]',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/createAccount');
+        }
+
         $enp = 'api/va/saveAccount';
         $dataBody = [
             'bank'=> $this->request->getVar('bank'),

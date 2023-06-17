@@ -14,6 +14,17 @@ class AuthRegis extends BaseController
     }
 
     public function saveRegis(){
+        $isValid = [
+            'username' => 'required',
+            'password' => 'required',
+            'email' => 'required|valid_email'
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('register');
+        }
         $dataBody = [
             "username" => $this->request->getVar('username'),
             "password" => $this->request->getVar('password'),

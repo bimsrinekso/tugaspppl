@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers;  
 
 class TrackingBalance extends BaseController
 {

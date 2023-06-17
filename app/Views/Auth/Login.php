@@ -63,14 +63,14 @@
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
                                         <input type="text" class="form-control" name="username" id="username"
-                                            placeholder="Enter username">
+                                            placeholder="Enter username" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
                                         <div class="input-group auth-pass-inputgroup">
                                             <input type="password" class="form-control" name="password" placeholder="Enter password"
-                                                aria-label="Password" aria-describedby="password-addon">
+                                                aria-label="Password" aria-describedby="password-addon" required>
                                             <button class="btn btn-light " type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button>
                                         </div>
@@ -83,6 +83,9 @@
                                     </div>
 
                                 </form>
+                                <div class="mt-4 text-center">
+                                            <a href="<?= base_url('forgot-password') ?>" class="text-muted"><i class="mdi mdi-lock me-1"></i> Forgot your password?</a>
+                                        </div>
                             </div>
 
                         </div>

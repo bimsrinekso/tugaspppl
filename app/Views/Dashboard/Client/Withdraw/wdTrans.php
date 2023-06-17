@@ -155,11 +155,11 @@
                                                         <?= $listTranasWd->cusBank ?> 
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->process))?> 
+                                                        <?= format_date($listTranasWd->request, 'd-m-Y H:i:s');?>
                                                     </td>
                                                     <td>
-                                                        <?= date('d-m-Y H:i:s', strtotime($listTranasWd->request))?> 
-                                                    </td>                                               
+                                                        <?= format_date($listTranasWd->process, 'd-m-Y H:i:s');?>
+                                                    </td>                                        
                                                     <td>
                                                         <?= $listTranasWd->remark ?> 
                                                     </td>
@@ -209,6 +209,7 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
 
 <!-- Datatable init js -->
 <script src="/js/pages/datatables.init.js"></script>
@@ -233,8 +234,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
         });
     
         function formatDate(dateStr, isEndDate) {
@@ -257,13 +258,18 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
+        if(isNaN(num)){
+            num = 0;
+        }
         return uang.format(num);
     }
 
     function populateTable(table, data){
         var i = 0;
         $.each(data, function(a, b) {
+            var createdDate = moment.tz(b.request, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            var processedDate = moment.tz(b.process, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
             i++;
             table.append(
                 "<tr>" +
@@ -280,8 +286,8 @@
                 "<td>" + b.bankName + "</td>" +
                 "<td>" + b.accountNumber + "</td>" +
                 "<td>" + b.cusBank + "</td>" +
-                "<td>" + moment(b.process).format("DD-MM-YYYY h:mm:ss") + "</td>" +
-                "<td>" + moment(b.request).format("DD-MM-YYYY h:mm:ss") + "</td>" +
+                "<td>" + createdDate + "</td>" +
+                "<td>" + processedDate + "</td>"+
                 "<td>" + b.remark + "</td>" +
                 "<td>" + b.operator + "</td>" +
                 "</tr>"

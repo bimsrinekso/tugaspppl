@@ -13,7 +13,6 @@
                         <h4 class="card-title mb-4">Update Deposit</h4> 
                         <form action="" method="post">
                             <div class="row">
-                                
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Transaction ID</label>
@@ -39,7 +38,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Actual Amount</label>
-                                        <input type="text" id="Amount" name="actualAmount" value="<?=$dataDepo->actualAmount?>" class="form-control">
+                                        <input type="text" id="Amount" name="actualAmount" value="<?=$dataDepo->actualAmount?>" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

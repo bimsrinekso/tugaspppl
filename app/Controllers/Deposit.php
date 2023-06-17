@@ -58,7 +58,6 @@ class Deposit extends BaseController
                 "dataRej" => $parseData->dataRej,
 
             ];
-            // dd($data);
             return view('Dashboard/Main/Deposit/listTrans', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -89,7 +88,6 @@ class Deposit extends BaseController
                 "dataPen" => $parseData->dataPen,
 
             ];
-            // dd($data);
             return view('Dashboard/Main/Deposit/listPending', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -115,12 +113,12 @@ class Deposit extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $data = [
-                "dataDepo" => $parseData[0],
+                "dataDepo" => $parseData,
             ];
             return view('Dashboard/Main/Deposit/editPending', $data);
         }else{
-            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('/dashboard/listAccounts');
+            $this->sesi->setFlashdata('error', "Sorry the data already updated");
+            return redirect()->to('/dashboard/depoPending');
         }
     }
 

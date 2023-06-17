@@ -133,8 +133,8 @@
                                                     $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $name = $listTrack->name;
-                                                    $submitTime = date("d-m-Y H:i:s", strtotime($listTrack->submitTime));
-                                                    $updatedTime = date("d-m-Y H:i:s", strtotime($listTrack->updatedTime));
+                                                    $submitTime = format_date($listTrack->submitTime, 'd-m-Y H:i:s');
+                                                    $updatedTime = format_date($listTrack->updatedTime, 'd-m-Y H:i:s');
                                                 ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
@@ -277,8 +277,8 @@
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KRW',
-    minimumFractionDigits: 0, //
-    maximumFractionDigits: 0, //
+    minimumFractionDigits: 2, //
+    maximumFractionDigits: 2, //
         });
 
     function cbHref(isi){
@@ -310,7 +310,7 @@
     }
 
     function formatCurrency(num) {
-        num = parseInt(num);
+        num = parseFloat(num).toFixed(3);
         if(isNaN(num)){
             num = 0;
         }
@@ -347,8 +347,8 @@
         let btFormatted = (listTrack.payFor == 2) ? formatCurrency(listTrack.bankTransfer) : "-";
         let lastBalance = formatCurrency(listTrack.lastBalance);
         let name = listTrack.name;
-        let submitTime = moment(listTrack.submitTime).format('DD-MM-YYYY HH:mm:ss');
-        let updatedTime = moment(listTrack.updatedTime).format('DD-MM-YYYY HH:mm:ss');
+        let submitTime = moment(listTrack.submitTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+        let updatedTime = moment(listTrack.updatedTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
 
         table.append(`
             <tr>

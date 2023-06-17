@@ -67,7 +67,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Fee Bank Transfer</label>
-                                        <input type="text" id="fee" name="bankTransfer" class="form-control" placeholder="Enter Amount Bank Transfer">
+                                        <input type="text" id="fee" name="bankTransfer" class="form-control" placeholder="Enter Amount Bank Transfer" required>
                                     </div>
                                 </div>
                             </div>
