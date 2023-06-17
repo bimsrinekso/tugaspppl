@@ -60,6 +60,7 @@ $routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:mai
 $routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
 // log
 $routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main']);
+$routes->get('/dashboard/detailPost', 'Monitoring::detailPost', ['filter' => 'role:main']);
 $routes->get('/dashboard/detailCallback', 'Monitoring::detailCallback', ['filter' => 'role:main']);
 $routes->get('/dashboard/editErrorlog', 'Monitoring::updateError', ['filter' => 'role:main']);
 
