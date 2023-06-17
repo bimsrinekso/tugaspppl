@@ -123,9 +123,10 @@
   <script src="/js/pages/toastr.init.js"></script>
   
 <script>
+    var isData = `<?=$detailError->message?>`;
     const message = CodeMirror(document.getElementById('Message'),{
-        value: 'ini message',
-        mode: 'shell',
+        value: isData,
+        mode: 'application/json',
         theme: 'material',
         readOnly: true,
         lineNumbers: true,

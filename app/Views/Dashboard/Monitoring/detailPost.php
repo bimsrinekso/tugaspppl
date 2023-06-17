@@ -2,6 +2,7 @@
 <?php $this->section('css');?>  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/material.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css">
 <style>
     .CodeMirror{
         height:auto !important;
@@ -39,9 +40,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/php/php.min.js"></script>
 
 <script>
+    var isData = `<?=$detailPost->body?>`;
+    var jsonString = JSON.stringify(isData);
+    var replacedString = jsonString.replace(/,/g, "\n");
+    console.log(replacedString);
     const body = CodeMirror(document.getElementById('Body'),{
-        value: 'ini body',
-        mode: 'shell',
+        value: isData,
+        mode: 'application/json',
         theme: 'material',
         readOnly: true,
         lineNumbers: true,

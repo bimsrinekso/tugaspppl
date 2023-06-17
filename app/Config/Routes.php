@@ -60,9 +60,10 @@ $routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:mai
 $routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
 // log
 $routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main']);
-$routes->get('/dashboard/detailPost', 'Monitoring::detailPost', ['filter' => 'role:main']);
-$routes->get('/dashboard/detailCallback', 'Monitoring::detailCallback', ['filter' => 'role:main']);
-$routes->get('/dashboard/editErrorlog', 'Monitoring::updateError', ['filter' => 'role:main']);
+$routes->get('/dashboard/detailPost/(:any)', 'Monitoring::detailPost/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/detailCallback/(:any)', 'Monitoring::detailCallback/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/editErrorlog/(:any)', 'Monitoring::editError/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editErrorlog/(:any)', 'Monitoring::saveError/$1', ['filter' => 'role:main']);
 
 //
 $routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client']);

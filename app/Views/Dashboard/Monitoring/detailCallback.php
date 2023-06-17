@@ -22,15 +22,15 @@
                     <h4 class="card-title mb-4">Detail Callback</h4> 
                     <div class="mb-3">
                         <label for="formrow-firstname-input" class="form-label">Transaction ID</label>
-                        <input type="text" id="Transaction" class="form-control" value="" name="transaction" readonly="true">
+                        <input type="text" id="Transaction" class="form-control" value="<?=$detailCallBack->transactionID?>" name="transaction" readonly="true">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Order No</label>
-                        <input type="text" id="Order" class="form-control" name="order" value="" readonly="true">
+                        <input type="text" id="Order" class="form-control" name="order" value="<?=$detailCallBack->orderNo?>" readonly="true">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Callback URL</label>
-                        <input type="text" class="form-control" name="callback" id="Callback" value="" readonly="true">
+                        <input type="text" class="form-control" name="callback" id="Callback" value="<?=$detailCallBack->callbackUrl?>" readonly="true">
                     </div>
                     <div class="mb-3">
                         <label for="formrow-firstname-input" class="form-label">Body</label>
@@ -51,9 +51,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/php/php.min.js"></script>
 
 <script>
+     var isData = `<?=$detailCallBack->body?>`;
     const body = CodeMirror(document.getElementById('Body'),{
-        value: 'ini body',
-        mode: 'shell',
+         value: isData,
+        mode: 'application/json',
         theme: 'material',
         readOnly: true,
         lineNumbers: true,

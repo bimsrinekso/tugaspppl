@@ -105,16 +105,21 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody> 
+                                    <tbody>
+                                        <?php if($datapost != null): ?>
+                                            <?php $i = 1; ?>
+                                            <?php foreach($datapost as $logPost) :?> 
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?=$i++?></td>
+                                            <td><?=substr($logPost->body, 0, 100)?></td>
                                             <td>
-                                                <a class="btn btn-outline-secondary btn-sm " href="<?= base_url('dashboard/detailPost') ?>" title="Detail">
+                                                <a class="btn btn-outline-secondary btn-sm " href="<?= base_url('dashboard/detailPost/'. $logPost->id) ?>" title="Detail">
                                                     <i class='fa fa-eye'></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
                                     </tbody>
                                 </table>
                             </div>
@@ -146,18 +151,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if($datacb != null): ?>
+                                            <?php $i = 1; ?>
+                                            <?php foreach($datacb as $logCb) :?> 
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?=$i++?></td>
+                                            <td><?=$logCb->transactionID?></td>
+                                            <td><?=$logCb->orderNo?></td>
+                                            <td><?=substr($logCb->body, 0, 42)?></td>
+                                            <td><?=$logCb->callbackUrl?></td>
                                             <td>
-                                                <a class="btn btn-outline-secondary btn-sm " href="<?= base_url('dashboard/detailCallback') ?>" title="Detail">
+                                                <a class="btn btn-outline-secondary btn-sm " href="<?= base_url('dashboard/detailCallback/'.$logCb->id) ?>" title="Detail">
                                                     <i class='fa fa-eye'></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
                                     </tbody>
                                 </table>
                             </div>
@@ -182,23 +192,26 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Message</th>
-                                            <th>Status Restart</th>
                                             <th>Status Fixing</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody> 
+                                    <tbody>
+                                        <?php if($dataError != null): ?>
+                                            <?php $i = 1; ?>
+                                            <?php foreach($dataError as $logError) :?>  
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?=$i++?></td>
+                                            <td><?=substr($logError->message, 0, 101);?></td>
                                             <td></td>
                                             <td>
-                                                <a class="btn btn-outline-secondary btn-sm" href="<?= base_url('dashboard/editErrorlog') ?>" title="Edit">
+                                                <a class="btn btn-outline-secondary btn-sm" href="<?= base_url('dashboard/editErrorlog/'.$logError->id) ?>" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
                                     </tbody>
                                 </table>
                             </div>
