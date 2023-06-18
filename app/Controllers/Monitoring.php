@@ -36,7 +36,7 @@ class Monitoring extends BaseController
             'dataError'=>$parseData2,
             'datacb'=>$parseData3
         ];
-        return view('Dashboard/Monitoring/index',$data);
+        return view('Dashboard/Main/Monitoring/index',$data);
     }
 
      public function detailPost($id = null){
@@ -52,7 +52,7 @@ class Monitoring extends BaseController
                 "detailPost" => $parseData,
             ];
             // dd($parseData);
-            return view('Dashboard/Monitoring/detailPost',$data);
+            return view('Dashboard/Main/Monitoring/detailPost',$data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry the data already updated");
             return redirect()->to('/dashboard/monitoringLog');
@@ -72,7 +72,7 @@ class Monitoring extends BaseController
             $data = [
                 "detailCallBack" => $parseData,
             ];
-            return view('Dashboard/Monitoring/detailCallback',$data);
+            return view('Dashboard/Main/Monitoring/detailCallback',$data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry the data already updated");
             return redirect()->to('/dashboard/monitoringLog');
@@ -91,7 +91,7 @@ class Monitoring extends BaseController
             $data = [
                 "detailError" => $parseData,
             ];
-            return view('Dashboard/Monitoring/editError',$data);
+            return view('Dashboard/Main/Monitoring/editError',$data);
         }else{
             $this->sesi->setFlashdata('error', "Sorry the data already updated");
             return redirect()->to('/dashboard/monitoringLog');
