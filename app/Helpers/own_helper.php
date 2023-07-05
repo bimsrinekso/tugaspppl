@@ -9,12 +9,12 @@ if (!function_exists('formatKRW')) {
         // Truncate to 2 decimal places without rounding
         $pos = strpos($amount, '.');
         if ($pos !== false) {
-            $amount = substr($amount, 0, $pos + 3);
+            $amount = substr($amount, 0, $pos + 4);
         }
 
         $formatter = new \NumberFormatter('ko_KR', \NumberFormatter::CURRENCY);
-        $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 2);
-        $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 2);
+        $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 3);
+        $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 3);
         
         $formatted_amount = $formatter->formatCurrency($amount, 'KRW');
 
