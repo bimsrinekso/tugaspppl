@@ -69,66 +69,115 @@
                             <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createUser') ?> ">Create User</a>
                         </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation" >
+                              <button class="nav-link active" id="helpdesk-tab" data-bs-toggle="tab" data-bs-target="#helpdesk" type="button" role="tab" aria-controls="helpdesk" aria-selected="false">Role Helpdesk</button>
+                            </li>
                             <li class="nav-item" role="presentation">
-                              <button class="nav-link active" id="running-tab"  data-bs-toggle="tab" data-bs-target="#running" type="button" role="tab" aria-controls="running" aria-selected="true">Role Client</button>
+                              <button class="nav-link" id="client-tab" data-bs-toggle="tab" data-bs-target="#client" type="button" role="tab" aria-controls="client" aria-selected="true">Role Client</button>
                             </li>
                             <li class="nav-item" role="presentation" >
-                              <button class="nav-link" id="expired-tab"   data-bs-toggle="tab" data-bs-target="#expired" type="button" role="tab" aria-controls="expired" aria-selected="false">Role Member</button>
+                              <button class="nav-link" id="member-tab" data-bs-toggle="tab" data-bs-target="#member" type="button" role="tab" aria-controls="member" aria-selected="false">Role Member</button>
                             </li>
                           </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
-                            <div class="tab-pane fade show active" id="running" role="tabpanel" aria-labelledby="running-tab">
-                                <table id="datatable-active" class="table table-bordered dt-responsive nowrap w-100">
-                                    <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Merchant ID</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if($dataClientUser != null): ?>
-                                            <div hidden><?= $i = 1; ?> </div>
-                                            <?php foreach($dataClientUser as $listUserClient) :?>
-                                                <tr>
-                                                    <td>
-                                                        <?= $i++ ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listUserClient->id ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= $listUserClient->username ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listUserClient->email ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listUserClient->role_id ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= date('d-m-Y', strtotime($listUserClient->createdAt))?>
-                                                    </td>
-                                                    <td>
-                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editUser/'. $listUserClient->id) ?> " title="Edit">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                    <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listUserClient->id?>)">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach?>
-                                            <?php endif;?>
-                                    </tbody>
-                                </table>
+                            <div class="tab-pane fade show active" id="helpdesk" role="tabpanel" aria-labelledby="helpdesk-tab">
+                                <table id="datatable-helpdesk" class="table table-bordered dt-responsive nowrap w-100">
+                                            <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Username</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Created At</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if($dataHelpdesk != null): ?>
+                                                    <div hidden><?= $i = 1; ?> </div>
+                                                    <?php foreach($dataHelpdesk as $listHelpdesk) :?>
+                                                        <tr>
+                                                            <td>
+                                                                <?= $i++ ?> 
+                                                            </td>
+                                                            <td>
+                                                                <?= $listHelpdesk->username ?> 
+                                                            </td>
+                                                            <td>
+                                                                <?= $listHelpdesk->email ?> 
+                                                            </td>
+                                                            <td>
+                                                                <?= $listHelpdesk->role_id ?> 
+                                                            </td>
+                                                            <td>
+                                                                <?= date('d-m-Y', strtotime($listHelpdesk->createdAt))?>
+                                                            </td>
+                                                            <td>
+                                                            <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editUser/'. $listHelpdesk->id) ?> " title="Edit">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                            </a>
+                                                            <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listHelpdesk->id?>)">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach?>
+                                                    <?php endif;?>
+                                            </tbody>
+                                        </table>
                             </div>
-                            <div class="tab-pane fade" id="expired" role="tabpanel" aria-labelledby="expired-tab">
-                                <table id="datatable-expired" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                            <div class="tab-pane fade" id="client" role="tabpanel" aria-labelledby="client-tab">
+                                <table id="datatable-client" class="table table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Merchant ID</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if($dataClientUser != null): ?>
+                                                <div hidden><?= $i = 1; ?> </div>
+                                                <?php foreach($dataClientUser as $listUserClient) :?>
+                                                    <tr>
+                                                        <td>
+                                                            <?= $i++ ?> 
+                                                        </td>
+                                                        <td>
+                                                            <?= $listUserClient->id ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $listUserClient->username ?> 
+                                                        </td>
+                                                        <td>
+                                                            <?= $listUserClient->email ?> 
+                                                        </td>
+                                                        <td>
+                                                            <?= $listUserClient->role_id ?> 
+                                                        </td>
+                                                        <td>
+                                                            <?= date('d-m-Y', strtotime($listUserClient->createdAt))?>
+                                                        </td>
+                                                        <td>
+                                                        <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editUser/'. $listUserClient->id) ?> " title="Edit">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listUserClient->id?>)">
+                                                                <i class="fas fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach?>
+                                                <?php endif;?>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
+                                <table id="datatable-member" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -256,8 +305,9 @@
 </script>
 <script>
     var targetFilter;
-    var tableRun;
-    var tableExp;
+    var tableClient;
+    var tableMember;
+    var tableHelpdesk
     var targetTgl = 'Run';
     $(document).ready(function () {
         targetFilter = $("#btnFilterRun").data("tabactive");
@@ -266,21 +316,29 @@
         .tables( { visible: true, api: true } )
         .columns.adjust();
         });
-       tableRun = $("#datatable-active").DataTable({
+        tableMember = $("#datatable-helpdesk").DataTable({
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
             scrollCollapse: true,
             "bDestroy": true
         });
-        tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
+        tableMember.buttons().container().appendTo("#datatable-helpdesk_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
-        tableExp = $("#datatable-expired").DataTable({
+       tableClient = $("#datatable-client").DataTable({
             lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
             scrollCollapse: true,
             "bDestroy": true
         });
-        tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");
+        tableClient.buttons().container().appendTo("#datatable-client_wrapper .col-md-6:eq(0)"), $(
+            ".dataTables_length select").addClass("form-select form-select-sm");
+        tableMember = $("#datatable-member").DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollCollapse: true,
+            "bDestroy": true
+        });
+        tableMember.buttons().container().appendTo("#datatable-member_wrapper .col-md-6:eq(0)");
     });
 </script>
 <?php $this->endSection();?>

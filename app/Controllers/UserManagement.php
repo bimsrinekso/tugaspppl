@@ -6,22 +6,38 @@ class UserManagement extends BaseController
 {
     public function index()
     {
+        $dataBody = [
+            'userid' => $this->sesi->get('userid')
+        ];
+        $enpAll = 'api/allUsers';
         $enpUser = 'api/getClientUser';
         $enpMember = 'api/getMember';
-        $getUser = $this->async->get($enpUser, $this->apimain);
-        $getMember = $this->async->get($enpMember, $this->apimain);
-        $parseUser = $getUser->response;
-        $parseMember = $getMember->response;
+        $postData = $this->async->post($enpAll, $this->apimain, $dataBody);
+        $parseData = $postData->response;
         $data = [
-            "dataClientUser" => $parseUser,
-            "dataMember" => $parseMember,
+            "dataClientUser" => $parseData->dataClient,
+            "dataMember" => $parseData->dataMember,
+            "dataHelpdesk" => $parseData->dataHelpdesk
         ];
         return view('Dashboard/Main/UserManagement/listUser', $data);
     }
 
     public function createUser()
     {
-        return view('Dashboard/Main/UserManagement/createUser');
+        $enp = 'api/createUser';
+        $dataBody = [
+            'userid' => $this->sesi->get('userid')
+        ];
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $parseData = $postData->response;
+        if($postData->status = '200'){
+            $data = [
+                "role" => $parseData
+            ];
+            return view('Dashboard/Main/UserManagement/createUser', $data);
+        }else{
+            return redirect()->to('dashboard');
+        }
     }
 
     public function saveUser(){
