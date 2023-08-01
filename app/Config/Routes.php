@@ -49,6 +49,7 @@ $routes->get('/dashboard/editMap/(:num)', 'GroupClient::editMap/$1', ['filter' =
 $routes->post('/dashboard/editMap/(:num)', 'GroupClient::updateMap/$1', ['filter' => 'role:main']);
 $routes->get('/dashboard/createMap', 'GroupClient::createMap', ['filter' => 'role:main']);
 $routes->post('/dashboard/createMap', 'GroupClient::saveMap', ['filter' => 'role:main']);
+$routes->post('/dashboard/mapping/getUserType', 'GroupClient::getUserType', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filter' => 'role:main']);
 
 //report

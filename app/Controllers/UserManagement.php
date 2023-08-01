@@ -80,7 +80,8 @@ class UserManagement extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $data = [
-                "dataUser" => $parseData,
+                "dataUser" => $parseData->dataUser,
+                "dataRole" => $parseData->dataRole
             ];
             return view('Dashboard/Main/UserManagement/editUser', $data);
         }else{

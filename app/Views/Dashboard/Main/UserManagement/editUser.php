@@ -28,7 +28,18 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Role</label>
-                                    <input type="number" value="<?=$dataUser->role_id?>" name="role" class="form-control" placeholder="Input your role">
+                                    <select id="role" name="role" class="form-select">
+                                        <?php if(!empty($dataRole)):?>
+                                            <?php foreach($dataRole as $listRole):?>
+                                                <?php if($dataUser->role_id == $listRole->id):?>
+                                                    <option value="<?=$listRole->id?>" selected><?=$listRole->name?></option>
+                                                <?php else:?>
+                                                    <option value="<?=$listRole->id?>"><?=$listRole->name?></option>
+                                                <?php endif?>
+                                                
+                                            <?php endforeach?>
+                                        <?php endif?>
+                                        </select>
                                 </div>
                             </div>
                             

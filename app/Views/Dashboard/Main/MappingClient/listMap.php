@@ -44,7 +44,7 @@
                                                     <td><?=$i++?> </td>
                                                     <td> <?=$listMap->name?></td>
                                                     <td> <?=$listMap->username?></td>
-                                                    <td> <?=$listMap->apiKey?></td>
+                                                    <td> <?=$listMap->apiKey == NULL ? '-' : $listMap->apiKey?></td>
                                                     <td>
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editMap/'. $listMap->idGcl) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
