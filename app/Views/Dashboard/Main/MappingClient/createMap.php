@@ -2,6 +2,11 @@
 <?php $this->section('css');?>
 <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">   
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .setVisible{
+        visibility: hidden;
+    }
+</style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -10,23 +15,26 @@
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Create Virtual Account</h4> 
+                        <h4 class="card-title mb-4">Create Mapping</h4> 
                         <form action="" method="post">
-                            <div class="row">                               
+                            <div class="column">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <label for="pickApi" class="form-label">Api</label>
-                                        <select id="pickApi" name="apiKeyID" class="form-select select2">
-                                            <option value=""></option>
-                                            <?php if($dataApi != null):?>
-                                            <?php foreach ($dataApi as $listApi): ?>
-                                                <option value="<?=$listApi->id?>"><?=$listApi->apiKey?></option>
-                                            <?php endforeach;?>
-                                            <?php else:?>
-                                            <?php endif;?>
-                                        </select>
+                                    <div class="form-check mb-3">
+                                            <input class="form-check-input" name="userType" value="client" type="radio" id="clientRadio" checked>
+                                            <label class="form-check-label" for="clientRadio">
+                                                    Client
+                                                </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="userType" value="helpdesk" type="radio" id="helpdeskRadio">
+                                            <label class="form-check-label" for="helpdeskRadio">
+                                                    Helpdesk
+                                                </label>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="pickClient" class="form-label">Client</label>
@@ -41,9 +49,21 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
+                                <div class="col-lg-6" id="apiForm">
+                                    <div class="mb-3">
+                                        <label for="pickApi" class="form-label">Api</label>
+                                        <select id="pickApi" name="apiKeyID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataApi != null):?>
+                                            <?php foreach ($dataApi as $listApi): ?>
+                                                <option value="<?=$listApi->id?>"><?=$listApi->apiKey?></option>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+                                </div>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="pickUser" class="form-label">User</label>
@@ -86,6 +106,35 @@
   <script src="/js/pages/toastr.init.js"></script>
 
   <script>
+    function getUserType(type){
+        $.ajax({
+            url: '<?=base_url('dashboard/mapping/getUserType')?>',
+            method: 'POST',
+            data: {
+                userType: type
+            },
+            dataType: 'json',
+            success: function (response) {
+                $('#pickUser').empty();
+                if (response.users) {
+                    response.users.forEach(function (user) {
+                        $('#pickUser').append($('<option>', {
+                            value: user.id,
+                            text: user.username
+                        }));
+                    });
+                } else {
+                    $('#pickUser').append($('<option>', {
+                        value: '',
+                        text: 'No users found'
+                    }));
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
     $(document).ready(function () {
         $("#pickApi").select2({
             placeholder: {
@@ -107,6 +156,15 @@
                 text: 'Choose Users'
 		     },
             language: "en",
+        });
+        $('input[name="userType"]').on('change', function () {
+            if ($(this).val() === 'client') {
+                $('#apiForm').removeClass('setVisible');
+                getUserType('client');
+            } else {
+                $('#apiForm').addClass('setVisible');
+                getUserType('helpdesk');
+            }
         });
     });
   </script>

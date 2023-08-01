@@ -141,10 +141,13 @@ class GroupClient extends BaseController
         $enpApi = 'api/listApi';
         $enpUser = 'api/getClientUser';
         $enpClient = 'api/listClient';
+        $enpHelpdesk = 'api/getHelpdesk';
         $getUser = $this->async->get($enpUser, $this->apimain);
         $getClient = $this->async->get($enpClient, $this->apimain);
         $getData = $this->async->get($enpApi, $this->apimain);
+        $getHelpdesk = $this->async->get($enpHelpdesk, $this->apimain);
         $parseUser = $getUser->response;
+        $parseHelpdesk = $getHelpdesk->response;
         $parseClient = $getClient->response;
         $parseApi = $getData->response;
         $dataBody = [
@@ -153,13 +156,23 @@ class GroupClient extends BaseController
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
-            $data = [
-                "dataGrClient" => $parseData,
-                "dataUser" => $parseUser,
-                "dataClient" => $parseClient,
-                "dataApi" => $parseApi 
-            ];
-            return view('Dashboard/Main/MappingClient/editMap', $data);
+            if(empty($parseData->idApi)){
+                $data = [
+                    "dataGrClient" => $parseData,
+                    "dataUser" => $parseHelpdesk,
+                    "dataClient" => $parseClient,
+                    "dataApi" => $parseApi 
+                ];
+                return view('Dashboard/Main/MappingClient/editMap', $data);
+            }else{
+                $data = [
+                    "dataGrClient" => $parseData,
+                    "dataUser" => $parseUser,
+                    "dataClient" => $parseClient,
+                    "dataApi" => $parseApi 
+                ];
+                return view('Dashboard/Main/MappingClient/editMap', $data);
+            }
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/listMap');
@@ -204,9 +217,30 @@ class GroupClient extends BaseController
         return view('Dashboard/Main/MappingClient/createMap', $data);
     }
 
+    public function getUserType(){
+        $enpUser = 'api/getClientUser';
+        $enpHelpdesk = 'api/getHelpdesk';
+        $userType = $this->request->getVar('userType');
+        if($userType == 'client'){
+            $getUser = $this->async->get($enpUser, $this->apimain);
+            $parseUser = $getUser->response;
+            $data = [
+                "users" => $parseUser 
+            ];
+
+            echo json_encode($data);
+        }else{
+            $getUser = $this->async->get($enpHelpdesk, $this->apimain);
+            $parseUser = $getUser->response;
+            $data = [
+                "users" => $parseUser 
+            ];
+            echo json_encode($data);
+        }
+    }
+
     public function saveMap(){
         $isValid = [
-            'apiKeyID'=> 'required',
             'UserID'=> 'required',
             'clientID'=> 'required',
         ];

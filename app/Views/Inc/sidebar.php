@@ -100,7 +100,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-user"></i>
-                        <span key="t-withdraw">user Management</span>
+                        <span key="t-withdraw">User Management</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="<?= base_url('dashboard/listUser')?>" key="t-tui-calendar">List User</a></li>
