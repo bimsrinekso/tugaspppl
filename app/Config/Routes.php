@@ -34,8 +34,8 @@ $routes->get('/', 'Home::index');
 // $routes->post('/register', 'AuthRegis::saveRegis');
 $routes->get('/login', 'AuthLogin::index');
 $routes->post('/login', 'AuthLogin::cekLogin');
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member']);
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client, helpdesk']);
+$routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member,helpdesk']);
 // dashboard
 $routes->get('/dashboard/listClients', 'GroupClient::listClient', ['filter' => 'role:main']);
 $routes->get('/dashboard/createClient', 'GroupClient::createClient', ['filter' => 'role:main']);
@@ -53,26 +53,26 @@ $routes->post('/dashboard/mapping/getUserType', 'GroupClient::getUserType', ['fi
 $routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filter' => 'role:main']);
 
 //report
-$routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client']);
-$routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:main, client']);
-$routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client']);
-$routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client']);
+$routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client,helpdesk']);
 // documentation
-$routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
+$routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client,helpdesk']);
 // log
-$routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main']);
-$routes->get('/dashboard/detailPost/(:any)', 'Monitoring::detailPost/$1', ['filter' => 'role:main']);
-$routes->get('/dashboard/detailCallback/(:any)', 'Monitoring::detailCallback/$1', ['filter' => 'role:main']);
-$routes->get('/dashboard/editErrorlog/(:any)', 'Monitoring::editError/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/editErrorlog/(:any)', 'Monitoring::saveError/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/detailPost/(:any)', 'Monitoring::detailPost/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/detailCallback/(:any)', 'Monitoring::detailCallback/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editErrorlog/(:any)', 'Monitoring::editError/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/editErrorlog/(:any)', 'Monitoring::saveError/$1', ['filter' => 'role:main,helpdesk']);
 
 //
-$routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/createAccount', 'VirtualAccount::createAcc', ['filter' => 'role:main']);
-$routes->post('/dashboard/createAccount', 'VirtualAccount::saveAcc', ['filter' => 'role:main']);
-$routes->delete('/dashboard/deleteAccount/(:num)', 'VirtualAccount::delAcc/$1', ['filter' => 'role:main']);
-$routes->get('/dashboard/editAccount/(:num)', 'VirtualAccount::detailAcc/$1', ['filter' => 'role:main, client']);
-$routes->post('/dashboard/editAccount/(:num)', 'VirtualAccount::updateAcc/$1', ['filter' => 'role:main, client']);
+$routes->get('/dashboard/listAccounts', 'VirtualAccount::index', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/createAccount', 'VirtualAccount::createAcc', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/createAccount', 'VirtualAccount::saveAcc', ['filter' => 'role:main,helpdesk']);
+$routes->delete('/dashboard/deleteAccount/(:num)', 'VirtualAccount::delAcc/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editAccount/(:num)', 'VirtualAccount::detailAcc/$1', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/editAccount/(:num)', 'VirtualAccount::updateAcc/$1', ['filter' => 'role:main, client,helpdesk']);
 //userm
 $routes->get('/dashboard/createUser', 'UserManagement::createUser', ['filter' => 'role:main']);
 $routes->post('/dashboard/createUser', 'UserManagement::saveUser', ['filter' => 'role:main']);
@@ -88,14 +88,14 @@ $routes->post('/dashboard/editProfile', 'Profile::updateProfile', ['filter' => '
 $routes->post('/dashboard/changePassword', 'Profile::updatePassword', ['filter' => 'role:client']);
 $routes->get('/dashboard/personalKey', 'Profile::detailPersonalKey', ['filter' => 'role:client']);
 //depo
-$routes->get('/dashboard/listDeposit', 'Deposit::listDeposit', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/depoTransaction', 'Deposit::listTrans', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/depoPending', 'Deposit::listPending', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/depoPending/update/(:num)', 'Deposit::editPending/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/depoPending/update/(:num)', 'Deposit::updatePending/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/monitorDepo', 'Deposit::monitorDepo', ['filter' => 'role:main, client']);
-$routes->post('/dashboard/monitorPending', 'Deposit::monitorPending', ['filter' => 'role:main, client']);
-$routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role:main, client']);
+$routes->get('/dashboard/listDeposit', 'Deposit::listDeposit', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/depoTransaction', 'Deposit::listTrans', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/depoPending', 'Deposit::listPending', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/depoPending/update/(:num)', 'Deposit::editPending/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/depoPending/update/(:num)', 'Deposit::updatePending/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/monitorDepo', 'Deposit::monitorDepo', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/monitorPending', 'Deposit::monitorPending', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role:main, client,helpdesk']);
 
 //setbank
 $routes->get('/dashboard/setBank', 'setBank::index', ['filter' => 'role:client']);
@@ -104,20 +104,20 @@ $routes->get('/dashboard/setBank/update', 'setBank::indexU', ['filter' => 'role:
 $routes->post('/dashboard/setBank/update', 'setBank::updateBank', ['filter' => 'role:client']);
 
 //wd
-$routes->get('/dashboard/withdrawTrans', 'Withdraw::wdTrans', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/withdrawPending', 'Withdraw::listPending', ['filter' => 'role:main, client']);
-$routes->get('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::editWd/$1', ['filter' => 'role:main, client']);
-$routes->post('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::updateWd/$1', ['filter' => 'role:main, client']);
-$routes->post('/dashboard/filterWd', 'Withdraw::filterWd', ['filter' => 'role:main, client']);
-$routes->post('/dashboard/filterPending', 'Withdraw::filterPending', ['filter' => 'role:main, client']);
+$routes->get('/dashboard/withdrawTrans', 'Withdraw::wdTrans', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/withdrawPending', 'Withdraw::listPending', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::editWd/$1', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::updateWd/$1', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/filterWd', 'Withdraw::filterWd', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/filterPending', 'Withdraw::filterPending', ['filter' => 'role:main, client,helpdesk']);
 
 //settle
-$routes->get('/dashboard/makeAdjustment', 'Settlement::indexSettle', ['filter' => 'role:main']);
-$routes->get('/dashboard/createAdj', 'Settlement::createSettle', ['filter' => 'role:main']);
-$routes->post('/dashboard/createAdj', 'Settlement::saveSettle', ['filter' => 'role:main']);
-$routes->get('/dashboard/editAdj/(:num)', 'Settlement::editSettle/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main']);
-$routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/makeAdjustment', 'Settlement::indexSettle', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/createAdj', 'Settlement::createSettle', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/createAdj', 'Settlement::saveSettle', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editAdj/(:num)', 'Settlement::editSettle/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main,helpdesk']);
+$routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main,helpdesk']);
 
 // api
 $routes->get('/dashboard/generateApis', 'GenerateApi::index', ['filter' => 'role:main']);
@@ -127,11 +127,11 @@ $routes->get('/dashboard/detailApi/(:num)', 'GenerateApi::detailApi/$1', ['filte
 //
 
 // base bank
-$routes->get('/dashboard/baseBank', 'Bank::index', ['filter' => 'role:main']);
-$routes->get('/dashboard/baseBank/create', 'Bank::createBank', ['filter' => 'role:main']);
-$routes->post('/dashboard/baseBank/create', 'Bank::saveBank', ['filter' => 'role:main']);
-$routes->get('/dashboard/baseBank/detail/(:any)', 'Bank::detailBank/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/baseBank/detail/(:any)', 'Bank::updateBank/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/baseBank', 'Bank::index', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/baseBank/create', 'Bank::createBank', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/baseBank/create', 'Bank::saveBank', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/baseBank/detail/(:any)', 'Bank::detailBank/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/baseBank/detail/(:any)', 'Bank::updateBank/$1', ['filter' => 'role:main,helpdesk']);
 //
 $routes->get('/dashboard/calculateComission', 'CalcComission::indexCalc', ['filter' => 'role:main']);
 $routes->get('/dashboard/createCom', 'CalcComission::createCalc', ['filter' => 'role:main']);
@@ -156,8 +156,8 @@ $routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' 
 $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main']);
 
 
-$routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client']);
-$routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client']);
+$routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client,helpdesk']);
+$routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client,helpdesk']);
 
 
 //Forgot Pasword

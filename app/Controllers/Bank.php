@@ -6,7 +6,10 @@ class Bank extends BaseController
 {
     public function index(){
         $enp = 'api/bank/getAll';
-        $getData = $this->async->get($enp, $this->apimain);
+        $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+        $getData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $getData->response;
         $data = [
             "allData" => $parseData,

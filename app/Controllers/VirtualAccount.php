@@ -34,6 +34,19 @@ class VirtualAccount extends BaseController
                 "dataInactive" => $parseData->dataInactive,
             ];
             return view('Dashboard/Client/virtualAccount/index', $data);
+        }else if ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            // dd($parseData);
+            $data = [
+                "dataUser" => $parseData->dataUser,
+                "dataActive" => $parseData->dataActive,
+                "dataInactive" => $parseData->dataInactive,
+            ];
+            return view('Dashboard/Main/virtualAccount/index', $data);
         }else{
             return view('Dashboard/Client/index');
         }

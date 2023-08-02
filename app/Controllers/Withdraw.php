@@ -33,6 +33,19 @@ class Withdraw extends BaseController
                 "dataTrans" => $parseData->dataTrans,
             ];
             return view('Dashboard/Client/Withdraw/wdTrans', $data);
+        }elseif ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            if (is_object($parseData->dataTrans) && !is_countable($parseData->dataTrans)) {
+                $parseData->dataTrans = [$parseData->dataTrans];
+            }
+            $data = [
+                "dataTrans" => $parseData->dataTrans,
+            ];
+            return view('Dashboard/Main/Withdraw/wdTrans', $data);
         }
     }
 
@@ -61,6 +74,17 @@ class Withdraw extends BaseController
                 
             ];
             return view('Dashboard/Client/Withdraw/listPending', $data);
+        }else if ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            $data = [
+                "dataPen" => $parseData->dataPen,
+                
+            ];
+            return view('Dashboard/Main/Withdraw/listPending', $data);
         }
     }
 

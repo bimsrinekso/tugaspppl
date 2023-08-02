@@ -47,6 +47,28 @@ class Dashboard extends BaseController
                 "totalBankTransfer" => $parseData->totalBankTransfer,
             ];
             return view('Dashboard/Client/index', $data);
+        } elseif($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            // dd($parseData);
+            $data = [
+                "totalUser" => $parseData->totalUser,
+                "totalBlcClient" => $parseData->totalBlcClient,
+                "totalDepo" => $parseData->totalDepo,
+                "totalWd" => $parseData->totalWd,
+                "totalBlcMain" => $parseData->totalBlcMain,
+                "totalSettle" => $parseData->totalSettle,
+                "totalHo" => $parseData->totalHo,
+                "totalTopup" => $parseData->totalTopup,
+                "totalKomisiDp" => $parseData->totalKomisiDp,
+                "totalFeeVaDp" => $parseData->totalFeeVaDp,
+                "totalKomisiWd" => $parseData->totalKomisiWd,
+                "totalBankTransfer" => $parseData->totalBankTransfer,
+            ];
+            return view('Dashboard/Client/index',$data );
         }else{
             return view('Dashboard/Client/index');
         }

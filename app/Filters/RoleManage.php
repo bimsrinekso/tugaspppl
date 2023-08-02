@@ -19,6 +19,7 @@ class RoleManage implements FilterInterface
             $enp = 'api/cekSelf';
             $posData = $async->post($enp, '', $dataBody);
             $isRole = $posData->response->role;
+            // dd($isRole);
             if(in_array($isRole, $arguments)){
                 return;
             }else{
