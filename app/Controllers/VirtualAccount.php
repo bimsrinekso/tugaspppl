@@ -14,7 +14,6 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
-            // dd($parseData);
             $data = [
                 "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
@@ -27,7 +26,6 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
-            // dd($parseData);
             $data = [
                 "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
@@ -40,13 +38,12 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
-            // dd($postData);
             $data = [
                 "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
-            return view('Dashboard/Main/virtualAccount/index', $data);
+            return view('Dashboard/Helpdesk/virtualAccount/index', $data);
         }else{
             return view('Dashboard/Client/index');
         }
