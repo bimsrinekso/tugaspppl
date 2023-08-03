@@ -1,6 +1,7 @@
 <?php $this->extend('Inc/main');?>
 <?php $this->section('css');?>
-<link rel="stylesheet" type="text/css" href="/assets//libs/toastr/build/toastr.min.css">     
+<link rel="stylesheet" type="text/css" href="/assets//libs/toastr/build/toastr.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -11,13 +12,35 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Edit Virtual Account</h4> 
                         <form action="" method="post">
-                            <div class="mb-3">
+                            <div class="row">
+                            <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataClient != null):?>
+                                                <?php foreach ($dataClient as $listClient): ?>
+                                                <?php if($dataVa->clientID == $listClient->id ):?>
+                                                    <option value="<?=$listClient->id?>" selected="selected">
+                                                    <?=$listClient->name?>
+                                                    </option>
+                                                    <?php else:?>
+                                                    <option value="<?=$listClient->id?>">
+                                                        <?=$listClient->name?>
+                                                    </option>
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Bank</label>
                                 <input type="text" class="form-control" name="bank" id="formrow-firstname-input" value="<?=$dataVa->bank?>" placeholder="Bank">
-                            </div>
-
-                            <div class="row">
-                                
+                                 </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Virtual Account Number</label>
@@ -74,6 +97,18 @@
 <!-- End Page-content -->
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+     $(document).ready(function () {
+        $("#pickClient").select2({
+            placeholder: {
+                id: '',
+                text: 'Choose Clients'
+		     },
+            language: "en",
+        });
+    })
+</script>
   <!-- validation init -->
   <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
