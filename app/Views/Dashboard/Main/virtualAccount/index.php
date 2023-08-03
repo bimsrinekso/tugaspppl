@@ -38,6 +38,7 @@
                                 <table id="tabListAll" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>Client Name</th>
                                         <th>Virtual Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
@@ -49,20 +50,21 @@
                                     </thead>
         
                                     <tbody>
-                                        <?php if($dataUser != null): ?>
-                                            <?php foreach($dataUser as $listUser): ?>
+                                        <?php if($allData != null): ?>
+                                            <?php foreach($allData as $listData): ?>
                                                 <tr>
-                                                    <td><?= $listUser->vaNumber ?> </td>
-                                                    <td><?= $listUser->bank ?> </td>
-                                                    <td><?= $listUser->holderName ?> </td>
-                                                    <td><?= $listUser->payMethod ?></td>
-                                                    <td><?= $listUser->action_by ?></td>
-                                                    <td><?= $listUser->status_name?></td>
+                                                    <td><?=$listData->clientName?></td>
+                                                    <td><?= $listData->vaNumber ?> </td>
+                                                    <td><?= $listData->bank ?> </td>
+                                                    <td><?= $listData->holderName ?> </td>
+                                                    <td><?= $listData->payMethod ?></td>
+                                                    <td><?= $listData->action_by ?></td>
+                                                    <td><?= $listData->status_name?></td>
                                                     <td>
-                                                        <a href="<?= base_url('/dashboard/editAccount/'. $listUser->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                        <a href="<?= base_url('/dashboard/editAccount/'. $listData->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listUser->id?>)">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listData->id?>)">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -79,6 +81,7 @@
                                 <table id="tabListActive" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>Client Name</th>
                                         <th>Virtual Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
@@ -93,6 +96,7 @@
                                     <?php if($dataActive != null) : ?>
                                         <?php foreach($dataActive as $listActive): ?>
                                                 <tr>
+                                                    <td><?=$listActive->clientName?></td>
                                                     <td><?= $listActive->vaNumber ?> </td>
                                                     <td><?= $listActive->bank ?> </td>
                                                     <td><?= $listActive->holderName ?> </td>
@@ -119,6 +123,7 @@
                                 <table id="tabListRun" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>Client Name</th>
                                         <th>Virtual Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
@@ -133,6 +138,7 @@
                                         <?php if ($dataInactive != null) : ?>
                                             <?php foreach($dataInactive as $listInactive): ?>
                                                 <tr>
+                                                    <td><?=$listInactive->clientName?></td>
                                                     <td><?= $listInactive->vaNumber ?> </td>
                                                     <td><?= $listInactive->bank ?> </td>
                                                     <td><?= $listInactive->holderName ?> </td>

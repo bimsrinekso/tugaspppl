@@ -16,7 +16,7 @@ class VirtualAccount extends BaseController
             $parseData = $postData->response;
             // dd($parseData);
             $data = [
-                "dataUser" => $parseData->dataUser,
+                "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
@@ -29,7 +29,7 @@ class VirtualAccount extends BaseController
             $parseData = $postData->response;
             // dd($parseData);
             $data = [
-                "dataUser" => $parseData->dataUser,
+                "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
@@ -40,9 +40,9 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
-            // dd($parseData);
+            // dd($postData);
             $data = [
-                "dataUser" => $parseData->dataUser,
+                "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];

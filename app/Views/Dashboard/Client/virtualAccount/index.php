@@ -47,8 +47,8 @@
                                     </thead>
         
                                     <tbody>
-                                        <?php if($dataUser != null): ?>
-                                            <?php foreach($dataUser as $listUser): ?>
+                                        <?php if($allData != null): ?>
+                                            <?php foreach($allData as $listUser): ?>
                                                 <tr>
                                                     <td><?= $listUser->vaNumber ?> </td>
                                                     <td><?= $listUser->bank ?> </td>
