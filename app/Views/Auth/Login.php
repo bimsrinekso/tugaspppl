@@ -4,7 +4,7 @@
 <head>
         
         <meta charset="utf-8" />
-        <title>Login | Cloudgenaera</title>
+        <title>Login | Nirwanacloud</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- App favicon -->
 
