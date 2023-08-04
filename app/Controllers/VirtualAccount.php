@@ -72,10 +72,10 @@ class VirtualAccount extends BaseController
     }
     public function saveAcc(){
         $isValid = [
-            'bank'=> 'required|regex_match[/^[\p{L}\p{Zs}\p{Script=Hangul}]*$/u]',
+            'bank'=> 'required',
             'vaNumber' => 'required|regex_match[/^[0-9\-]+$/]',
-            'holderName' => 'required|regex_match[/^[\p{L}\p{Zs}\p{Script=Hangul}]*$/u]',
-            'payMethod' => 'regex_match[/^[\p{L}\p{Zs}\p{Script=Hangul}]*$/u]',
+            'holderName' => 'required',
+            'payMethod' => 'required',
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();

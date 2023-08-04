@@ -7,7 +7,8 @@ class Deposit extends BaseController
     public function listDeposit()
     {
         $enp = 'api/listDepo';
-        if ($this->sesi->get('role') == 1) {
+        $role = $this->sesi->get('role');
+        if ($role == 1 || $role == 2 || $role == 4) {
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
             ];
@@ -23,24 +24,19 @@ class Deposit extends BaseController
                 "dataRun" => $parseData->dataRun,
                 "dataExp" => $parseData->dataExp,
             ];
-            return view('Dashboard/Main/Deposit/listDeposit', $data);
-        } elseif($this->sesi->get('role') == 2) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-            $parseData = $postData->response;
-            if (is_object($parseData->dataRun) && !is_countable($parseData->dataRun)) {
-                $parseData->dataRun = [$parseData->dataRun];
+            if($role == 1){
+                return view('Dashboard/Main/Deposit/listDeposit', $data);
             }
-            if (is_object($parseData->dataExp) && !is_countable($parseData->dataExp)) {
-                $parseData->dataExp = [$parseData->dataExp];
+            if($role == 2){
+                return view('Dashboard/Client/Deposit/listDeposit', $data);
             }
-            $data = [
-                "dataRun" => $parseData->dataRun,
-                "dataExp" => $parseData->dataExp,
-            ];
-            return view('Dashboard/Client/Deposit/listDeposit', $data);
+            if($role == 4){
+                // dd($data);
+                return view('Dashboard/Helpdesk/Deposit/listDeposit', $data);
+            }
+
+        } else{
+            return redirect()->to('dashboard');
         }
     }
 
