@@ -1,0 +1,81 @@
+<?php $this->extend('Inc/main');?>
+<?php $this->section('css');?>
+<link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">   
+<?php $this->endSection();?>
+<?php $this->section('isKonten');?>
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Update User</h4> 
+                        <form action="" method="post">
+                            <div class="row">   
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" value="<?=$dataUser->username?>" name="username" class="form-control" placeholder="Input your username">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" value="<?=$dataUser->email?>" name="email" class="form-control" placeholder="Input your email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Role</label>
+                                    <select id="role" name="role" class="form-select">
+                                        <?php if(!empty($dataRole)):?>
+                                            <?php foreach($dataRole as $listRole):?>
+                                                <?php if($dataUser->role_id == $listRole->id):?>
+                                                    <option value="<?=$listRole->id?>" selected><?=$listRole->name?></option>
+                                                <?php else:?>
+                                                    <option value="<?=$listRole->id?>"><?=$listRole->name?></option>
+                                                <?php endif?>
+                                                
+                                            <?php endforeach?>
+                                        <?php endif?>
+                                        </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <button type="submit" class="btn btn-primary w-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end card body -->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+<?php $this->endSection();?>
+<?php $this->section('javascript');?>
+  <!-- validation init -->
+  <script src="/assets/js/pages/validation.init.js"></script>
+  <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+
+  <!-- toastr init -->
+  <script src="/assets/js/pages/toastr.init.js"></script>
+
+  <?php if(session()->getFlashdata('sukses')):?>
+        <script>
+              toastr.success("<?= session()->getFlashData("sukses"); ?>");
+        </script>
+    <?php elseif(session()->getFlashdata('error')):?>
+        <script>
+            toastr.error("<?= session()->getFlashData("error"); ?>");
+        </script>
+    <?php endif?>
+<?php $this->endSection();?>

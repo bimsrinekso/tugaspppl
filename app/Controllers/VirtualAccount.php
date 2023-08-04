@@ -14,9 +14,8 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
-            // dd($parseData);
             $data = [
-                "dataUser" => $parseData->dataUser,
+                "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
@@ -27,9 +26,8 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
-            // dd($parseData);
             $data = [
-                "dataUser" => $parseData->dataUser,
+                "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
@@ -40,25 +38,37 @@ class VirtualAccount extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
-            // dd($parseData);
             $data = [
-                "dataUser" => $parseData->dataUser,
+                "allData" => $parseData->allData,
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
-            return view('Dashboard/Main/virtualAccount/index', $data);
+            return view('Dashboard/Helpdesk/virtualAccount/index', $data);
         }else{
             return view('Dashboard/Client/index');
         }
     }
     public function createAcc(){
+        $role = $this->sesi->get('role');
         $enp = 'api/va/groupStatus';
         $getData = $this->async->get($enp, $this->apimain);
         $parseData = $getData->response;
-        $data = [
-            "groupStatus" => $parseData
-        ];
-        return view('Dashboard/Main/virtualAccount/createAcc', $data);
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
+        $data;
+        if($role == 1){
+            $data = [
+                "dataClient" => $parseClient,
+                "groupStatus" => $parseData
+            ];
+            return view('Dashboard/Main/virtualAccount/createAcc', $data);
+        }elseif($role == 4){
+            $data = [
+                "groupStatus" => $parseData
+            ];
+            return view('Dashboard/Helpdesk/virtualAccount/createAcc', $data);
+        }
     }
     public function saveAcc(){
         $isValid = [
@@ -81,6 +91,8 @@ class VirtualAccount extends BaseController
             'holderName' => $this->request->getVar('holderName'),
             'payMethod' => $this->request->getVar('payMethod'),
             'status' => $this->request->getVar('status'),
+            'userid' => $this->sesi->get('userid'),
+            'idClient' => $this->request->getVar('clientID'),
             'action_by' => $this->sesi->get('username')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
@@ -95,21 +107,36 @@ class VirtualAccount extends BaseController
     }
 
     public function detailAcc($id = null){
+        $role = $this->sesi->get('role');
         $enp = 'api/va/cekIdVa';
         $enpSts = 'api/va/groupStatus';
         $dataBody = [
-            'idVa' => $id
+            'idVa' => $id,
+            'userid' => $this->sesi->get('userid')
         ];
         $getData = $this->async->get($enpSts, $this->apimain);
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         $parseStatus = $getData->response;
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
         if($postData->status == '200'){
-            $data = [
-                "dataVa" => $parseData[0],
-                "groupStatus" => $parseStatus
-            ];
-            return view('Dashboard/Main/virtualAccount/editAcc', $data);
+            if($role == 1){
+                $data = [
+                    "dataVa" => $parseData[0],
+                    "groupStatus" => $parseStatus,
+                    "dataClient" => $parseClient,
+                ];
+                return view('Dashboard/Main/virtualAccount/editAcc', $data);   
+            }elseif($role == 4){
+                $data = [
+                    "dataVa" => $parseData[0],
+                    "groupStatus" => $parseStatus
+                ];
+                return view('Dashboard/Main/virtualAccount/editAcc', $data);   
+            }
+            
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/listAccounts');
@@ -124,6 +151,8 @@ class VirtualAccount extends BaseController
             'holderName' => $this->request->getVar('holderName'),
             'payMethod' => $this->request->getVar('payMethod'),
             'status' => $this->request->getVar('status'),
+            'userid' => $this->sesi->get('userid'),
+            'idClient' => $this->request->getVar('clientID'),
             'action_by' => $this->sesi->get('username')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
