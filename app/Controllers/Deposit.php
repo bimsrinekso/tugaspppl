@@ -43,7 +43,8 @@ class Deposit extends BaseController
     public function listTrans()
     {
         $enp = 'api/listTrans';
-        if ($this->sesi->get('role') == 1) {
+        $role = $this->sesi->get('role');
+        if ($role == 1 || $role == 2 || $role == 4) {
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
             ];
@@ -54,27 +55,26 @@ class Deposit extends BaseController
                 "dataRej" => $parseData->dataRej,
 
             ];
-            return view('Dashboard/Main/Deposit/listTrans', $data);
-        } elseif($this->sesi->get('role') == 2) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataCon" => $parseData->dataCon,
-                "dataRej" => $parseData->dataRej,
-
-            ];
-            // dd($data);
-            return view('Dashboard/Client/Deposit/listTrans', $data);
+            if($role == 1){
+                return view('Dashboard/Main/Deposit/listTrans', $data);
+            }
+            if($role == 2){
+                return view('Dashboard/Client/Deposit/listTrans', $data);
+            }
+            if($role == 4){
+                return view('Dashboard/Helpdesk/Deposit/listTrans', $data);
+            }
+            
+        } else{
+            return redirect()->to('dashboard');
         }
     }
 
     public function listPending()
     {
         $enp = 'api/listPending';
-        if ($this->sesi->get('role') == 1) {
+        $role = $this->sesi->get('role');
+        if ($role == 1 || $role == 2 || $role == 4) {
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
             ];
@@ -84,23 +84,26 @@ class Deposit extends BaseController
                 "dataPen" => $parseData->dataPen,
 
             ];
-            return view('Dashboard/Main/Deposit/listPending', $data);
-        } elseif($this->sesi->get('role') == 2) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataPen" => $parseData->dataPen,
-
-            ];
-            return view('Dashboard/Client/Deposit/listPending', $data);
+            if($role == 1){
+                return view('Dashboard/Main/Deposit/listPending', $data);
+            }
+            if($role == 2){
+                return view('Dashboard/Client/Deposit/listPending', $data);
+            }
+            if($role == 4){
+                return view('Dashboard/Helpdesk/Deposit/listPending', $data);
+            }
+        } else{
+            return redirect()->to('dashboard');
         }
     }
 
     public function editPending($id = null)
     {
+        $role = $this->sesi->get('role');
+        if($role == 2){
+            return redirect()->to('dashboard');
+        }
         $enp = 'api/editPending';
         $dataBody = [
             'iddepo' => $id
