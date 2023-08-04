@@ -11,6 +11,18 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Create Settlement</h4> 
                         <form action="" method="post">
+                             <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2">
+                                            <option value="">choose client</option>
+                                            <?php if($dataClient != null):?>
+                                            <?php foreach ($dataClient as $listClient): ?>
+                                                <option value="<?=$listClient->id?>"><?=$listClient->name?></option>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
                             <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
                                 <input type="text" id="Amount" class="form-control" name="amount" id="formrow-firstname-input" placeholder="Enter Amount" required>

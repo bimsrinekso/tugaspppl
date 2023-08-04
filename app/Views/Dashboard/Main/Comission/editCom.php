@@ -48,6 +48,26 @@
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
                                 <input type="text" id="Amount" class="form-control" value="<?=$dataCom->amount?>" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
                             </div>
+                             <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataClient != null):?>
+                                                <?php foreach ($dataClient as $listClient): ?>
+                                                <?php if($dataCom->idClient == $listClient->id ):?>
+                                                    <option value="<?=$listClient->id?>" selected="selected">
+                                                    <?=$listClient->name?>
+                                                    </option>
+                                                    <?php else:?>
+                                                    <option value="<?=$listClient->id?>">
+                                                        <?=$listClient->name?>
+                                                    </option>
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
                             <div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                             </div>

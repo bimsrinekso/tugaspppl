@@ -17,6 +17,16 @@ class CalcComission extends BaseController
                 "dataCom" => $parseData->dataCom,
             ];
             return view('Dashboard/Main/Comission/index', $data);
+        }else if ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            $data = [
+                "dataCom" => $parseData->dataCom,
+            ];
+            return view('Dashboard/Helpdesk/Comission/index', $data);
         }
     }
 
@@ -33,6 +43,9 @@ class CalcComission extends BaseController
             ];
             // dd($data);
             return view('Dashboard/Main/Comission/addCalc',$data);
+        }else if ($this->sesi->get('role') == 4) {
+   
+            return view('Dashboard/Helpdesk/Comission/addCalc');
         }
         
         
@@ -56,7 +69,6 @@ class CalcComission extends BaseController
             'actionBy' => $this->sesi->get('userid'),
             'clientID' => $this->request->getVar('clientID')
         ];
-        // dd($dataBody);
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -73,13 +85,30 @@ class CalcComission extends BaseController
         $dataBody = [
             'com_id' => $id
         ];
+        $role = $this->sesi->get('role');
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
         if($postData->status == '200'){
+            if($role == 1){
+                $data = [                 
+                    "dataCom" => $parseData,
+                    "dataClient" => $parseClient,
+                ];
+                // dd($data);
+                 return view('Dashboard/Main/Comission/editCom', $data);
+            }elseif($role == 4){
+                $data = [
+                    "dataCom" => $parseData,
+                ];               
+                 return view('Dashboard/Helpdesk/Comission/editCom', $data);  
+            }
             $data = [
                 "dataCom" => $parseData,
             ];
-            return view('Dashboard/Main/Comission/editCom', $data);
+           
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/calculateComission');
@@ -101,7 +130,8 @@ class CalcComission extends BaseController
         $dataBody = [
             'com_id' => $id,
             'amount'=> $amount,
-            'actionBy' => $this->sesi->get('userid')
+            'actionBy' => $this->sesi->get('userid'),
+            'clientID' => $this->request->getVar('clientID')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;

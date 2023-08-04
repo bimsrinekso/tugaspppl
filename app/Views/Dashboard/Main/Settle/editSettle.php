@@ -12,6 +12,26 @@
                         <h4 class="card-title mb-4">Edit Settlement</h4> 
                         <form action="" method="post">
                             <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataClient != null):?>
+                                                <?php foreach ($dataClient as $listClient): ?>
+                                                <?php if($dataSettle->clientID == $listClient->id ):?>
+                                                    <option value="<?=$listClient->id?>" selected="selected">
+                                                    <?=$listClient->name?>
+                                                    </option>
+                                                    <?php else:?>
+                                                    <option value="<?=$listClient->id?>">
+                                                        <?=$listClient->name?>
+                                                    </option>
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+                            <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Amount</label>
                                 <input type="text" id="Amount" class="form-control" value="<?=$dataSettle->amount?>" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
                             </div>

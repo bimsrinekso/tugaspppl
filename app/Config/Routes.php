@@ -133,27 +133,27 @@ $routes->post('/dashboard/baseBank/create', 'Bank::saveBank', ['filter' => 'role
 $routes->get('/dashboard/baseBank/detail/(:any)', 'Bank::detailBank/$1', ['filter' => 'role:main,helpdesk']);
 $routes->post('/dashboard/baseBank/detail/(:any)', 'Bank::updateBank/$1', ['filter' => 'role:main,helpdesk']);
 //
-$routes->get('/dashboard/calculateComission', 'CalcComission::indexCalc', ['filter' => 'role:main']);
-$routes->get('/dashboard/createCom', 'CalcComission::createCalc', ['filter' => 'role:main']);
-$routes->post('/dashboard/createCom', 'CalcComission::saveCom', ['filter' => 'role:main']);
-$routes->get('/dashboard/editCom/(:num)', 'CalcComission::editCom/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/editCom/(:num)', 'CalcComission::updateCom/$1', ['filter' => 'role:main']);
-$routes->delete('/dashboard/deleteCom/(:num)', 'CalcComission::delCom/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/simulateCom', 'CalcComission::simulateCom', ['filter' => 'role:main']);
+$routes->get('/dashboard/calculateComission', 'CalcComission::indexCalc', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/createCom', 'CalcComission::createCalc', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/createCom', 'CalcComission::saveCom', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editCom/(:num)', 'CalcComission::editCom/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/editCom/(:num)', 'CalcComission::updateCom/$1', ['filter' => 'role:main,helpdesk']);
+$routes->delete('/dashboard/deleteCom/(:num)', 'CalcComission::delCom/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/simulateCom', 'CalcComission::simulateCom', ['filter' => 'role:main,helpdesk']);
 
 
-$routes->get('/dashboard/hoWithdraw', 'HoWithdraw::index', ['filter' => 'role:main']);
-$routes->get('/dashboard/hoWithdraw/edit/(:num)', 'HoWithdraw::editWdHo/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/hoWithdraw/edit/(:num)', 'HoWithdraw::updateWdHo/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/hoWithdraw', 'HoWithdraw::index', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/hoWithdraw/edit/(:num)', 'HoWithdraw::editWdHo/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/hoWithdraw/edit/(:num)', 'HoWithdraw::updateWdHo/$1', ['filter' => 'role:main,helpdesk']);
 $routes->get('/dashboard/listHo', 'HoWithdraw::listClientHo', ['filter' => 'role:client']);
 $routes->get('/dashboard/makeHo', 'HoWithdraw::reqHo', ['filter' => 'role:client']);
 $routes->post('/dashboard/makeHo', 'HoWithdraw::saveHo', ['filter' => 'role:client']);
-$routes->get('/dashboard/topUp', 'Topup::index', ['filter' => 'role:main']);
-$routes->get('/dashboard/createTopup', 'Topup::createTopup', ['filter' => 'role:main']);
-$routes->post('/dashboard/createTopup', 'Topup::saveTopup', ['filter' => 'role:main']);
-$routes->get('/dashboard/editTopup/(:num)', 'Topup::editTopup/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' => 'role:main']);
-$routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/topUp', 'Topup::index', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/createTopup', 'Topup::createTopup', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/createTopup', 'Topup::saveTopup', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editTopup/(:num)', 'Topup::editTopup/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' => 'role:main,helpdesk']);
+$routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main,helpdesk']);
 
 
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client,helpdesk']);

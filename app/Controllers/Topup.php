@@ -17,6 +17,16 @@ class Topup extends BaseController
                 "dataTopup" => $parseData->dataTopup,
             ];
             return view('Dashboard/Main/TopUp/index', $data);
+        }else if ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            $data = [
+                "dataTopup" => $parseData->dataTopup,
+            ];
+            return view('Dashboard/Helpdesk/TopUp/index', $data);
         }
     }
 
@@ -25,10 +35,15 @@ class Topup extends BaseController
         $enp = 'api/listClient';
         $getData = $this->async->get($enp, $this->apimain);
         $parseData = $getData->response;
-        $data = [
-            "dataClient" => $parseData,
-        ];
-        return view('Dashboard/Main/TopUp/createTopup',$data);
+        if ($this->sesi->get('role') == 1) {
+            $data = [
+                "dataClient" => $parseData,
+            ];
+            return view('Dashboard/Main/TopUp/createTopup',$data);
+        }else if ($this->sesi->get('role') == 4) {
+            return view('Dashboard/Helpdesk/TopUp/createTopup');
+        }
+        
     }
 
     public function saveTopup(){

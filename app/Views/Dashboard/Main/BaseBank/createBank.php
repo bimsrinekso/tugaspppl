@@ -11,6 +11,20 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Create Bank</h4> 
                         <form action="" method="post">
+                            <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2">
+                                            <option value="">choose client</option>
+                                            <?php if($dataClient != null):?>
+                                            <?php foreach ($dataClient as $listClient): ?>
+                                                <option value="<?=$listClient->id?>"><?=$listClient->name?></option>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+                                </div>
                             <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Bank Name</label>

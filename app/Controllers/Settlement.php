@@ -20,11 +20,35 @@ class Settlement extends BaseController
                 "dataSettle" => $parseData->dataSettle,
             ];
             return view('Dashboard/Main/Settle/index', $data);
+        }else if ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            if (is_object($parseData->dataSettle) && !is_countable($parseData->dataSettle)) {
+                $parseData->dataSettle = [$parseData->dataSettle];
+            }
+            $data = [
+                "dataSettle" => $parseData->dataSettle,
+            ];
+            return view('Dashboard/Helpdesk/Settle/index', $data);
         }
     }
 
     public function createSettle(){
-        return view('Dashboard/Main/Settle/addSettle');
+        $role = $this->sesi->get('role');
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
+        if($role == 1){
+            $data = [                 
+                "dataClient" => $parseClient,
+            ];
+            return view('Dashboard/Main/Settle/addSettle', $data);
+        }elseif($role == 4){           
+            return view('Dashboard/Helpdesk/Settle/addSettle');
+        }
     }
 
     public function saveSettle(){
@@ -42,7 +66,8 @@ class Settlement extends BaseController
         $dataBody = [
             'amount'=> $amount,
             'remark' => $this->request->getVar('remark'),
-            'actionBy' => $this->sesi->get('userid')
+            'actionBy' => $this->sesi->get('userid'),
+            'clientID'=> $this->request->getVar('clientID'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -62,11 +87,26 @@ class Settlement extends BaseController
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
+        $role = $this->sesi->get('role');
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
         if($postData->status == '200'){
-            $data = [
-                "dataSettle" => $parseData,
-            ];
-            return view('Dashboard/Main/Settle/editSettle', $data);
+            if($role == 1){
+                $data = [                 
+                    "dataClient" => $parseClient,
+                    "dataSettle" => $parseData,
+                ];
+               return view('Dashboard/Main/Settle/editSettle', $data);
+            }elseif($role == 4){   
+                $data = [
+                    "dataSettle" => $parseData,
+                ];
+                return view('Dashboard/Helpdesk/Settle/editSettle',$data);
+            }else{
+                $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
+                return redirect()->to('dashboard/makeAdjustment');
+            } 
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/makeAdjustment');
@@ -89,7 +129,8 @@ class Settlement extends BaseController
             'settle_id' => $id,
             'amount'=> $amount,
             'remark' => $this->request->getVar('remark'),
-            'actionBy' => $this->sesi->get('userid')
+            'actionBy' => $this->sesi->get('userid'),
+            'clientID' =>$this->request->getVar('clientID'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -119,4 +160,3 @@ class Settlement extends BaseController
     }
 
 }
-

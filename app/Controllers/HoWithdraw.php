@@ -18,6 +18,17 @@ class HoWithdraw extends BaseController
                 "dataAll" => $parseData->dataAll,
             ];
             return view('Dashboard/Main/HoWd/index', $data);
+        }else if ($this->sesi->get('role') == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            $data = [
+                "dataPen" => $parseData->dataPen,
+                "dataAll" => $parseData->dataAll,
+            ];
+            return view('Dashboard/Helpdesk/HoWd/index', $data);
         }
     }
 
@@ -67,10 +78,11 @@ class HoWithdraw extends BaseController
             'userID' => $this->sesi->get('userid')
         ];
         $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Settlement");
-            return redirect()->to('dashboard/makeHo');
+            return redirect()->to('dashboard/listHo');
         }else{
             $this->sesi->setFlashdata('error', $parseData);
             return redirect()->to('dashboard/makeHo');

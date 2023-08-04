@@ -85,6 +85,7 @@
                                         <th>Bank Code</th>
                                         <th>Region</th>
                                         <th>Region Code</th>
+                                        <th>Operator</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -100,6 +101,7 @@
                                                     <td><?=$listData->region?></td>
                                                     <td><?=$listData->regionCode?>
                                                     </td>
+                                                    <td><?=$listData->nama?></td>
                                                     <td>
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/baseBank/detail/'. $listData->id) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>

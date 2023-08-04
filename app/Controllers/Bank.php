@@ -18,7 +18,21 @@ class Bank extends BaseController
     }
 
     public function createBank(){
-        return view('Dashboard/Main/BaseBank/createBank');  
+        $role = $this->sesi->get('role');
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
+        $data;
+        if($role == 1){
+            $data = [
+                "dataClient" => $parseClient,
+            ];
+             return view('Dashboard/Main/BaseBank/createBank', $data);
+        }elseif($role == 4){
+            
+            return view('Dashboard/Helpdesk/BaseBank/createBank');  
+        }
+        
     }
 
     public function saveBank(){
@@ -28,6 +42,7 @@ class Bank extends BaseController
             'region' => 'required',
             'regionCode' => 'required',
             'universalName' => 'required',
+            
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -42,7 +57,9 @@ class Bank extends BaseController
             'bankCode' => $this->request->getVar('bankCode'),
             'region' => $this->request->getVar('region'),
             'regionCode' => $this->request->getVar('regionCode'),
-            'universalName' => $this->request->getVar('universalName')
+            'universalName' => $this->request->getVar('universalName'),
+            'clientID' => $this->request->getVar('clientID'),
+            'actionBy' => $this->sesi->get('userid'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -60,17 +77,31 @@ class Bank extends BaseController
         $dataBody = [
             'bankID' => $id
         ];
+        $role = $this->sesi->get('role');
+        $enpClient = 'api/listClient';
+        $getClient = $this->async->get($enpClient, $this->apimain);
+        $parseClient = $getClient->response;
+        $data;
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
-        if($postData->status == '200'){
-            $data = [
-                "dataBank" => $parseData,
-            ];
-            return view('Dashboard/Main/BaseBank/detailBank', $data);
+        if($postData->status == '200'){       
+            if($role == 1){
+                $data = [                 
+                    "dataBank" => $parseData,
+                    "dataClient" => $parseClient,
+                ];
+                return view('Dashboard/Main/BaseBank/detailBank', $data);
+            }elseif($role == 4){
+                $data = [
+                    "dataBank" => $parseData,
+                ];               
+                return view('Dashboard/Helpdesk/BaseBank/detailBank',$data);  
+            }
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/baseBank');
         }
+        
     }
     public function updateBank($id = null){
         $enp = 'api/bank/updateBank';
@@ -81,7 +112,9 @@ class Bank extends BaseController
             'bankCode' => $this->request->getVar('bankCode'),
             'region' => $this->request->getVar('region'),
             'regionCode' => $this->request->getVar('regionCode'),
-            'universalName' => $this->request->getVar('universalName')
+            'universalName' => $this->request->getVar('universalName'),
+            'clientID' => $this->request->getVar('clientID'),
+            'actionBy' => $this->sesi->get('userid'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;

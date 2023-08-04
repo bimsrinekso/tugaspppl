@@ -11,6 +11,28 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Edit Bank</h4> 
                         <form action="" method="post">
+                            <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="pickClient" class="form-label">Client</label>
+                                        <select id="pickClient" name="clientID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataClient != null):?>
+                                                <?php foreach ($dataClient as $listClient): ?>
+                                                <?php if($dataBank->clientID == $listClient->id ):?>
+                                                    <option value="<?=$listClient->id?>" selected="selected">
+                                                    <?=$listClient->name?>
+                                                    </option>
+                                                    <?php else:?>
+                                                    <option value="<?=$listClient->id?>">
+                                                        <?=$listClient->name?>
+                                                    </option>
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+                                </div>
                             <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Bank Name</label>
