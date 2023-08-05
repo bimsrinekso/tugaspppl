@@ -37,20 +37,24 @@ $routes->post('/login', 'AuthLogin::cekLogin');
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client, helpdesk']);
 $routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member,helpdesk']);
 // dashboard
+
+// list client
 $routes->get('/dashboard/listClients', 'GroupClient::listClient', ['filter' => 'role:main']);
 $routes->get('/dashboard/createClient', 'GroupClient::createClient', ['filter' => 'role:main']);
 $routes->post('/dashboard/createClient', 'GroupClient::saveClient', ['filter' => 'role:main']);
 $routes->get('/dashboard/editClient/(:num)', 'GroupClient::editClient/$1', ['filter' => 'role:main']);
 $routes->post('/dashboard/editClient/(:num)', 'GroupClient::updateClient/$1', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteClient/(:num)', 'GroupClient::delClient/$1', ['filter' => 'role:main']);
-//
-$routes->get('/dashboard/listMap', 'GroupClient::listMap', ['filter' => 'role:main']);
-$routes->get('/dashboard/editMap/(:num)', 'GroupClient::editMap/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/editMap/(:num)', 'GroupClient::updateMap/$1', ['filter' => 'role:main']);
-$routes->get('/dashboard/createMap', 'GroupClient::createMap', ['filter' => 'role:main']);
-$routes->post('/dashboard/createMap', 'GroupClient::saveMap', ['filter' => 'role:main']);
-$routes->post('/dashboard/mapping/getUserType', 'GroupClient::getUserType', ['filter' => 'role:main']);
-$routes->delete('/dashboard/deleteMap/(:num)', 'GroupClient::delMap/$1', ['filter' => 'role:main']);
+
+//Mapping Client
+$routes->get('/dashboard/listMap', 'MappingClient::listMap', ['filter' => 'role:main']);
+$routes->get('/dashboard/editMap/(:num)', 'MappingClient::editMap/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editMap/(:num)', 'MappingClient::updateMap/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/createMap', 'MappingClient::createMap', ['filter' => 'role:main']);
+$routes->post('/dashboard/createMap', 'MappingClient::saveMap', ['filter' => 'role:main']);
+$routes->post('/dashboard/mapping/getUserType', 'MappingClient::getUserType', ['filter' => 'role:main']);
+$routes->post('/dashboard/mapping/getClients', 'MappingClient::listClientCountry', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteMap/(:num)', 'MappingClient::delMap/$1', ['filter' => 'role:main']);
 
 //report
 $routes->get('/dashboard/reportDaily', 'Report::index', ['filter' => 'role:main, client,helpdesk']);

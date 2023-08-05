@@ -34,18 +34,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 mb-3">
+                                        <label for="pickCountry" class="form-label">Country</label>
+                                        <select id="pickCountry" name="country" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataCountry != null):?>
+                                            <?php foreach ($dataCountry as $listCountry): ?>
+                                                <option value="<?=$listCountry->id?>"><?=$listCountry->name?></option>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                </div>
                                 <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="pickClient" class="form-label">Client</label>
                                         <select id="pickClient" name="clientID" class="form-select select2">
-                                            <option value=""></option>
-                                            <?php if($dataClient != null):?>
-                                            <?php foreach ($dataClient as $listClient): ?>
-                                                <option value="<?=$listClient->id?>"><?=$listClient->name?></option>
-                                            <?php endforeach;?>
-                                            <?php else:?>
-                                            <?php endif;?>
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -135,6 +141,35 @@
             }
         });
     }
+    function getClients(countryID){
+        $.ajax({
+            url: '<?=base_url('dashboard/mapping/getClients')?>',
+            method: 'POST',
+            data: {
+                country: countryID
+            },
+            dataType: 'json',
+            success: function (response) {
+                $('#pickClient').empty();
+                if (response.clients) {
+                    response.clients.forEach(function (client) {
+                        $('#pickClient').append($('<option>', {
+                            value: client.id,
+                            text: client.name
+                        }));
+                    });
+                } else {
+                    $('#pickClient').append($('<option>', {
+                        value: '',
+                        text: 'No clients found'
+                    }));
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
     $(document).ready(function () {
         $("#pickApi").select2({
             placeholder: {
@@ -157,6 +192,13 @@
 		     },
             language: "en",
         });
+        $("#pickCountry").select2({
+            placeholder: {
+                id: '',
+                text: 'Choose Country'
+		     },
+            language: "en",
+        });
         $('input[name="userType"]').on('change', function () {
             if ($(this).val() === 'client') {
                 $('#apiForm').removeClass('setVisible');
@@ -166,6 +208,10 @@
                 getUserType('helpdesk');
             }
         });
+        $('#pickCountry').on('change', function(){
+            var countryID = $(this).val();
+            getClients(countryID);
+        })
     });
   </script>
 

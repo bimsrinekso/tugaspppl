@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Client Name</th>
+                                        <th>Country</th>
                                         <th>Va</th>
                                         <th>Comission Deposit</th>
                                         <th>Comission Withdraw</th>
@@ -44,6 +45,7 @@
                                                 <tr>
                                                     <td><?=$i++?> </td>
                                                     <td> <?=$listClient->name?></td>
+                                                    <td><?=$listClient->cnName?></td>
                                                     <td> <?=$listClient->va?></td>
                                                     <td> <?=$listClient->comDepo?></td>
                                                     <td> <?=$listClient->comWd?></td>

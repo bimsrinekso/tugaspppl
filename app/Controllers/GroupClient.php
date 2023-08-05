@@ -17,7 +17,18 @@ class GroupClient extends BaseController
 
     public function createClient()
     {
-        return view('Dashboard/Main/DetailClient/createClient');
+        $role = $this->sesi->get('role');
+        if($role == 1){
+            $enp = 'api/country/list';
+            $getData = $this->async->get($enp, $this->apimain);
+            $parseData = $getData->response;
+            $data = [
+                "dataCountry" => $parseData,
+            ];
+            return view('Dashboard/Main/DetailClient/createClient', $data);
+        }else{
+            return redirect()->to('dashboard');
+        }
     }
 
     
@@ -27,6 +38,7 @@ class GroupClient extends BaseController
             'va' => 'required',
             'comDepo' => 'required',
             'comWd' => 'required',
+            'country' => 'required'
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -40,6 +52,7 @@ class GroupClient extends BaseController
             'va'=> $this->request->getVar('va'),
             'comDepo'=> $this->request->getVar('comDepo'),
             'comWd'=> $this->request->getVar('comWd'),
+            'country' => $this->request->getVar('country')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -54,17 +67,27 @@ class GroupClient extends BaseController
 
 
     public function editClient($id = null){
-        $enp = 'api/editClient';
-        $dataBody = [
-            'clientID' => $id
-        ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        if($postData->status == '200'){
-            $data = [
-                "dataClient" => $parseData,
+        $role = $this->sesi->get('role');
+        if($role == 1 ){
+            $enp = 'api/editClient';
+            $dataBody = [
+                'clientID' => $id
             ];
-            return view('Dashboard/Main/DetailClient/editClient', $data);
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            if($postData->status == '200'){
+                $enpCountry = 'api/country/list';
+                $getData = $this->async->get($enpCountry, $this->apimain);
+                $parseCountry = $getData->response;
+                $data = [
+                    "dataClient" => $parseData,
+                    "dataCountry" => $parseCountry,
+                ];
+                return view('Dashboard/Main/DetailClient/editClient', $data);
+            }else{
+                $this->sesi->setFlashdata('error', "Something wrong");
+                return redirect()->to('dashboard/listClients');
+            }
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/listClients');
@@ -77,6 +100,7 @@ class GroupClient extends BaseController
             'va'=> 'required',
             'comDepo'=> 'required',
             'comWd'=> 'required',
+            'country'=> 'required'
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -91,6 +115,7 @@ class GroupClient extends BaseController
             'va'=> $this->request->getVar('va'),
             'comDepo'=> $this->request->getVar('comDepo'),
             'comWd'=> $this->request->getVar('comWd'),
+            'country' => $this->request->getVar('country')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -116,170 +141,6 @@ class GroupClient extends BaseController
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/listClients');
-        }
-    }
-    
-
-    public function listMap()
-    {
-        $enp = 'api/listGroupCl';
-        if ($this->sesi->get('role') == 1) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataMap" => $parseData,
-            ];
-            return view('Dashboard/Main/MappingClient/listMap', $data);
-        }
-    }
-
-    public function editMap($id = null){
-        $enp = 'api/editGroupCl';
-        $enpApi = 'api/listApi';
-        $enpUser = 'api/getClientUser';
-        $enpClient = 'api/listClient';
-        $enpHelpdesk = 'api/getHelpdesk';
-        $getUser = $this->async->get($enpUser, $this->apimain);
-        $getClient = $this->async->get($enpClient, $this->apimain);
-        $getData = $this->async->get($enpApi, $this->apimain);
-        $getHelpdesk = $this->async->get($enpHelpdesk, $this->apimain);
-        $parseUser = $getUser->response;
-        $parseHelpdesk = $getHelpdesk->response;
-        $parseClient = $getClient->response;
-        $parseApi = $getData->response;
-        $dataBody = [
-            'groupClientID' => $id,
-        ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        if($postData->status == '200'){
-            if(empty($parseData->idApi)){
-                $data = [
-                    "dataGrClient" => $parseData,
-                    "dataUser" => $parseHelpdesk,
-                    "dataClient" => $parseClient,
-                    "dataApi" => $parseApi 
-                ];
-                return view('Dashboard/Main/MappingClient/editMap', $data);
-            }else{
-                $data = [
-                    "dataGrClient" => $parseData,
-                    "dataUser" => $parseUser,
-                    "dataClient" => $parseClient,
-                    "dataApi" => $parseApi 
-                ];
-                return view('Dashboard/Main/MappingClient/editMap', $data);
-            }
-        }else{
-            $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('dashboard/listMap');
-        }
-    }
-
-    public function updateMap($id = null){
-        $enp = 'api/updateGroupCl';
-        $dataBody = [
-            'groupClientID'=> $id,
-            'clientID' => $this->request->getVar('clientID'),
-            'userID' => $this->request->getVar('UserID'),
-            'apiID' => $this->request->getVar('apiKeyID')
-        ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data Client");
-            return redirect()->to('dashboard/listMap');
-        }else{
-            $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/editMap/'.$id);
-        }
-    }
-
-    public function createMap()
-    {
-        $enp = 'api/listApi';
-        $enpUser = 'api/getClientUser';
-        $enpClient = 'api/listClient';
-        $getUser = $this->async->get($enpUser, $this->apimain);
-        $getClient = $this->async->get($enpClient, $this->apimain);
-        $getData = $this->async->get($enp, $this->apimain);
-        $parseUser = $getUser->response;
-        $parseClient = $getClient->response;
-        $parseData = $getData->response;
-        $data = [
-            "dataUser" => $parseUser,
-            "dataClient" => $parseClient,
-            "dataApi" => $parseData
-        ];
-        return view('Dashboard/Main/MappingClient/createMap', $data);
-    }
-
-    public function getUserType(){
-        $enpUser = 'api/getClientUser';
-        $enpHelpdesk = 'api/getHelpdesk';
-        $userType = $this->request->getVar('userType');
-        if($userType == 'client'){
-            $getUser = $this->async->get($enpUser, $this->apimain);
-            $parseUser = $getUser->response;
-            $data = [
-                "users" => $parseUser 
-            ];
-
-            echo json_encode($data);
-        }else{
-            $getUser = $this->async->get($enpHelpdesk, $this->apimain);
-            $parseUser = $getUser->response;
-            $data = [
-                "users" => $parseUser 
-            ];
-            echo json_encode($data);
-        }
-    }
-
-    public function saveMap(){
-        $isValid = [
-            'UserID'=> 'required',
-            'clientID'=> 'required',
-        ];
-        if (!$this->validate($isValid)) {
-            $html = $this->isvalid->listErrors();
-            $oneline = preg_replace('/\s+/', ' ', $html);
-            $this->sesi->setFlashdata('validation', $oneline);
-            return redirect()->to('dashboard/createMap');
-        }
-        $enp = 'api/saveGroupCl';
-        $dataBody = [
-            'apiKeyID'=> $this->request->getVar('apiKeyID'),
-            'userID'=> $this->request->getVar('UserID'),
-            'clientID' => $this->request->getVar('clientID')
-        ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully mapping");
-            return redirect()->to('dashboard/listMap');
-        }else{
-            $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/createMap');
-        }
-    }
-
-    public function delMap($id = null){
-        $enp = 'api/deleteGroupCl';
-        $dataBody = [
-            'groupClientID' => $id
-        ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data Map Client");
-            return redirect()->to('dashboard/listMap');
-        }else{
-            $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/listMap');
         }
     }
 }

@@ -8,19 +8,30 @@ class TrackingBalance extends BaseController
     {
         
         $enp = 'api/getTrack';
-        if ($this->sesi->get('role') == 1) {
+        $role = $this->sesi->get('role');
+        if ($role == 1 || $role == 4) {
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
             ];
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $parseData = $postData->response;
-            if (is_object($parseData) && !is_countable($parseData)) {
-                $parseData = [$parseData];
-            }
             $data = [
-                "dataTrack" => $parseData,
+                "dataTrack" => [],
             ];
-            return view('Dashboard/Main/TrackingBalance/index',$data);
+            if($postData->status == 200){
+                $parseData = $postData->response;
+                if (is_object($parseData) && !is_countable($parseData)) {
+                    $parseData = [$parseData];
+                }
+                $data = [
+                    "dataTrack" => $parseData,
+                ];
+            }
+            if($role == 1){
+                return view('Dashboard/Main/TrackingBalance/index',$data);
+            }
+            if($role == 4){
+                return view('Dashboard/Main/TrackingBalance/index',$data);
+            }
         } elseif($this->sesi->get('role') == 2) {
                 $dataBody = [
                     'userid'=> $this->sesi->get('userid')
