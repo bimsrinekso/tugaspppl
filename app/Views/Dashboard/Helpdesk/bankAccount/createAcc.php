@@ -1,6 +1,7 @@
 <?php $this->extend('Inc/main');?>
 <?php $this->section('css');?>
 <link rel="stylesheet" type="text/css" href="/assets//libs/toastr/build/toastr.min.css">     
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -11,48 +12,33 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Create Account</h4> 
                         <form action="" method="post">
-                            <div class="mb-3">
-                                <label for="formrow-firstname-input" class="form-label">Bank</label>
-                                <input type="text" class="form-control" name="bank" id="formrow-firstname-input" placeholder="Bank">
-                            </div>
-
                             <div class="row">
-                                
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Account Number</label>
-                                        <input type="text" name="accNumber" class="form-control" placeholder="Enter Account Number">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Holder Name</label>
-                                        <input type="text" name="holderName" class="form-control" placeholder="Enter Holder Name">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Payment Method</label>
-                                        <input type="text" name="payMethod" class="form-control" placeholder="Enter Payment Method">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="formrow-inputState" class="form-label">Status</label>
-                                        <select id="formrow-inputState" name="status" class="form-select">
-                                            <?php foreach($groupStatus as $listStatus): ?>
-                                                <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
-                                                <?php endforeach ?> 
+                                <div class="col-md-6 mb-3">
+                                        <label for="pickBank" class="form-label">Bank</label>
+                                        <select id="pickBank" name="bank" class="form-select select2">
+                                        <?php foreach($listBank as $lBank): ?>
+                                                    <option value="<?= $lBank->id ?>"><?= $lBank->bankName ?></option>
+                                                    <?php endforeach ?> 
                                         </select>
-                                    </div>
                                 </div>
+                                    <div class="col-md-6 mb-3">
+                                            <label class="form-label">Account Number</label>
+                                            <input type="text" name="accNumber" class="form-control" placeholder="Enter Account Number">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                            <label class="form-label">Holder Name</label>
+                                            <input type="text" name="holderName" class="form-control" placeholder="Enter Holder Name">
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                            <label for="formrow-inputState" class="form-label">Status</label>
+                                            <select id="formrow-inputState" name="status" class="form-select">
+                                                <?php foreach($groupStatus as $listStatus): ?>
+                                                    <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
+                                                    <?php endforeach ?> 
+                                            </select>
+                                    </div>
                             </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                            </div>
+                            <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </form>
                     </div>
                     <!-- end card body -->
@@ -73,7 +59,18 @@
   <!-- validation init -->
   <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+     $(document).ready(function () {
+        $("#pickBank").select2({
+            placeholder: {
+                id: '',
+                text: 'Choose Bank'
+            },
+            language: "en",
+        });
+    })
+</script>
   <!-- toastr init -->
   <script src="/assets/js/pages/toastr.init.js"></script>
   <?php if(session()->getFlashdata('sukses')):?>

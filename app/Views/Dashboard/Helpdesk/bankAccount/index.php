@@ -38,10 +38,12 @@
                                 <table id="tabListAll" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Client Name</th>
+                                        <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -50,12 +52,15 @@
         
                                     <tbody>
                                         <?php if($allData != null): ?>
+                                            <?php $i = 1;?>
                                             <?php foreach($allData as $listData): ?>
                                                 <tr>
+                                                    <td><?=$i++?></td>
                                                     <td><?= $listData->accNumber ?> </td>
-                                                    <td><?= $listData->bank ?> </td>
+                                                    <td><?= $listData->bankName ?> </td>
                                                     <td><?= $listData->holderName ?> </td>
                                                     <td><?=$listData->clientName?></td>
+                                                    <td><?=$listData->cnName?></td>
                                                     <td><?= $listData->action_by ?></td>
                                                     <td><?= $listData->status_name?></td>
                                                     <td>
@@ -79,10 +84,12 @@
                                 <table id="tabListActive" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Client Name</th>
+                                        <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -91,12 +98,15 @@
         
                                     <tbody>
                                     <?php if($dataActive != null) : ?>
+                                        <?php $i = 1;?>
                                         <?php foreach($dataActive as $listActive): ?>
                                                 <tr>
+                                                    <td><?=$i++?></td>
                                                     <td><?= $listActive->accNumber ?> </td>
-                                                    <td><?= $listActive->bank ?> </td>
+                                                    <td><?= $listActive->bankName ?> </td>
                                                     <td><?= $listActive->holderName ?> </td>
                                                     <td><?=$listActive->clientName?></td>
+                                                    <td><?=$listActive->cnName?></td>
                                                     <td><?= $listActive->action_by ?></td>
                                                     <td><?= $listActive->status_name?></td>
                                                     <td>
@@ -119,10 +129,12 @@
                                 <table id="tabListRun" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Client Name</th>
+                                        <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -131,12 +143,15 @@
         
                                     <tbody>
                                         <?php if ($dataInactive != null) : ?>
+                                            <?php $i = 1;?>
                                             <?php foreach($dataInactive as $listInactive): ?>
                                                 <tr>
+                                                    <td><?=$i++?></td>
                                                     <td><?= $listInactive->accNumber ?> </td>
-                                                    <td><?= $listInactive->bank ?> </td>
+                                                    <td><?= $listInactive->bankName ?> </td>
                                                     <td><?= $listInactive->holderName ?> </td>
                                                     <td><?=$listInactive->clientName?></td>
+                                                    <td><?=$listInactive->cnName?></td>
                                                     <td><?= $listInactive->action_by ?></td>
                                                     <td><?= $listInactive->status_name?></td>
                                                     <td>
@@ -148,7 +163,7 @@
                                                         </a>
                                                 </td>
                                                 </tr>
-                                                <?php  endforeach ?> 
+                                                <?php endforeach ?> 
                                                 <?php else: ?>
         
                                         <?php endif ?> 
@@ -224,17 +239,17 @@
     $(document).ready(function () {
         $("#tabListAll").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf", "colvis"]
+            buttons: ["copy", "excel", "pdf"]
         }).buttons().container().appendTo("#tabListAll_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
         $("#tabListActive").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf", "colvis"]
+            buttons: ["copy", "excel", "pdf"]
         }).buttons().container().appendTo("#tabListActive_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
         $("#tabListRun").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf", "colvis"]
+            buttons: ["copy", "excel", "pdf"]
         }).buttons().container().appendTo("#tabListRun_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
     });

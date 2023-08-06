@@ -74,8 +74,8 @@ $routes->get('/dashboard/bankAccounts', 'AccountBank::index', ['filter' => 'role
 $routes->get('/dashboard/createAccount', 'AccountBank::createAcc', ['filter' => 'role:main,helpdesk']);
 $routes->post('/dashboard/createAccount', 'AccountBank::saveAcc', ['filter' => 'role:main,helpdesk']);
 $routes->delete('/dashboard/deleteAccount/(:num)', 'AccountBank::delAcc/$1', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/editAccount/(:num)', 'AccountBank::detailAcc/$1', ['filter' => 'role:main, client,helpdesk']);
-$routes->post('/dashboard/editAccount/(:num)', 'AccountBank::updateAcc/$1', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/editAccount/(:num)', 'AccountBank::detailAcc/$1', ['filter' => 'role:main, helpdesk']);
+$routes->post('/dashboard/editAccount/(:num)', 'AccountBank::updateAcc/$1', ['filter' => 'role:main, helpdesk']);
 //userm
 $routes->get('/dashboard/createUser', 'UserManagement::createUser', ['filter' => 'role:main']);
 $routes->post('/dashboard/createUser', 'UserManagement::saveUser', ['filter' => 'role:main']);

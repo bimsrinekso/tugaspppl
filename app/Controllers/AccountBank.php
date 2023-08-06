@@ -68,27 +68,68 @@ class AccountBank extends BaseController
             ];
             return view('Dashboard/Main/bankAccount/createAcc', $data);
         }elseif($role == 4){
+            $dataCC = [
+                'userid' => $this->sesi->get('userid')
+            ];
+            $enpUserCC = 'api/country/userClientCountry';
+            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+            $parseCC = $postCC->response;
+            $country = $parseCC->countryID;
+            $dataCountry = [
+                "country" => $country,
+                "userid" => $this->sesi->get('userid')
+            ];
+            $enpBank = 'api/country/bank';
+            $listBank = $this->async->post($enpBank, $this->apimain, $dataCountry);
+            $parseBank = $listBank->response;
             $data = [
                 "groupStatus" => $parseData,
-                "dataCountry" => $parseCountry
+                "dataCountry" => $parseCountry,
+                "listBank" => $parseBank
             ];
             return view('Dashboard/Helpdesk/bankAccount/createAcc', $data);
         }
     }
     public function saveAcc(){
-        $isValid = [
-            'bank'=> 'required',
-            'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
-            'holderName' => 'required',
-            'country' => 'required'
-        ];
+        $role = $this->sesi->get('role');
+        $isValid;
+        if($role == 1){
+            $isValid = [
+                'bank'=> 'required',
+                'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+                'holderName' => 'required',
+                'country' => 'required'
+            ];
+        }
+        if($role == 4){
+            $isValid = [
+                'bank'=> 'required',
+                'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+                'holderName' => 'required',
+            ];
+        }
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
             $this->sesi->setFlashdata('validation', $oneline);
             return redirect()->to('dashboard/createAccount');
         }
-
+        $country;
+        $clientID;
+        if($role == 1){
+            $country = $this->request->getVar('country');
+            $clientID = $this->request->getVar('clientID');
+        }
+        if($role == 4){
+            $dataCC = [
+                'userid' => $this->sesi->get('userid')
+            ];
+            $enpUserCC = 'api/country/userClientCountry';
+            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+            $parseCC = $postCC->response;
+            $country = $parseCC->countryID;
+            $clientID = $parseCC->client_id;
+        }
         $enp = 'api/va/saveAccount';
         $dataBody = [
             'bank'=> $this->request->getVar('bank'),
@@ -96,9 +137,9 @@ class AccountBank extends BaseController
             'holderName' => $this->request->getVar('holderName'),
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
-            'idClient' => $this->request->getVar('clientID'),
+            'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
-            'country' => $this->request->getVar('country')
+            'country' => $country
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -139,12 +180,26 @@ class AccountBank extends BaseController
                 ];
                 return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }elseif($role == 4){
+                $dataCC = [
+                    'userid' => $this->sesi->get('userid')
+                ];
+                $enpUserCC = 'api/country/userClientCountry';
+                $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+                $parseCC = $postCC->response;
+                $country = $parseCC->countryID;
+                $dataCountry = [
+                    "country" => $country,
+                    "userid" => $this->sesi->get('userid')
+                ];
+                $enpBank = 'api/country/bank';
+                $listBank = $this->async->post($enpBank, $this->apimain, $dataCountry);
+                $parseBank = $listBank->response;
                 $data = [
                     "dataBank" => $parseData[0],
                     "groupStatus" => $parseStatus,
-                    "dataCountry" => $parseCountry
+                    "listBank" => $parseBank
                 ];
-                return view('Dashboard/Main/bankAccount/editAcc', $data);   
+                return view('Dashboard/Helpdesk/bankAccount/editAcc', $data);   
             }
             
         }else{
@@ -153,17 +208,44 @@ class AccountBank extends BaseController
         }
     }
     public function updateAcc($id = null){
-        $isValid = [
-            'bank'=> 'required',
-            'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
-            'holderName' => 'required',
-            'country' => 'required'
-        ];
+        $role = $this->sesi->get('role');
+        $isValid;
+        if($role == 1){
+            $isValid = [
+                'bank'=> 'required',
+                'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+                'holderName' => 'required',
+                'country' => 'required'
+            ];
+        }
+        if($role == 4){
+            $isValid = [
+                'bank'=> 'required',
+                'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+                'holderName' => 'required',
+            ];
+        }
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
             $this->sesi->setFlashdata('validation', $oneline);
-            return redirect()->to('dashboard/editAccount');
+            return redirect()->to(previous_url());
+        }
+        $country;
+        $clientID;
+        if($role == 1){
+            $country = $this->request->getVar('country');
+            $clientID = $this->request->getVar('clientID');
+        }
+        if($role == 4){
+            $dataCC = [
+                'userid' => $this->sesi->get('userid')
+            ];
+            $enpUserCC = 'api/country/userClientCountry';
+            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+            $parseCC = $postCC->response;
+            $country = $parseCC->countryID;
+            $clientID = $parseCC->client_id;
         }
         $enp = 'api/va/updateAccount';
         $dataBody = [
@@ -173,9 +255,9 @@ class AccountBank extends BaseController
             'holderName' => $this->request->getVar('holderName'),
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
-            'idClient' => $this->request->getVar('clientID'),
+            'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
-            'country' => $this->request->getVar('country')
+            'country' => $country
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
