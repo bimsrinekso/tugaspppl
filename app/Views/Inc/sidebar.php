@@ -299,17 +299,6 @@
                         <li><a href="<?= base_url('dashboard/trackingBalance')?>" key="t-tui-calendar">Detail</a></li>
                     </ul>
                 </li>
-                
-                
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class='bx bxs-data'></i>
-                        <span key="t-withdraw">Base Bank</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="<?= base_url('dashboard/baseBank')?>" key="t-tui-calendar">List Bank</a></li>
-                    </ul>
-                </li>
                
                 <li class="menu-title" key="t-report">Report</li>
                 <li>

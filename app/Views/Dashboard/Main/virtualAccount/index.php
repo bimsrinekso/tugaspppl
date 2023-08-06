@@ -38,10 +38,9 @@
                                 <table id="tabListAll" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
-                                        <th>Virtual Account Number</th>
+                                        <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
-                                        <th>Payment Method</th>
                                         <th>Client Name</th>
                                         <th>Operator</th>
                                         <th>Status</th>
@@ -53,10 +52,9 @@
                                         <?php if($allData != null): ?>
                                             <?php foreach($allData as $listData): ?>
                                                 <tr>
-                                                    <td><?= $listData->vaNumber ?> </td>
+                                                    <td><?= $listData->accNumber ?> </td>
                                                     <td><?= $listData->bank ?> </td>
                                                     <td><?= $listData->holderName ?> </td>
-                                                    <td><?= $listData->payMethod ?></td>
                                                     <td><?=$listData->clientName?></td>
                                                     <td><?= $listData->action_by ?></td>
                                                     <td><?= $listData->status_name?></td>
@@ -81,10 +79,9 @@
                                 <table id="tabListActive" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
-                                        <th>Virtual Account Number</th>
+                                        <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
-                                        <th>Payment Method</th>
                                         <th>Client Name</th>
                                         <th>Operator</th>
                                         <th>Status</th>
@@ -96,10 +93,9 @@
                                     <?php if($dataActive != null) : ?>
                                         <?php foreach($dataActive as $listActive): ?>
                                                 <tr>
-                                                    <td><?= $listActive->vaNumber ?> </td>
+                                                    <td><?= $listActive->accNumber ?> </td>
                                                     <td><?= $listActive->bank ?> </td>
                                                     <td><?= $listActive->holderName ?> </td>
-                                                    <td><?= $listActive->payMethod ?></td>
                                                     <td><?=$listActive->clientName?></td>
                                                     <td><?= $listActive->action_by ?></td>
                                                     <td><?= $listActive->status_name?></td>
@@ -123,10 +119,9 @@
                                 <table id="tabListRun" class="table table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
-                                        <th>Virtual Account Number</th>
+                                        <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
-                                        <th>Payment Method</th>
                                         <th>Client Name</th>
                                         <th>Operator</th>
                                         <th>Status</th>
@@ -138,10 +133,9 @@
                                         <?php if ($dataInactive != null) : ?>
                                             <?php foreach($dataInactive as $listInactive): ?>
                                                 <tr>
-                                                    <td><?= $listInactive->vaNumber ?> </td>
+                                                    <td><?= $listInactive->accNumber ?> </td>
                                                     <td><?= $listInactive->bank ?> </td>
                                                     <td><?= $listInactive->holderName ?> </td>
-                                                    <td><?= $listInactive->payMethod ?></td>
                                                     <td><?=$listInactive->clientName?></td>
                                                     <td><?= $listInactive->action_by ?></td>
                                                     <td><?= $listInactive->status_name?></td>
