@@ -9,25 +9,25 @@
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Edit Virtual Account</h4> 
+                        <h4 class="card-title mb-4">Create Account</h4> 
                         <form action="" method="post">
                             <div class="mb-3">
                                 <label for="formrow-firstname-input" class="form-label">Bank</label>
-                                <input type="text" class="form-control" name="bank" id="formrow-firstname-input" value="<?=$dataVa->bank?>" placeholder="Bank">
+                                <input type="text" class="form-control" name="bank" id="formrow-firstname-input" placeholder="Bank">
                             </div>
 
                             <div class="row">
                                 
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Virtual Account Number</label>
-                                        <input type="text" name="vaNumber" value="<?=$dataVa->vaNumber?>" class="form-control" placeholder="Enter Virtual Account Number">
+                                        <label class="form-label">Account Number</label>
+                                        <input type="text" name="accNumber" class="form-control" placeholder="Enter Account Number">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Holder Name</label>
-                                        <input type="text" name="holderName" value="<?=$dataVa->holderName?>" class="form-control" placeholder="Enter Holder Name">
+                                        <input type="text" name="holderName" class="form-control" placeholder="Enter Holder Name">
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Payment Method</label>
-                                        <input type="text" name="payMethod" value="<?=$dataVa->payMethod?>" class="form-control" placeholder="Enter Payment Method">
+                                        <input type="text" name="payMethod" class="form-control" placeholder="Enter Payment Method">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -44,11 +44,7 @@
                                         <label for="formrow-inputState" class="form-label">Status</label>
                                         <select id="formrow-inputState" name="status" class="form-select">
                                             <?php foreach($groupStatus as $listStatus): ?>
-                                                <?php if($dataVa->status == $listStatus->id):?>
-                                                    <option value="<?= $listStatus->id ?>" selected><?= $listStatus->name ?></option>
-                                                <?php else:?>
-                                                    <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
-                                                <?php endif?>
+                                                <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
                                                 <?php endforeach ?> 
                                         </select>
                                     </div>

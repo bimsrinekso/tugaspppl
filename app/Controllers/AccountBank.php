@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class VirtualAccount extends BaseController
+class AccountBank extends BaseController
 {
     public function index()
     {
@@ -19,7 +19,7 @@ class VirtualAccount extends BaseController
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
-            return view('Dashboard/Main/virtualAccount/index', $data);
+            return view('Dashboard/Main/bankAccount/index', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
@@ -31,7 +31,7 @@ class VirtualAccount extends BaseController
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
-            return view('Dashboard/Client/virtualAccount/index', $data);
+            return view('Dashboard/Client/bankAccount/index', $data);
         }else if ($this->sesi->get('role') == 4) {
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
@@ -43,7 +43,7 @@ class VirtualAccount extends BaseController
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
-            return view('Dashboard/Helpdesk/virtualAccount/index', $data);
+            return view('Dashboard/Helpdesk/bankAccount/index', $data);
         }else{
             return view('Dashboard/Client/index');
         }
@@ -62,18 +62,18 @@ class VirtualAccount extends BaseController
                 "dataClient" => $parseClient,
                 "groupStatus" => $parseData
             ];
-            return view('Dashboard/Main/virtualAccount/createAcc', $data);
+            return view('Dashboard/Main/bankAccount/createAcc', $data);
         }elseif($role == 4){
             $data = [
                 "groupStatus" => $parseData
             ];
-            return view('Dashboard/Helpdesk/virtualAccount/createAcc', $data);
+            return view('Dashboard/Helpdesk/bankAccount/createAcc', $data);
         }
     }
     public function saveAcc(){
         $isValid = [
             'bank'=> 'required',
-            'vaNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+            'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
             'holderName' => 'required',
             'payMethod' => 'required',
         ];
@@ -87,7 +87,7 @@ class VirtualAccount extends BaseController
         $enp = 'api/va/saveAccount';
         $dataBody = [
             'bank'=> $this->request->getVar('bank'),
-            'vaNumber' => $this->request->getVar('vaNumber'),
+            'accNumber' => $this->request->getVar('accNumber'),
             'holderName' => $this->request->getVar('holderName'),
             'payMethod' => $this->request->getVar('payMethod'),
             'status' => $this->request->getVar('status'),
@@ -99,7 +99,7 @@ class VirtualAccount extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data VA Account");
-            return redirect()->to('dashboard/listAccounts');
+            return redirect()->to('dashboard/bankAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/createAccount');
@@ -128,18 +128,18 @@ class VirtualAccount extends BaseController
                     "groupStatus" => $parseStatus,
                     "dataClient" => $parseClient,
                 ];
-                return view('Dashboard/Main/virtualAccount/editAcc', $data);   
+                return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }elseif($role == 4){
                 $data = [
                     "dataVa" => $parseData[0],
                     "groupStatus" => $parseStatus
                 ];
-                return view('Dashboard/Main/virtualAccount/editAcc', $data);   
+                return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }
             
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('dashboard/listAccounts');
+            return redirect()->to('dashboard/bankAccounts');
         }
     }
     public function updateAcc($id = null){
@@ -147,7 +147,7 @@ class VirtualAccount extends BaseController
         $dataBody = [
             'id' => $id,
             'bank'=> $this->request->getVar('bank'),
-            'vaNumber' => $this->request->getVar('vaNumber'),
+            'accNumber' => $this->request->getVar('accNumber'),
             'holderName' => $this->request->getVar('holderName'),
             'payMethod' => $this->request->getVar('payMethod'),
             'status' => $this->request->getVar('status'),
@@ -159,7 +159,7 @@ class VirtualAccount extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data VA Account");
-            return redirect()->to('dashboard/listAccounts');
+            return redirect()->to('dashboard/bankAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/editAccount');
@@ -175,10 +175,10 @@ class VirtualAccount extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data VA Account");
-            return redirect()->to('dashboard/listAccounts');
+            return redirect()->to('dashboard/bankAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/listAccounts');
+            return redirect()->to('dashboard/bankAccounts');
         }
     }
 }

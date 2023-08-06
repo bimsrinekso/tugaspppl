@@ -22,7 +22,7 @@
                         <span key="t-accounts">Accounts</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="<?= base_url('dashboard/listAccounts') ?>" key="t-tui-calendar">List of Accounts</a></li>
+                        <li><a href="<?= base_url('dashboard/bankAccounts') ?>" key="t-tui-calendar">Bank Accounts</a></li>
                     </ul>
                 </li>
                 <li>
@@ -147,7 +147,7 @@
                             <span key="t-accounts">Accounts</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="<?= base_url('dashboard/listAccounts') ?>" key="t-tui-calendar">List of Accounts</a></li>
+                            <li><a href="<?= base_url('dashboard/bankAccounts') ?>" key="t-tui-calendar">Bank Accounts</a></li>
                         </ul>
                     </li>
                     <li>
@@ -254,7 +254,7 @@
                         <span key="t-accounts">Accounts</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="<?= base_url('dashboard/listAccounts') ?>" key="t-tui-calendar">List of Accounts</a></li>
+                        <li><a href="<?= base_url('dashboard/bankAccounts') ?>" key="t-tui-calendar">Bank Accounts</a></li>
                     </ul>
                 </li>
                 <li>
