@@ -53,7 +53,7 @@
                                             <?php foreach($allData as $listData): ?>
                                                 <tr>
                                                     <td><?= $listData->accNumber ?> </td>
-                                                    <td><?= $listData->bank ?> </td>
+                                                    <td><?= $listData->bankName ?> </td>
                                                     <td><?= $listData->holderName ?> </td>
                                                     <td><?=$listData->clientName?></td>
                                                     <td><?= $listData->action_by ?></td>
@@ -94,7 +94,7 @@
                                         <?php foreach($dataActive as $listActive): ?>
                                                 <tr>
                                                     <td><?= $listActive->accNumber ?> </td>
-                                                    <td><?= $listActive->bank ?> </td>
+                                                    <td><?= $listActive->bankName ?> </td>
                                                     <td><?= $listActive->holderName ?> </td>
                                                     <td><?=$listActive->clientName?></td>
                                                     <td><?= $listActive->action_by ?></td>
@@ -134,7 +134,7 @@
                                             <?php foreach($dataInactive as $listInactive): ?>
                                                 <tr>
                                                     <td><?= $listInactive->accNumber ?> </td>
-                                                    <td><?= $listInactive->bank ?> </td>
+                                                    <td><?= $listInactive->bankName ?> </td>
                                                     <td><?= $listInactive->holderName ?> </td>
                                                     <td><?=$listInactive->clientName?></td>
                                                     <td><?= $listInactive->action_by ?></td>

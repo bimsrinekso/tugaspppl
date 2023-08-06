@@ -57,15 +57,20 @@ class AccountBank extends BaseController
         $getClient = $this->async->get($enpClient, $this->apimain);
         $parseClient = $getClient->response;
         $data;
+        $enpCountry = 'api/country/list';
+        $getDataCountry = $this->async->get($enpCountry, $this->apimain);
+        $parseCountry = $getDataCountry->response;
         if($role == 1){
             $data = [
                 "dataClient" => $parseClient,
-                "groupStatus" => $parseData
+                "groupStatus" => $parseData,
+                "dataCountry" => $parseCountry
             ];
             return view('Dashboard/Main/bankAccount/createAcc', $data);
         }elseif($role == 4){
             $data = [
-                "groupStatus" => $parseData
+                "groupStatus" => $parseData,
+                "dataCountry" => $parseCountry
             ];
             return view('Dashboard/Helpdesk/bankAccount/createAcc', $data);
         }
@@ -75,7 +80,6 @@ class AccountBank extends BaseController
             'bank'=> 'required',
             'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
             'holderName' => 'required',
-            'payMethod' => 'required',
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -89,7 +93,6 @@ class AccountBank extends BaseController
             'bank'=> $this->request->getVar('bank'),
             'accNumber' => $this->request->getVar('accNumber'),
             'holderName' => $this->request->getVar('holderName'),
-            'payMethod' => $this->request->getVar('payMethod'),
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
             'idClient' => $this->request->getVar('clientID'),
@@ -121,18 +124,23 @@ class AccountBank extends BaseController
         $enpClient = 'api/listClient';
         $getClient = $this->async->get($enpClient, $this->apimain);
         $parseClient = $getClient->response;
+        $enpCountry = 'api/country/list';
+        $getDataCountry = $this->async->get($enpCountry, $this->apimain);
+        $parseCountry = $getDataCountry->response;
         if($postData->status == '200'){
             if($role == 1){
                 $data = [
                     "dataVa" => $parseData[0],
                     "groupStatus" => $parseStatus,
                     "dataClient" => $parseClient,
+                    "dataCountry" => $parseCountry
                 ];
                 return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }elseif($role == 4){
                 $data = [
                     "dataVa" => $parseData[0],
-                    "groupStatus" => $parseStatus
+                    "groupStatus" => $parseStatus,
+                    "dataCountry" => $parseCountry
                 ];
                 return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }
@@ -143,13 +151,23 @@ class AccountBank extends BaseController
         }
     }
     public function updateAcc($id = null){
+        $isValid = [
+            'bank'=> 'required',
+            'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
+            'holderName' => 'required',
+        ];
+        if (!$this->validate($isValid)) {
+            $html = $this->isvalid->listErrors();
+            $oneline = preg_replace('/\s+/', ' ', $html);
+            $this->sesi->setFlashdata('validation', $oneline);
+            return redirect()->to('dashboard/editAccount');
+        }
         $enp = 'api/va/updateAccount';
         $dataBody = [
             'id' => $id,
             'bank'=> $this->request->getVar('bank'),
             'accNumber' => $this->request->getVar('accNumber'),
             'holderName' => $this->request->getVar('holderName'),
-            'payMethod' => $this->request->getVar('payMethod'),
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
             'idClient' => $this->request->getVar('clientID'),

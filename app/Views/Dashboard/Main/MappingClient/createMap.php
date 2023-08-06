@@ -116,8 +116,7 @@
 <script>
     function getUserType(type) {
         $.ajax({
-            url: '<?=base_url('
-            dashboard / mapping / getUserType ')?>',
+            url: '<?=base_url('dashboard/mapping/getUserType ')?>',
             method: 'POST',
             data: {
                 userType: type
@@ -147,8 +146,7 @@
 
     function getClients(countryID) {
         $.ajax({
-            url: '<?=base_url('
-            dashboard / mapping / getClients ')?>',
+            url: '<?=base_url('dashboard/country/getClients')?>',
             method: 'POST',
             data: {
                 country: countryID

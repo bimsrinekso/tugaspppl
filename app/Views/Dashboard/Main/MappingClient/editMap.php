@@ -148,7 +148,7 @@
     }
     function getClients(countryID){
         $.ajax({
-            url: '<?=base_url('dashboard/mapping/getClients')?>',
+            url: '<?=base_url('dashboard/country/getClients')?>',
             method: 'POST',
             data: {
                 country: countryID

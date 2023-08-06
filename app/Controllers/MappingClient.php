@@ -122,25 +122,7 @@ public function listMap()
             echo json_encode($data);
         }
     }
-
-    public function listClientCountry(){
-        $enp = 'api/country/client';
-        $dataBody = [
-            "country" => $this->request->getVar('country')
-        ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        try {
-            $data = [
-                "clients" => $parseData
-            ];
-            echo json_encode($data);
-        } catch (\Exception $e) {
-            echo json_encode($e->getMessage());
-        }
-        
-    }
-
+    
     public function saveMap(){
         $isValid = [
             'UserID'=> 'required',

@@ -53,7 +53,6 @@ $routes->post('/dashboard/editMap/(:num)', 'MappingClient::updateMap/$1', ['filt
 $routes->get('/dashboard/createMap', 'MappingClient::createMap', ['filter' => 'role:main']);
 $routes->post('/dashboard/createMap', 'MappingClient::saveMap', ['filter' => 'role:main']);
 $routes->post('/dashboard/mapping/getUserType', 'MappingClient::getUserType', ['filter' => 'role:main']);
-$routes->post('/dashboard/mapping/getClients', 'MappingClient::listClientCountry', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteMap/(:num)', 'MappingClient::delMap/$1', ['filter' => 'role:main']);
 
 //report
@@ -123,6 +122,9 @@ $routes->get('/dashboard/editAdj/(:num)', 'Settlement::editSettle/$1', ['filter'
 $routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main,helpdesk']);
 $routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main,helpdesk']);
 
+// country
+$routes->post('/dashboard/country/getClients', 'CountryController::listClientCountry', ['filter' => 'role:main']);
+$routes->post('/dashboard/country/getBanks', 'CountryController::listBankCountry', ['filter' => 'role:main']);
 // api
 $routes->get('/dashboard/generateApis', 'GenerateApi::index', ['filter' => 'role:main']);
 $routes->get('/dashboard/createApis', 'GenerateApi::createApis', ['filter' => 'role:main']);
@@ -136,7 +138,6 @@ $routes->get('/dashboard/baseBank/create', 'Bank::createBank', ['filter' => 'rol
 $routes->post('/dashboard/baseBank/create', 'Bank::saveBank', ['filter' => 'role:main']);
 $routes->get('/dashboard/baseBank/detail/(:any)', 'Bank::detailBank/$1', ['filter' => 'role:main']);
 $routes->post('/dashboard/baseBank/detail/(:any)', 'Bank::updateBank/$1', ['filter' => 'role:main']);
-$routes->post('/dashboard/bank/getClients', 'Bank::listClientCountry', ['filter' => 'role:main']);
 //
 $routes->get('/dashboard/calculateComission', 'CalcComission::indexCalc', ['filter' => 'role:main,helpdesk']);
 $routes->get('/dashboard/createCom', 'CalcComission::createCalc', ['filter' => 'role:main,helpdesk']);

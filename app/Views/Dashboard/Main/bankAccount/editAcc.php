@@ -13,33 +13,31 @@
                         <h4 class="card-title mb-4">Edit Account</h4> 
                         <form action="" method="post">
                             <div class="row">
+                            <div class="col-md-6 mb-3">
+                                    <label for="pickCountry" class="form-label">Country</label>
+                                    <select id="pickCountry" name="country" class="form-select select2">
+                                        <option value=""></option>
+                                        <?php if($dataCountry != null):?>
+                                        <?php foreach ($dataCountry as $listCountry): ?>
+                                        <option value="<?=$listCountry->id?>"><?=$listCountry->name?></option>
+                                        <?php endforeach;?>
+                                        <?php else:?>
+                                        <?php endif;?>
+                                    </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                    <label for="pickBank" class="form-label">Bank</label>
+                                    <select id="pickBank" name="bank" class="form-select select2">
+                                        
+                                    </select>
+                            </div>
                             <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="pickClient" class="form-label">Client</label>
                                         <select id="pickClient" name="clientID" class="form-select select2">
-                                            <option value=""></option>
-                                            <?php if($dataClient != null):?>
-                                                <?php foreach ($dataClient as $listClient): ?>
-                                                <?php if($dataVa->clientID == $listClient->id ):?>
-                                                    <option value="<?=$listClient->id?>" selected="selected">
-                                                    <?=$listClient->name?>
-                                                    </option>
-                                                    <?php else:?>
-                                                    <option value="<?=$listClient->id?>">
-                                                        <?=$listClient->name?>
-                                                    </option>
-                                                <?php endif;?>
-                                            <?php endforeach;?>
-                                            <?php else:?>
-                                            <?php endif;?>
+                                            
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                <div class="mb-3">
-                                <label for="formrow-firstname-input" class="form-label">Bank</label>
-                                <input type="text" class="form-control" name="bank" id="formrow-firstname-input" value="<?=$dataVa->bank?>" placeholder="Bank">
-                                 </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -56,12 +54,6 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Payment Method</label>
-                                        <input type="text" name="payMethod" value="<?=$dataVa->payMethod?>" class="form-control" placeholder="Enter Payment Method">
-                                    </div>
-                                </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="formrow-inputState" class="form-label">Status</label>
