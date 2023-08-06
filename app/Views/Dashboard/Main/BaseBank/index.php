@@ -82,9 +82,7 @@
                                         <th>No</th>
                                         <th>Bank Name</th>
                                         <th>Universal Name</th>
-                                        <th>Bank Code</th>
-                                        <th>Region</th>
-                                        <th>Region Code</th>
+                                        <th>Country</th>
                                         <th>Operator</th>
                                         <th>Action</th>
                                     </tr>
@@ -97,9 +95,7 @@
                                                     <td></td>
                                                     <td><?=$listData->bankName?></td>
                                                     <td><?=$listData->universalName?></td>
-                                                    <td><?=$listData->bankCode?></td>
-                                                    <td><?=$listData->region?></td>
-                                                    <td><?=$listData->regionCode?>
+                                                    <td><?=$listData->countryID?></td>
                                                     </td>
                                                     <td><?=$listData->nama?></td>
                                                     <td>

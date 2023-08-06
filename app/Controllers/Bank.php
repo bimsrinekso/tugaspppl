@@ -19,13 +19,14 @@ class Bank extends BaseController
 
     public function createBank(){
         $role = $this->sesi->get('role');
-        $enpClient = 'api/listClient';
-        $getClient = $this->async->get($enpClient, $this->apimain);
-        $parseClient = $getClient->response;
+        $enpCountry = 'api/country/list';
+        $getData = $this->async->get($enpCountry, $this->apimain);
+        $parseCountry = $getData->response;
+        
         $data;
         if($role == 1){
             $data = [
-                "dataClient" => $parseClient,
+                "dataCountry" => $parseCountry
             ];
              return view('Dashboard/Main/BaseBank/createBank', $data);
         }elseif($role == 4){
@@ -38,9 +39,7 @@ class Bank extends BaseController
     public function saveBank(){
          $isValid = [
             'bankName' => 'required',
-            'bankCode' => 'required',
-            'region' => 'required',
-            'regionCode' => 'required',
+            'country' => 'required',
             'universalName' => 'required',
             
         ];
@@ -54,13 +53,12 @@ class Bank extends BaseController
         $dataBody = [
             'userid' => $this->sesi->get('userid'),
             'bankName' => $this->request->getVar('bankName'),
-            'bankCode' => $this->request->getVar('bankCode'),
-            'region' => $this->request->getVar('region'),
-            'regionCode' => $this->request->getVar('regionCode'),
+            'country' => $this->request->getVar('country'),
             'universalName' => $this->request->getVar('universalName'),
             'clientID' => $this->request->getVar('clientID'),
             'actionBy' => $this->sesi->get('userid'),
         ];
+
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -78,17 +76,17 @@ class Bank extends BaseController
             'bankID' => $id
         ];
         $role = $this->sesi->get('role');
-        $enpClient = 'api/listClient';
-        $getClient = $this->async->get($enpClient, $this->apimain);
-        $parseClient = $getClient->response;
         $data;
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
+        $enpCountry = 'api/country/list';
+        $getData = $this->async->get($enpCountry, $this->apimain);
+        $parseCountry = $getData->response;
         if($postData->status == '200'){       
             if($role == 1){
                 $data = [                 
-                    "dataBank" => $parseData,
-                    "dataClient" => $parseClient,
+                    "dataBank" => $parseData, 
+                    "dataCountry" => $parseCountry
                 ];
                 return view('Dashboard/Main/BaseBank/detailBank', $data);
             }elseif($role == 4){
@@ -109,9 +107,7 @@ class Bank extends BaseController
             'bankID' => $id,
             'userid' => $this->sesi->get('userid'),
             'bankName' => $this->request->getVar('bankName'),
-            'bankCode' => $this->request->getVar('bankCode'),
-            'region' => $this->request->getVar('region'),
-            'regionCode' => $this->request->getVar('regionCode'),
+            'country' => $this->request->getVar('country'),
             'universalName' => $this->request->getVar('universalName'),
             'clientID' => $this->request->getVar('clientID'),
             'actionBy' => $this->sesi->get('userid'),
