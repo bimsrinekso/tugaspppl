@@ -80,6 +80,7 @@ class AccountBank extends BaseController
             'bank'=> 'required',
             'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
             'holderName' => 'required',
+            'country' => 'required'
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -96,7 +97,8 @@ class AccountBank extends BaseController
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
             'idClient' => $this->request->getVar('clientID'),
-            'action_by' => $this->sesi->get('username')
+            'action_by' => $this->sesi->get('username'),
+            'country' => $this->request->getVar('country')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -130,7 +132,7 @@ class AccountBank extends BaseController
         if($postData->status == '200'){
             if($role == 1){
                 $data = [
-                    "dataVa" => $parseData[0],
+                    "dataBank" => $parseData[0],
                     "groupStatus" => $parseStatus,
                     "dataClient" => $parseClient,
                     "dataCountry" => $parseCountry
@@ -138,7 +140,7 @@ class AccountBank extends BaseController
                 return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }elseif($role == 4){
                 $data = [
-                    "dataVa" => $parseData[0],
+                    "dataBank" => $parseData[0],
                     "groupStatus" => $parseStatus,
                     "dataCountry" => $parseCountry
                 ];
@@ -155,6 +157,7 @@ class AccountBank extends BaseController
             'bank'=> 'required',
             'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
             'holderName' => 'required',
+            'country' => 'required'
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -171,7 +174,8 @@ class AccountBank extends BaseController
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
             'idClient' => $this->request->getVar('clientID'),
-            'action_by' => $this->sesi->get('username')
+            'action_by' => $this->sesi->get('username'),
+            'country' => $this->request->getVar('country')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;

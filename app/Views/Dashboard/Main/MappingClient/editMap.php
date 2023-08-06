@@ -21,13 +21,13 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                     <div class="form-check mb-3">
-                                            <input class="form-check-input" name="userType" value="client" type="radio" id="clientRadio" <?php if(!empty($dataGrClient->idApi)){echo "checked";}?>>
+                                            <input class="form-check-input" name="userType" value="client" type="radio" id="clientRadio" <?php if(!empty($dataGrClient[0]->idApi)){echo "checked";}?>>
                                             <label class="form-check-label" for="clientRadio">
                                                     Client
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" name="userType" value="helpdesk" type="radio" id="helpdeskRadio" <?php if(empty($dataGrClient->idApi)){echo "checked";}?>>
+                                            <input class="form-check-input" name="userType" value="helpdesk" type="radio" id="helpdeskRadio" <?php if(empty($dataGrClient[0]->idApi)){echo "checked";}?>>
                                             <label class="form-check-label" for="helpdeskRadio">
                                                     Helpdesk
                                                 </label>
@@ -117,7 +117,7 @@
   <script src="/js/pages/toastr.init.js"></script>
 
   <script>
-    function getUserType(type){
+    function getUserType(type, selectedUser){
         $.ajax({
             url: '<?=base_url('dashboard/mapping/getUserType')?>',
             method: 'POST',
@@ -134,6 +134,9 @@
                             text: user.username
                         }));
                     });
+                    if (selectedUser !== null) {
+                        $('#pickUser').val(selectedUser).trigger('change');
+                    }
                 } else {
                     $('#pickUser').append($('<option>', {
                         value: '',
@@ -146,7 +149,7 @@
             }
         });
     }
-    function getClients(countryID){
+    function getClients(countryID, selectedClient){
         $.ajax({
             url: '<?=base_url('dashboard/country/getClients')?>',
             method: 'POST',
@@ -163,6 +166,9 @@
                             text: client.name
                         }));
                     });
+                    if (selectedClient !== null) {
+                        $('#pickClient').val(selectedClient).trigger('change');
+                    }
                 } else {
                     $('#pickClient').append($('<option>', {
                         value: '',
@@ -217,14 +223,14 @@
             var countryID = $(this).val();
             getClients(countryID);
         })
-        var selectedClient = '<?=$dataGrClient[0]->countryID?>';
-        $('#pickCountry').trigger('change',selectedClient);
-
-        var typeUser = '<?php if(!empty($dataGrClient->idApi)){echo "client";}else{echo "helpldesk";}?>'
-        getUserType(typeUser);
-
-        var selectedUser = '<?=$dataGrClient[0]->countryID?>';
-        $('#pickUser').trigger('change',selectedUser);
+        var selectedCountry = '<?=$dataGrClient[0]->countryID?>';
+        var selectedUser = '<?=$dataGrClient[0]->userid?>';
+        var selectedClient = '<?=$dataGrClient[0]->idCl?>'
+        $('#pickCountry').trigger('change',selectedCountry);
+        var typeUser = '<?= !empty($dataGrClient[0]->idApi) ? "client" : "helpdesk" ?>';
+        console.log(typeUser);
+        getUserType(typeUser, selectedUser);
+        getClients(selectedCountry, selectedClient);
     });
   </script>
 

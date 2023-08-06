@@ -19,7 +19,11 @@
                                         <option value=""></option>
                                         <?php if($dataCountry != null):?>
                                         <?php foreach ($dataCountry as $listCountry): ?>
-                                        <option value="<?=$listCountry->id?>"><?=$listCountry->name?></option>
+                                            <?php if($dataBank->countryID==$listCountry->id ):?>
+                                                    <option value="<?=$listCountry->id?>" selected="selected"><?=$listCountry->name?></option>
+                                                    <?php else:?>
+                                                        <option value="<?=$listCountry->id?>"><?=$listCountry->name?></option>
+                                                    <?php endif?>
                                         <?php endforeach;?>
                                         <?php else:?>
                                         <?php endif;?>
@@ -42,13 +46,13 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Account Number</label>
-                                        <input type="text" name="accNumber" value="<?=$dataVa->accNumber?>" class="form-control" placeholder="Enter Account Number">
+                                        <input type="text" name="accNumber" value="<?=$dataBank->accNumber?>" class="form-control" placeholder="Enter Account Number">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Holder Name</label>
-                                        <input type="text" name="holderName" value="<?=$dataVa->holderName?>" class="form-control" placeholder="Enter Holder Name">
+                                        <input type="text" name="holderName" value="<?=$dataBank->holderName?>" class="form-control" placeholder="Enter Holder Name">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +63,7 @@
                                         <label for="formrow-inputState" class="form-label">Status</label>
                                         <select id="formrow-inputState" name="status" class="form-select">
                                             <?php foreach($groupStatus as $listStatus): ?>
-                                                <?php if($dataVa->status == $listStatus->id):?>
+                                                <?php if($dataBank->status == $listStatus->id):?>
                                                     <option value="<?= $listStatus->id ?>" selected><?= $listStatus->name ?></option>
                                                 <?php else:?>
                                                     <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
@@ -91,6 +95,70 @@
 <?php $this->section('javascript');?>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    function getClients(countryID, selectedClient) {
+        $.ajax({
+            url: '<?=base_url('dashboard/country/getClients')?>',
+            method: 'POST',
+            data: {
+                country: countryID
+            },
+            dataType: 'json',
+            success: function (response) {
+                $('#pickClient').empty();
+                if (response.clients) {
+                    response.clients.forEach(function (client) {
+                        $('#pickClient').append($('<option>', {
+                            value: client.id,
+                            text: client.name
+                        }));
+                    });
+                    if (selectedClient !== null) {
+                        $('#pickClient').val(selectedClient).trigger('change');
+                    }
+                } else {
+                    $('#pickClient').append($('<option>', {
+                        value: '',
+                        text: 'No clients found'
+                    }));
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    function getBanks(countryID, selectedBank) {
+        $.ajax({
+            url: '<?=base_url('dashboard/country/getBanks')?>',
+            method: 'POST',
+            data: {
+                country: countryID
+            },
+            dataType: 'json',
+            success: function (response) {
+                $('#pickBank').empty();
+                if (response.banks) {
+                    response.banks.forEach(function (banks) {
+                        $('#pickBank').append($('<option>', {
+                            value: banks.id,
+                            text: banks.bankName
+                        }));
+                    });
+                    if (selectedBank !== null) {
+                        $('#pickBank').val(selectedBank).trigger('change');
+                    }
+                } else {
+                    $('#pickBank').append($('<option>', {
+                        value: '',
+                        text: 'No banks found'
+                    }));
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
      $(document).ready(function () {
         $("#pickClient").select2({
             placeholder: {
@@ -99,6 +167,31 @@
 		     },
             language: "en",
         });
+        $("#pickCountry").select2({
+            placeholder: {
+                id: '',
+                text: 'Choose Country'
+            },
+            language: "en",
+        });
+        $("#pickBank").select2({
+            placeholder: {
+                id: '',
+                text: 'Choose Bank'
+            },
+            language: "en",
+        });
+        $('#pickCountry').on('change', function () {
+            var countryID = $(this).val();
+            getClients(countryID);
+            getBanks(countryID);
+        })
+        var selectedCountry = '<?=$dataBank->countryID?>';
+        $('#pickCountry').val(selectedCountry).change();
+        var selectedBank = '<?=$dataBank->lbID?>';
+        var selectedClient = '<?=$dataBank->clientID?>';
+        getClients(selectedCountry, selectedClient);
+        getBanks(selectedCountry, selectedBank);
     })
 </script>
   <!-- validation init -->
