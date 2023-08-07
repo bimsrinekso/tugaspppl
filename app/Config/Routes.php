@@ -76,6 +76,14 @@ $routes->post('/dashboard/createAccount', 'AccountBank::saveAcc', ['filter' => '
 $routes->delete('/dashboard/deleteAccount/(:num)', 'AccountBank::delAcc/$1', ['filter' => 'role:main,helpdesk']);
 $routes->get('/dashboard/editAccount/(:num)', 'AccountBank::detailAcc/$1', ['filter' => 'role:main, helpdesk']);
 $routes->post('/dashboard/editAccount/(:num)', 'AccountBank::updateAcc/$1', ['filter' => 'role:main, helpdesk']);
+
+//
+$routes->get('/dashboard/qrisAccounts', 'AccountQris::index', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/createQris', 'AccountQris::createAcc', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/createQris', 'AccountQris::saveAcc', ['filter' => 'role:main,helpdesk']);
+$routes->delete('/dashboard/deleteQris/(:num)', 'AccountQris::delAcc/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editQris/(:num)', 'AccountQris::detailAcc/$1', ['filter' => 'role:main, helpdesk']);
+$routes->post('/dashboard/editQris/(:num)', 'AccountQris::updateAcc/$1', ['filter' => 'role:main, helpdesk']);
 //userm
 $routes->get('/dashboard/createUser', 'UserManagement::createUser', ['filter' => 'role:main']);
 $routes->post('/dashboard/createUser', 'UserManagement::saveUser', ['filter' => 'role:main']);

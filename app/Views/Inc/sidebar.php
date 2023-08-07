@@ -23,6 +23,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="<?= base_url('dashboard/bankAccounts') ?>" key="t-tui-calendar">Bank Accounts</a></li>
+                        <li><a href="<?= base_url('dashboard/qrisAccounts') ?>" key="t-tui-calendar">Qris Accounts</a></li>
                     </ul>
                 </li>
                 <li>
