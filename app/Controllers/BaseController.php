@@ -30,6 +30,11 @@ abstract class BaseController extends Controller
         $this->isvalid = \Config\Services::validation();
         $this->gambar = \Config\Services::image();
 	}
+    protected function sanitizeFilename(string $filename): string
+    {
+        $filename = preg_replace('/[^a-zA-Z0-9\._-]/', '', $filename);
+        return $filename;
+    }
     /**
      * Instance of the main Request object.
      *

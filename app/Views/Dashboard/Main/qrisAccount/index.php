@@ -56,11 +56,11 @@
                                                     <td>
                                                         <?=$i++?>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><?=$listData->merchantName?></td>
+                                                    <td><?=$listData->clientName?></td>
+                                                    <td><?=$listData->cnName?></td>
+                                                    <td><?= $listData->action_by ?></td>
+                                                    <td><?= $listData->status_name?></td>
                                                     
                                                     <td>
                                                         <a href="<?= base_url('/dashboard/editQris/'. $listData->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
@@ -99,11 +99,11 @@
                                         <?php foreach($dataActive as $listActive): ?>
                                                 <tr>
                                                     <td><?=$i++?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><?=$listActive->merchantName?></td>
+                                                    <td><?=$listActive->clientName?></td>
+                                                    <td><?=$listActive->cnName?></td>
+                                                    <td><?= $listActive->action_by ?></td>
+                                                    <td><?= $listActive->status_name?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editQris/'. $listActive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -140,11 +140,11 @@
                                             <?php foreach($dataInactive as $listInactive): ?>
                                                 <tr>
                                                     <td><?=$i++?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><?=$listInactive->merchantName?></td>
+                                                    <td><?=$listInactive->clientName?></td>
+                                                    <td><?=$listInactive->cnName?></td>
+                                                    <td><?= $listInactive->action_by ?></td>
+                                                    <td><?= $listInactive->status_name?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editQris/'. $listInactive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>

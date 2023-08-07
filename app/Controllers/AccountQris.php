@@ -97,14 +97,14 @@ class AccountQris extends BaseController
         if($role == 1){
             $isValid = [
                 'merchantName' => 'required',
-                // 'gambar' => 'uploaded[gambar]|mime_in[gambar,image/jpg, image/jpeg, image/png]',
+                'gambar' => 'uploaded[gambar]',
                 'country' => 'required'
             ];
         }
         if($role == 4){
             $isValid = [
                 'merchantName' => 'required',
-                // 'gambar' => 'uploaded[gambar]|mime_in[gambar,image/jpg, image/jpeg, image/png]',
+                'gambar' => 'uploaded[gambar]',
             ];
         }
         if (!$this->validate($isValid)) {
@@ -130,24 +130,32 @@ class AccountQris extends BaseController
             $clientID = $parseCC->client_id;
         }
         $enp = 'api/qris/saveAccount';
+        $merchantName = $this->request->getVar('merchantName');
+        $qris = $this->request->getFile('gambar');
+        $qrisPath;
+        if ($qris->isValid() && !$qris->hasMoved())
+        {
+            $qrisExtension = $qris->getClientExtension();
+            $qrisName = date('YmdHis') . '-qris-' . $this->sanitizeFilename($merchantName) . '-' . $qris->getRandomName($qrisExtension);
+            $qrisPath = 'gambar/qris/' . $qrisName;
+            $qris->move('gambar/qris', $qrisName);
+        }
         $dataBody = [
             'merchantName'=> $this->request->getVar('merchantName'),
-            'gambar' => $this->request->getFile('gambar'),
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
             'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
             'country' => $country
         ];
-        // dd($dataBody);
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath);
         $parseData = $postData->response;
         if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data VA Account");
-            return redirect()->to('dashboard/bankAccounts');
+            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Qris Account");
+            return redirect()->to('dashboard/qrisAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/createAccount');
+            return redirect()->to('dashboard/createQris');
         }
     }
 
@@ -156,7 +164,7 @@ class AccountQris extends BaseController
         $enp = 'api/qris/cekIdQris';
         $enpSts = 'api/qris/groupStatus';
         $dataBody = [
-            'idVa' => $id,
+            'idQris' => $id,
             'userid' => $this->sesi->get('userid')
         ];
         $getData = $this->async->get($enpSts, $this->apimain);
@@ -177,7 +185,7 @@ class AccountQris extends BaseController
                     "dataClient" => $parseClient,
                     "dataCountry" => $parseCountry
                 ];
-                return view('Dashboard/Main/bankAccount/editAcc', $data);   
+                return view('Dashboard/Main/qrisAccount/editAcc', $data);   
             }elseif($role == 4){
                 $dataCC = [
                     'userid' => $this->sesi->get('userid')
@@ -198,12 +206,12 @@ class AccountQris extends BaseController
                     "groupStatus" => $parseStatus,
                     "listBank" => $parseBank
                 ];
-                return view('Dashboard/Helpdesk/bankAccount/editAcc', $data);   
+                return view('Dashboard/Helpdesk/qrisAccount/editAcc', $data);   
             }
             
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
-            return redirect()->to('dashboard/bankAccounts');
+            return redirect()->to('dashboard/qrisAccounts');
         }
     }
     public function updateAcc($id = null){
