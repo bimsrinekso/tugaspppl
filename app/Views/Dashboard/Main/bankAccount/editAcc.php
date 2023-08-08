@@ -114,6 +114,7 @@
                     });
                     if (selectedClient !== null) {
                         $('#pickClient').val(selectedClient).trigger('change');
+                        
                     }
                 } else {
                     $('#pickClient').append($('<option>', {

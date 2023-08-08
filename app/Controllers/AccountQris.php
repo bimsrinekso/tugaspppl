@@ -180,7 +180,7 @@ class AccountQris extends BaseController
         if($postData->status == '200'){
             if($role == 1){
                 $data = [
-                    "dataBank" => $parseData[0],
+                    "dataQris" => $parseData[0],
                     "groupStatus" => $parseStatus,
                     "dataClient" => $parseClient,
                     "dataCountry" => $parseCountry
@@ -198,15 +198,28 @@ class AccountQris extends BaseController
                     "country" => $country,
                     "userid" => $this->sesi->get('userid')
                 ];
-                $enpBank = 'api/country/bank';
-                $listBank = $this->async->post($enpBank, $this->apimain, $dataCountry);
-                $parseBank = $listBank->response;
                 $data = [
-                    "dataBank" => $parseData[0],
+                    "dataQris" => $parseData[0],
                     "groupStatus" => $parseStatus,
-                    "listBank" => $parseBank
                 ];
                 return view('Dashboard/Helpdesk/qrisAccount/editAcc', $data);   
+            }elseif($role == 2){
+                $dataCC = [
+                    'userid' => $this->sesi->get('userid')
+                ];
+                $enpUserCC = 'api/country/userClientCountry';
+                $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+                $parseCC = $postCC->response;
+                $country = $parseCC->countryID;
+                $dataCountry = [
+                    "country" => $country,
+                    "userid" => $this->sesi->get('userid')
+                ];
+                $data = [
+                    "dataQris" => $parseData[0],
+                    "groupStatus" => $parseStatus,
+                ];
+                return view('Dashboard/Client/qrisAccount/editAcc', $data);   
             }
             
         }else{
@@ -217,19 +230,21 @@ class AccountQris extends BaseController
     public function updateAcc($id = null){
         $role = $this->sesi->get('role');
         $isValid;
+        $isValid;
         if($role == 1){
             $isValid = [
-                'bank'=> 'required',
-                'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
-                'holderName' => 'required',
+                'merchantName' => 'required',
                 'country' => 'required'
             ];
         }
         if($role == 4){
             $isValid = [
-                'bank'=> 'required',
-                'accNumber' => 'required|regex_match[/^[0-9\-]+$/]',
-                'holderName' => 'required',
+                'merchantName' => 'required',
+            ];
+        }
+        if($role == 2){
+            $isValid = [
+                'merchantName' => 'required',
             ];
         }
         if (!$this->validate($isValid)) {
@@ -254,6 +269,16 @@ class AccountQris extends BaseController
             $country = $parseCC->countryID;
             $clientID = $parseCC->client_id;
         }
+        if($role == 2){
+            $dataCC = [
+                'userid' => $this->sesi->get('userid')
+            ];
+            $enpUserCC = 'api/country/userClientCountry';
+            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+            $parseCC = $postCC->response;
+            $country = $parseCC->countryID;
+            $clientID = $parseCC->client_id;
+        }
         $enp = 'api/qris/updateAccount';
         $dataBody = [
             'id' => $id,
@@ -269,7 +294,7 @@ class AccountQris extends BaseController
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data VA Account");
-            return redirect()->to('dashboard/bankAccounts');
+            return redirect()->to('dashboard/qrisAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/editAccount');
