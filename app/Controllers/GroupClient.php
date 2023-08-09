@@ -35,7 +35,8 @@ class GroupClient extends BaseController
     public function saveClient(){
         $isValid = [
             'name' => 'required',
-            'va' => 'required',
+            'comBt' => 'required',
+            'comQr' => 'required',
             'comDepo' => 'required',
             'comWd' => 'required',
             'country' => 'required'
@@ -49,7 +50,8 @@ class GroupClient extends BaseController
         $enp = 'api/saveClient';
         $dataBody = [
             'name'=> $this->request->getVar('name'),
-            'va'=> $this->request->getVar('va'),
+            'comBt'=> $this->request->getVar('comBt'),
+            'comQr' => $this->request->getVar('comQr'),
             'comDepo'=> $this->request->getVar('comDepo'),
             'comWd'=> $this->request->getVar('comWd'),
             'country' => $this->request->getVar('country')
@@ -97,7 +99,8 @@ class GroupClient extends BaseController
     public function updateClient($id = null){
         $isValid = [
             'name'=> 'required',
-            'va'=> 'required',
+            'comBt'=> 'required',
+            'comQr' => 'required',
             'comDepo'=> 'required',
             'comWd'=> 'required',
             'country'=> 'required'
@@ -112,7 +115,8 @@ class GroupClient extends BaseController
         $dataBody = [
             'clientID' => $id,
             'name'=> $this->request->getVar('name'),
-            'va'=> $this->request->getVar('va'),
+            'comBt'=> $this->request->getVar('comBt'),
+            'comQr' => $this->request->getVar('comQr'),
             'comDepo'=> $this->request->getVar('comDepo'),
             'comWd'=> $this->request->getVar('comWd'),
             'country' => $this->request->getVar('country')

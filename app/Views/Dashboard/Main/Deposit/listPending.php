@@ -124,10 +124,10 @@
                                                         <?= $listPen->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->vaNumber?> 
+                                                        <?= $listPen->accNumber?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->bank?> 
+                                                        <?= $listPen->bankName?> 
                                                     </td>
                                                     <td>
                                                         <?= $listPen->holderName?> 
@@ -145,7 +145,7 @@
                                                         <?=  formatKrw($listPen->amt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatKrw($listPen->amtVa)?> 
+                                                        <?=  formatKrw($listPen->amtBt)?> 
                                                     </td>
                                                     <td>
                                                         <?=  formatKrw($listPen->comission)?> 

@@ -31,9 +31,10 @@
                                         <th>No</th>
                                         <th>Client Name</th>
                                         <th>Country</th>
-                                        <th>Va</th>
-                                        <th>Comission Deposit</th>
-                                        <th>Comission Withdraw</th>
+                                        <th class="text-center">Comission Bank Transfer</th>
+                                        <th class="text-center">Comission Qris</th>
+                                        <th class="text-center">Comission Deposit</th>
+                                        <th class="text-center">Comission Withdraw</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -46,9 +47,10 @@
                                                     <td><?=$i++?> </td>
                                                     <td> <?=$listClient->name?></td>
                                                     <td><?=$listClient->cnName?></td>
-                                                    <td> <?=$listClient->va?></td>
-                                                    <td> <?=$listClient->comDepo?></td>
-                                                    <td> <?=$listClient->comWd?></td>
+                                                    <td class="text-center"> <?=$listClient->comBt?>%</td>
+                                                    <td class="text-center"> <?=$listClient->comQr?>%</td>
+                                                    <td class="text-center"> <?=$listClient->comDepo?>%</td>
+                                                    <td class="text-center"> <?=$listClient->comWd?>%</td>
                                                     <td>
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editClient/'. $listClient->id) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>

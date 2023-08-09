@@ -134,7 +134,6 @@
         $('#pickCountry').on('change', function () {
             var countryID = $(this).val();
             getClients(countryID);
-            getBanks(countryID);
         })
     })
 </script>

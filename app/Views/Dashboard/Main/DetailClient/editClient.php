@@ -43,8 +43,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Va</label>
-                                        <input type="number" step=".01" value="<?=$dataClient->va?>" name="va" class="form-control" placeholder="Input your va">
+                                        <label class="form-label">Comission Bank Transfer</label>
+                                        <input type="number" step=".01" value="<?=$dataClient->comBt?>" name="comBt" class="form-control" placeholder="Input your va">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Comission Qris</label>
+                                        <input type="number" step=".01" value="<?=$dataClient->comQr?>" name="comQr" class="form-control" placeholder="Input your comission Qris">
                                     </div>
                                 </div>
                                 <div class="col-md-6">

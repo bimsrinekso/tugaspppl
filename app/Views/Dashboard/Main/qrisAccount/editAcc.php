@@ -143,7 +143,6 @@
         $('#pickCountry').on('change', function () {
             var countryID = $(this).val();
             getClients(countryID);
-            getBanks(countryID);
         })
         var selectedCountry = '<?=$dataQris->countryID?>';
         $('#pickCountry').val(selectedCountry).change();

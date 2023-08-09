@@ -35,8 +35,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Comission Va</label>
-                                        <input type="number" step=".01" name="va" class="form-control" placeholder="Input your comission va">
+                                        <label class="form-label">Comission Bank Transfer</label>
+                                        <input type="number" step=".01" name="comBt" class="form-control" placeholder="Input your comission Bank Transfer">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Comission Qris</label>
+                                        <input type="number" step=".01" name="comQr" class="form-control" placeholder="Input your comission Qris">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
