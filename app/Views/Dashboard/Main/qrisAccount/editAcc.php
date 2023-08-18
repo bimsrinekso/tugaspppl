@@ -65,13 +65,29 @@
                                     </div>
                                 </div>
 
+                                
+                            
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Qris Barcode</label>
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="inputGroupFile01">Qris</label>
+                                        <input type="file" name="gambar" class="form-control" id="inputGroupFile01" <?=$dataQris->gambar?>>
+                                    </div>
+                                
+                                <div class="row " id="apiForm">
+                                    <div class="col-lg-6 mb-3">
+                                            <label for="formrow-firstname-input" class="form-label">Username</label>
+                                            <input type="text" class="form-control" name="username"
+                                                id="formrow-firstname-input" placeholder="Username" value="<?=$dataQris->accUser?>">
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <label for="formrow-firstname-input" class="form-label">Password</label>
+                                            <input type="password" class="form-control" name="password"
+                                                id="formrow-firstname-input" placeholder="Password" value="<?=$dataQris->accPw?>">
+                                        </div>
+                                                    </div>
                             </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Qris Barcode</label>
-                                <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupFile01">Qris</label>
-                                    <input type="file" name="gambar" class="form-control" id="inputGroupFile01" <?=$dataQris->gambar?>>
-                                </div>
 
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </form>

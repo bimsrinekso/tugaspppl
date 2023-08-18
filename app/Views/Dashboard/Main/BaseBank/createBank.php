@@ -2,6 +2,7 @@
 <?php $this->section('css');?>
 <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">
 <link href="/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -13,7 +14,6 @@
                         <h4 class="card-title mb-4">Create Bank</h4>
                         <form action="" method="post">
                             <div class="column">
-
                                 <div class="col-md-6 mb-3">
                                     <label for="pickCountry" class="form-label">Country</label>
                                     <select id="pickCountry" name="country" class="form-control select2 ">
@@ -38,7 +38,10 @@
                                         <input type="text" class="form-control" name="universalName"
                                             id="formrow-firstname-input" placeholder="Universal Name">
                                     </div>
+
                                 </div>
+                                
+
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
@@ -62,6 +65,7 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
 
+
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
@@ -70,5 +74,6 @@
 <script src="/assets/libs/select2/js/select2.min.js"></script>
 <!-- form advanced init -->
 <script src="/assets/js/pages/form-advanced.init.js"></script>
+
 
 <?php $this->endSection();?>

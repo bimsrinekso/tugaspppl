@@ -46,6 +46,9 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
+                                        <th>Acc User</th>
+                                        <th>Password</th>
+                                        <th>API</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -65,6 +68,9 @@
                                                     <td><?=$listData->cnName?></td>
                                                     <td><?= $listData->action_by ?></td>
                                                     <td><?= $listData->status_name?></td>
+                                                    <td><?= $listData->accUser?></td>
+                                                    <td><?= $listData->accPw?></td>
+                                                    <td><?= $listData->accApi?></td>
                                                     <td>
                                                         <a href="<?= base_url('/dashboard/editAccount/'. $listData->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -94,6 +100,9 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
+                                        <th>Acc User</th>
+                                        <th>Password</th>
+                                        <th>API</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -111,6 +120,9 @@
                                                     <td><?=$listActive->cnName?></td>
                                                     <td><?= $listActive->action_by ?></td>
                                                     <td><?= $listActive->status_name?></td>
+                                                    <td><?= ($listActive->accUser === null) ? '' : $listActive->accUser; ?></td>
+                                                    <td><?= ($listActive->accPw === null) ? '' : $listActive->accPw; ?></td>
+                                                    <td><?= ($listActive->accApi === null) ? '' : $listActive->accApi; ?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editAccount/'. $listActive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -139,6 +151,9 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
+                                        <th>Acc User</th>
+                                        <th>Password</th>
+                                        <th>API</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -156,6 +171,9 @@
                                                     <td><?=$listInactive->cnName?></td>
                                                     <td><?= $listInactive->action_by ?></td>
                                                     <td><?= $listInactive->status_name?></td>
+                                                    <td><?= ($listInactive->accUser === null) ? '' : $listInactive->accUser; ?></td>
+                                                    <td><?= ($listInactive->accPw === null) ? '' : $listInactive->accPw; ?></td>
+                                                    <td><?= ($listInactive->accApi === null) ? '' : $listInactive->accApi; ?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editAccount/'. $listInactive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>

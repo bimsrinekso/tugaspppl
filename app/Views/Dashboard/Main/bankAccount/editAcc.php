@@ -2,6 +2,16 @@
 <?php $this->section('css');?>
 <link rel="stylesheet" type="text/css" href="/assets//libs/toastr/build/toastr.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .setVisible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+</style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -12,6 +22,25 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Edit Account</h4> 
                         <form action="" method="post">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="pickSelect" class="form-label">Api</label>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" name="API" value="yes" type="radio" <?php if(!empty($dataBank->accUser)){echo "checked";}?>
+                                            id="yesRadio" >
+                                        <label class="form-check-label" for="yesRadio" >
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="API" value="no" type="radio" <?php if(empty($dataBank->accUser)){echo "checked";}?>
+                                            id="noRadio">
+                                        <label class="form-check-label" for="noRadio">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                             <div class="col-md-6 mb-3">
                                     <label for="pickCountry" class="form-label">Country</label>
@@ -55,10 +84,7 @@
                                         <input type="text" name="holderName" value="<?=$dataBank->holderName?>" class="form-control" placeholder="Enter Holder Name">
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="formrow-inputState" class="form-label">Status</label>
                                         <select id="formrow-inputState" name="status" class="form-select">
@@ -72,7 +98,35 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                             
+                            <div class="row hidden" id="apiForm">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pickApi" class="form-label">Api</label>
+                                        <select id="pickApi" name="apiKeyID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataApi != null):?>
+                                            <?php foreach ($dataApi as $listApi): ?>
+                                                 <?php if($dataBank->accApi == $listApi->id):?>
+                                                   <option value="<?=$listApi->id?>" selected><?=$listApi->apiKey?></option>
+                                                <?php else:?>
+                                                    <option value="<?=$listApi->id?>"><?=$listApi->apiKey?></option>
+                                                <?php endif?>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                            <label for="formrow-firstname-input" class="form-label">Username</label>
+                                            <input type="text" class="form-control" name="username"
+                                                id="formrow-firstname-input" placeholder="Username" value="<?=$dataBank->accUser?>">
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <label for="formrow-firstname-input" class="form-label">Password</label>
+                                            <input type="password" class="form-control" name="password"
+                                                id="formrow-firstname-input" placeholder="Password" value="<?=$dataBank->accPw?>">
+                                        </div>
+                                </div>
                             <div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                             </div>
@@ -187,12 +241,28 @@
             getClients(countryID);
             getBanks(countryID);
         })
+        $("#pickApi").select2({
+            placeholder: {
+                id: '',
+                text: 'Choose Api'
+            },
+            language: "en",
+        });
+        $('input[name="API"]').on('change', function () {
+            if ($(this).val() === 'yes') {
+                $('#apiForm').removeClass('hidden');
+            } else {
+                $('#apiForm').addClass('hidden');
+            }
+        });
+
         var selectedCountry = '<?=$dataBank->countryID?>';
         $('#pickCountry').val(selectedCountry).change();
         var selectedBank = '<?=$dataBank->lbID?>';
         var selectedClient = '<?=$dataBank->clientID?>';
         getClients(selectedCountry, selectedClient);
         getBanks(selectedCountry, selectedBank);
+        
     })
 </script>
   <!-- validation init -->

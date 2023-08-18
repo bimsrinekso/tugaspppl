@@ -26,7 +26,8 @@ class Bank extends BaseController
         $data;
         if($role == 1){
             $data = [
-                "dataCountry" => $parseCountry
+                "dataCountry" => $parseCountry,
+                
             ];
              return view('Dashboard/Main/BaseBank/createBank', $data);
         }elseif($role == 4){
@@ -57,6 +58,7 @@ class Bank extends BaseController
             'universalName' => $this->request->getVar('universalName'),
             'clientID' => $this->request->getVar('clientID'),
             'actionBy' => $this->sesi->get('userid'),
+            
         ];
 
         $postData = $this->async->post($enp, $this->apimain, $dataBody);

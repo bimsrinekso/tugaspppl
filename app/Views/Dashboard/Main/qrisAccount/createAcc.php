@@ -4,7 +4,6 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Plugins css -->
 <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
-
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -64,7 +63,19 @@
                                     <label class="input-group-text" for="inputGroupFile01">Qris</label>
                                     <input type="file" name="gambar" class="form-control" id="inputGroupFile01">
                                 </div>
-
+                            </div>
+                             <div class="row " id="apiForm">
+                                <div class="col-lg-6 mb-3">
+                                        <label for="formrow-firstname-input" class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username"
+                                            id="formrow-firstname-input" placeholder="Username">
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="formrow-firstname-input" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password"
+                                            id="formrow-firstname-input" placeholder="Password">
+                                    </div>
+                            </div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </form>
                     </div>
@@ -134,7 +145,7 @@
         $('#pickCountry').on('change', function () {
             var countryID = $(this).val();
             getClients(countryID);
-        })
+        });
     })
 </script>
 <!-- validation init -->

@@ -19,6 +19,7 @@ class AccountBank extends BaseController
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
+            
             return view('Dashboard/Main/bankAccount/index', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -60,12 +61,19 @@ class AccountBank extends BaseController
         $enpCountry = 'api/country/list';
         $getDataCountry = $this->async->get($enpCountry, $this->apimain);
         $parseCountry = $getDataCountry->response;
+
+
+        $enpAPI = 'api/listApi';
+        $getDataAPI = $this->async->get($enpAPI, $this->apimain);
+        $parseDataAPI = $getDataAPI->response;
         if($role == 1){
             $data = [
                 "dataClient" => $parseClient,
                 "groupStatus" => $parseData,
-                "dataCountry" => $parseCountry
+                "dataCountry" => $parseCountry,
+                "dataApi" => $parseDataAPI,
             ];
+            
             return view('Dashboard/Main/bankAccount/createAcc', $data);
         }elseif($role == 4){
             $dataCC = [
@@ -119,6 +127,7 @@ class AccountBank extends BaseController
         if($role == 1){
             $country = $this->request->getVar('country');
             $clientID = $this->request->getVar('clientID');
+            
         }
         if($role == 4){
             $dataCC = [
@@ -139,7 +148,11 @@ class AccountBank extends BaseController
             'userid' => $this->sesi->get('userid'),
             'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
-            'country' => $country
+            'country' => $country,
+            'apiKeyID'=> $this->request->getVar('apiKeyID'),
+            'username'=> $this->request->getVar('username'),
+            'password'=> $this->request->getVar('password'),
+            'api'=> $this->request->getVar('API')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
@@ -170,14 +183,19 @@ class AccountBank extends BaseController
         $enpCountry = 'api/country/list';
         $getDataCountry = $this->async->get($enpCountry, $this->apimain);
         $parseCountry = $getDataCountry->response;
+        $enpAPI = 'api/listApi';
+        $getDataAPI = $this->async->get($enpAPI, $this->apimain);
+        $parseDataAPI = $getDataAPI->response;
         if($postData->status == '200'){
             if($role == 1){
                 $data = [
                     "dataBank" => $parseData[0],
                     "groupStatus" => $parseStatus,
                     "dataClient" => $parseClient,
-                    "dataCountry" => $parseCountry
+                    "dataCountry" => $parseCountry,
+                    "dataApi" => $parseDataAPI,
                 ];
+                // dd($data);
                 return view('Dashboard/Main/bankAccount/editAcc', $data);   
             }elseif($role == 4){
                 $dataCC = [

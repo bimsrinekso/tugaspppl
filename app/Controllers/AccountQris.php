@@ -146,8 +146,11 @@ class AccountQris extends BaseController
             'userid' => $this->sesi->get('userid'),
             'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
-            'country' => $country
+            'country' => $country,
+            'username' =>$this->request->getVar('username'),
+            'password' =>$this->request->getVar('password'),
         ];
+        
         $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath);
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -288,7 +291,9 @@ class AccountQris extends BaseController
             'userid' => $this->sesi->get('userid'),
             'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
-            'country' => $country
+            'country' => $country,
+            'username'=> $this->request->getVar('username'),
+            'password'=> $this->request->getVar('password')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
