@@ -109,7 +109,7 @@
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Order Number</th>
-                                            <th>Virtual Account</th>
+                                            <th>Account Number</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
@@ -117,7 +117,7 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>VA Fee</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
@@ -139,10 +139,10 @@
                                                     <?= $listTrans->dpOrderNo?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->vaNumber?>
+                                                    <?= $listTrans->accNumber?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->bank?>
+                                                    <?= $listTrans->bankName?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->holderName ?>
@@ -163,7 +163,7 @@
                                                     <?=  formatKrw($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amtVa) ?>
+                                                    <?=  formatKrw($listTrans->amtBt) ?>
                                                 </td>
                                                 <td>
                                                         <?=  formatKrw($listTrans->comission)?> 
@@ -212,7 +212,7 @@
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Order Number</th>
-                                            <th>Virtual Account</th>
+                                            <th>Account Number</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
                                             <th>Payment Method</th>
@@ -220,7 +220,7 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>VA Fee</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
@@ -242,10 +242,10 @@
                                                     <?= $listTrans->dpOrderNo?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->vaNumber?>
+                                                    <?= $listTrans->accNumber?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->bank?>
+                                                    <?= $listTrans->bankName?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->holderName ?>
@@ -266,7 +266,7 @@
                                                     <?=  formatKrw($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amtVa) ?>
+                                                    <?=  formatKrw($listTrans->amtBt) ?>
                                                 </td>
                                                 <td>
                                                         <?=  formatKrw($listTrans->comission)?> 

@@ -128,22 +128,22 @@
                                                         <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->vaNumber ?> 
+                                                        <?= $listDepo->accNumber ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->bank ?> 
+                                                        <?= $listDepo->bankName ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->payMethod ?> 
+                                                        <?= $listDepo->payMethod == 1 ? 'Bank Transfer' : 'Qris' ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
                                                     <td>
-                                                       KRW
+                                                       IDR
                                                     </td>
                                                     <td>
                                                          <?= $listDepo->name ?>
@@ -207,22 +207,22 @@
                                                         <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->vaNumber ?> 
+                                                        <?= $listDepo->accNumber ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->bank ?> 
+                                                        <?= $listDepo->bankName ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->payMethod ?> 
+                                                        <?= $listDepo->payMethod == 1 ? 'Bank Transfer' : 'Qris' ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
                                                     <td>
-                                                       KRW
+                                                       IDR
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->name ?> 
@@ -290,263 +290,6 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
-<!-- <script>
-    var targetFilter;
-    var tableRun;
-    var tableExp;
-    var targetTgl = 'Run';
-    const uang = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'KRW',
-    minimumFractionDigits: 2, 
-    maximumFractionDigits: 2, 
-        });
-
-    function cbHref(isi){
-        var target = $(isi).data("bs-target");
-        if(target == "#running"){
-           targetFilter = "datatable-active";
-           targetTgl = 'Run';
-        }else{
-            targetFilter = "datatable-expired";
-            targetTgl = "Exp";
-        }
-    }
- 
-    function filterTgl(){
-        var tgl = $('input[name="daterange'+targetTgl+'"]').val();
-        var splitTgl = tgl.split('-');
-        var startDate;
-        var endDate;
-        if (splitTgl[0] == '') {
-                startDate = '';
-                endDate = '';
-        } else {
-            startDate = splitTgl[0];
-            endDate = splitTgl[1];
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace('/', '-');
-            startDate = startDate.replace(' ', '');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.replace('/', '-');
-            endDate = endDate.slice(1);
-            // new date convert
-            startDate = startDate.split("-").reverse().join("-");
-            startDate = startDate + ' 00:00:00';
-            endDate = endDate.split("-").reverse().join("-");
-            endDate = endDate + ' 00:00:00';
-        }
-        var tableRun = $("#datatable-active tbody");
-        var tableExpired = $("#datatable-expired tbody");
-        var isTable = $("#"+targetFilter);
-        if(targetFilter == "datatable-active"){
-            tableRun.empty();
-            tableRun.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: '<?=base_url("dashboard/monitorDepo")?>',
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "running"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableRun.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.dpcreat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableRun.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.transactionID +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            b.payMethod +
-                            "</td>" +
-                            "<td>" +
-                            b.forUserid +
-                            "</td>" +
-                            "<td>" +
-                            b.forUser +
-                            "</td>" +
-                            "<td>" +
-                            "KRW" +
-                            "</td>" +
-                            "<td>" +
-                           createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }else{
-            tableExpired.empty();
-            tableExpired.append(
-                "<tr>" +
-                "<td colspan='14'>" +
-                "<center>" +
-                "<div class='loader' id='loader-1'></div>" +
-                "</center>" +
-                "</td>" +
-                "</tr>"
-            );
-            $.ajax({
-                url: '<?=base_url("dashboard/monitorDepo")?>',
-                method: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                dataType: "json",
-                data: {
-                    startDate: startDate,
-                    endDate: endDate,
-                    target: "expired"
-                },
-                success: (response) => {
-                    isTable.DataTable().destroy();
-                    tableExpired.empty();
-                    var dataT = response["response"];
-                    var i = 0;
-                    $.each(dataT, function(a, b) {
-                        var crtDate = new Date(b.dpcreat),
-                            createdDate = moment(crtDate).format("DD-MM-YYYY");
-                            i++;
-                        tableExpired.append(
-                            "<tr>" +
-                            "<td>" +
-                            i +
-                            "</td>" +
-                            "<td>" +
-                                b.transactionID +                           
-                            "</td>" +
-                            "<td>" +
-                            b.vaNumber +
-                            "</td>" +
-                            "<td>" +
-                            b.bank +
-                            "</td>" +
-                            "<td>" +
-                            b.holderName +
-                            "</td>" +
-                            "<td>" +
-                            b.payMethod +
-                            "</td>" +
-                            "<td>" +
-                            b.forUserid +
-                            "</td>" +
-                            "<td>" +
-                            b.forUser +
-                            "</td>" +
-                            "<td>" +
-                            "KRW" +
-                            "</td>" +
-                            "<td>" +
-                           createdDate +
-                            "</td>" +
-                            "</tr>"
-                        );
-                    });
-                    var ikiTable = isTable.DataTable({
-                        lengthChange: false,
-                        buttons: ["copy", "excel", "pdf"],
-                        scrollCollapse: true,
-                        "bDestroy": true
-                    });
-                    ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)"), $(
-                    ".dataTables_length select").addClass("form-select form-select-sm");
-                    $.fn.dataTable.tables( { visible: true, api: true } ).columns.adjust();
-                }
-            });
-        }
-    }
-    $(document).ready(function () {
-        targetFilter = $("#btnFilterRun").data("tabactive");
-        $('input[name="daterangeRun"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangeRun"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangeRun"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
-            $('input[name="daterangeExp"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangeExp"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangeExp"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $.fn.dataTable
-        .tables( { visible: true, api: true } )
-        .columns.adjust();
-        });
-       tableRun = $("#datatable-active").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
-            "bDestroy": true
-        });
-        tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-        tableExp = $("#datatable-expired").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
-            "bDestroy": true
-        });
-        tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");
-    });
-</script> -->
 
 <script>
     var targetFilter;

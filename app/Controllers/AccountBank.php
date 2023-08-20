@@ -61,8 +61,6 @@ class AccountBank extends BaseController
         $enpCountry = 'api/country/list';
         $getDataCountry = $this->async->get($enpCountry, $this->apimain);
         $parseCountry = $getDataCountry->response;
-
-
         $enpAPI = 'api/listApi';
         $getDataAPI = $this->async->get($enpAPI, $this->apimain);
         $parseDataAPI = $getDataAPI->response;

@@ -82,9 +82,12 @@ class Deposit extends BaseController
             $parseData = $postData->response;
             $data = [
                 "dataPen" => $parseData->dataPen,
-
             ];
             if($role == 1){
+                $enpCountry = 'api/country/list';
+                $getDataCountry = $this->async->get($enpCountry, $this->apimain);
+                $parseCountry = $getDataCountry->response;
+                $data["dataCountry"] = $parseCountry;
                 return view('Dashboard/Main/Deposit/listPending', $data);
             }
             if($role == 2){

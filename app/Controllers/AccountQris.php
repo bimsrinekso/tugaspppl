@@ -151,7 +151,7 @@ class AccountQris extends BaseController
             'password' =>$this->request->getVar('password'),
         ];
         
-        $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath);
+        $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath, 'gambar');
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data Qris Account");
