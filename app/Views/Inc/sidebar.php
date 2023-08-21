@@ -35,6 +35,7 @@
                         <li><a href="<?= base_url('dashboard/listDeposit') ?>" key="t-tui-calendar">List Deposit</a></li>
                         <li><a href="<?= base_url('dashboard/depoTransaction') ?>" key="t-tui-calendar">Transaction</a></li>
                         <li><a href="<?= base_url('dashboard/depoPending') ?>" key="t-full-calendar">Pending Deposit</a></li>
+                        <li><a href="<?= base_url('dashboard/deposit/estatement') ?>" key="t-full-calendar">E-Statement</a></li>
                     </ul>
                 </li>
                 <li>
@@ -269,6 +270,7 @@
                         <li><a href="<?= base_url('dashboard/listDeposit') ?>" key="t-tui-calendar">List Deposit</a></li>
                         <li><a href="<?= base_url('dashboard/depoTransaction') ?>" key="t-tui-calendar">Transaction</a></li>
                         <li><a href="<?= base_url('dashboard/depoPending') ?>" key="t-full-calendar">Pending Deposit</a></li>
+                        <li><a href="<?= base_url('dashboard/deposit/estatement') ?>" key="t-full-calendar">E-Statement</a></li>
                     </ul>
                 </li>
                 <li>

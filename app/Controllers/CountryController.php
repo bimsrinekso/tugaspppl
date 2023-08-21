@@ -39,4 +39,23 @@ public function listClientCountry(){
         }
         
     }
+    public function listBankAccounts(){
+        $enp = 'api/country/bankAcc';
+        $dataBody = [
+            "country" => $this->request->getVar('country'),
+            "bankID" => $this->request->getVar('bankID'),
+            "clientID" => $this->request->getVar('clientID'),
+            "userid" => $this->sesi->get('userid')
+        ];
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $parseData = $postData->response;
+        try {
+            $data = [
+                "banks" => $parseData
+            ];
+            echo json_encode($data);
+        } catch (\Exception $e) {
+            echo json_encode($e->getMessage());
+        }
+    }
 }

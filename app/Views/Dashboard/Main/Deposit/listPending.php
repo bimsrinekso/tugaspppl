@@ -65,72 +65,6 @@
             <div class="col-md-6">
                 <h2>Management Pending Deposit</h2>
             </div>
-            <div class="col-md-6">
-                <div class="d-flex justify-content-end">
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#uploadMutasi" aria-expanded="false" aria-controls="uploadMutasi"
-                            title="Upload Mutasi">
-                            <i class="fas fa-filter"></i>
-                        </button>
-                        <a href="#" class="btn btn-primary" onclick="location.reload();" title="Refresh Data">
-                            <i class="fas fa-redo"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-lg-12" id="uploadMutasi">
-                <div class="card">
-                    <div class="card-body">
-                    <h4 class="card-title">Upload E-statement</h4>
-                    <hr>
-                        <div class="row">
-                            <form action="" method="post" id="formMutation">
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <div class="col-6 mb-3">
-                                            <label for="pickCountry" class="form-label">Country</label>
-                                            <select id="pickCountry" name="country" class="form-select select2">
-                                                <option value=""></option>
-                                                <?php if($dataCountry != null):?>
-                                                <?php foreach ($dataCountry as $listCountry): ?>
-                                                <option value="<?=$listCountry->id?>"><?=$listCountry->name?></option>
-                                                <?php endforeach;?>
-                                                <?php else:?>
-                                                <?php endif;?>
-                                            </select>
-                                        </div>
-                                        <div class="col-6 mb-3">
-                                                <label for="pickClient" class="form-label">Client</label>
-                                                <select id="pickClient" name="clientID" class="form-select select2">
-
-                                                </select>
-                                        </div>
-                                        <div class="col-6 mb-3">
-                                            <label for="pickBank" class="form-label">Bank</label>
-                                            <select id="pickBank" name="bank" class="form-select select2">
-
-                                            </select>
-                                        </div>
-                                        <div class="col-6 mb-3">
-                                            <label for="uploadMtt" class="form-label">File (pdf & excel only)</label>
-                                            <input type="file" name="mutation" class="form-control" id="uploadMtt">
-                                            <div id="fileValidationError" class="invalid-feedback">
-                                                Please select a valid PDF or Excel file.
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                        <button type="submit" class="btn btn-primary w-md">Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-12">
@@ -293,65 +227,6 @@
         </script>
     <?php endif?>
 <script>
-     function getClients(countryID) {
-        $.ajax({
-            url: '<?=base_url('dashboard/country/getClients')?>',
-            method: 'POST',
-            data: {
-                country: countryID
-            },
-            dataType: 'json',
-            success: function (response) {
-                $('#pickClient').empty();
-                if (response.clients) {
-                    response.clients.forEach(function (client) {
-                        $('#pickClient').append($('<option>', {
-                            value: client.id,
-                            text: client.name
-                        }));
-                    });
-                } else {
-                    $('#pickClient').append($('<option>', {
-                        value: '',
-                        text: 'No clients found'
-                    }));
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-    function getBanks(countryID) {
-        $.ajax({
-            url: '<?=base_url('dashboard/country/getBanks')?>',
-            method: 'POST',
-            data: {
-                country: countryID
-            },
-            dataType: 'json',
-            success: function (response) {
-                $('#pickBank').empty();
-                if (response.banks) {
-                    response.banks.forEach(function (banks) {
-                        $('#pickBank').append($('<option>', {
-                            value: banks.id,
-                            text: banks.bankName
-                        }));
-                    });
-                } else {
-                    $('#pickBank').append($('<option>', {
-                        value: '',
-                        text: 'No banks found'
-                    }));
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
     var targetFilter = 'datatable-pending';
     const uang = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -460,72 +335,7 @@
         });
     }
     $(document).ready(function () {
-        $("#pickClient").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Clients'
-            },
-            language: "en",
-        });
-        $("#pickCountry").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Country'
-            },
-            language: "en",
-        });
-        $("#pickBank").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Bank'
-            },
-            language: "en",
-        });
-        $('#pickCountry').on('change', function () {
-            var countryID = $(this).val();
-            getClients(countryID);
-            getBanks(countryID);
-        });
-        $.validator.addMethod("extension", function(value, element, param) {
-            param = typeof param === "string" ? param.replace(/,/g, "|") : "pdf|xls|xlsx";
-            return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
-        }, "Please select a valid file type.");
-        $('#formMutation').validate({
-            rules: {
-                mutation: {
-                    required: true,
-                    extension: "pdf|xls|xlsx"
-                }
-            },
-            messages: {
-                mutation: {
-                    required: "Please select a file.",
-                    extension: "Please select a valid PDF or Excel file."
-                }
-            },
-            errorPlacement: function(error, element) {
-                if (element.attr("name") == "mutation") {
-                    error.insertAfter("#fileValidationError");
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            submitHandler: function(form){
-                $.ajax({
-                    url: form.action,
-                    type: form.method,
-                    data: new FormData(form),
-                    processData: false,
-                    contentType: false,
-                    success: function(data){
-                        console.log(data);
-                    },
-                    error: function(err){
-                        console.log(err);
-                    }
-                })
-            }
-        });
+      
         $('input[name="daterangePen"]').daterangepicker({
                 autoUpdateInput: false,
                 locale: {

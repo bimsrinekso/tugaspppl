@@ -58,7 +58,7 @@ writable/logs/*
 writable/session/*
 !writable/session/index.html
 
-writable/uploads/*
+writable/uploads/document/mutation/*
 !writable/uploads/index.html
 
 writable/debugbar/*

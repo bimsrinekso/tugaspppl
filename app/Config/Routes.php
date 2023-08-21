@@ -107,6 +107,7 @@ $routes->post('/dashboard/depoPending/update/(:num)', 'Deposit::updatePending/$1
 $routes->post('/dashboard/monitorDepo', 'Deposit::monitorDepo', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/monitorPending', 'Deposit::monitorPending', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/deposit/estatement', 'EstatementController::listPending', ['filter' => 'role:main,helpdesk']);
 
 //setbank
 $routes->get('/dashboard/setBank', 'setBank::index', ['filter' => 'role:client']);
@@ -133,6 +134,7 @@ $routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['fil
 // country
 $routes->post('/dashboard/country/getClients', 'CountryController::listClientCountry', ['filter' => 'role:main']);
 $routes->post('/dashboard/country/getBanks', 'CountryController::listBankCountry', ['filter' => 'role:main']);
+$routes->post('/dashboard/country/getBankAccounts', 'CountryController::listBankAccounts', ['filter' => 'role:main']);
 // api
 $routes->get('/dashboard/generateApis', 'GenerateApi::index', ['filter' => 'role:main']);
 $routes->get('/dashboard/createApis', 'GenerateApi::createApis', ['filter' => 'role:main']);
@@ -173,6 +175,8 @@ $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter'
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client,helpdesk']);
 $routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client,helpdesk']);
 
+// mutation
+$routes->post('/dashboard/mutation/scrap', 'ScrapMutation::saveData', ['filter' => 'role:main,helpdesk']);
 
 //Forgot Pasword
 $routes->get('/forgot-password', 'ForgotPassword::index');
