@@ -5,7 +5,7 @@ class EstatementController extends BaseController
 {
     public function listPending()
     {
-        $enp = 'api/listPending';
+        $enp = 'api/estatement/list';
         $role = $this->sesi->get('role');
         if ($role == 1 || $role == 4) {
             $dataBody = [
@@ -14,8 +14,10 @@ class EstatementController extends BaseController
             $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
             $data = [
-                "dataPen" => $parseData->dataPen,
+                "dataPending" => $parseData->dataPending,
+                "dataDone" => $parseData->dataDone
             ];
+            // dd($data);
             if($role == 1){
                 $enpCountry = 'api/country/list';
                 $getDataCountry = $this->async->get($enpCountry, $this->apimain);

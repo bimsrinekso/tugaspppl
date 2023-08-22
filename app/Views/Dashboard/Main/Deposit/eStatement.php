@@ -173,24 +173,38 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Trx ID</th>
-                                        <th>Order Number</th>
-                                        <th>Virtual Account</th>
+                                        <th>Description</th>
+                                        <th>Debit</th>
+                                        <th>Kredit</th>
+                                        <th>Last Saldo</th>
+                                        <th>Country</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
-                                        <th>Payment Method</th>
-                                        <th>Depositor</th>
-                                        <th>Currency</th>
-                                        <th>Actual Amount</th>
-                                        <th>VA Fee</th>
-                                        <th>Commission</th>
-                                        <th>Client Name</th>
-                                        <th>Depo At</th>
-                                        <th>Action</th>
+                                        <th>Client</th>
+                                        <th>Transaction Date</th>
+                                        <th>Scrap Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                       
+                                        <?php if(!empty($dataPending)):?>
+                                            <?php $i =1;?>
+                                        <?php foreach($dataPending as $listPending):?>
+                                            <tr>
+                                            <td><?=$i++?></td>
+                                            <td><?= substr($listPending->deskripsi, 0, 30)?></td>
+                                            <td><?=formatKrw($listPending->debit)?></td>
+                                            <td><?=formatKrw($listPending->kredit)?></td>
+                                            <td><?=formatKrw($listPending->lastSaldo)?></td>
+                                            <td><?=$listPending->cnName?></td>
+                                            <td><?=$listPending->universalName?></td>
+                                            <td><?=$listPending->holderName?></td>
+                                            <td><?=$listPending->clientName?></td>
+                                            <td><?= format_date($listPending->mutationDate, 'd-m-Y H:i:s'); ?></td>
+                                            <td><?= format_date($listPending->createdAt, 'd-m-Y H:i:s'); ?></td>
+                                            </tr>
+                                        <?php endforeach;?>
+                                        <?php else:?>
+                                        <?php endif;?>
                                     </tbody>
                                 </table>
                             </div>
