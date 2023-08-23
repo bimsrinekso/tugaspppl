@@ -44,8 +44,6 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -63,8 +61,6 @@
                                                     <td><?=$listData->cnName?></td>
                                                     <td><?= $listData->action_by ?></td>
                                                     <td><?= $listData->status_name?></td>
-                                                    <td><?= $listData->accUser?></td>
-                                                    <td><?= $listData->accPw?></td>
                                                     <td>
                                                         <a href="<?= base_url('/dashboard/editQris/'. $listData->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -92,8 +88,6 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -109,8 +103,6 @@
                                                     <td><?=$listActive->cnName?></td>
                                                     <td><?= $listActive->action_by ?></td>
                                                     <td><?= $listActive->status_name?></td>
-                                                    <td><?= $listActive->accUser?></td>
-                                                    <td><?= $listActive->accPw?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editQris/'. $listActive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
@@ -137,8 +129,6 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -154,8 +144,6 @@
                                                     <td><?=$listInactive->cnName?></td>
                                                     <td><?= $listInactive->action_by ?></td>
                                                     <td><?= $listInactive->status_name?></td>
-                                                    <td><?= $listInactive->accUser?></td>
-                                                    <td><?= $listInactive->accPw?></td>
                                                     <td>
                                                     <a href="<?= base_url('/dashboard/editQris/'. $listInactive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>

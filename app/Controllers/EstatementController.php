@@ -3,9 +3,9 @@
 namespace App\Controllers;
 class EstatementController extends BaseController
 {
-    public function listPending()
+    public function listPendingBank()
     {
-        $enp = 'api/estatement/list';
+        $enp = 'api/estatement/listBank';
         $role = $this->sesi->get('role');
         if ($role == 1 || $role == 4) {
             $dataBody = [
@@ -23,10 +23,34 @@ class EstatementController extends BaseController
                 $getDataCountry = $this->async->get($enpCountry, $this->apimain);
                 $parseCountry = $getDataCountry->response;
                 $data["dataCountry"] = $parseCountry;
-                return view('Dashboard/Main/Deposit/eStatement', $data);
+                return view('Dashboard/Main/Estatement/bank', $data);
             }
             if($role == 4){
-                return view('Dashboard/Helpdesk/Deposit/eStatement', $data);
+                return view('Dashboard/Helpdesk/Estatement/bank', $data);
+            }
+        } else{
+            return redirect()->to('dashboard');
+        }
+    }
+    public function listPendingQris()
+    {
+        $enp = 'api/estatement/listQris';
+        $role = $this->sesi->get('role');
+        if ($role == 1 || $role == 4) {
+            $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseData = $postData->response;
+            $data = [
+                "dataPending" => $parseData->dataPending,
+                "dataDone" => $parseData->dataDone
+            ];
+            if($role == 1){
+                return view('Dashboard/Main/Estatement/qris', $data);
+            }
+            if($role == 4){
+                return view('Dashboard/Helpdesk/Estatement/qris', $data);
             }
         } else{
             return redirect()->to('dashboard');

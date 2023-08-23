@@ -14,7 +14,7 @@ class ScrapMutation extends BaseController
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
             $this->sesi->setFlashdata('validation', $oneline);
-            return redirect()->to('dashboard/deposit/estatement');
+            return redirect()->to('dashboard/estatement/bank');
         }
         $nameDoc = '';
         if(!empty($mutation)){
@@ -31,12 +31,12 @@ class ScrapMutation extends BaseController
                 } catch (\Exception $e) {
                     $pesan = 'Your file is coruppted';
                     $this->sesi->setFlashdata('error', $pesan);
-                    return redirect()->to('dashboard/deposit/estatement');
+                    return redirect()->to('dashboard/estatement/bank');
                 }
             }else{
                 $pesan = 'Your file is not valid';
                 $this->sesi->setFlashdata('error', $pesan);
-                return redirect()->to('dashboard/deposit/estatement');
+                return redirect()->to('dashboard/estatement/bank');
             }
             $mutationPath = $dirUplod . '/' . $nameDoc;
             $dataBody = [
@@ -66,26 +66,26 @@ class ScrapMutation extends BaseController
                     if(empty($parseData->data)){
                         $pesan = "Sorry your file e-statement not match with bank";
                         $this->sesi->setFlashdata('error', $pesan);
-                        return redirect()->to('dashboard/deposit/estatement');
+                        return redirect()->to('dashboard/estatement/bank');
                     }else{
                         $pesan = 'Success scrap data e-statement';
                         $this->sesi->setFlashdata('sukses', $pesan);
-                        return redirect()->to('dashboard/deposit/estatement');
+                        return redirect()->to('dashboard/estatement/bank');
                     }
                 }else{
                     $pesan = $parseData;
                     $this->sesi->setFlashdata('error', $pesan);
-                    return redirect()->to('dashboard/deposit/estatement');
+                    return redirect()->to('dashboard/estatement/bank');
                 }
             }else{
                 $pesan = "Sorry you don't have access";
                 $this->sesi->setFlashdata('error', $pesan);
-                return redirect()->to('dashboard/deposit/estatement');
+                return redirect()->to('dashboard/estatement/bank');
             }
         }else{
             $pesan = 'Please upload your e-statement';
             $this->sesi->setFlashdata('error', $pesan);
-            return redirect()->to('dashboard/deposit/estatement');
+            return redirect()->to('dashboard/estatement/bank');
         }
     }    
 }

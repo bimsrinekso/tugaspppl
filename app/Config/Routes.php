@@ -107,13 +107,16 @@ $routes->post('/dashboard/depoPending/update/(:num)', 'Deposit::updatePending/$1
 $routes->post('/dashboard/monitorDepo', 'Deposit::monitorDepo', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/monitorPending', 'Deposit::monitorPending', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role:main, client,helpdesk']);
-$routes->get('/dashboard/deposit/estatement', 'EstatementController::listPending', ['filter' => 'role:main,helpdesk']);
 
 //setbank
 $routes->get('/dashboard/setBank', 'setBank::index', ['filter' => 'role:client']);
 $routes->post('/dashboard/setBank', 'setBank::saveBank', ['filter' => 'role:client']);
 $routes->get('/dashboard/setBank/update', 'setBank::indexU', ['filter' => 'role:client']);
 $routes->post('/dashboard/setBank/update', 'setBank::updateBank', ['filter' => 'role:client']);
+
+// e-statement 
+$routes->get('/dashboard/estatement/bank', 'EstatementController::listPendingBank', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/estatement/qris', 'EstatementController::listPendingQris', ['filter' => 'role:main,helpdesk']);
 
 //wd
 $routes->get('/dashboard/withdrawTrans', 'Withdraw::wdTrans', ['filter' => 'role:main, client,helpdesk']);

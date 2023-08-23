@@ -28,6 +28,16 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx bxs-food-menu"></i>
+                        <span key="t-deposit">E-Statement</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url('dashboard/estatement/bank') ?>" key="t-full-calendar">Bank</a></li>
+                        <li><a href="<?= base_url('dashboard/estatement/qris') ?>" key="t-full-calendar">Qris</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-bank"></i>
                         <span key="t-deposit">Deposit</span>
                     </a>
@@ -35,7 +45,6 @@
                         <li><a href="<?= base_url('dashboard/listDeposit') ?>" key="t-tui-calendar">List Deposit</a></li>
                         <li><a href="<?= base_url('dashboard/depoTransaction') ?>" key="t-tui-calendar">Transaction</a></li>
                         <li><a href="<?= base_url('dashboard/depoPending') ?>" key="t-full-calendar">Pending Deposit</a></li>
-                        <li><a href="<?= base_url('dashboard/deposit/estatement') ?>" key="t-full-calendar">E-Statement</a></li>
                     </ul>
                 </li>
                 <li>
