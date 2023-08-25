@@ -13,7 +13,7 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Total Balance</p>
-                                    <h4 class="mb-0"><?= formatKrw($totalBlcClient) ?> </h4>
+                                    <h4 class="mb-0"><?= formatMoney($totalBlcClient) ?> </h4>
                                 </div>
     
                                 <div class="flex-shrink-0 align-self-center">
@@ -87,7 +87,7 @@
         var rupiah = Number(number_string);
 
         // Format as KRW with symbol and thousands separators
-        var formattedAmount = '₩' + rupiah.toLocaleString('ko-KR');
+        var formattedAmount = 'Rp' + rupiah.toLocaleString('ko-KR');
 
         return formattedAmount;
     }

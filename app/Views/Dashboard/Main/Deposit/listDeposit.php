@@ -103,7 +103,7 @@
                                         <th>No</th>
                                         <th>Trx ID</th>
                                         <th>Order Number</th>
-                                        <th>Virtual Account</th>
+                                        <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>

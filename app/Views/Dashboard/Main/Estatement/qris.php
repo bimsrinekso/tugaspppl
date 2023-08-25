@@ -118,9 +118,9 @@
                                             <tr>
                                             <td><?=$i++?></td>
                                             <td><?=$listPending->branchName?></td>
-                                            <td><?=formatKrw($listPending->grandTotal)?></td>
-                                            <td><?=formatKrw($listPending->mdrValue)?></td>
-                                            <td><?=formatKrw($listPending->merchantPortion)?></td>
+                                            <td><?=formatMoney($listPending->grandTotal)?></td>
+                                            <td><?=formatMoney($listPending->mdrValue)?></td>
+                                            <td><?=formatMoney($listPending->merchantPortion)?></td>
                                             <td><?=$listPending->transactionCode?></td>
                                             <td><?=$listPending->issuerName?></td>
                                             <td><?=$listPending->customerName?></td>

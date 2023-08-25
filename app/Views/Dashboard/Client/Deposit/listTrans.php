@@ -156,19 +156,19 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amt) ?>
+                                                    <?=  formatMoney($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->actualAmount) ?>
+                                                    <?=  formatMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amtVa) ?>
+                                                    <?=  formatMoney($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->comission) ?>
+                                                    <?=  formatMoney($listTrans->comission) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : formatMoney($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
@@ -255,19 +255,19 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amt) ?>
+                                                    <?=  formatMoney($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->actualAmount) ?>
+                                                    <?=  formatMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->amtVa) ?>
+                                                    <?=  formatMoney($listTrans->amtVa) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatKrw($listTrans->comission) ?>
+                                                    <?=  formatMoney($listTrans->comission) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : formatKrw($listTrans->lastBalance)?>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : formatMoney($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
@@ -403,7 +403,7 @@
                 "<td>" + formatCurrency(b.actualAmount) + "</td>" +
                 "<td>" + formatCurrency(b.amtVa) + "</td>" +
                 "<td>" + formatCurrency(b.comission) + "</td>" +
-                "<td>" + (b.lastBalance == null ? "₩0" : formatCurrency(b.lastBalance)) + "</td>" +
+                "<td>" + (b.lastBalance == null ? "Rp0" : formatCurrency(b.lastBalance)) + "</td>" +
                 "<td>" + createdDate + "</td>" +
                 "</tr>"
             );

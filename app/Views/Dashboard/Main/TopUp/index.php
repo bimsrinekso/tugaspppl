@@ -50,7 +50,7 @@
                                                 <tr>
                                                     <td><?= $i++ ?> </td>
                                                     <th><?= $listTopup->transactionID == null ? "-" : $listTopup->transactionID?></th>
-                                                    <td><?= formatKrw($listTopup->amount) ?> </td>
+                                                    <td><?= formatMoney($listTopup->amount) ?> </td>
                                                     <td><?= $listTopup->remark == null ? '-' : $listTopup->remark ?> </td>
                                                     <td><?= $listTopup->username ?> </td>
                                                     <td><?= $listTopup->clientName ?> </td>

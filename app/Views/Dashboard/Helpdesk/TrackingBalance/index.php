@@ -125,12 +125,12 @@
                                                     $payForText = ($payFor == 1) ? "Deposit" : (($payFor == 2) ? "Withdraw" : (($payFor == 3) ? "Topup Client" : (($payFor == 4) ? "Ho Withdraw" : "")));
                                                     $styleCondition = $payFor == 1 || $payFor == 3;
                                                     $amountCondition = $listTrack->amountTB == null;
-                                                    $formattedAmount = formatKrw($listTrack->amountTB);
+                                                    $formattedAmount = formatMoney($listTrack->amountTB);
                                                     $transactionAmount = $styleCondition ? ($amountCondition ? "-" : "+". $formattedAmount) : "-". $formattedAmount;
-                                                    $amtVaFormatted = $payFor == 1 ? formatKrw($listTrack->amtVa) : "-";
-                                                    $komisiFormatted = ($payFor == 1) ? formatKrw($listTrack->depoCom) : ($payFor == 2 ? formatKrw($listTrack->wdCom) : "-");
-                                                    $btFormatted = $payFor == 2 ? formatKrw($listTrack->bankTransfer) : "-";
-                                                    $lastBalance = formatKrw($listTrack->lastBalance);
+                                                    $amtVaFormatted = $payFor == 1 ? formatMoney($listTrack->amtVa) : "-";
+                                                    $komisiFormatted = ($payFor == 1) ? formatMoney($listTrack->depoCom) : ($payFor == 2 ? formatMoney($listTrack->wdCom) : "-");
+                                                    $btFormatted = $payFor == 2 ? formatMoney($listTrack->bankTransfer) : "-";
+                                                    $lastBalance = formatMoney($listTrack->lastBalance);
                                                     $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;
                                                     $name = $listTrack->name;

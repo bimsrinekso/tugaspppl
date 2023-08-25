@@ -85,7 +85,7 @@
         var rupiah = Number(number_string);
 
         // Format as KRW with symbol and thousands separators
-        var formattedAmount = '₩' + rupiah.toLocaleString('ko-KR');
+        var formattedAmount = 'Rp' + rupiah.toLocaleString('ko-KR');
 
         return formattedAmount;
     }

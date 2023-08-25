@@ -98,11 +98,12 @@
                                         <th>Virtual Account</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
+                                        <th>Merchant Name (QR)</th>
                                         <th>Payment Method</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
                                         <th>Actual Amount</th>
-                                        <th>VA Fee</th>
+                                        <th>Qris Fee</th>
                                         <th>Depo At</th>
                                     </tr>
                                     </thead>
@@ -110,6 +111,14 @@
                                         <?php if($dataPen != null):?>
                                             <div hidden><?= $i = 1; ?></div> 
                                             <?php foreach($dataPen as $listPen):?>
+                                                <?php
+                                                    $accNumber = $listPen->accNumber == NULL ? '-' : $listPen->accNumber;
+                                                    $bankName = $listPen->bankName == NULL ? '-' : $listPen->bankName;
+                                                    $holderName = $listPen->holderName == NULL ? '-' : $listPen->holderName;
+                                                    $merchantName = $listPen->merchantName == NULL ? '-' : $listPen->merchantName;
+                                                    $payMethod = $listPen->payMethod == 1 ? 'Bank Transfer' : 'Qris';
+                                                    $qrisFee = $listPen->amtQr == NULL ? '-' : formatMoney($listPen->amtQr);
+                                                ?>
                                                 <tr>
                                                     <td>
                                                         <?= $i++?> 
@@ -121,16 +130,19 @@
                                                         <?= $listPen->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->vaNumber?> 
+                                                        <?= $accNumber?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->bank?> 
+                                                        <?= $bankName?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listPen->holderName?> 
+                                                        <?= $holderName?> 
                                                     </td>
                                                     <td>
-                                                        Bank Transfer 
+                                                        <?= $merchantName?> 
+                                                    </td>
+                                                    <td>
+                                                       <?= $payMethod?>
                                                     </td>
                                                     <td>
                                                         <?= $listPen->senderName?> 
@@ -139,10 +151,10 @@
                                                         <?= $listPen->currency?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatKrw($listPen->amt)?> 
+                                                        <?=  formatMoney($listPen->amt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatKrw($listPen->amtVa)?> 
+                                                        <?=  $qrisFee?> 
                                                     </td>
                                                     <td>
                                                         <?= format_date($listPen->tglbuat, 'd-m-Y H:i:s');?>

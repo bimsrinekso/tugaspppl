@@ -64,7 +64,7 @@
                                                         <?= $listHo->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatKrw($listHo->amount) ?> 
+                                                        <?= formatMoney($listHo->amount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listHo->currency ?> 
@@ -127,7 +127,7 @@
                                                         <?= $listPen->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatKrw($listPen->amount) ?> 
+                                                        <?= formatMoney($listPen->amount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listPen->currency ?> 

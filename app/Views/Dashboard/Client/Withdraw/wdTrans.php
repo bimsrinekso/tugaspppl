@@ -132,16 +132,16 @@
                                                         <?= $listTranasWd->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatKrw($listTranasWd->rwdAmount) ?> 
+                                                        <?= formatMoney($listTranasWd->rwdAmount) ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->comission == null ? "-" : formatKrw($listTranasWd->comission) ?> 
+                                                        <?= $listTranasWd->comission == null ? "-" : formatMoney($listTranasWd->comission) ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->bankTransfer == null ? "-" : formatKrw($listTranasWd->bankTransfer) ?> 
+                                                        <?= $listTranasWd->bankTransfer == null ? "-" : formatMoney($listTranasWd->bankTransfer) ?> 
                                                     </td>
                                                     <td>
-                                                     <?= $listTranasWd->lastBalance == null ? "-" : formatKrw($listTranasWd->lastBalance) ?>  
+                                                     <?= $listTranasWd->lastBalance == null ? "-" : formatMoney($listTranasWd->lastBalance) ?>  
                                                     <td>
                                                         <?= $listTranasWd->currency ?> 
                                                     </td>

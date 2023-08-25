@@ -123,7 +123,7 @@
                                                         <?= $listPenWd->paymentMethod ?>
                                                     </td>
                                                     <td>
-                                                        <?= formatKRW($listPenWd->amount) ?>
+                                                        <?= formatMoney($listPenWd->amount) ?>
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->currency ?>

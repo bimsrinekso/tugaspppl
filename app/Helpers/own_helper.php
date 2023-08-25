@@ -1,6 +1,6 @@
 <?php
-if (!function_exists('formatKRW')) {
-    function formatKRW($amount)
+if (!function_exists('formatMoney')) {
+    function formatMoney($amount)
     {
         if($amount == '' || $amount == null){
             $amount = 0;

@@ -1,4 +1,4 @@
-formatKrw = (money) => {
+formatMoney = (money) => {
 	return new Intl.NumberFormat("id-ID", {
 		style: "currency",
 		currency: "KRW",
@@ -218,7 +218,7 @@ $(document).ready(function(){
         data: 'amountTB',
         render: function(data, type, row, meta) {
           var amountCondition = data === null;
-          var formattedAmount = formatKrw(data);
+          var formattedAmount = formatMoney(data);
           var payFor = row.payFor;
           var styleCondition = payFor === 1 || payFor === 3;
       
@@ -233,7 +233,7 @@ $(document).ready(function(){
         data: 'amtVa',
         render: function(data, type, row, meta) {
           var payFor = row.payFor;
-          var amtVaFormatted = payFor === 1 ? formatKrw(data) : "-";
+          var amtVaFormatted = payFor === 1 ? formatMoney(data) : "-";
     
           return amtVaFormatted;
         }
@@ -241,9 +241,9 @@ $(document).ready(function(){
       {
         data: function (row, type, set) {
           if (row.payFor === 1) {
-            return formatKrw(row.depoCom);
+            return formatMoney(row.depoCom);
           } else if (row.payFor === 2) {
-            return formatKrw(row.wdCom);
+            return formatMoney(row.wdCom);
           } else {
             return '-';
           }
@@ -252,7 +252,7 @@ $(document).ready(function(){
       {
         data: 'bankTransfer',
         render: function(data, type, row, meta) {
-          var btFormatted = (row.payFor == 2) ? formatKrw(data) : "-";
+          var btFormatted = (row.payFor == 2) ? formatMoney(data) : "-";
     
           return btFormatted;
         }
@@ -260,7 +260,7 @@ $(document).ready(function(){
       {
         data: 'lastBalance',
         render: function (data, type, row, meta) {
-          return formatKrw(data);
+          return formatMoney(data);
         }
       },
       { data: 'name' },
@@ -310,25 +310,25 @@ $(document).ready(function(){
         {
           data: 'amt',
           render: function (data, type, row, meta) {
-            return formatKrw(data);
+            return formatMoney(data);
           }
         },
         {
           data: 'actualAmount',
           render: function (data, type, row, meta) {
-            return formatKrw(data);
+            return formatMoney(data);
           }
         },
         {
           data: 'amtVa',
           render: function (data, type, row, meta) {
-            return formatKrw(data);
+            return formatMoney(data);
           }
         },
         {
           data: null,
           render: function (data, type, row) {
-            return formatKrw(row.amt - row.amtVa);
+            return formatMoney(row.amt - row.amtVa);
           }
         }
       ];
@@ -349,7 +349,7 @@ $(document).ready(function(){
         {
             data: 'rwdAmount',
             render: function (data, type, row, meta) {
-              return formatKrw(data);
+              return formatMoney(data);
             }
           },
         { data: 'currency' },
