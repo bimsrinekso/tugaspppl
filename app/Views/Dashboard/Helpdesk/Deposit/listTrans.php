@@ -109,15 +109,16 @@
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Order Number</th>
-                                            <th>Virtual Account</th>
+                                            <th>Account Number</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
+                                            <th>Merchant Name (QR)</th>
                                             <th>Payment Method</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>VA Fee</th>
+                                            <th>Qris Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
@@ -128,6 +129,14 @@
                                         <?php if($dataCon != null) :?>
                                         <div hidden><?= $i = 1; ?></div>
                                             <?php foreach($dataCon as $listTrans):?>
+                                                <?php
+                                                    $accNumber = $listTrans->accNumber == NULL ? '-' : $listTrans->accNumber;
+                                                    $bankName = $listTrans->bankName == NULL ? '-' : $listTrans->bankName;
+                                                    $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
+                                                    $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
+                                                    $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
+                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : formatMoney($listTrans->amtQr);
+                                                ?>
                                             <tr>
                                                 <td>
                                                     <?= $i++ ?>
@@ -139,16 +148,19 @@
                                                     <?= $listTrans->dpOrderNo?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->vaNumber?>
+                                                    <?= $accNumber?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->bank?>
+                                                    <?= $bankName?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->holderName ?>
+                                                    <?= $holderName ?>
                                                 </td>
                                                 <td>
-                                                    Bank Transfer
+                                                        <?= $merchantName?> 
+                                                </td>
+                                                <td>
+                                                    <?= $payMethod?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->senderName ?>
@@ -163,7 +175,7 @@
                                                     <?=  formatMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatMoney($listTrans->amtVa) ?>
+                                                <?=  $qrisFee?> 
                                                 </td>
                                                 <td>
                                                         <?=  formatMoney($listTrans->comission)?> 
@@ -212,15 +224,16 @@
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Order Number</th>
-                                            <th>Virtual Account</th>
+                                            <th>Account Number</th>
                                             <th>Bank</th>
                                             <th>Holder Name</th>
+                                            <th>Merchant Name (QR)</th>
                                             <th>Payment Method</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
-                                            <th>VA Fee</th>
+                                            <th>Qris Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
@@ -231,6 +244,14 @@
                                     <?php if($dataRej != null) :?>
                                         <div hidden><?= $i = 1; ?></div>
                                             <?php foreach($dataRej as $listTrans):?>
+                                                <?php
+                                                    $accNumber = $listTrans->accNumber == NULL ? '-' : $listTrans->accNumber;
+                                                    $bankName = $listTrans->bankName == NULL ? '-' : $listTrans->bankName;
+                                                    $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
+                                                    $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
+                                                    $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
+                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : formatMoney($listPen->amtQr);
+                                                ?>
                                             <tr>
                                                 <td>
                                                     <?= $i++ ?>
@@ -242,16 +263,19 @@
                                                     <?= $listTrans->dpOrderNo?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->vaNumber?>
+                                                    <?= $accNumber?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->bank?>
+                                                    <?= $bankName?>
                                                 </td>
                                                 <td>
-                                                    <?= $listTrans->holderName ?>
+                                                    <?= $holderName ?>
                                                 </td>
                                                 <td>
-                                                    Bank Transfer
+                                                        <?= $merchantName?> 
+                                                </td>
+                                                <td>
+                                                <?= $payMethod?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->senderName ?>
@@ -266,7 +290,7 @@
                                                     <?=  formatMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatMoney($listTrans->amtVa) ?>
+                                                    <?=  $qrisFee?> 
                                                 </td>
                                                 <td>
                                                         <?=  formatMoney($listTrans->comission)?> 
