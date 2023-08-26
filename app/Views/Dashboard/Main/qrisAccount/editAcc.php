@@ -12,7 +12,7 @@
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Create Account</h4>
+                        <h4 class="card-title mb-4">Edit Account</h4>
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-6">
@@ -74,6 +74,26 @@
                                         <label class="input-group-text" for="inputGroupFile01">Qris</label>
                                         <input type="file" name="gambar" class="form-control" id="inputGroupFile01" <?=$dataQris->gambar?>>
                                     </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="pickProvider" class="form-label">Provider</label>
+                                        <select id="pickProvider" name="providerID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataProvider != null):?>
+                                        <?php foreach ($dataProvider as $listProvider): ?>
+                                            <?php if($dataQris->providerID==$listProvider->id ):?>
+                                                    <option value="<?=$listProvider->id?>" selected="selected"><?=$listProvider->providerName?></option>
+                                                    <?php else:?>
+                                                        <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?></option>
+                                                    <?php endif?>
+                                        <?php endforeach;?>
+                                        <?php else:?>
+                                        <?php endif;?>
+                                        </select>
+                                    </div>
+
+                                </div>
                                 
                                 <div class="row " id="apiForm">
                                     <div class="col-lg-6 mb-3">

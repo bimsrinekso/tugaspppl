@@ -150,6 +150,12 @@ $routes->get('/dashboard/editTopup/(:num)', 'Topup::editTopup/$1', ['filter' => 
 $routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' => 'role:main,helpdesk']);
 $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main,helpdesk']);
 
+$routes->get('/dashboard/provider', 'ProviderController::index', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/createProvider', 'ProviderController::createProvider', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/createProvider', 'ProviderController::saveProvider', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/editProvider/(:num)', 'ProviderController::detailProvider/$1', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/editProvider/(:num)', 'ProviderController::updateProvider/$1', ['filter' => 'role:main,helpdesk']);
+$routes->delete('/dashboard/deleteProvider/(:num)', 'ProviderController::delProvider/$1', ['filter' => 'role:main,helpdesk']);
 
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client,helpdesk']);
 $routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client,helpdesk']);

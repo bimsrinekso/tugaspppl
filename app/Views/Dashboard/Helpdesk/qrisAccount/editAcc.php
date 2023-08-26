@@ -45,6 +45,25 @@
                                     <label class="input-group-text" for="inputGroupFile01">Qris</label>
                                     <input type="file" name="gambar" class="form-control" id="inputGroupFile01" <?=$dataQris->gambar?>>
                                 </div>
+                            <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="pickProvider" class="form-label">Provider</label>
+                                        <select id="pickProvider" name="providerID" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataProvider != null):?>
+                                        <?php foreach ($dataProvider as $listProvider): ?>
+                                            <?php if($dataQris->providerID==$listProvider->id ):?>
+                                                    <option value="<?=$listProvider->id?>" selected="selected"><?=$listProvider->providerName?></option>
+                                                    <?php else:?>
+                                                        <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?></option>
+                                                    <?php endif?>
+                                        <?php endforeach;?>
+                                        <?php else:?>
+                                        <?php endif;?>
+                                        </select>
+                                    </div>
+
+                                </div>
 
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </form>

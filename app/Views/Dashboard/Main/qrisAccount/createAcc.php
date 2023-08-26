@@ -64,6 +64,21 @@
                                     <input type="file" name="gambar" class="form-control" id="inputGroupFile01">
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="pickProvider" class="form-label">Provider</label>
+                                        <select id="pickProvider" name="providerID" class="form-select select2">
+                                            <option value="">Choose Provider</option>
+                                            <?php if($dataProvider != null):?>
+                                            <?php foreach ($dataProvider as $listProvider): ?>
+                                            <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?></option>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
+                                        </select>
+                                    </div>
+
+                                </div>
                              <div class="row " id="apiForm">
                                 <div class="col-lg-6 mb-3">
                                         <label for="formrow-firstname-input" class="form-label">Username</label>

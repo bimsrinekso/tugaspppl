@@ -19,6 +19,7 @@ class AccountQris extends BaseController
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
+
             return view('Dashboard/Main/qrisAccount/index', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -60,12 +61,21 @@ class AccountQris extends BaseController
         $enpCountry = 'api/country/list';
         $getDataCountry = $this->async->get($enpCountry, $this->apimain);
         $parseCountry = $getDataCountry->response;
+        $enpProvider = 'api/provider/listProvider';
+        $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+        $getDataProvider = $this->async->post($enpProvider, $this->apimain, $dataBody );
+        
+        $parseDataProvider = $getDataProvider->response;
         if($role == 1){
             $data = [
                 "dataClient" => $parseClient,
                 "groupStatus" => $parseData,
-                "dataCountry" => $parseCountry
+                "dataCountry" => $parseCountry,
+                "dataProvider" => $parseDataProvider
             ];
+            
             return view('Dashboard/Main/qrisAccount/createAcc', $data);
         }elseif($role == 4){
             $dataCC = [
@@ -85,7 +95,8 @@ class AccountQris extends BaseController
             $data = [
                 "groupStatus" => $parseData,
                 "dataCountry" => $parseCountry,
-                "listBank" => $parseBank
+                "listBank" => $parseBank,
+                "dataProvider" => $parseDataProvider
             ];
             return view('Dashboard/Helpdesk/qrisAccount/createAcc', $data);
         }
@@ -98,13 +109,15 @@ class AccountQris extends BaseController
             $isValid = [
                 'merchantName' => 'required',
                 'gambar' => 'uploaded[gambar]',
-                'country' => 'required'
+                'country' => 'required',
+                'providerID' => 'required'
             ];
         }
         if($role == 4){
             $isValid = [
                 'merchantName' => 'required',
                 'gambar' => 'uploaded[gambar]',
+                'providerID' => 'required'
             ];
         }
         if (!$this->validate($isValid)) {
@@ -149,7 +162,9 @@ class AccountQris extends BaseController
             'country' => $country,
             'username' =>$this->request->getVar('username'),
             'password' =>$this->request->getVar('password'),
+            'providerID' =>$this->request->getVar('providerID'),
         ];
+        // dd($dataBody);
         
         $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath, 'gambar');
         $parseData = $postData->response;
@@ -180,14 +195,23 @@ class AccountQris extends BaseController
         $enpCountry = 'api/country/list';
         $getDataCountry = $this->async->get($enpCountry, $this->apimain);
         $parseCountry = $getDataCountry->response;
+        $enpProvider = 'api/provider/listProvider';
+        $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+        $getDataProvider = $this->async->post($enpProvider, $this->apimain, $dataBody );
+        
+        $parseDataProvider = $getDataProvider->response;
         if($postData->status == '200'){
             if($role == 1){
                 $data = [
                     "dataQris" => $parseData[0],
                     "groupStatus" => $parseStatus,
                     "dataClient" => $parseClient,
-                    "dataCountry" => $parseCountry
+                    "dataCountry" => $parseCountry,
+                    "dataProvider" => $parseDataProvider
                 ];
+             
                 return view('Dashboard/Main/qrisAccount/editAcc', $data);   
             }elseif($role == 4){
                 $dataCC = [
@@ -204,7 +228,9 @@ class AccountQris extends BaseController
                 $data = [
                     "dataQris" => $parseData[0],
                     "groupStatus" => $parseStatus,
+                    "dataProvider" => $parseDataProvider
                 ];
+                
                 return view('Dashboard/Helpdesk/qrisAccount/editAcc', $data);   
             }elseif($role == 2){
                 $dataCC = [
@@ -237,17 +263,20 @@ class AccountQris extends BaseController
         if($role == 1){
             $isValid = [
                 'merchantName' => 'required',
-                'country' => 'required'
+                'country' => 'required',
+                'providerID' => 'required'
             ];
         }
         if($role == 4){
             $isValid = [
                 'merchantName' => 'required',
+                'providerID' => 'required'
             ];
         }
         if($role == 2){
             $isValid = [
                 'merchantName' => 'required',
+                'providerID' => 'required'
             ];
         }
         if (!$this->validate($isValid)) {
@@ -293,7 +322,8 @@ class AccountQris extends BaseController
             'action_by' => $this->sesi->get('username'),
             'country' => $country,
             'username'=> $this->request->getVar('username'),
-            'password'=> $this->request->getVar('password')
+            'password'=> $this->request->getVar('password'),
+            'providerID' =>$this->request->getVar('providerID'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
