@@ -67,7 +67,7 @@
                                                         <a href="<?= base_url('/dashboard/editQris/'. $listData->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listData->id?>)">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal('<?=$listData->id?>')">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -111,7 +111,7 @@
                                                     <a href="<?= base_url('/dashboard/editQris/'. $listActive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listActive->id?>)">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal('<?=$listActive->id?>')">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                 </td>
@@ -154,7 +154,7 @@
                                                     <a href="<?= base_url('/dashboard/editQris/'. $listInactive->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listInactive->id?>)">
+                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal('<?=$listInactive->id?>')">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                 </td>
@@ -216,8 +216,7 @@
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- Datatable init js -->
-<script src="/js/pages/datatables.init.js"></script>
-
+<script src="/assets/js/pages/datatables.init.js"></script>
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>

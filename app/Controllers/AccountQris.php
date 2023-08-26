@@ -19,7 +19,6 @@ class AccountQris extends BaseController
                 "dataActive" => $parseData->dataActive,
                 "dataInactive" => $parseData->dataInactive,
             ];
-
             return view('Dashboard/Main/qrisAccount/index', $data);
         } elseif($this->sesi->get('role') == 2) {
             $dataBody = [
@@ -339,16 +338,16 @@ class AccountQris extends BaseController
     public function delAcc($id = null){
         $enp = 'api/qris/delAccount';
         $dataBody = [
-            'idVa' => $id
+            'idQris' => $id
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully delete data VA Account");
-            return redirect()->to('dashboard/bankAccounts');
+            return redirect()->to('dashboard/qrisAccounts');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/bankAccounts');
+            return redirect()->to('dashboard/qrisAccounts');
         }
     }
 }

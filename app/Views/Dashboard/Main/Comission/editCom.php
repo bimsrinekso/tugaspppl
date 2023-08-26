@@ -88,11 +88,11 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
   <!-- validation init -->
-  <script src="/js/pages/validation.init.js"></script>
+  <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
   <!-- toastr init -->
-  <script src="/js/pages/toastr.init.js"></script>
+  <script src="/assets/js/pages/toastr.init.js"></script>
 
   <script>
     $("#subCom").click(function(){

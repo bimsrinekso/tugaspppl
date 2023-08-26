@@ -219,11 +219,11 @@
 <!-- Datatable init js -->
 <script src="/js/pages/datatables.init.js"></script>
   <!-- validation init -->
-  <script src="/js/pages/validation.init.js"></script>
+  <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
   <!-- toastr init -->
-  <script src="/js/pages/toastr.init.js"></script>
+  <script src="/assets/js/pages/toastr.init.js"></script>
 
   <?php if(session()->getFlashdata('sukses')):?>
         <script>

@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Provider Name</th>
+                                        <th>Country</th>
                                         <th>Client</th>
                                         <th>Action</th>
                                     </tr>
@@ -46,7 +47,8 @@
                                                 <tr>
                                                     <td><?= $i++ ?> </td>
                                                    <td><?= $listProvider->providerName ?> </td>
-                                                    <td><?= $listProvider->clientName ?> </td>
+                                                   <td><?= $listProvider->cnName ?> </td> 
+                                                   <td><?= $listProvider->clientName ?> </td>
                                                     <td><a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editProvider/'. $listProvider->id) ?> " title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
@@ -118,9 +120,9 @@
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
 <!-- toastr init -->
-<script src="/js/pages/toastr.init.js"></script>
+<script src="/assets/js/pages/toastr.init.js"></script>
 <!-- Datatable init js -->
-<script src="/js/pages/datatables.init.js"></script>
+<script src="/assets/js/pages/datatables.init.js"></script>
 <script>
     $("#btnCloseModal").on("click", function(){
         $("#noticeDelete").modal("hide");

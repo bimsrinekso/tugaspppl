@@ -92,11 +92,11 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
   <!-- validation init -->
-  <script src="/js/pages/validation.init.js"></script>
+  <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/libs/toastr/build/toastr.min.js"></script>
 
   <!-- toastr init -->
-  <script src="/js/pages/toastr.init.js"></script>
+  <script src="/assets/js/pages/toastr.init.js"></script>
 
   <?php if(session()->getFlashdata('sukses')):?>
         <script>

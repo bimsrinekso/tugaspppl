@@ -3,8 +3,8 @@
 <link rel="stylesheet" type="text/css" href="/assets//libs/toastr/build/toastr.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
-    .setVisible {
-        visibility: hidden;
+    .dynamicHidden {
+        display: none;
     }
 </style>
 <?php $this->endSection();?>
@@ -16,10 +16,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Create Account</h4>
-                        <form action="" method="post">
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="pickSelect" class="form-label">Api</label>
+                        <form action="" method="post" class="row">
+                            <div class="col-lg-12 mb-3">
+                                 <label for="pickSelect" class="form-label">Use API or NOT?</label>
                                     <div class="form-check mb-3">
                                         <input class="form-check-input" name="API" value="yes" type="radio"
                                             id="yesRadio" checked>
@@ -34,9 +33,8 @@
                                             No
                                         </label>
                                     </div>
-                                </div>
                             </div>
-                            <div class="row">
+                            
                                 <div class="col-md-6 mb-3">
                                     <label for="pickCountry" class="form-label">Country</label>
                                     <select id="pickCountry" name="country" class="form-select select2">
@@ -55,52 +53,38 @@
 
                                     </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
+                                <div class="col-md-6 mb-3">
                                         <label for="pickClient" class="form-label">Client</label>
                                         <select id="pickClient" name="clientID" class="form-select select2">
 
                                         </select>
-                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
+                                <div class="col-md-6 mb-3">
                                         <label class="form-label">Account Number</label>
                                         <input type="text" name="accNumber" class="form-control"
                                             placeholder="Enter Account Number">
-                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
+                                <div class="col-md-6 mb-3">
                                         <label class="form-label">Holder Name</label>
                                         <input type="text" name="holderName" class="form-control"
                                             placeholder="Enter Holder Name">
-                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
+                                <div class="col-lg-6 mb-3">
                                         <label for="formrow-inputState" class="form-label">Status</label>
                                         <select id="formrow-inputState" name="status" class="form-select">
                                             <?php foreach($groupStatus as $listStatus): ?>
                                             <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
                                             <?php endforeach ?>
                                         </select>
-                                    </div>
                                 </div>
-                                <div class="row " id="apiForm">
+                                <div class="col-lg-12" id="apiForm">
+                                    <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <label for="pickApi" class="form-label">Api</label>
-                                        <select id="pickApi" name="apiKeyID" class="form-select select2">
-                                            <option value=""></option>
-                                            <?php if($dataApi != null):?>
-                                            <?php foreach ($dataApi as $listApi): ?>
-                                            <option value="<?=$listApi->id?>"><?=$listApi->apiKey?></option>
-                                            <?php endforeach;?>
-                                            <?php else:?>
-                                            <?php endif;?>
-                                        </select>
+                                        <input type="text" class="form-control" name="apiKeyID"
+                                                id="pickApi" placeholder="Enter your API key">
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                        <div class="col-lg-6 mb-3">
                                             <label for="formrow-firstname-input" class="form-label">Username</label>
                                             <input type="text" class="form-control" name="username"
                                                 id="formrow-firstname-input" placeholder="Username">
@@ -110,9 +94,10 @@
                                             <input type="password" class="form-control" name="password"
                                                 id="formrow-firstname-input" placeholder="Password">
                                         </div>
+                                    </div>
+                                    
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
                         </form>
                     </div>
                     <!-- end card body -->
@@ -218,19 +203,12 @@
             getClients(countryID);
             getBanks(countryID);
         })
-        $("#pickApi").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Api'
-            },
-            language: "en",
-        });
         $('input[name="API"]').on('change', function () {
             if ($(this).val() === 'yes') {
-                $('#apiForm').removeClass('setVisible');
+                $('#apiForm').removeClass('dynamicHidden');
 
             } else {
-                $('#apiForm').addClass('setVisible');
+                $('#apiForm').addClass('dynamicHidden');
 
             }
         });

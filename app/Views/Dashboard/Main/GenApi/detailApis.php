@@ -53,7 +53,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/shell/shell.min.js"></script>
   <!-- toastr init -->
-  <script src="/js/pages/toastr.init.js"></script>
+  <script src="/assets/js/pages/toastr.init.js"></script>
   <script>
     const publicKeyEditor = CodeMirror(document.getElementById('publicKey'), {
     value: `<?=$dataApi->publicKey?>`,

@@ -88,6 +88,7 @@ class Monitoring extends BaseController
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
+            $parseData->message = str_replace('`', "'", $parseData->message);
             $data = [
                 "detailError" => $parseData,
             ];

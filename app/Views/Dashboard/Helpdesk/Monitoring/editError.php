@@ -111,7 +111,7 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
   <!-- validation init -->
-  <script src="/js/pages/validation.init.js"></script>
+  <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/xml/xml.min.js"></script>
@@ -120,7 +120,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/php/php.min.js"></script>
   
   <!-- toastr init -->
-  <script src="/js/pages/toastr.init.js"></script>
+  <script src="/assets/js/pages/toastr.init.js"></script>
   
 <script>
     var isData = `<?=$detailError->message?>`;

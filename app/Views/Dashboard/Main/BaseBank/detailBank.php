@@ -67,7 +67,7 @@
 <script src="/assets/js/pages/validation.init.js"></script>
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 <!-- toastr init -->
-<script src="/js/pages/toastr.init.js"></script>
+<script src="/assets/js/pages/toastr.init.js"></script>
 <script src="/assets/libs/select2/js/select2.min.js"></script>
 <!-- form advanced init -->
         <script src="/assets/js/pages/form-advanced.init.js"></script>
