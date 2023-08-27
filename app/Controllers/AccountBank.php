@@ -273,7 +273,8 @@ class AccountBank extends BaseController
             'userid' => $this->sesi->get('userid'),
             'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
-            'country' => $country
+            'country' => $country,
+            'api'=> $this->request->getVar('API')
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
