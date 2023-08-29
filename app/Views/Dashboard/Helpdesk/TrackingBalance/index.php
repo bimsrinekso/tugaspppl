@@ -105,9 +105,7 @@
                                             <th>Order No</th>
                                             <th>Remark</th>
                                             <th>Amount</th>
-                                            <th>VA Fee</th>
                                             <th>Commission</th>
-                                            <th>Bank Transfer</th>
                                             <th>Remark</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
@@ -127,9 +125,9 @@
                                                     $amountCondition = $listTrack->amountTB == null;
                                                     $formattedAmount = formatMoney($listTrack->amountTB);
                                                     $transactionAmount = $styleCondition ? ($amountCondition ? "-" : "+". $formattedAmount) : "-". $formattedAmount;
-                                                    $amtVaFormatted = $payFor == 1 ? formatMoney($listTrack->amtVa) : "-";
+                                                   
                                                     $komisiFormatted = ($payFor == 1) ? formatMoney($listTrack->depoCom) : ($payFor == 2 ? formatMoney($listTrack->wdCom) : "-");
-                                                    $btFormatted = $payFor == 2 ? formatMoney($listTrack->bankTransfer) : "-";
+                                                   
                                                     $lastBalance = formatMoney($listTrack->lastBalance);
                                                     $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;
@@ -146,9 +144,9 @@
                                                     <td <?= $styleCondition ? ($amountCondition ? "" : "style='color:#2ecc71;font-weight: 500;'") : "style='color:#e74c3c;font-weight: 500;'"?>>
                                                     <?= $transactionAmount ?>
                                                     </td>
-                                                    <td><?= $amtVaFormatted ?></td>
+                                                    
                                                     <td><?= $komisiFormatted ?></td>
-                                                    <td><?= $btFormatted ?></td>
+                                                  
                                                     <td><?=$topupremark?></td>
                                                     <td><?= $lastBalance ?></td>
                                                     <td><?= $name ?></td>
