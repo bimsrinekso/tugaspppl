@@ -100,15 +100,15 @@
                                         <th>No</th>
                                         <th>Trx ID</th>
                                         <th>Order Number</th>
+                                        <th>Payment Method</th>
                                         <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Merchant Name (QR)</th>
-                                        <th>Payment Method</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
-                                        <th>Actual Amount</th>
-                                        <th>Qris Fee</th>
+                                        <th>Amount</th>
+                                        <th>Uniq Amount</th>
                                         <th>Commission</th>
                                         <th>Client Name</th>
                                         <th>Depo At</th>
@@ -125,7 +125,7 @@
                                                     $holderName = $listPen->holderName == NULL ? '-' : $listPen->holderName;
                                                     $merchantName = $listPen->merchantName == NULL ? '-' : $listPen->merchantName;
                                                     $payMethod = $listPen->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $qrisFee = $listPen->amtQr == NULL ? '-' : formatMoney($listPen->amtQr);
+                                                    $comission = $listPen->comission == NULL ? '-' : formatMoney($listPen->comission);
                                                 ?>
                                                 <tr>
                                                     <td>
@@ -136,6 +136,9 @@
                                                     </td>
                                                     <td>
                                                         <?= $listPen->dpOrderNo?> 
+                                                    </td>
+                                                    <td>
+                                                       <?= $payMethod?>
                                                     </td>
                                                     <td>
                                                         <?= $accNumber?> 
@@ -149,9 +152,7 @@
                                                     <td>
                                                         <?= $merchantName?> 
                                                     </td>
-                                                    <td>
-                                                       <?= $payMethod?>
-                                                    </td>
+                                                   
                                                     <td>
                                                         <?= $listPen->senderName?> 
                                                     </td>
@@ -162,10 +163,10 @@
                                                         <?=  formatMoney($listPen->amt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  $qrisFee?> 
+                                                        <?=  formatMoney($listPen->unqAmt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatMoney($listPen->comission)?> 
+                                                        <?=  $comission?> 
                                                     </td>
                                                     <td>
                                                         <?=  $listPen->clientName?> 
