@@ -17,17 +17,13 @@ class EstatementController extends BaseController
                 "dataPending" => $parseData->dataPending,
                 "dataDone" => $parseData->dataDone
             ];
-            // dd($data);
-            if($role == 1){
+
                 $enpCountry = 'api/country/list';
                 $getDataCountry = $this->async->get($enpCountry, $this->apimain);
                 $parseCountry = $getDataCountry->response;
                 $data["dataCountry"] = $parseCountry;
-                return view('Dashboard/Main/Estatement/bank', $data);
-            }
-            if($role == 4){
-                return view('Dashboard/Helpdesk/Estatement/bank', $data);
-            }
+                return view('Dashboard/Estatement/bank', $data);
+            
         } else{
             return redirect()->to('dashboard');
         }
@@ -46,12 +42,7 @@ class EstatementController extends BaseController
                 "dataPending" => $parseData->dataPending,
                 "dataDone" => $parseData->dataDone
             ];
-            if($role == 1){
-                return view('Dashboard/Main/Estatement/qris', $data);
-            }
-            if($role == 4){
-                return view('Dashboard/Helpdesk/Estatement/qris', $data);
-            }
+            return view('Dashboard/Estatement/qris', $data);
         } else{
             return redirect()->to('dashboard');
         }

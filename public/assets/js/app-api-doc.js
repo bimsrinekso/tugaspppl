@@ -36,7 +36,7 @@ function applyCodeMirror(tabId, contentId, value, mode) {
 $(document).ready(function() {
     applyCodeMirror('v-pills-inquirybalance-tab', 'inquiryrequest', `
     GET /api/getBalance HTTP/1.1
-    Host: service.noehpay.com
+    Host: service.louispay.com
     apiKey: ${apiKey}
     Content-Type: application/json`, 'shell');
 
@@ -57,22 +57,23 @@ $(document).ready(function() {
     use phpseclib3\\Crypt\\RSA;
     use phpseclib3\\Crypt\\Hash;
 
-    function md5Hash($text, $key) {
-        $hash = hash_hmac('md5', $text, $key);
+    function md5Hash($text, $md5key) {
+        $hash = hash_hmac('md5', $text, $md5key);
         return $hash;
     }
     function encrypt(){
         $sample = array(
-            "senderName" => "john",
-            "amount" => "50000",
-            "callbackUrl" => "http://localhost:3387/testCallback",
-            "orderNo" => "1112455556567657",
+            "senderName" => 'Vivian', 
+            "amount" => '60000', 
+            "orderNo" => 'DP1021323232499', 
+            "callbackUrl" => 'http://localhost:3387/testCallback', 
+            "payMethod" => 'qris'
             ); 
             $text = json_encode($sample, JSON_UNESCAPED_SLASHES);
             echo $text;
             echo "\\n";
-            $key = "${md5key}";
-            return md5Hash($text, $key);
+            $md5key = "${md5key}";
+            return md5Hash($text, $md5key);
     }
 
     echo encrypt();
@@ -106,7 +107,7 @@ $(document).ready(function() {
                 status: 4,
                 submitTime: '2023-05-16 12:46:36',
                 transactionID: '2305-3138-7819-9789',
-                urlDepo: 'https://noehpay.com/depo/ed7b8699-a130-4d82-b549-5431c2afb875'
+                urlDepo: 'https://louispay.com/depo/ed7b8699-a130-4d82-b549-5431c2afb875'
             }
         }
     }
@@ -129,16 +130,16 @@ $(document).ready(function() {
     }`, 'javascript');
     applyCodeMirror('v-pills-deposit-tab', 'depositrequest',  `
     POST /api/genUrlDepo HTTP/1.1
-    Host: service.noehpay.com
+    Host: service.louispay.com
     apiKey: ${apiKey}
     x-request-hash: ad5f2e44dd349d0c39d2230e865511c1
     Content-Type: application/json
     {
-        "senderName":"john"
-        "amount":50000
-        "callbackUrl": "http://localhost:3387/testCallback"
-        "queryUrl": "http://localhost:3387/testQuery"
-        "orderNo": "1112455556567657"
+        "senderName":"Vivian" 
+        "amount":50000 
+        "orderNo": "DP1021323232501" 
+        "callbackUrl": "http://localhost:3387/testCallback" 
+        "payMethod": "qris"
     }`, 'shell');
     applyCodeMirror('v-pills-deposit-tab', 'depositresponse', `
     HTTP/1.1 200 OK
@@ -147,16 +148,16 @@ $(document).ready(function() {
         "status": 200,
         "messages": "Success send Deposit",
         "response": {
-            "amount": "50000",
-            "callbackUrl": "http://localhost:3387/testCallback",
-            "expiredAt": "2023-05-16 14:46:01",
-            "orderNo": "1112455556567657",
-            "sender_name": "john",
-            "signature": "3e84dfcfc385b95d9c89ea6782641dd4",
-            "status": 4,
-            "submitTime": "2023-05-16 14:31:01"
-            "transactionID": "2305-4529-0721-8225",
-            "urlDepo": "https://noehpay.com/depo/d775c7dd-8ecd-4de6-9759-1ac3db898f84"
+            "amount": '50000', 
+            "callbackUrl": 'http://localhost:3387/testCallback', 
+            "expiredAt": '2023-08-30 18:20:07', 
+            "orderNo": 'DP1021323232501', 
+            "sender_name": 'Vivian', 
+            "signature": '1477e512650d87f853e48ef7dfcf047c', 
+            "status": 4, 
+            "submitTime": '2023-08-30 18:05:07', 
+            "transactionID": '2308-4133-6121-6358', 
+            "urlDepo": 'https://louispay.com/depo/bbe99113-0576-4cd1-b655ccd3a88adaa0'
         }
     }`, 'shell');
     applyCodeMirror('v-pills-deposit-tab', 'depositsignature', `
@@ -165,43 +166,43 @@ $(document).ready(function() {
     use phpseclib3\\Crypt\\RSA;
     use phpseclib3\\Crypt\\Hash;
 
-    function md5Hash($text, $key) {
-        $hash = hash_hmac('md5', $text, $key);
+    function md5Hash($text, $md5key) {
+        $hash = hash_hmac('md5', $text, $md5key);
         return $hash;
     }
     function encrypt(){
         $sample = array(
-            "amount" => '50000',
-            "callbackUrl" => 'http://localhost:3387/testCallback',
-            "expiredAt" => '2023-05-16 22:44:37',
-            "orderNo" => '1112455556567657',
-            "sender_name" => 'john',
-            "status" => 4,
-            "submitTime" => '2023-05-16 22:29:37',
-            "transactionID" => '2305-9759-1336-3573',
-            "urlDepo" => 'https://noehpay.com/depo/c375fa08-c047-47b9-823f-f545b831e189'
+            "amount" => '50000', 
+            "callbackUrl" => 'http://localhost:3387/testCallback', 
+            "expiredAt" => '2023-08-30 18:20:07', 
+            "orderNo" => 'DP1021323232501', 
+            "sender_name" => 'Vivian', 
+            "status" => 4, 
+            "submitTime" => '2023-08-30 18:05:07', 
+            "transactionID" => '2308-4133-6121-6358', 
+            "urlDepo" => 'https://louispay.com/depo/bbe99113-0576-4cd1-b655ccd3a88adaa0'
         ); 
         $text = json_encode($sample, JSON_UNESCAPED_SLASHES);
         echo $text;
         echo "\\n";
-        $key = "${md5key}";
-        return md5Hash($text, $key);
+        $md5key = "${md5key}";
+        return md5Hash($text, $md5key);
     }
 
     echo encrypt();
     echo "\\n";`, 'shell');
     applyCodeMirror('v-pills-withdraw-tab', 'withdrawrequest', `
     POST /api/wd/reqWd
-    Host: service.noehpay.com
+    Host: service.louispay.com
     apiKey: ${apiKey}
     x-request-hash: 6bdf4fdcd5c8a861d0a882b805d286fd
     {
-        "senderName":"John"
-        "amount":50000
-        "bankName":"Kookmin Bank"
-        "accountNumber":"3224324"
-        "callbackUrl":"http://localhost:3387/testCallback"
-        "orderNo":"325346434353543"
+        "senderName":"Vivian" 
+        "amount":10000 
+        "bankName":"BCA" 
+        "accountNumber":"3224324" 
+        "callbackUrl":"http://localhost:3387/testCallback" 
+        "orderNo":"WNPKR13333777777886"
     }`, 'shell');;
 
     applyCodeMirror('v-pills-withdraw-tab', 'withdrawresponse', `
@@ -212,52 +213,39 @@ $(document).ready(function() {
         "status": 200,
         "messages": "Success request Withdraw",
         "response": {
-            "amount": "50000",
-            "callbackUrl": "http://localhost:3387/testCallback",
-            "orderNo": "325346434353543",
-            "signature": "7ef176c9c62328c971d22b570782fbb9",
-            "status": 2,
-            "submitTime": "2023-05-16 16:10:41",
-            "transactionID": "2305-4993-2256-5133",
-            "updatedTime": "2023-05-16 16:10:41"
+            "amount": '10000', 
+            "callbackUrl": 'http://localhost:3387/testCallback', 
+            "orderNo": 'WNPKR13333777777886', 
+            "signature": 'b2aed6034109af3c20107d7c85be2806', 
+            "status": 2, 
+            "submitTime": '2023-08-30 18:26:48', 
+            "transactionID": '2308-7115-2264-5442', 
+            "updatedTime": '2023-08-30 18:26:48' 
         }
     }`, 'shell');
     applyCodeMirror('v-pills-withdraw-tab', 'withdrawsignature', `
-    // data signature : 7ef176c9c62328c971d22b570782fbb9
-        // body
-        {
-            "amount": "50000",
-            "callbackUrl": "http://localhost:3387/testCallback",
-            "orderNo": "325346434353543",
-            "status": 2,
-            "submitTime": "2023-05-16 16:10:41",
-            "transactionID": "2305-4993-2256-5133",
-            "updatedTime": "2023-05-16 16:10:41"
-        }
-
-        // signature
         require_once 'vendor/autoload.php';
         // composer require phpseclib/phpseclib:~3.0
         use phpseclib3\\Crypt\\RSA;
         use phpseclib3\\Crypt\\Hash;
 
-        function md5Hash($text, $key) {
-            $hash = hash_hmac('md5', $text, $key);
+        function md5Hash($text, $md5key) {
+            $hash = hash_hmac('md5', $text, $md5key);
             return $hash;
         }
         function encrypt(){
             $sample = array(
-                "amount" => "50000",
-                "callbackUrl" => "http://localhost:3387/testCallback",
-                "orderNo" => "325346434353543",
-                "status" => 2,
-                "submitTime" => "2023-05-16 16:10:41",
-                "transactionID" => "2305-4993-2256-5133",
-                "updatedTime" => "2023-05-16 16:10:41"
+                "amount" => '10000', 
+                "callbackUrl" => 'http://localhost:3387/testCallback', 
+                "orderNo" => 'WNPKR13333777777886', 
+                "status" => 2, 
+                "submitTime" => '2023-08-30 18:26:48', 
+                "transactionID" => '2308-7115-2264-5442', 
+                "updatedTime" => '2023-08-30 18:26:48' 
             ); 
             $text = json_encode($sample, JSON_UNESCAPED_SLASHES);
-            $key = "${md5key}";
-            return md5Hash($text, $key);
+            $md5key = "${md5key}";
+            return md5Hash($text, $md5key);
         }
 
         echo encrypt();
@@ -268,42 +256,50 @@ $(document).ready(function() {
         {
             "status": 200,
             "response": [
-                {
-                    "lastBalance": "771456",
-                    "memberid": "221217707427",
-                    "updatedTime": "2023-01-08T17:00:47.000Z",
-                    "submitTime": "2023-01-08T17:00:33.000Z",
-                    "fullname": "Falcon",
-                    "vaNumber": "32432423",
-                    "bank": "Bank Mandiri",
-                    "holderName": "Dahni",
-                    "status": "Confirmed",
-                    "senderName": "Dika Wijaya Kusuma",
-                    "transactionID": "2301-2034-3498-3015",
-                    "orderNo": null,
-                    "amountDepo": "100000",
-                    "actualAmount": "100000",
-                    "amtVa": "1000",
-                    "currency": "KRW"
-                },
-                {
-                    "lastBalance": "771456",
-                    "memberid": "221217707427",
-                    "updatedTime": "2023-02-06T16:17:57.000Z",
-                    "submitTime": "2023-02-06T16:17:51.000Z",
-                    "fullname": "Falcon",
-                    "vaNumber": "32432423",
-                    "bank": "Bank Mandiri",
-                    "holderName": "Dahni",
-                    "status": "Confirmed",
-                    "senderName": "Dika",
-                    "transactionID": "2302-3718-2439-5860",
-                    "orderNo": null,
-                    "amountDepo": "40000",
-                    "actualAmount": "50000",
-                    "amtVa": "500",
-                    "currency": "KRW"
-                }
+                { 
+                    "lastBalance": null, 
+                    "memberid": "230822747718", 
+                    "updatedTime": "2023-08-30T09:57:04.000Z", 
+                    "submitTime": "2023-08-30T09:57:04.000Z", 
+                    "fullname": "Vivian", 
+                    "accNumber": null, 
+                    "bankName": null, 
+                    "holderName": null, 
+                    "status": "Pending", 
+                    "senderName": "Vivian", 
+                    "transactionID": "2308-6590-5112-8241", 
+                    "orderNo": "DP1021323232500", 
+                    "amountDepo": "50000", 
+                    "actualAmount": null, 
+                    "amtReceived": null, 
+                    "unqAmt": "49999", 
+                    "amtBt": null, 
+                    "currency": "IDR", 
+                    "dpOrderNo": "DP1021323232500", 
+                    "comission": null 
+                }, 
+                { 
+                    "lastBalance": null, 
+                    "memberid": "230822747718", 
+                    "updatedTime": "2023-08-30T10:05:07.000Z", 
+                    "submitTime": "2023-08-30T10:05:07.000Z", 
+                    "fullname": "Vivian", 
+                    "accNumber": null, 
+                    "bankName": null, 
+                    "holderName": null, 
+                    "status": "Pending", 
+                    "senderName": "Vivian", 
+                    "transactionID": "2308-4133-6121-6358", 
+                    "orderNo": "DP1021323232501", 
+                    "amountDepo": "50000", 
+                    "actualAmount": null, 
+                    "amtReceived": null, 
+                    "unqAmt": "49998", 
+                    "amtBt": null, 
+                    "currency": "IDR", 
+                    "dpOrderNo": "DP1021323232501", 
+                    "comission": null 
+                } 
             ]`, 'shell');
     });
     

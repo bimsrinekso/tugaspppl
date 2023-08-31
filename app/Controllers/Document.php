@@ -18,7 +18,22 @@ class Document extends BaseController
             if (is_countable($parseData)) {
                 $parseData = $parseData[0];
             }
+            $dataCC = [
+                'userid' => $this->sesi->get('userid')
+            ];
+            $enpUserCC = 'api/country/userClientCountry';
+            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+            $parseCC = $postCC->response;
+            $country = $parseCC->countryID;
+            $dataCountry = [
+                "country" => $country,
+                "userid" => $this->sesi->get('userid')
+            ];
+            $enpBank = 'api/country/bank';
+            $listBank = $this->async->post($enpBank, $this->apimain, $dataCountry);
+            $parseBank = $listBank->response;
             $data = [
+                "listBank" => $parseBank,
                 "dataKey" => $parseData,
             ];
             return view('Dashboard/Client/Documentation/index', $data);

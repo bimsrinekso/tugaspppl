@@ -255,6 +255,18 @@
                                                 <td>Yes</td>
                                                 <td>Order number</td>
                                             </tr>
+                                            <tr>
+                                                <td>payMethod</td>
+                                                <td>String</td>
+                                                <td>Yes</td>
+                                                <td>Payment method (qris or bt)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bankName</td>
+                                                <td>String</td>
+                                                <td>No</td>
+                                                <td>If payment method is bt, this param is required</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

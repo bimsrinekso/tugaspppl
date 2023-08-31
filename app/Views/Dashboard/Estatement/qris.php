@@ -100,8 +100,6 @@
                                         <th>No</th>
                                         <th>Merchant Name</th>
                                         <th>Grand Total</th>
-                                        <th>MDR Value</th>
-                                        <th>Merchant Portion</th>
                                         <th>Transaction Code</th>
                                         <th>Transfer Via</th>
                                         <th>Customer Name</th>
@@ -119,8 +117,6 @@
                                             <td><?=$i++?></td>
                                             <td><?=$listPending->branchName?></td>
                                             <td><?=formatMoney($listPending->grandTotal)?></td>
-                                            <td><?=formatMoney($listPending->mdrValue)?></td>
-                                            <td><?=formatMoney($listPending->merchantPortion)?></td>
                                             <td><?=$listPending->transactionCode?></td>
                                             <td><?=$listPending->issuerName?></td>
                                             <td><?=$listPending->customerName?></td>

@@ -14,14 +14,28 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Create Account</h4>
                         <form action="" method="post" enctype="multipart/form-data">
-                            <div class="row">
-                                
-
-                                <div class="mb-3">
+                            <div class="column">
+                                <div class="col-md-6 mb-3">
+                                        <label for="pickCountry" class="form-label">Country</label>
+                                        <select id="pickCountry" name="country" class="form-select select2">
+                                            <option value=""></option>
+                                            <?php if($dataCountry != null):?>
+                                                <?php foreach ($dataCountry as $listCountry): ?>
+                                                    <?php if($dataProvider->countryID==$listCountry->id ):?>
+                                                            <option value="<?=$listCountry->id?>" selected="selected"><?=$listCountry->name?></option>
+                                                            <?php else:?>
+                                                                <option value="<?=$listCountry->id?>"><?=$listCountry->name?></option>
+                                                            <?php endif?>
+                                                <?php endforeach;?>
+                                        <?php else:?>
+                                        <?php endif;?>
+                                        </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                         <label class="form-label">Provider Name</label>
                                         <input type="text" name="providerName" class="form-control"
-                                            placeholder="Enter Provider Name">
-                                    </div>
+                                            placeholder="Enter Provider Name" value="<?=$dataProvider->providerName?>">
+                                </div>
                                
 
                             </div>
@@ -48,54 +62,14 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
 <script>
-    function getClients(countryID) {
-        $.ajax({
-            url: '<?=base_url('dashboard/country/getClients')?>',
-            method: 'POST',
-            data: {
-                country: countryID
-            },
-            dataType: 'json',
-            success: function (response) {
-                $('#pickClient').empty();
-                if (response.clients) {
-                    response.clients.forEach(function (client) {
-                        $('#pickClient').append($('<option>', {
-                            value: client.id,
-                            text: client.name
-                        }));
-                    });
-                } else {
-                    $('#pickClient').append($('<option>', {
-                        value: '',
-                        text: 'No clients found'
-                    }));
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
 
     $(document).ready(function () {
-        $("#pickClient").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Clients'
-            },
-            language: "en",
-        });
         $("#pickCountry").select2({
             placeholder: {
                 id: '',
                 text: 'Choose Country'
             },
             language: "en",
-        });
-        $('#pickCountry').on('change', function () {
-            var countryID = $(this).val();
-            getClients(countryID);
         });
     })
 </script>
@@ -107,13 +81,11 @@
 <script src="/assets/js/pages/toastr.init.js"></script>
 <?php if(session()->getFlashdata('sukses')):?>
 <script>
-    toastr.success("<?= session()->getFlashData("
-        sukses "); ?>");
+    toastr.success("<?= session()->getFlashData("sukses"); ?>");
 </script>
 <?php elseif(session()->getFlashdata('error')):?>
 <script>
-    toastr.error("<?= session()->getFlashData("
-        error "); ?>");
+    toastr.error("<?= session()->getFlashData("error"); ?>");
 </script>
 <?php endif?>
 <?php $this->endSection();?>

@@ -37,13 +37,13 @@ $routes->get('/service/report/listDepo', 'Report::listDepo', ['filter' => 'role:
 $routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client,helpdesk']);
 // documentation
-$routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
 // log
-$routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/detailPost/(:any)', 'Monitoring::detailPost/$1', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/detailCallback/(:any)', 'Monitoring::detailCallback/$1', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/editErrorlog/(:any)', 'Monitoring::editError/$1', ['filter' => 'role:main,helpdesk']);
-$routes->post('/dashboard/editErrorlog/(:any)', 'Monitoring::saveError/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main']);
+$routes->get('/dashboard/detailPost/(:any)', 'Monitoring::detailPost/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/detailCallback/(:any)', 'Monitoring::detailCallback/$1', ['filter' => 'role:main']);
+$routes->get('/dashboard/editErrorlog/(:any)', 'Monitoring::editError/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editErrorlog/(:any)', 'Monitoring::saveError/$1', ['filter' => 'role:main']);
 
 //
 $routes->get('/dashboard/bankAccounts', 'AccountBank::index', ['filter' => 'role:main, client,helpdesk']);
@@ -150,12 +150,12 @@ $routes->get('/dashboard/editTopup/(:num)', 'Topup::editTopup/$1', ['filter' => 
 $routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' => 'role:main,helpdesk']);
 $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main,helpdesk']);
 
-$routes->get('/dashboard/provider', 'ProviderController::index', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/createProvider', 'ProviderController::createProvider', ['filter' => 'role:main,helpdesk']);
-$routes->post('/dashboard/createProvider', 'ProviderController::saveProvider', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/editProvider/(:num)', 'ProviderController::detailProvider/$1', ['filter' => 'role:main,helpdesk']);
-$routes->post('/dashboard/editProvider/(:num)', 'ProviderController::updateProvider/$1', ['filter' => 'role:main,helpdesk']);
-$routes->delete('/dashboard/deleteProvider/(:num)', 'ProviderController::delProvider/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/provider', 'ProviderController::index', ['filter' => 'role:main']);
+$routes->get('/dashboard/createProvider', 'ProviderController::createProvider', ['filter' => 'role:main']);
+$routes->post('/dashboard/createProvider', 'ProviderController::saveProvider', ['filter' => 'role:main']);
+$routes->get('/dashboard/editProvider/(:num)', 'ProviderController::detailProvider/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editProvider/(:num)', 'ProviderController::updateProvider/$1', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteProvider/(:num)', 'ProviderController::delProvider/$1', ['filter' => 'role:main']);
 
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client,helpdesk']);
 $routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client,helpdesk']);

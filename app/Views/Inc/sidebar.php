@@ -349,33 +349,11 @@
                         <li><a href="<?= base_url('dashboard/trackingBalance')?>" key="t-tui-calendar">Detail</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class='bx bxs-chart'></i>
-                        <span key="t-withdraw">Base Provider</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="<?= base_url('dashboard/provider')?>" key="t-tui-calendar">List Provider</a></li>
-                    </ul>
-                </li>
                 <li class="menu-title" key="t-report">Report</li>
                 <li>
                     <a href="<?= base_url('dashboard/reportDaily') ?>" class="waves-effect">
                         <i class="bx bxs-bar-chart-alt-2"></i>
                         <span key="t-reportDaily">Daily Report</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?= base_url('dashboard/monitoringLog') ?>" class="waves-effect">
-                        <i class="bx bx-cog"></i>
-                        <span key="t-monitoringLog">Monitoring Log</span>
-                    </a>
-                </li>
-                <li class="menu-title" key="t-report">Documentation</li>
-                <li>
-                    <a href="<?= base_url('dashboard/documentationAPI') ?>" class="waves-effect">
-                        <i class="bx bx-file"></i>
-                        <span key="t-documentationAPI">API Documentation</span>
                     </a>
                 </li>
                 <?php endif ?>

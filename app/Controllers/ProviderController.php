@@ -7,29 +7,16 @@ class ProviderController extends BaseController
     public function index()
     {
         $enp = 'api/provider/listProvider';
-        if ($this->sesi->get('role') == 1) {
-            
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataProvider" => $parseData,
-            ];
+        $dataBody = [
+            'userid'=> $this->sesi->get('userid')
+        ];
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $parseData = $postData->response;
+        $data = [
+            "dataProvider" => $parseData,
+        ];
 
-            return view('Dashboard/Main/Provider/index', $data);
-        }else if ($this->sesi->get('role') == 4) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataProvider" => $parseData,
-            ];
-            return view('Dashboard/Helpdesk/Provider/index', $data);
-        }
+        return view('Dashboard/Provider/index', $data);
     }
     public function createProvider(){
         $role = $this->sesi->get('role');
@@ -39,59 +26,34 @@ class ProviderController extends BaseController
         $enpClient = 'api/listClient';
         $getClient = $this->async->get($enpClient, $this->apimain);
         $parseClient = $getClient->response;
-        $data;
-        if($role == 1){
-            $data = [
+        $enpCountry = 'api/country/list';
+        $getDataCountry = $this->async->get($enpCountry, $this->apimain);
+        $parseCountry = $getDataCountry->response;
+        $data = [
                 "dataClient" => $parseClient,
-            ];
-            
-            return view('Dashboard/Main/Provider/createProvider', $data);
-        }elseif($role == 4){
-            return view('Dashboard/Helpdesk/Provider/createProvider');
-        }
+                "dataCountry" => $parseCountry,
+        ];
+        return view('Dashboard/Provider/createProvider', $data);
     }
+    
     public function saveProvider(){
         $role = $this->sesi->get('role');
-       
-        $isValid;
-        if($role == 1){
-            $isValid = [
+        $isValid = [
                 'providerName' => 'required',
-            ];
-        }
-        if($role == 4){
-            $isValid = [
-                'providerName' => 'required',
-            ];
-        }
+        ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
             $this->sesi->setFlashdata('validation', $oneline);
             return redirect()->to('dashboard/createProvider');
         }
-        $country;
-        $clientID;
-        if($role == 1){
-            $clientID = $this->request->getVar('clientID');
-        }
-        if($role == 4){
-            $dataCC = [
-                'userid' => $this->sesi->get('userid')
-            ];
-            $enpUserCC = 'api/country/userClientCountry';
-            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
-            $parseCC = $postCC->response;
-            $clientID = $parseCC->client_id;
-        }
         $enp = 'api/provider/saveProvider';
         $providerName = $this->request->getVar('providerName');
         $dataBody = [
             'providerName'=> $this->request->getVar('providerName'),
             'userid' => $this->sesi->get('userid'),
-            'idClient' => $clientID,
+            'country' => $this->request->getVar('country')
         ];
-        // dd($dataBody);
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -112,26 +74,17 @@ class ProviderController extends BaseController
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
-        $enpClient = 'api/listClient';
-        $getClient = $this->async->get($enpClient, $this->apimain);
-        $parseClient = $getClient->response;
         $data;
+        $enpCountry = 'api/country/list';
+        $getDataCountry = $this->async->get($enpCountry, $this->apimain);
+        $parseCountry = $getDataCountry->response;
+       
         if($postData->status == '200'){
-            if($role == 1){
-                $data = [
-                    "dataCl" => $parseClient,
-                    "dataProvider" => $parseData
-                ];
-             
-                return view('Dashboard/Main/Provider/editProvider', $data);   
-            }elseif($role == 4){
-                $data = [
-                    "dataProvider" => $parseData
-                ];
-                
-                return view('Dashboard/Helpdesk/Provider/editProvider', $data);   
-            }
-            
+            $data = [
+                "dataCountry" => $parseCountry,
+                "dataProvider" => $parseData
+            ];
+            return view('Dashboard/Provider/editProvider', $data);    
         }else{
             $this->sesi->setFlashdata('error', "Sorry, you are not allowed");
             return redirect()->to('dashboard/provider');
@@ -157,27 +110,13 @@ class ProviderController extends BaseController
             $this->sesi->setFlashdata('validation', $oneline);
             return redirect()->to(previous_url());
         }
-        $clientID;
-        if($role == 1){
-            $clientID = $this->request->getVar('clientID');
-        }
-        if($role == 4){
-            $dataCC = [
-                'userid' => $this->sesi->get('userid')
-            ];
-            $enpUserCC = 'api/country/userClientCountry';
-            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
-            $parseCC = $postCC->response;
-            $clientID = $parseCC->client_id;
-        }
         $enp = 'api/provider/updateProvider';
         $dataBody = [
             'providerID' => $id,
             'providerName'=> $this->request->getVar('providerName'),
             'userid' => $this->sesi->get('userid'),
-            'idClient' => $clientID,
+            'country' => $this->request->getVar('country')
         ];
-        // dd($dataBody);
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -185,7 +124,7 @@ class ProviderController extends BaseController
             return redirect()->to('dashboard/provider');
         }else{
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
-            return redirect()->to('dashboard/editProvider');
+            return redirect()->to('dashboard/editProvider/'. $id);
         }
     }
 
