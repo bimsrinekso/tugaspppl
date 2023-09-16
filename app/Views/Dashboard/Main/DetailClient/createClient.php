@@ -45,12 +45,12 @@
                                         <input type="number" step=".01" name="comQr" class="form-control" placeholder="Input your comission Qris">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Comission Deposit</label>
                                         <input type="number" step=".01" name="comDepo" class="form-control" placeholder="Input your comission Deposit">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                             <label class="form-label">Comission Withdraw</label>

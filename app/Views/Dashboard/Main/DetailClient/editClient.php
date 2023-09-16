@@ -53,12 +53,12 @@
                                         <input type="number" step=".01" value="<?=$dataClient->comQr?>" name="comQr" class="form-control" placeholder="Input your comission Qris">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Comission Deposit</label>
-                                        <input type="number" step=".01" value="<?=$dataClient->comDepo?>" name="comDepo" class="form-control" placeholder="Input your comission">
+                                        <input type="number" step=".01" value="$dataClient->comDepo?>" name="comDepo" class="form-control" placeholder="Input your comission">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Comission Withdraw</label>

@@ -33,7 +33,7 @@
                                         <th>Country</th>
                                         <th class="text-center">Comission Bank Transfer</th>
                                         <th class="text-center">Comission Qris</th>
-                                        <th class="text-center">Comission Deposit</th>
+                                        <!-- <th class="text-center">Comission Deposit</th> -->
                                         <th class="text-center">Comission Withdraw</th>
                                         <th>Action</th>
                                     </tr>
@@ -49,7 +49,7 @@
                                                     <td><?=$listClient->cnName?></td>
                                                     <td class="text-center"> <?=$listClient->comBt?>%</td>
                                                     <td class="text-center"> <?=$listClient->comQr?>%</td>
-                                                    <td class="text-center"> <?=$listClient->comDepo?>%</td>
+                                                    <!-- <td class="text-center"> $listClient->comDepo?>%</td> -->
                                                     <td class="text-center"> <?=$listClient->comWd?>%</td>
                                                     <td>
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editClient/'. $listClient->id) ?> " title="Edit">

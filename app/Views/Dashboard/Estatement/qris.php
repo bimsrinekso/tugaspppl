@@ -98,7 +98,7 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Merchant Name</th>
+                                        <!-- <th>Merchant Name</th> -->
                                         <th>Grand Total</th>
                                         <th>Transaction Code</th>
                                         <th>Transfer Via</th>
@@ -115,13 +115,13 @@
                                         <?php foreach($dataPending as $listPending):?>
                                             <tr>
                                             <td><?=$i++?></td>
-                                            <td><?=$listPending->branchName?></td>
+                                            <!-- <td>$listPending->branchName?></td> -->
                                             <td><?=formatMoney($listPending->grandTotal)?></td>
                                             <td><?=$listPending->transactionCode?></td>
                                             <td><?=$listPending->issuerName?></td>
                                             <td><?=$listPending->customerName?></td>
                                             <td><?=$listPending->cnName?></td>
-                                            <td><?=$listPending->clientName?></td>
+                                            <!-- <td><$listPending->clientName?></td> -->
                                             <td><?= format_date($listPending->transactionTime, 'd-m-Y H:i:s'); ?></td>
                                             <td><?= format_date($listPending->createdAt, 'd-m-Y H:i:s'); ?></td>
                                             </tr>

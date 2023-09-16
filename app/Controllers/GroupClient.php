@@ -37,7 +37,7 @@ class GroupClient extends BaseController
             'name' => 'required',
             'comBt' => 'required',
             'comQr' => 'required',
-            'comDepo' => 'required',
+            // 'comDepo' => 'required',
             'comWd' => 'required',
             'country' => 'required'
         ];
@@ -52,7 +52,7 @@ class GroupClient extends BaseController
             'name'=> $this->request->getVar('name'),
             'comBt'=> $this->request->getVar('comBt'),
             'comQr' => $this->request->getVar('comQr'),
-            'comDepo'=> $this->request->getVar('comDepo'),
+            // 'comDepo'=> $this->request->getVar('comDepo'),
             'comWd'=> $this->request->getVar('comWd'),
             'country' => $this->request->getVar('country')
         ];
@@ -101,7 +101,7 @@ class GroupClient extends BaseController
             'name'=> 'required',
             'comBt'=> 'required',
             'comQr' => 'required',
-            'comDepo'=> 'required',
+            // 'comDepo'=> 'required',
             'comWd'=> 'required',
             'country'=> 'required'
         ];
@@ -117,7 +117,7 @@ class GroupClient extends BaseController
             'name'=> $this->request->getVar('name'),
             'comBt'=> $this->request->getVar('comBt'),
             'comQr' => $this->request->getVar('comQr'),
-            'comDepo'=> $this->request->getVar('comDepo'),
+            // 'comDepo'=> $this->request->getVar('comDepo'),
             'comWd'=> $this->request->getVar('comWd'),
             'country' => $this->request->getVar('country')
         ];
