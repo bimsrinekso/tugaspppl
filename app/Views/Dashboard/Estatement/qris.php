@@ -104,7 +104,7 @@
                                         <th>Transfer Via</th>
                                         <th>Customer Name</th>
                                         <th>Country</th>
-                                        <th>Client</th>
+                                        <!-- <th>Client</th> -->
                                         <th>Transaction Date</th>
                                         <th>Scrap Date</th>
                                     </tr>
