@@ -135,8 +135,23 @@ class Deposit extends BaseController
             $this->sesi->setFlashdata('validation', $oneline);
             return redirect()->to('dashboard/depoPending/update/'.$id);
         }
+        $role = $this->sesi->get('role');
+        $enpPending = 'api/editPending';
+        $dataPending = [
+            'iddepo' => $id
+        ];
+        $postPending = $this->async->post($enpPending, $this->apimain, $dataPending);
+        $parsePending = $postPending->response;
         $enp = 'api/updatePending';
         $amount= filter_var($this->request->getVar('actualAmount'), FILTER_SANITIZE_NUMBER_INT);
+        if($parsePending->amount < $amount && $role == 4){
+            $this->sesi->setFlashdata('error', "Your Actual Amount is more than Amount");
+            return redirect()->to('dashboard/depoPending/update/'.$id);
+        }
+        if($amount > 10000000 && $role == 4){
+            $this->sesi->setFlashdata('error', "Sorry Your Actual Amount is more than Rp. 10.000.000");
+            return redirect()->to('dashboard/depoPending/update/'.$id);
+        }
         $dataBody = [
             'iddepo' => $id,
             'actualAmount'=> $amount,
