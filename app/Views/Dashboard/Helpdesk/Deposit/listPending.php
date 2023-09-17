@@ -146,10 +146,6 @@
                                                     <td>
                                                         <?= $merchantName?> 
                                                     </td>
-                                                    
-                                                    <td>
-                                                    <?= $listPen->merchantName?> 
-                                                    </td>
                                                     <td>
                                                         <?= $listPen->senderName?> 
                                                     </td>
