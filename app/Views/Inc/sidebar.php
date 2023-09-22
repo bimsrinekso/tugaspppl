@@ -49,6 +49,8 @@
                         </li>
                         <li><a href="<?= base_url('dashboard/depoPending') ?>" key="t-full-calendar">Pending Deposit</a>
                         </li>
+                        <li><a href="<?= base_url('dashboard/depoApproval') ?>" key="t-full-calendar">Approval Deposit</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -194,6 +196,8 @@
                         </li>
                         <li><a href="<?= base_url('dashboard/depoPending') ?>" key="t-full-calendar">Pending Deposit</a>
                         </li>
+                        <li><a href="<?= base_url('dashboard/depoApproval') ?>" key="t-full-calendar">Approval Deposit</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -309,6 +313,8 @@
                         <li><a href="<?= base_url('dashboard/depoTransaction') ?>" key="t-tui-calendar">Transaction</a>
                         </li>
                         <li><a href="<?= base_url('dashboard/depoPending') ?>" key="t-full-calendar">Pending Deposit</a>
+                        </li>
+                        <li><a href="<?= base_url('dashboard/depoApproval') ?>" key="t-full-calendar">Approval Deposit</a>
                         </li>
                         <li><a href="<?= base_url('dashboard/deposit/estatement') ?>"
                                 key="t-full-calendar">E-Statement</a></li>

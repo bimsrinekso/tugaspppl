@@ -1,6 +1,6 @@
 <?php
 if (!function_exists('formatMoney')) {
-    function formatMoney($amount)
+    function formatMoney($amount, $digit = false)
     {
         if($amount == '' || $amount == null){
             $amount = 0;
@@ -13,8 +13,14 @@ if (!function_exists('formatMoney')) {
         }
 
         $formatter = new \NumberFormatter('id_ID', \NumberFormatter::CURRENCY);
-        $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 3);
-        $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 3);
+        if($digit == true){
+            $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 3);
+            $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 3);
+        }else{
+            $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 0);
+            $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 0);
+        }
+       
         
         $formatted_amount = $formatter->formatCurrency($amount, 'IDR');
 

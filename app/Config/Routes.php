@@ -84,6 +84,12 @@ $routes->post('/dashboard/monitorDepo', 'Deposit::monitorDepo', ['filter' => 'ro
 $routes->post('/dashboard/monitorPending', 'Deposit::monitorPending', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role:main, client,helpdesk']);
 
+
+// depoApproval
+$routes->get('/dashboard/depoApproval', 'DepositApproval::listApproval', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/depoApproval/update/(:num)', 'DepositApproval::editApproval/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/depoApproval/update/(:num)', 'DepositApproval::updateApproval/$1', ['filter' => 'role:main']);
+
 //setbank
 $routes->get('/dashboard/setBank', 'setBank::index', ['filter' => 'role:client']);
 $routes->post('/dashboard/setBank', 'setBank::saveBank', ['filter' => 'role:client']);
