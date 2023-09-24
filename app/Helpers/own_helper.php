@@ -5,8 +5,6 @@ if (!function_exists('formatMoney')) {
         if($amount == '' || $amount == null){
             $amount = 0;
         }
-
-        // Truncate to 2 decimal places without rounding
         $pos = strpos($amount, '.');
         if ($pos !== false) {
             $amount = substr($amount, 0, $pos + 4);
@@ -31,20 +29,12 @@ if (!function_exists('formatMoney')) {
 
 
 if (!function_exists('format_date')) {
-    /**
-     * Format a date using DateTime
-     *
-     * @param string $date The date in the format 'Y-m-d\TH:i:s.u\Z'
-     * @param string $format The desired format, e.g., 'd-m-Y H:i:s'
-     * @param string $timezone The desired timezone, default is 'Asia/Manila'
-     * @return string The formatted date
-     */
+    
     function format_date(string $date, string $format, string $timezone = 'Asia/Manila'): string
     {
         $dateTime = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date, new DateTimeZone('UTC'));
         
         if ($dateTime === false) {
-            // Date parsing failed
             return 'Invalid date';
         }
         
