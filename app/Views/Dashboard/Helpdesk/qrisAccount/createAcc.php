@@ -41,20 +41,34 @@
                                     <label class="input-group-text" for="inputGroupFile01">Qris</label>
                                     <input type="file" name="gambar" class="form-control" id="inputGroupFile01">
                                 </div>
-                            <div class="col-md-12">
+                                <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="pickProvider" class="form-label">Provider</label>
                                         <select id="pickProvider" name="providerID" class="form-select select2">
                                             <option value="">Choose Provider</option>
                                             <?php if($dataProvider != null):?>
                                             <?php foreach ($dataProvider as $listProvider): ?>
-                                            <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?></option>
+                                            <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?>
+                                            </option>
                                             <?php endforeach;?>
                                             <?php else:?>
                                             <?php endif;?>
                                         </select>
                                     </div>
 
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="formrow-firstname-input" class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username"
+                                            id="formrow-firstname-input" placeholder="Username">
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="formrow-firstname-input" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password"
+                                            id="formrow-firstname-input" placeholder="Password">
+                                    </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>

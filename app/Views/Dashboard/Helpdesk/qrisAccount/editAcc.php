@@ -22,18 +22,19 @@
                                             placeholder="Enter Holder Name" value="<?=$dataQris->merchantName?>">
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="formrow-inputState" class="form-label">Status</label>
                                         <select id="formrow-inputState" name="status" class="form-select">
-                                                <?php foreach($groupStatus as $listStatus): ?>
-                                                <?php if($dataQris->status == $listStatus->id):?>
-                                                    <option value="<?= $listStatus->id ?>" selected><?= $listStatus->name ?></option>
-                                                <?php else:?>
-                                                    <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
-                                                <?php endif?>
-                                                <?php endforeach ?>
+                                            <?php foreach($groupStatus as $listStatus): ?>
+                                            <?php if($dataQris->status == $listStatus->id):?>
+                                            <option value="<?= $listStatus->id ?>" selected><?= $listStatus->name ?>
+                                            </option>
+                                            <?php else:?>
+                                            <option value="<?= $listStatus->id ?>"><?= $listStatus->name ?></option>
+                                            <?php endif?>
+                                            <?php endforeach ?>
                                         </select>
                                     </div>
                                 </div>
@@ -43,29 +44,47 @@
                                 <label class="form-label">Qris Barcode</label>
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="inputGroupFile01">Qris</label>
-                                    <input type="file" name="gambar" class="form-control" id="inputGroupFile01" <?=$dataQris->gambar?>>
+                                    <input type="file" name="gambar" class="form-control" id="inputGroupFile01"
+                                        <?=$dataQris->gambar?>>
                                 </div>
-                            <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="pickProvider" class="form-label">Provider</label>
                                         <select id="pickProvider" name="providerID" class="form-select select2">
                                             <option value=""></option>
                                             <?php if($dataProvider != null):?>
-                                        <?php foreach ($dataProvider as $listProvider): ?>
+                                            <?php foreach ($dataProvider as $listProvider): ?>
                                             <?php if($dataQris->providerID==$listProvider->id ):?>
-                                                    <option value="<?=$listProvider->id?>" selected="selected"><?=$listProvider->providerName?></option>
-                                                    <?php else:?>
-                                                        <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?></option>
-                                                    <?php endif?>
-                                        <?php endforeach;?>
-                                        <?php else:?>
-                                        <?php endif;?>
+                                            <option value="<?=$listProvider->id?>" selected="selected">
+                                                <?=$listProvider->providerName?></option>
+                                            <?php else:?>
+                                            <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?>
+                                            </option>
+                                            <?php endif?>
+                                            <?php endforeach;?>
+                                            <?php else:?>
+                                            <?php endif;?>
                                         </select>
                                     </div>
 
                                 </div>
+                                <div class="row " id="apiForm">
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="formrow-firstname-input" class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username"
+                                            id="formrow-firstname-input" placeholder="Username"
+                                            value="<?=$dataQris->accUser?>">
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="formrow-firstname-input" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password"
+                                            id="formrow-firstname-input" placeholder="Password"
+                                            value="<?=$dataQris->accPw?>">
+                                    </div>
+                                </div>
+                            </div>
 
-                                <button type="submit" class="btn btn-primary w-md">Submit</button>
+                            <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </form>
                     </div>
                     <!-- end card body -->
