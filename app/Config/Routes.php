@@ -86,7 +86,7 @@ $routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role
 
 
 // depoApproval
-$routes->get('/dashboard/depoApproval', 'DepositApproval::listApproval', ['filter' => 'role:main, client,helpdesk']);
+$routes->get('/dashboard/depoApproval', 'DepositApproval::listApproval', ['filter' => 'role:main']);
 $routes->get('/dashboard/depoApproval/update/(:num)', 'DepositApproval::editApproval/$1', ['filter' => 'role:main']);
 $routes->post('/dashboard/depoApproval/update/(:num)', 'DepositApproval::updateApproval/$1', ['filter' => 'role:main']);
 
@@ -117,9 +117,9 @@ $routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filt
 $routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main,helpdesk']);
 
 // country
-$routes->post('/dashboard/country/getClients', 'CountryController::listClientCountry', ['filter' => 'role:main']);
-$routes->post('/dashboard/country/getBanks', 'CountryController::listBankCountry', ['filter' => 'role:main']);
-$routes->post('/dashboard/country/getBankAccounts', 'CountryController::listBankAccounts', ['filter' => 'role:main']);
+$routes->post('/dashboard/country/getClients', 'CountryController::listClientCountry', ['filter' => 'role:main, helpdesk']);
+$routes->post('/dashboard/country/getBanks', 'CountryController::listBankCountry', ['filter' => 'role:main, helpdesk']);
+$routes->post('/dashboard/country/getBankAccounts', 'CountryController::listBankAccounts', ['filter' => 'role:main, helpdesk']);
 // api
 $routes->get('/dashboard/generateApis', 'GenerateApi::index', ['filter' => 'role:main']);
 $routes->get('/dashboard/createApis', 'GenerateApi::createApis', ['filter' => 'role:main']);

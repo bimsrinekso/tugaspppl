@@ -90,7 +90,6 @@ class AccountBank extends BaseController
             $parseBank = $listBank->response;
             $data = [
                 "groupStatus" => $parseData,
-                "dataCountry" => $parseCountry,
                 "listBank" => $parseBank
             ];
             return view('Dashboard/Helpdesk/bankAccount/createAcc', $data);
