@@ -126,7 +126,7 @@
                                                     $holderName = $listApprov->holderName == NULL ? '-' : $listApprov->holderName;
                                                     $merchantName = $listApprov->merchantName == NULL ? '-' : $listApprov->merchantName;
                                                     $payMethod = $listApprov->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $comission = $listApprov->comission == NULL ? '-' : formatMoney($listApprov->comission);
+                                                    $comission = $listApprov->comission == NULL ? '-' : defaultMoney($listApprov->comission);
                                                 ?>
                                                 <tr>
                                                     <td>
@@ -161,13 +161,13 @@
                                                         <?= $listApprov->currency?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatMoney($listApprov->amt)?> 
+                                                        <?=  defaultMoney($listApprov->amt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatMoney($listApprov->actAmt)?> 
+                                                        <?=  defaultMoney($listApprov->actAmt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatMoney($listApprov->unqAmt)?> 
+                                                        <?=  defaultMoney($listApprov->unqAmt)?> 
                                                     </td>
                                                     <td>
                                                         <?=  $comission?> 

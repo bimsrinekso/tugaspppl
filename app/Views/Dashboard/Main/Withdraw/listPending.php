@@ -124,7 +124,7 @@
                                                         <?= $listPenWd->paymentMethod ?>
                                                     </td>
                                                     <td>
-                                                        <?= formatMoney($listPenWd->amount) ?>
+                                                        <?= defaultMoney($listPenWd->amount) ?>
                                                     </td>
                                                     <td>
                                                         <?= $listPenWd->currency ?>

@@ -38,7 +38,9 @@ class AuthLogin extends BaseController
                 "logged_in" => $res->logged_in,
                 "role" => $res->role,
                 "userid" => $res->userid,
-                "username" => $res->username
+                "username" => $res->username,
+                "locale" => $res->locale,
+                "currencyCode" => $res->currencyCode
             ];
             $this->sesi->set($isSession);
             return redirect()->to('dashboard');

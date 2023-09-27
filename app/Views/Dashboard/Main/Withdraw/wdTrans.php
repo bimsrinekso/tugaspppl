@@ -132,13 +132,13 @@
                                                         <?= $listTranasWd->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatMoney($listTranasWd->rwdAmount) ?> 
+                                                        <?= defaultMoney($listTranasWd->rwdAmount) ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->comission == null ? "-" : formatMoney($listTranasWd->comission) ?> 
+                                                        <?= $listTranasWd->comission == null ? "-" : defaultMoney($listTranasWd->comission) ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->lastBalance == null ? "-" : formatMoney($listTranasWd->lastBalance) ?> 
+                                                        <?= $listTranasWd->lastBalance == null ? "-" : defaultMoney($listTranasWd->lastBalance) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->currency ?> 

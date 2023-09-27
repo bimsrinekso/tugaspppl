@@ -124,12 +124,12 @@
                                                     $payForText = ($payFor == 1) ? "Deposit" : (($payFor == 2) ? "Withdraw" : (($payFor == 3) ? "Topup Client" : (($payFor == 4) ? "Ho Withdraw" : "")));
                                                     $styleCondition = $payFor == 1 || $payFor == 3;
                                                     $amountCondition = $listTrack->amountTB == null;
-                                                    $formattedAmount = formatMoney($listTrack->amountTB);
+                                                    $formattedAmount = formatMoney($listTrack->amountTB, null, null, true);
                                                     $transactionAmount = $styleCondition ? ($amountCondition ? "-" : "+". $formattedAmount) : "-". $formattedAmount;
                                                    
-                                                    $komisiFormatted = ($payFor == 1) ? formatMoney($listTrack->depoCom) : ($payFor == 2 ? formatMoney($listTrack->wdCom) : "-");
+                                                    $komisiFormatted = ($payFor == 1) ? formatMoney($listTrack->depoCom, null, null, true) : ($payFor == 2 ? formatMoney($listTrack->wdCom, null, null, true) : "-");
                                                   
-                                                    $lastBalance = formatMoney($listTrack->lastBalance);
+                                                    $lastBalance = formatMoney($listTrack->lastBalance, null, null, true);
                                                     $name = $listTrack->name;
                                                     $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
                                                     $orderNo = $orderNo == null ? '-' : $orderNo;

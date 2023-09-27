@@ -49,7 +49,7 @@
                                             <?php foreach($dataSettle as $listSettle): ?>
                                                 <tr>
                                                     <td><?= $i++ ?> </td>
-                                                    <td><?= formatMoney($listSettle->amount) ?> </td>
+                                                    <td><?= defaultMoney($listSettle->amount) ?> </td>
                                                     <td><?=$listSettle->remark == null ? '-' : $listSettle->remark?></td>
                                                     <td><?= $listSettle->username ?> </td>
                                                     <td><?= $listSettle->name?></td>

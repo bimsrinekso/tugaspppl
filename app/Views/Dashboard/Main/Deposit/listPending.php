@@ -125,7 +125,7 @@
                                                     $holderName = $listPen->holderName == NULL ? '-' : $listPen->holderName;
                                                     $merchantName = $listPen->merchantName == NULL ? '-' : $listPen->merchantName;
                                                     $payMethod = $listPen->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $comission = $listPen->comission == NULL ? '-' : formatMoney($listPen->comission);
+                                                    $comission = $listPen->comission == NULL ? '-' : defaultMoney($listPen->comission);
                                                 ?>
                                                 <tr>
                                                     <td>
@@ -160,10 +160,10 @@
                                                         <?= $listPen->currency?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatMoney($listPen->amt)?> 
+                                                        <?=  defaultMoney($listPen->amt)?> 
                                                     </td>
                                                     <td>
-                                                        <?=  formatMoney($listPen->unqAmt)?> 
+                                                        <?=  defaultMoney($listPen->unqAmt)?> 
                                                     </td>
                                                     <td>
                                                         <?=  $comission?> 

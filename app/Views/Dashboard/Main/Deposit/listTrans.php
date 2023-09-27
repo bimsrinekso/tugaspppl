@@ -135,7 +135,7 @@
                                                     $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
                                                     $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
                                                     $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : formatMoney($listTrans->amtQr);
+                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : defaultMoney($listTrans->amtQr);
                                                 ?>
                                             <tr>
                                                 <td>
@@ -169,19 +169,19 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatMoney($listTrans->amt) ?>
+                                                    <?=  defaultMoney($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatMoney($listTrans->actualAmount) ?>
+                                                    <?=  defaultMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
                                                     <?=  $qrisFee?> 
                                                 </td>
                                                 <td>
-                                                        <?=  formatMoney($listTrans->comission)?> 
+                                                        <?=  defaultMoney($listTrans->comission)?> 
                                                  </td>
                                                 <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : formatMoney($listTrans->lastBalance)?>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : defaultMoneyyy($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->clientName ?>
@@ -250,7 +250,7 @@
                                                     $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
                                                     $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
                                                     $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : formatMoney($listPen->amtQr);
+                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : defaultMoney($listPen->amtQr);
                                                 ?>
                                             <tr>
                                                 <td>
@@ -284,19 +284,19 @@
                                                     <?= $listTrans->currency ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatMoney($listTrans->amt) ?>
+                                                    <?=  defaultMoney($listTrans->amt) ?>
                                                 </td>
                                                 <td>
-                                                    <?=  formatMoney($listTrans->actualAmount) ?>
+                                                    <?=  defaultMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
                                                 <?=  $qrisFee?> 
                                                 </td>
                                                 <td>
-                                                        <?=  formatMoney($listTrans->comission)?> 
+                                                        <?=  defaultMoney($listTrans->comission)?> 
                                                 </td>
                                                 <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : formatMoney($listTrans->lastBalance)?>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : defaultMoney($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->clientName ?>

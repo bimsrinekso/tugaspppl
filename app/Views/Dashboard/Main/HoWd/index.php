@@ -61,7 +61,7 @@
                                                         <?= $listHo->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatMoney($listHo->amount) ?> 
+                                                        <?= defaultMoney($listHo->amount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listHo->currency ?> 
@@ -129,7 +129,7 @@
                                                         <?= $listPen->paymentMethod ?> 
                                                     </td>
                                                     <td>
-                                                        <?= formatMoney($listPen->amount) ?> 
+                                                        <?= defaultMoney($listPen->amount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listPen->currency ?> 
