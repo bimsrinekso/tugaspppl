@@ -117,26 +117,6 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total VA Fee Deposit</p>
-                                        <h4 class="mb-0"><?= defaultMoney($totalFeeVaDp, true)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-receipt font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Withdraw</p>
                                         <h4 class="mb-0"><?= defaultMoney($totalWd, true)?></h4>
                                     </div>

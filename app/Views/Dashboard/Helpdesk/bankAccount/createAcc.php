@@ -16,9 +16,11 @@
                                 <div class="col-md-6 mb-3">
                                         <label for="pickBank" class="form-label">Bank</label>
                                         <select id="pickBank" name="bank" class="form-select select2">
+                                        <?php if(!empty($listBank)):?>
                                         <?php foreach($listBank as $lBank): ?>
                                                     <option value="<?= $lBank->id ?>"><?= $lBank->bankName ?></option>
                                                     <?php endforeach ?> 
+                                        <?php endif?>
                                         </select>
                                 </div>
                                     <div class="col-md-6 mb-3">
