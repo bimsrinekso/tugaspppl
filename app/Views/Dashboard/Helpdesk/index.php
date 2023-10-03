@@ -38,7 +38,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Balance Main</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalBlcMain)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalBlcMain, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -58,7 +58,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Balance Client</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalBlcClient)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalBlcClient, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -78,7 +78,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Deposit</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalDepo)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalDepo, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -98,7 +98,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Deposit Comission</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalKomisiDp)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalKomisiDp, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -117,28 +117,8 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total VA Fee Deposit</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalFeeVaDp)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-receipt font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Withdraw</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalWd)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalWd, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -158,7 +138,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Withdraw Commision</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalKomisiWd)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalKomisiWd, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -178,7 +158,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Bank Transfer</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalBankTransfer)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalBankTransfer, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -198,7 +178,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Settlement</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalSettle)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalSettle, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -218,7 +198,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Ho Withdraw</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalHo)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalHo, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -238,7 +218,7 @@
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Topup Client</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalTopup)?></h4>
+                                        <h4 class="mb-0"><?= formatMoney($totalTopup, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">

@@ -24,7 +24,6 @@ class Dashboard extends BaseController
                 "totalHo" => $parseData->totalHo,
                 "totalTopup" => $parseData->totalTopup,
                 "totalKomisiDp" => $parseData->totalKomisiDp,
-                "totalFeeVaDp" => $parseData->totalFeeVaDp,
                 "totalKomisiWd" => $parseData->totalKomisiWd,
                 "totalBankTransfer" => $parseData->totalBankTransfer,
             ];
@@ -42,7 +41,6 @@ class Dashboard extends BaseController
                 "totalWd" => $parseData->totalWd,
                 "totalHo" => $parseData->totalHo,
                 "totalKomisiDp" => $parseData->totalKomisiDp,
-                "totalFeeVaDp" => $parseData->totalFeeVaDp,
                 "totalKomisiWd" => $parseData->totalKomisiWd,
                 "totalBankTransfer" => $parseData->totalBankTransfer,
             ];
@@ -64,13 +62,12 @@ class Dashboard extends BaseController
                 "totalHo" => $parseData->totalHo,
                 "totalTopup" => $parseData->totalTopup,
                 "totalKomisiDp" => $parseData->totalKomisiDp,
-                "totalFeeVaDp" => $parseData->totalFeeVaDp,
                 "totalKomisiWd" => $parseData->totalKomisiWd,
                 "totalBankTransfer" => $parseData->totalBankTransfer,
             ];
-            return view('Dashboard/Client/index',$data );
+            return view('Dashboard/Helpdesk/index',$data );
         }else{
-            return view('Dashboard/Client/index');
+            return view('Dashboard/Helpdesk/index');
         }
     }
 }

@@ -116,7 +116,7 @@
                                             <tr>
                                             <td><?=$i++?></td>
                                             <!-- <td>$listPending->branchName?></td> -->
-                                            <td><?=formatMoney($listPending->grandTotal)?></td>
+                                            <td><?=defaultMoney($listPending->grandTotal)?></td>
                                             <td><?=$listPending->transactionCode?></td>
                                             <td><?=$listPending->issuerName?></td>
                                             <td><?=$listPending->customerName?></td>

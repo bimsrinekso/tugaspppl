@@ -192,9 +192,9 @@
                                             <tr>
                                             <td><?=$i++?></td>
                                             <td><?= substr($listPending->deskripsi, 0, 30)?></td>
-                                            <td><?=formatMoney($listPending->debit)?></td>
-                                            <td><?=formatMoney($listPending->kredit)?></td>
-                                            <td><?=formatMoney($listPending->lastSaldo)?></td>
+                                            <td><?=defaultMoney($listPending->debit)?></td>
+                                            <td><?=defaultMoney($listPending->kredit)?></td>
+                                            <td><?=defaultMoney($listPending->lastSaldo)?></td>
                                             <td><?=$listPending->cnName?></td>
                                             <td><?=$listPending->universalName?></td>
                                             <td><?=$listPending->holderName?></td>
