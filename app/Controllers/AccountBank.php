@@ -157,7 +157,10 @@ class AccountBank extends BaseController
             $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully add data VA Account");
             return redirect()->to('dashboard/bankAccounts');
         }else{
-            $this->sesi->setFlashdata('error', "Sorry, check again your data");
+            if(isset($parseData[0])){
+                $parseData = $parseData[0];
+            }
+            $this->sesi->setFlashdata('error', $parseData);
             return redirect()->to('dashboard/createAccount');
         }
     }
