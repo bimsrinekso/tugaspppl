@@ -4,12 +4,31 @@ namespace App\Controllers;
 class ScrapMutation extends BaseController
 {
     public function saveData() {
+        $role = $this->sesi->get('role');
         $mutation = $this->request->getFile('docFile');
-        $isValid = [
-            'country' => 'required',
-            'bank' => 'required',
-            'clientID' => 'required',
-        ];
+        $isValid = [];
+        $country = $this->request->getVar('country');
+        $clientID = $this->request->getVar('clientID');
+        if($role == 1){
+            $isValid = [
+                'country' => 'required',
+                'bank' => 'required',
+                'clientID' => 'required',
+            ];
+        }
+        if($role == 4){
+            $dataCC = [
+                'userid' => $this->sesi->get('userid')
+            ];
+            $enpUserCC = 'api/country/userClientCountry';
+            $postCC = $this->async->post($enpUserCC, $this->apimain, $dataCC);
+            $parseCC = $postCC->response;
+            $country = $parseCC->countryID;
+            $clientID = $parseCC->client_id;
+            $isValid = [
+                'bank' => 'required',
+            ];
+        }
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
             $oneline = preg_replace('/\s+/', ' ', $html);
@@ -40,9 +59,9 @@ class ScrapMutation extends BaseController
             }
             $mutationPath = $dirUplod . '/' . $nameDoc;
             $dataBody = [
-                'country' => $this->request->getVar('country'),
+                'country' => $country,
                 'bankID' => $this->request->getVar('bank'),
-                'clientID' => $this->request->getVar('clientID'),
+                'clientID' => $clientID,
                 'accBank' => $this->request->getVar('accBank'),
                 'userid' => $this->sesi->get('userid')
             ];
