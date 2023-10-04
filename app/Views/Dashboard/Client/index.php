@@ -117,8 +117,28 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total VA Fee Deposit</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalFeeVaDp, null, null, true)?></h4>
+                                        <p class="text-muted fw-medium">Comission Bank Transfer Deposit</p>
+                                        <h4 class="mb-0"><?= formatMoney($komisiBt, null, null, true)?></h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center ">
+                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                            <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bxs-receipt font-size-24"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Comission Qris Deposit</p>
+                                        <h4 class="mb-0"><?= formatMoney($komisiQr, null, null, true)?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
@@ -178,7 +198,7 @@
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Bank Transfer</p>
+                                        <p class="text-muted fw-medium">Fee Bank Transfer Withdraw</p>
                                         <h4 class="mb-0"><?= formatMoney($totalBankTransfer, null, null, true)?></h4>
                                     </div>
 
@@ -201,6 +221,26 @@
                                     <div class="flex-grow-1">
                                         <p class="text-muted fw-medium">Total Ho Withdraw</p>
                                         <h4 class="mb-0"><?= formatMoney($totalHo, null, null, true) ?></h4>
+                                    </div>
+
+                                    <div class="flex-shrink-0 align-self-center ">
+                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                            <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bxs-check-shield font-size-24"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-muted fw-medium">Total Adjustment</p>
+                                        <h4 class="mb-0"><?= formatMoney($totalSettle, null, null, true) ?></h4>
                                     </div>
 
                                     <div class="flex-shrink-0 align-self-center ">
