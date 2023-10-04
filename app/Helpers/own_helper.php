@@ -1,5 +1,5 @@
 <?php
-if (!function_exists('defualtMoney')) {
+if (!function_exists('defaultMoney')) {
     function defaultMoney($amount, $digit = false)
     {
         if($amount == '' || $amount == null){

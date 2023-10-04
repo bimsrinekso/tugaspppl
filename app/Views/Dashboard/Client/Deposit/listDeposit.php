@@ -98,23 +98,24 @@
                                     </div>
                                 </div>
                                 <table id="datatable-active" class="table table-bordered nowrap w-100">
-                                    <thead>
+                                <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Trx ID</th>
                                         <th>Order Number</th>
-                                        <th>Virtual Account</th>
+                                        <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>
                                         <th>Depositor</th>
                                         <th>Currency</th>
+                                        <th>Client Name</th>
                                         <th>Depo At</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <?php if($dataRun != null): ?>
-                                            <div hidden><?= $i = 1; ?> </div>
+                                            <?php $i = 1; ?>
                                             <?php foreach($dataRun as $listDepo) :?>
                                                 <tr>
                                                     <td>
@@ -123,29 +124,32 @@
                                                     <td>
                                                         <?= $listDepo->transactionID ?> 
                                                     </td>
-                                                     <td>
+                                                    <td>
                                                         <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->vaNumber ?> 
+                                                        <?= $listDepo->accNumber ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->bank ?> 
+                                                        <?= $listDepo->bankName ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->payMethod ?> 
+                                                        <?= $listDepo->payMethod == 1 ? 'Bank Transfer' : 'Qris' ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
                                                     <td>
-                                                       KRW
+                                                       IDR
                                                     </td>
                                                     <td>
-                                                    <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
+                                                         <?= $listDepo->name ?>
+                                                    </td>
+                                                     <td>
+                                                        <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
                                                      </td>
                                                    
                                                 </tr>
@@ -172,7 +176,7 @@
                                     </div>
                                 </div>
                                 <table id="datatable-expired" class="table table-striped table-bordered nowrap w-100">
-                                    <thead>
+                                <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
@@ -183,12 +187,13 @@
                                             <th>Payment Method</th>
                                             <th>Depositor</th>
                                             <th>Currency</th>
+                                            <th>Client Name</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php if($dataExp != null) :?>
-                                        <div hidden><?= $i = 1; ?> </div>
+                                        <?php $i = 1; ?> 
                                             
                                             <?php foreach($dataExp as $listDepo) :?>
                                                 <tr>
@@ -202,26 +207,29 @@
                                                         <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->vaNumber ?> 
+                                                        <?= $listDepo->accNumber ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->bank ?> 
+                                                        <?= $listDepo->bankName ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->payMethod ?> 
+                                                        <?= $listDepo->payMethod == 1 ? 'Bank Transfer' : 'Qris' ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
                                                     <td>
-                                                       KRW
+                                                       IDR
                                                     </td>
-                                                     <td>
-                                                     <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s');?>
-                                                     </td>
+                                                    <td>
+                                                        <?= $listDepo->name ?> 
+                                                    <td>
+                                                        <?= format_date($listDepo->dpcreat, 'd-m-Y H:i:s'); ?>
+                                                    </td>
+                                                     
                                                    
                                                 </tr>
                                                 <?php endforeach;?>

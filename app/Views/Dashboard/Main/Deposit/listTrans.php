@@ -118,10 +118,12 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Qris Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
+                                            <th>Updated At</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -135,6 +137,7 @@
                                                     $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
                                                     $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
                                                     $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
+                                                    $btFee = $listTrans->amtBt == NULL ? '-' : defaultMoney($listTrans->amtBt);
                                                     $qrisFee = $listTrans->amtQr == NULL ? '-' : defaultMoney($listTrans->amtQr);
                                                 ?>
                                             <tr>
@@ -175,16 +178,22 @@
                                                     <?=  defaultMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
+                                                    <?=  $btFee?> 
+                                                </td>
+                                                <td>
                                                     <?=  $qrisFee?> 
                                                 </td>
                                                 <td>
                                                         <?=  defaultMoney($listTrans->comission)?> 
                                                  </td>
                                                 <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : defaultMoneyyy($listTrans->lastBalance)?>
+                                                    <?=  $listTrans->lastBalance == null ? "-" : defaultMoney($listTrans->lastBalance)?>
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->clientName ?>
+                                                </td>
+                                                <td>
+                                                    <?= format_date($listTrans->tglUpdated, 'd-m-Y H:i:s');?>
                                                 </td>
                                                 <td>
                                                     <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
@@ -233,10 +242,12 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Qris Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
                                             <th>Client Name</th>
+                                            <th>Updated At</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
@@ -250,6 +261,7 @@
                                                     $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
                                                     $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
                                                     $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
+                                                    $btFee = $listTrans->amtBt == NULL ? '-' : defaultMoney($listTrans->amtBt);
                                                     $qrisFee = $listTrans->amtQr == NULL ? '-' : defaultMoney($listPen->amtQr);
                                                 ?>
                                             <tr>
@@ -290,6 +302,9 @@
                                                     <?=  defaultMoney($listTrans->actualAmount) ?>
                                                 </td>
                                                 <td>
+                                                <?=  $btFee?> 
+                                                </td>
+                                                <td>
                                                 <?=  $qrisFee?> 
                                                 </td>
                                                 <td>
@@ -300,6 +315,9 @@
                                                 </td>
                                                 <td>
                                                     <?= $listTrans->clientName ?>
+                                                </td>
+                                                <td>
+                                                    <?= format_date($listTrans->tglUpdated, 'd-m-Y H:i:s');?>
                                                 </td>
                                                 <td>
                                                     <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
