@@ -77,6 +77,7 @@
                                 Commission</a></li>
                         <li><a href="<?= base_url('dashboard/hoWithdraw')?>" key="t-full-calendar">HO Withdraw</a></li>
                         <li><a href="<?= base_url('dashboard/topUp')?>" key="t-full-calendar">Top Up Client</a></li>
+                        <li><a href="<?= base_url('dashboard/listDebt')?>" key="t-tui-calendar">Debt</a></li>
                     </ul>
                 </li>
                 <li>
@@ -348,6 +349,7 @@
                                 Commission</a></li>
                         <li><a href="<?= base_url('dashboard/hoWithdraw')?>" key="t-full-calendar">HO Withdraw</a></li>
                         <li><a href="<?= base_url('dashboard/topUp')?>" key="t-full-calendar">Top Up Client</a></li>
+                        <li><a href="<?= base_url('dashboard/listDebt')?>" key="t-tui-calendar">Debt</a></li>
                     </ul>
                 </li>
                 <li>

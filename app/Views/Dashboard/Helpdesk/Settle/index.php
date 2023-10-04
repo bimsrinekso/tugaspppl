@@ -17,12 +17,6 @@
                     <div class="card-body">
 
                         <h4 class="card-title">List Adjustment</h4>
-                        <div class="card-title-desc">
-                            <p>You can create, edit, delete and report Adjustment
-                            </p>
-                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createAdj') ?> ">Create Adjustment</a>
-                        </div>
-                       
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                               <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">ALL</button>
@@ -38,7 +32,6 @@
                                         <th>Remark</th>
                                         <th>Operator</th>
                                         <th>Created At</th>
-                                        <th>Action</th>
                                     </tr>
                                     </thead>
         
@@ -52,14 +45,6 @@
                                                     <td><?=$listSettle->remark == null ? '-' : $listSettle->remark?></td>
                                                     <td><?= $listSettle->username ?> </td>
                                                     <td><?= date('d-m-Y', strtotime($listSettle->tglbuat))?> </td>
-                                                    <td>
-                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editAdj/'. $listSettle->idsettle) ?> " title="Edit">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                    <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listSettle->idsettle?>)" >
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                </td>
                                                 </tr>
                                             <?php endforeach;?> 
                                         <?php else:?>
@@ -73,27 +58,6 @@
                 </div>
             </div> <!-- end col -->
         </div> <!-- end row -->
-        <div class="modal fade" id="noticeDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="formDelete" method="post">
-                        <input value="DELETE" type="hidden" name="_method" name="id">
-                        <div class="modal-body">
-                            <p>Are you sure want to delete this data?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btnCloseModal" class="btn btn-primary">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->

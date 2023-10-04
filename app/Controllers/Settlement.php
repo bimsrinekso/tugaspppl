@@ -17,7 +17,7 @@ class Settlement extends BaseController
                 $parseData->dataSettle = [$parseData->dataSettle];
             }
             $data = [
-                "dataSettle" => $parseData->dataSettle,
+                "dataSettle" => $postData->response == NULL ? "" : $parseData->dataSettle,
             ];
             return view('Dashboard/Main/Settle/index', $data);
         }else if ($this->sesi->get('role') == 4) {
@@ -38,16 +38,27 @@ class Settlement extends BaseController
 
     public function createSettle(){
         $role = $this->sesi->get('role');
+        $enp = 'api/utang/index';
+        $dataBody = [
+                'userid'=> $this->sesi->get('userid')
+            ];
+        $postDataDebt = $this->async->post($enp, $this->apimain, $dataBody);
+            $parseDataDebt = $postDataDebt->response;
+            if (is_object($parseDataDebt->dataUtang) && !is_countable($parseDataDebt->dataUtang)) {
+                $parseDataDebt->dataUtang = [$parseDataDebt->dataUtang];
+            }
+
         $enpClient = 'api/listClient';
         $getClient = $this->async->get($enpClient, $this->apimain);
         $parseClient = $getClient->response;
         if($role == 1){
             $data = [                 
                 "dataClient" => $parseClient,
+                "dataDebt" => $postDataDebt->dataUtang,
             ];
             return view('Dashboard/Main/Settle/addSettle', $data);
-        }elseif($role == 4){           
-            return view('Dashboard/Helpdesk/Settle/addSettle');
+        }elseif($role == 4){         
+            return view('Dashboard/Helpdesk/Settle/addSettle', $data);
         }
     }
 

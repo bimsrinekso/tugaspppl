@@ -9,35 +9,22 @@
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Edit Settlement</h4> 
+                        <h4 class="card-title mb-4">Create Debt</h4> 
                         <form action="" method="post">
                             <div class="mb-3">
-                                        <label for="pickClient" class="form-label">Client</label>
-                                        <select id="pickClient" name="clientID" class="form-select select2">
-                                            <option value=""></option>
-                                            <?php if($dataClient != null):?>
-                                                <?php foreach ($dataClient as $listClient): ?>
-                                                <?php if($dataSettle->idClient == $listClient->id ):?>
-                                                    <option value="<?=$listClient->id?>" selected="selected">
-                                                    <?=$listClient->name?>
-                                                    </option>
-                                                    <?php else:?>
-                                                    <option value="<?=$listClient->id?>">
-                                                        <?=$listClient->name?>
-                                                    </option>
-                                                <?php endif;?>
-                                            <?php endforeach;?>
-                                            <?php else:?>
-                                            <?php endif;?>
-                                        </select>
-                                    </div>
-                            <div class="mb-3">
-                                <label for="formrow-firstname-input" class="form-label">Amount</label>
-                                <input type="text" id="Amount" class="form-control" value="<?=$dataSettle->amount?>" name="amount" id="formrow-firstname-input" placeholder="Enter Amount">
+                                <label for="formrow-firstname-input" class="form-label">Amount*</label>
+                                <input type="text" id="Amount" class="form-control" name="amount" id="formrow-firstname-input" placeholder="Enter Amount" value="<?=$dataUtang->amount?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Remark</label>
-                                <input type="text" class="form-control" name="remark" placeholder="Enter Remark">
+                                <label class="form-label">Note**</label>
+                                <input type="text" class="form-control" name="note" placeholder="Enter Note"value="<?=$dataUtang->note?>" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Upload Photo*</label>
+                                <div class="input-group mb-3">
+                                    
+                                    <input type="file" name="info_photo" class="form-control" id="inputGroupFile01" value="<?=$dataUtang->info_photo?>" >
+                                </div>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary w-md">Submit</button>
@@ -59,11 +46,11 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
   <!-- validation init -->
-  <script src="/assets/js/pages/validation.init.js"></script>
+  <script src="/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
   <!-- toastr init -->
-  <script src="/assets/js/pages/toastr.init.js"></script>
+  <script src="/js/pages/toastr.init.js"></script>
 
   <?php if(session()->getFlashdata('sukses')):?>
         <script>
@@ -93,7 +80,7 @@
         var rupiah = Number(number_string);
 
         // Format as KRW with symbol and thousands separators
-        var formattedAmount = 'Rp' + rupiah.toLocaleString('ko-KR');
+        var formattedAmount = '₩' + rupiah.toLocaleString('ko-KR');
 
         return formattedAmount;
     }
