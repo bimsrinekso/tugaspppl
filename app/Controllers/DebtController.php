@@ -26,7 +26,7 @@ class DebtController extends BaseController
             $dataBody = [
                 'userid'=> $this->sesi->get('userid')
             ];
-            $postData = $this->async->post($enp, $this->apiclient, $dataBody);
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
             $parseData = $postData->response;
             if (is_object($parseData->dataUtang) && !is_countable($parseData->dataUtang)) {
                 $parseData->dataUtang = [$parseData->dataUtang];

@@ -54,7 +54,7 @@ class Settlement extends BaseController
         if($role == 1){
             $data = [                 
                 "dataClient" => $parseClient,
-                "dataDebt" => $postDataDebt->dataUtang,
+                "dataDebt" => $parseDataDebt->dataUtang,
             ];
             return view('Dashboard/Main/Settle/addSettle', $data);
         }elseif($role == 4){         

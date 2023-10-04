@@ -20,7 +20,7 @@
                         <div class="card-title-desc">
                             <p>You can create, edit, delete and report Adjustment
                             </p>
-                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createAdj') ?> ">Create Adjustment</a>
+                            
                         </div>
                        
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
