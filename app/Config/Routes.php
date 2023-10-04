@@ -13,7 +13,7 @@ $routes->post('/login', 'AuthLogin::cekLogin');
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client, helpdesk']);
 $routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member,helpdesk']);
 // dashboard
-
+$routes->post('/dashboard/filter/filterDash', 'Dashboard::filterDashboard', ['filter' => 'role:main']);
 // list client
 $routes->get('/dashboard/listClients', 'GroupClient::listClient', ['filter' => 'role:main']);
 $routes->get('/dashboard/createClient', 'GroupClient::createClient', ['filter' => 'role:main']);
