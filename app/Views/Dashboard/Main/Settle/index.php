@@ -20,7 +20,7 @@
                         <div class="card-title-desc">
                             <p>You can create, edit, delete and report Adjustment
                             </p>
-                            <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/createAdj') ?> ">Create Adjustment</a>
+                            
                         </div>
                        
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,7 +37,6 @@
                                         <th>Amount</th>
                                         <th>Remark</th>
                                         <th>Operator</th>
-                                        <th>client</th>
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
@@ -52,7 +51,6 @@
                                                     <td><?= defaultMoney($listSettle->amount) ?> </td>
                                                     <td><?=$listSettle->remark == null ? '-' : $listSettle->remark?></td>
                                                     <td><?= $listSettle->username ?> </td>
-                                                    <td><?= $listSettle->name?></td>
                                                     <td><?= date('d-m-Y', strtotime($listSettle->tglbuat))?> </td>
                                                     <td>
                                                     <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editAdj/'. $listSettle->idsettle) ?> " title="Edit">

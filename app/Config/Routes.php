@@ -13,7 +13,7 @@ $routes->post('/login', 'AuthLogin::cekLogin');
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client, helpdesk']);
 $routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member,helpdesk']);
 // dashboard
-
+$routes->post('/dashboard/filter/filterDash', 'Dashboard::filterDashboard', ['filter' => 'role:main']);
 // list client
 $routes->get('/dashboard/listClients', 'GroupClient::listClient', ['filter' => 'role:main']);
 $routes->get('/dashboard/createClient', 'GroupClient::createClient', ['filter' => 'role:main']);
@@ -114,13 +114,21 @@ $routes->post('/dashboard/withdrawPending/edit/(:num)', 'Withdraw::updateWd/$1',
 $routes->post('/dashboard/filterWd', 'Withdraw::filterWd', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/filterPending', 'Withdraw::filterPending', ['filter' => 'role:main, client,helpdesk']);
 
+//debt
+$routes->get('/dashboard/listDebt', 'DebtController::indexDebt', ['filter' => 'role:main,helpdesk']);
+// $routes->get('/dashboard/editDebt/(:any)', 'DebtController::editDebt/$1', ['filter' => 'role:main']);
+// $routes->post('/dashboard/editDebt/(:any)', 'DebtController::updateDebt/$1', ['filter' => 'role:main']);
+// $routes->get('/dashboard/createDebt', 'DebtController::createDebt', ['filter' => 'role:main']);
+// $routes->post('/dashboard/createDebt', 'DebtController::saveDebt', ['filter' => 'role:main']);
+// $routes->delete('/dashboard/deleteDebt/(:any)', 'DebtController::delDebt/$1', ['filter' => 'role:main']);
+
 //settle
 $routes->get('/dashboard/makeAdjustment', 'Settlement::indexSettle', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/createAdj', 'Settlement::createSettle', ['filter' => 'role:main,helpdesk']);
-$routes->post('/dashboard/createAdj', 'Settlement::saveSettle', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/editAdj/(:num)', 'Settlement::editSettle/$1', ['filter' => 'role:main,helpdesk']);
-$routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main,helpdesk']);
-$routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/createAdj', 'Settlement::createSettle', ['filter' => 'role:main']);
+$routes->post('/dashboard/createAdj', 'Settlement::saveSettle', ['filter' => 'role:main']);
+$routes->get('/dashboard/editAdj/(:num)', 'Settlement::editSettle/$1', ['filter' => 'role:main']);
+$routes->post('/dashboard/editAdj/(:num)', 'Settlement::updateSettle/$1', ['filter' => 'role:main']);
+$routes->delete('/dashboard/deleteAdj/(:num)', 'Settlement::delSettle/$1', ['filter' => 'role:main']);
 
 // country
 $routes->post('/dashboard/country/getClients', 'CountryController::listClientCountry', ['filter' => 'role:main, helpdesk']);
