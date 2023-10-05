@@ -47,7 +47,7 @@ $(document).ready(function() {
     {
         "status": 200,
         "response": {
-            "totalBlcClient": 508969
+            "totalBlcClient": 0
         }
     }`, 'shell');
 
