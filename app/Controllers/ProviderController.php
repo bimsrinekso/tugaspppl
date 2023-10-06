@@ -6,17 +6,29 @@ class ProviderController extends BaseController
 {
     public function index()
     {
+        $role = $this->sesi->get('role');
+        if ($role == 1 ) {
+            return view('Dashboard/Provider/index');
+        }  
+    }
+
+    public function listProvider()
+    {
+        $param = $_REQUEST;        
         $enp = 'api/provider/listProvider';
         $dataBody = [
-            'userid'=> $this->sesi->get('userid')
+            'userid' => $this->sesi->get('userid'),
+            'param' => $param,
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        $data = [
-            "dataProvider" => $parseData,
-        ];
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
 
-        return view('Dashboard/Provider/index', $data);
+        ];
+        echo json_encode($response); 
     }
     public function createProvider(){
         $role = $this->sesi->get('role');

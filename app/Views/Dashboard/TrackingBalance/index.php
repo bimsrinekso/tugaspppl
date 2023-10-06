@@ -337,55 +337,5 @@
         clearAndShowLoader(table);
         generateTable('#datatable-active', '/dashboard/trackingBalance',columnTrack, orderTrack,startDate, endDate);
     }
-    
-    $(document).ready(function () {
-        targetFilter = $("#btnFilterRun").data("tabactive");
-        $('input[name="daterangeRun"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangeRun"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangeRun"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
-            $('input[name="daterangeExp"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangeExp"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangeExp"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $.fn.dataTable
-        .tables( { visible: true, api: true } )
-        .columns.adjust();
-        });
-       tableRun = $("#datatable-active").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollX: true,
-            "bDestroy": true
-        });
-        tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-        tableExp = $("#datatable-expired").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollX: true,
-            "bDestroy": true
-        });
-        tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");
-    });
 </script>
 <?php $this->endSection();?>

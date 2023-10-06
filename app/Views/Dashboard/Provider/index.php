@@ -40,21 +40,7 @@
                                     </tr>
                                     </thead>       
                                     <tbody>
-                                        <?php if ($dataProvider != null) : ?>
-                                            <div hidden><?= $i = 1; ?></div> 
-                                            <?php foreach($dataProvider as $listProvider): ?>
-                                                <tr>
-                                                    <td><?= $i++ ?> </td>
-                                                   <td><?= $listProvider->providerName ?> </td>
-                                                   <td><?= $listProvider->cnName ?> </td>
-                                                    <td><a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editProvider/'. $listProvider->id) ?> " title="Edit">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                </td>
-                                                </tr>
-                                            <?php endforeach;?> 
-                                        <?php else:?>
-                                        <?php endif;?>                                        
+                                                                             
                                     </tbody>
                                 </table>
                             </div>
@@ -85,23 +71,13 @@
 <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
-<!-- toastr init -->
-<script src="/assets/js/pages/toastr.init.js"></script>
 <!-- Datatable init js -->
 <script src="/js/pages/datatables.init.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#datatable").DataTable(), $("#datatable-all").DataTable({
-            lengthChange: !1,
-            buttons: ["excel", "colvis"],
-            "scrollX" : true,
-        }).buttons().container().appendTo("#datatable-all_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-    });
-</script>
-
-  <?php if(session()->getFlashdata('sukses')):?>
+<script src="/assets/js/plugins/service/generateTable.js"></script>
+<script src="/assets/js/plugins/service/tableProvider.js"></script>
+<!-- toastr init -->
+<script src="/assets/js/pages/toastr.init.js"></script>
+    <?php if(session()->getFlashdata('sukses')):?>
         <script>
               toastr.success("<?= session()->getFlashData("sukses"); ?>");
         </script>
@@ -110,5 +86,24 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
+    <script>
+</script>
+<script>
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+</script>
+
+
+  
 
 <?php $this->endSection();?>

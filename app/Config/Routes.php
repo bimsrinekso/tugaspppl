@@ -144,6 +144,7 @@ $routes->get('/dashboard/detailApi/(:num)', 'GenerateApi::detailApi/$1', ['filte
 
 // base bank
 $routes->get('/dashboard/baseBank', 'Bank::index', ['filter' => 'role:main']);
+$routes->post('/dashboard/baseBank', 'Bank::listBank', ['filter' => 'role:main']);
 $routes->get('/dashboard/baseBank/create', 'Bank::createBank', ['filter' => 'role:main']);
 $routes->post('/dashboard/baseBank/create', 'Bank::saveBank', ['filter' => 'role:main']);
 $routes->get('/dashboard/baseBank/detail/(:any)', 'Bank::detailBank/$1', ['filter' => 'role:main']);
@@ -172,6 +173,7 @@ $routes->post('/dashboard/editTopup/(:num)', 'Topup::updateTopup/$1', ['filter' 
 $routes->delete('/dashboard/deleteTopup/(:num)', 'Topup::delTopup/$1', ['filter' => 'role:main,helpdesk']);
 
 $routes->get('/dashboard/provider', 'ProviderController::index', ['filter' => 'role:main']);
+$routes->post('/dashboard/provider', 'ProviderController::listProvider', ['filter' => 'role:main']);
 $routes->get('/dashboard/createProvider', 'ProviderController::createProvider', ['filter' => 'role:main']);
 $routes->post('/dashboard/createProvider', 'ProviderController::saveProvider', ['filter' => 'role:main']);
 $routes->get('/dashboard/editProvider/(:num)', 'ProviderController::detailProvider/$1', ['filter' => 'role:main']);

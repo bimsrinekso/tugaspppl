@@ -5,16 +5,28 @@ namespace App\Controllers;
 class Bank extends BaseController
 {
     public function index(){
+        $role = $this->sesi->get('role');
+        if ($role == 1 ) {
+            return view('Dashboard/Main/BaseBank/index');
+        } 
+    }
+
+    public function listBank(){
+        $param = $_REQUEST;        
         $enp = 'api/bank/getAll';
         $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-        $getData = $this->async->post($enp, $this->apimain, $dataBody);
-        $parseData = $getData->response;
-        $data = [
-            "allData" => $parseData,
+            'userid' => $this->sesi->get('userid'),
+            'param' => $param,
         ];
-        return view('Dashboard/Main/BaseBank/index', $data);   
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
+
+        ];
+        echo json_encode($response);    
     }
 
     public function createBank(){

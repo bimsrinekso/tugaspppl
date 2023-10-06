@@ -65,7 +65,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                    <div class="card-title-desc">
+                        <h4 class="card-title">List Bank</h4>
+                        <div class="card-title-desc">
+                            <p>You can create, edit, delete and report Bank
+                            </p>
                             <a class="btn btn-secondary waves-effect waves-light" href="<?= base_url('dashboard/baseBank/create') ?> ">Create Bank</a>
                         </div>
                         <hr>
@@ -88,23 +91,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($allData != null): ?>
-                                            <?php $i = 1; ?>
-                                            <?php foreach($allData as $listData):?>
-                                                <tr>
-                                                    <td></td>
-                                                    <td><?=$listData->bankName?></td>
-                                                    <td><?=$listData->universalName?></td>
-                                                    <td><?=$listData->cnName?></td>
-                                                    <td><?=$listData->nama?></td>
-                                                    <td>
-                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/baseBank/detail/'. $listData->id) ?> " title="Edit">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach?>
-                                        <?php endif;?> 
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -150,7 +137,9 @@
   <!-- validation init -->
   <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
+    
+  <script src="/assets/js/plugins/service/generateTable.js"></script>
+  <script src="/assets/js/plugins/service/tableBaseBank.js"></script> 
   <!-- toastr init -->
   <script src="/assets/js/pages/toastr.init.js"></script>
 
@@ -164,21 +153,17 @@
         </script>
     <?php endif?>
 <script>
-    $(document).ready(function () {
-        var table = $("#datatable-all").DataTable({
-                "scrollX": true,
-                "bDestroy": true,
-                "order": [[ 3, 'asc' ]]
-            });
-        table.on('order.dt search.dt', function () {
-            let i = 1;
-            table.cells(null, 0, {
-                search: 'applied',
-                order: 'applied'
-            }).every(function (cell) {
-                this.data(i++);
-            });
-        }).draw();
-    });
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
 </script>
 <?php $this->endSection();?>
