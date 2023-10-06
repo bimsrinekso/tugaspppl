@@ -7,7 +7,16 @@ class Document extends BaseController
     public function index()
     {
         if ($this->sesi->get('role') == 1) {
-            return view('Dashboard/Main/Documentation/index');
+            $enpBank = 'api/bank/getAll';
+            $dataBody = [
+                'userid' => $this->sesi->get('userid'),
+            ];
+            $listBank = $this->async->post($enpBank, $this->apimain, $dataBody);
+            $parseBank = $listBank->response;
+            $data = [
+                "listBank" => $parseBank,
+            ];
+            return view('Dashboard/Main/Documentation/index', $data);
         } elseif($this->sesi->get('role') == 2) {
             $enp = 'api/account/personalKey';
             $dataBody = [
@@ -15,6 +24,7 @@ class Document extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
+            dd($parseData);
             if (is_countable($parseData)) {
                 $parseData = $parseData[0];
             }
@@ -36,6 +46,7 @@ class Document extends BaseController
                 "listBank" => $parseBank,
                 "dataKey" => $parseData,
             ];
+            dd($data);
             return view('Dashboard/Client/Documentation/index', $data);
         }
         
