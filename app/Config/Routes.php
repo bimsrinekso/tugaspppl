@@ -13,7 +13,7 @@ $routes->post('/login', 'AuthLogin::cekLogin');
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:main, client, helpdesk']);
 $routes->get('/dashboard/logout', 'AuthLogin::authLogout', ['filter' => 'role:main, client,member,helpdesk']);
 // dashboard
-
+$routes->post('/dashboard/filter/filterDash', 'Dashboard::filterDashboard', ['filter' => 'role:main']);
 // list client
 $routes->get('/dashboard/listClients', 'GroupClient::listClient', ['filter' => 'role:main']);
 $routes->get('/dashboard/createClient', 'GroupClient::createClient', ['filter' => 'role:main']);
@@ -38,12 +38,18 @@ $routes->get('/service/report/listWd', 'Report::listWd', ['filter' => 'role:main
 $routes->post('/service/report/listSm', 'Report::listSm', ['filter' => 'role:main, client,helpdesk']);
 // documentation
 $routes->get('/dashboard/documentationAPI', 'Document::index', ['filter' => 'role:main, client']);
+
 // log
 $routes->get('/dashboard/monitoringLog', 'Monitoring::index', ['filter' => 'role:main']);
 $routes->get('/dashboard/detailPost/(:any)', 'Monitoring::detailPost/$1', ['filter' => 'role:main']);
 $routes->get('/dashboard/detailCallback/(:any)', 'Monitoring::detailCallback/$1', ['filter' => 'role:main']);
 $routes->get('/dashboard/editErrorlog/(:any)', 'Monitoring::editError/$1', ['filter' => 'role:main']);
 $routes->post('/dashboard/editErrorlog/(:any)', 'Monitoring::saveError/$1', ['filter' => 'role:main']);
+//filter log
+$routes->post('/dashboard/filterLogPost', 'Monitoring::filterLogPost', ['filter' => 'role:main']);
+//list monitorlog
+$routes->post('/dashboard/monitoringLog', 'Monitoring::listLogPost', ['filter' => 'role:main']);
+
 
 //
 $routes->get('/dashboard/bankAccounts', 'AccountBank::index', ['filter' => 'role:main, client,helpdesk']);
