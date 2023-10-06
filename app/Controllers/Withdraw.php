@@ -110,7 +110,7 @@ class Withdraw extends BaseController
         $isValid = [
             'remark' => 'required',
             'status' => 'required',
-            'bankTransfer' => 'required',
+            'amount' => 'required',
         ];
         if (!$this->validate($isValid)) {
             $html = $this->isvalid->listErrors();
@@ -119,12 +119,12 @@ class Withdraw extends BaseController
             return redirect()->to('dashboard/withdrawPending/edit/'.$id);
         }
         $enp = 'api/wd/updatePending/' . $id;
-        $feeBankTransfer= filter_var($this->request->getVar('bankTransfer'), FILTER_SANITIZE_NUMBER_INT);
+        $feeBankTransfer= filter_var($this->request->getVar('amount'), FILTER_SANITIZE_NUMBER_INT);
         $dataBody = [
             'reqwd_id' => $id,
             'status'=> $this->request->getVar('status'), 
             'remark'=> $this->request->getVar('remark'), 
-            'bankTransfer' => $feeBankTransfer,
+            'amount' => $feeBankTransfer,
             'userID' => $this->sesi->get('userid'),
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);

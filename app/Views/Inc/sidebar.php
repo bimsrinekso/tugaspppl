@@ -14,7 +14,7 @@
                         <span key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
-                <li class="menu-title" key="t-apps">Apps</li>
+                <li class="menu-title" key="t-apps">COA</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-group"></i>
@@ -37,6 +37,7 @@
                         <li><a href="<?= base_url('dashboard/estatement/qris') ?>" key="t-full-calendar">Qris</a></li>
                     </ul>
                 </li>
+                <li class="menu-title" key="t-apps">Transactions</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-bank"></i>
@@ -77,6 +78,7 @@
                                 Commission</a></li>
                         <li><a href="<?= base_url('dashboard/hoWithdraw')?>" key="t-full-calendar">HO Withdraw</a></li>
                         <li><a href="<?= base_url('dashboard/topUp')?>" key="t-full-calendar">Top Up Client</a></li>
+                        <li><a href="<?= base_url('dashboard/listDebt')?>" key="t-tui-calendar">Debt</a></li>
                     </ul>
                 </li>
                 <li>
@@ -88,7 +90,7 @@
                         <li><a href="<?= base_url('dashboard/trackingBalance')?>" key="t-tui-calendar">Detail</a></li>
                     </ul>
                 </li>
-
+                <li class="menu-title" key="t-apps">Settings</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-archive"></i>
@@ -166,6 +168,7 @@
                         <span key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
+                <li class="menu-title" key="t-apps">COA</li>
                 <li>
                     <a href="<?= base_url('dashboard/setBank') ?>" class="waves-effect">
                         <i class="bx bxs-dollar-circle"></i>
@@ -184,6 +187,7 @@
                         </li>
                     </ul>
                 </li>
+                <li class="menu-title" key="t-apps">Transactions</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-bank"></i>
@@ -287,7 +291,7 @@
                         <span key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
-                <li class="menu-title" key="t-apps">Apps</li>
+                <li class="menu-title" key="t-apps">COA</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-group"></i>
@@ -310,6 +314,7 @@
                         <li><a href="<?= base_url('dashboard/estatement/qris') ?>" key="t-full-calendar">Qris</a></li>
                     </ul>
                 </li>
+                <li class="menu-title" key="t-apps">Transactions</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-bank"></i>
@@ -348,6 +353,7 @@
                                 Commission</a></li>
                         <li><a href="<?= base_url('dashboard/hoWithdraw')?>" key="t-full-calendar">HO Withdraw</a></li>
                         <li><a href="<?= base_url('dashboard/topUp')?>" key="t-full-calendar">Top Up Client</a></li>
+                        <li><a href="<?= base_url('dashboard/listDebt')?>" key="t-tui-calendar">Debt</a></li>
                     </ul>
                 </li>
                 <li>
