@@ -163,7 +163,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Message</th>
-                                            <th>Status Fixing</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -217,7 +216,7 @@
       {
         data: 'id',
         render: function (data, type, row, meta) {
-            return `<a class="btn btn-outline-secondary btn-sm" href="detailPost/${data}" title="Edit"><i class="fas fa-pencil-alt"></i></a>`;
+            return `<a class="btn btn-outline-secondary btn-sm" href="detailPost/${data}" title="Edit"><i class="fas fa-eye"></i></a>`;
         }
       }
      
@@ -238,7 +237,7 @@
       {
         data: 'id',
         render: function (data, type, row, meta) {
-            return `<a class="btn btn-outline-secondary btn-sm" href="detailCallback/${data}" title="Edit"><i class="fas fa-pencil-alt"></i></a>`;
+            return `<a class="btn btn-outline-secondary btn-sm" href="detailCallback/${data}" title="Edit"><i class="fas fa-eye"></i></a>`;
         }
       }
     ];
@@ -252,11 +251,10 @@
         }
       },
       { data: 'message' },
-      {data: null},
       {
         data: 'id',
         render: function (data, type, row, meta) {
-            return `<a class="btn btn-outline-secondary btn-sm" href="editErrorlog/${data}" title="Edit"><i class="fas fa-pencil-alt"></i></a>`;
+            return `<a class="btn btn-outline-secondary btn-sm" href="editErrorlog/${data}" title="Edit"><i class="fas fa-eye"></i></a>`;
         }
       }
     ];

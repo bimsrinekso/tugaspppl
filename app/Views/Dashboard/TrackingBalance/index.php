@@ -213,11 +213,13 @@
                 data: null,
                 
                 render: function (data, type, row) {
-                    if (row.payFor == 1 || row.payFor == 3) {
-                        return (row.amountTB === null ? "-" : "+" + formatIdr(row.amountTB));
-                    } else {
-                        return "-" + formatIdr(row.amountTB);
-                    }
+                    var amountCondition = data === null;
+                    var formattedAmount = formatIdr(row.amountTB);
+                    var payFor = row.payFor;
+                    var styleCondition = payFor === 1 || payFor === 3;
+                    var transactionAmount = styleCondition ? (amountCondition ? "-" : "+" + formattedAmount) : "-" + formattedAmount;
+                    var tdStyle = styleCondition ? (amountCondition ? "" : "color:#2ecc71;font-weight: 500;") : "color:#e74c3c;font-weight: 500;";
+                    return '<td><span style="' + tdStyle + '">' + transactionAmount + '</span></td>'
                 }
             },
             { data: null,
@@ -368,7 +370,22 @@
             $.fn.dataTable
         .tables( { visible: true, api: true } )
         .columns.adjust();
-        }); 
+        });
+       tableRun = $("#datatable-active").DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
+            ".dataTables_length select").addClass("form-select form-select-sm");
+        tableExp = $("#datatable-expired").DataTable({
+            lengthChange: false,
+            buttons: ["copy", "excel", "pdf"],
+            scrollX: true,
+            "bDestroy": true
+        });
+        tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");
     });
 </script>
 <?php $this->endSection();?>

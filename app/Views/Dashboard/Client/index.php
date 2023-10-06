@@ -31,233 +31,338 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
+                        <div class="card">
                             <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Topup</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalTopup, null, null, true) ?></h4>
+                                <div class="d-sm-flex flex-wrap">
+                                    <h4 class="card-title mb-4">Overview</h4>
+                                    <div class="ms-auto">
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-bs-toggle="pill"
+                                                    href="#balance">Balance</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="pill"
+                                                    href="#transactions">Transactions</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="pill" href="#fee">Fee</a>
+                                            </li>
+                                        </ul>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="balance">
 
-                                    <div class="flex-shrink-0 align-self-center">
-                                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                            <span class="avatar-title">
-                                                    <i class="bx bxs-check-shield font-size-24"></i>
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total
+                                                                        Balance
+                                                                    </p>
+                                                                    <h4 class="mb-0" id="blcClient">
+                                                                        <?= defaultMoney($totalBlcClient, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-wink-smile font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="transactions">
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total
+                                                                        Deposit</p>
+                                                                    <h4 class="mb-0" id="totalDepo">
+                                                                        <?= defaultMoney($totalDepo, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i class="bx bx bxs-bank font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total
+                                                                        Withdraw</p>
+                                                                    <h4 class="mb-0" id="totalWd">
+                                                                        <?= defaultMoney($totalWd, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-wallet-alt font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total
+                                                                        Settlement</p>
+                                                                    <h4 class="mb-0" id="totalSettle">
+                                                                        <?= defaultMoney($totalSettle, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-check-shield font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total Ho
+                                                                        Withdraw
+                                                                    </p>
+                                                                    <h4 class="mb-0" id="totalHo">
+                                                                        <?= defaultMoney($totalHo, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-check-shield font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total Topup
+                                                                    </p>
+                                                                    <h4 class="mb-0" id="totalTopUp">
+                                                                        <?= defaultMoney($totalTopup, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-check-shield font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="fee">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total
+                                                                        Deposit
+                                                                        Comission
+                                                                    </p>
+                                                                    <h4 class="mb-0" id="totalDepoCom">
+                                                                        <?= defaultMoney($totalKomisiDp, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-credit-card font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Fee Bank
+                                                                        Transfer
+                                                                        Deposit</p>
+                                                                    <h4 class="mb-0" id="komisiBt">
+                                                                        <?= defaultMoney($komisiBt, true)?></h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i class="bx bx bx-gift font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Fee Qris
+                                                                        Deposit</p>
+                                                                    <h4 class="mb-0" id="komisiQr">
+                                                                        <?= defaultMoney($komisiQr, true)?></h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i class="bx bx bx-gift font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Total
+                                                                        Withdraw
+                                                                        Commision</p>
+                                                                    <h4 class="mb-0" id="totalWdCom">
+                                                                        <?= defaultMoney($totalKomisiWd, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i
+                                                                                class="bx bxs-credit-card font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card mini-stats-wid">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="flex-grow-1">
+                                                                    <p class="text-muted fw-medium">Fee Bank
+                                                                        Transfer
+                                                                        Withdraw</p>
+                                                                    <h4 class="mb-0" id="totalBtWd">
+                                                                        <?= defaultMoney($totalBankTransfer, true)?>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="flex-shrink-0 align-self-center ">
+                                                                    <div
+                                                                        class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                                        <span
+                                                                            class="avatar-title rounded-circle bg-primary">
+                                                                            <i class="bx bx bx-gift font-size-24"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Balance</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalBlcClient, null, null, true) ?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bx-money font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Deposit</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalDepo, null, null, true) ?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bx bxs-bank font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Deposit Commision</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalKomisiDp, null, null, true)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-credit-card font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Comission Bank Transfer Deposit</p>
-                                        <h4 class="mb-0"><?= formatMoney($komisiBt, null, null, true)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-receipt font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Comission Qris Deposit</p>
-                                        <h4 class="mb-0"><?= formatMoney($komisiQr, null, null, true)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-receipt font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Withdraw</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalWd, null, null, true) ?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-wallet-alt font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Withdraw Commision</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalKomisiWd, null, null, true)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-credit-card font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Fee Bank Transfer Withdraw</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalBankTransfer, null, null, true)?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-wallet-alt font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Ho Withdraw</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalHo, null, null, true) ?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-check-shield font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mini-stats-wid">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <p class="text-muted fw-medium">Total Adjustment</p>
-                                        <h4 class="mb-0"><?= formatMoney($totalSettle, null, null, true) ?></h4>
-                                    </div>
-
-                                    <div class="flex-shrink-0 align-self-center ">
-                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                    <i class="bx bxs-check-shield font-size-24"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!-- end row -->
-            </div>
             <!--end col-->
         </div>
         <!--end row-->

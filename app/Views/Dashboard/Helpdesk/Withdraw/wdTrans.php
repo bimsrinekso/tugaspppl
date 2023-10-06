@@ -96,9 +96,9 @@
                                             <th>Trx ID</th>
                                             <th>Order Number</th>
                                             <th>Status</th>
-                                            <th>Payment Method</th>
                                             <th>Amount</th>
                                             <th>Comission</th>
+                                            <th>Bank Transfer</th>
                                             <th>Last Balance</th>
                                             <th>Currency</th>
                                             <th>Bank Name</th>
@@ -129,13 +129,13 @@
                                                         <?= $listTranasWd->namestatus ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listTranasWd->paymentMethod ?> 
-                                                    </td>
-                                                    <td>
                                                         <?= formatMoney($listTranasWd->rwdAmount) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->comission == null ? "-" : formatMoney($listTranasWd->comission) ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $listTranasWd->bankTransfer == null ? "-" : formatMoney($listTranasWd->bankTransfer) ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listTranasWd->lastBalance == null ? "-" : formatMoney($listTranasWd->lastBalance) ?> 
@@ -232,9 +232,9 @@
     <?php endif?>
 <script>
     var targetFilter = 'datatable-all';
-    const uang = new Intl.NumberFormat('en-US', {
+    const uang = new Intl.NumberFormat('id-ID', {
     style: 'currency',
-    currency: 'KRW',
+    currency: 'IDR',
     minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     maximumFractionDigits: 3, // (causes 2500.99 to be printed as $2,501)
         });
@@ -278,8 +278,7 @@
                 "<td>" + b.idTransRWD + "</td>" +
                 "<td>" + (b.wdOrderNo == null ? "-" : b.wdOrderNo) + "</td>" +
                 "<td>" + b.namestatus + "</td>" +
-                "<td>" + b.paymentMethod + "</td>" +
-                "<td>" + b.rwdAmount + "</td>" +
+                "<td>" + formatCurrency(b.rwdAmount) + "</td>" +
                 "<td>" + (b.comission == null ? "-" : formatCurrency(b.comission)) + "</td>" +
                 "<td>" + (b.bankTransfer == null ? "-" : formatCurrency(b.bankTransfer)) + "</td>" +
                 "<td>" + (b.lastBalance == null ? "-" : formatCurrency(b.lastBalance)) + "</td>" +

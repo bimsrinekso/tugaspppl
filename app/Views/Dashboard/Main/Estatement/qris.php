@@ -75,9 +75,12 @@
                         <hr>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                              <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">PENDING</button>
+                              <button class="nav-link active" onclick="cbHref(this)" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">PENDING</button>
                             </li>
-                          </ul> 
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="done-tab" onclick="cbHref(this)" data-bs-toggle="tab" data-bs-target="#done" type="button" role="tab" aria-controls="done" aria-selected="true">DONE</button>
+                            </li>
+                        </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                                 <div class="col-md-6 mb-3">
@@ -88,7 +91,7 @@
                                                 <input type="text" class="form-control" placeholder="Choose date range" name="daterangePen" id="daterange" value="" />
                                             </div>
                                             <div class="col-4">
-                                                <button class="btn btn-secondary waves-effect waves-light" id="btnFilterRun" data-tabactive="datatable-active" onclick="filterTgl()" type="button">Filter</a>
+                                                <button class="btn btn-secondary waves-effect waves-light" id="btnFilterPen" data-tabactive="datatable-active" onclick="filterTgl('#pendingStatement')" type="button">Filter</a>
                                             </div>
                                         </div>
                                       
@@ -110,24 +113,42 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if(!empty($dataPending)):?>
-                                            <?php $i =1;?>
-                                        <?php foreach($dataPending as $listPending):?>
-                                            <tr>
-                                            <td><?=$i++?></td>
-                                            <!-- <td>$listPending->branchName?></td> -->
-                                            <td><?=defaultMoney($listPending->grandTotal)?></td>
-                                            <td><?=$listPending->transactionCode?></td>
-                                            <td><?=$listPending->issuerName?></td>
-                                            <td><?=$listPending->customerName?></td>
-                                            <td><?=$listPending->cnName?></td>
-                                            <!-- <td><$listPending->clientName?></td> -->
-                                            <td><?= format_date($listPending->transactionTime, 'd-m-Y H:i:s'); ?></td>
-                                            <td><?= format_date($listPending->createdAt, 'd-m-Y H:i:s'); ?></td>
-                                            </tr>
-                                        <?php endforeach;?>
-                                        <?php else:?>
-                                        <?php endif;?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade show" id="done" role="tabpanel" aria-labelledby="done-tab">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="daterange" class="control-label">Filter Date</label>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control" placeholder="Choose date range" name="daterangeDone" id="daterange" value="" />
+                                                </div>
+                                                <div class="col-4">
+                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterDone" data-tabactive="datatable-done" onclick="filterTgl('#datatable-done')" type="button">Filter</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="datatable-done" class="table table-striped table-bordered nowrap" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <!-- <th>Merchant Name</th> -->
+                                            <th>Grand Total</th>
+                                            <th>Transaction Code</th>
+                                            <th>Transfer Via</th>
+                                            <th>Customer Name</th>
+                                            <th>Country</th>
+                                            <!-- <th>Client</th> -->
+                                            <th>Transaction Date</th>
+                                            <th>Scrap Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -172,6 +193,85 @@
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+<script>
+    
+         formatIdr = (money) => {
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+            }).format(money);
+        };
+     var columnPenStatement = [
+        {
+            data: null,
+            render: function (data, type, row, meta) {
+            return meta.row + 1;
+            }
+        },
+        {
+            data: null,
+            render: function (data, type, row) {
+                return formatIdr(row.grandTotal);
+            }
+        },
+        { data: 'transactionCode' },
+        { data: 'issuerName' },
+        { data: 'customerName' },
+        { data: 'cnName' },
+        {
+        data: null,
+        render: function (data, type, row) {
+            return moment.tz(row.transactionTime, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+        }
+        },
+        {
+            data: null,
+            render: function (data, type, row) {
+                return moment.tz(row.createdAt, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            }
+        }
+     
+    ];
+    var orderPenStatement = [[0, 'asc']];
+
+    var columnDonStatement = [
+        {
+            data: null,
+            render: function (data, type, row, meta) {
+            return meta.row + 1;
+            }
+        },
+        {
+            data: null,
+            render: function (data, type, row) {
+                return formatIdr(row.grandTotal);
+            }
+        },
+        { data: 'transactionCode' },
+        { data: 'issuerName' },
+        { data: 'customerName' },
+        { data: 'cnName' },
+        {
+        data: null,
+        render: function (data, type, row) {
+            return moment.tz(row.transactionTime, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+        }
+        },
+        {
+            data: null,
+            render: function (data, type, row) {
+                return moment.tz(row.createdAt, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
+            }
+        }
+     
+    ];
+    var orderDonStatement = [[0, 'asc']];
+
+     
+</script>
+<script src="/assets/js/plugins/service/generateTable.js"></script>
+<script src="/assets/js/plugins/service/tableScrapQris.js"></script>
 
 <!-- toastr init -->
 <script src="/assets/js/pages/toastr.init.js"></script>
@@ -186,30 +286,108 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
+    
 <script>
-    $(document).ready(function () {
+    var targetFilter;
+    var targetTgl = 'Pen';
+    function cbHref(isi){
+        var target = $(isi).data("bs-target");
+        if(target == "#pen"){
+        targetFilter = "#pendingStatement";
+        targetTgl = 'Pen';
+        } else {
+            targetFilter = "#datatable-done";
+            targetTgl = "Done";
+        }
+    }
       
-        $('input[name="daterangePen"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangePen"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangePen"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
-        $("#datatable").DataTable(), $("#pendingStatement").DataTable({
-            lengthChange: !1,
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+
+    function formatDate(dateStr, isEndDate) {
+        if (!dateStr || dateStr == '') return '';
+        dateStr = dateStr.replace(/\//g, '-').trim();
+        return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
+    }
+
+
+    function handleAjaxSuccess(response, isTable, table){
+        isTable.DataTable().destroy();
+        table.empty();
+        populateTable(table, response["response"]);
+        var ikiTable = isTable.DataTable({
+            lengthChange: false,
             buttons: ["copy", "excel", "pdf"],
-            "scrollX": true,
-            scrollCollapse: true,
+            scrollX: true,
             "bDestroy": true
-        }).buttons().container().appendTo("#pendingStatement_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
+        });
+        ikiTable.buttons().container().appendTo(targetFilter+"_wrapper .col-md-6:eq(0)");
+        $(".dataTables_length select").addClass("form-select form-select-sm");
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    }
+
+    function filterTgl(targetFilter){
+        var tgl = $('input[name="daterange'+targetTgl+'"]').val();
+        var splitTgl = tgl.split('-');
+        var startDate = formatDate(splitTgl[0], false);
+        var endDate = formatDate(splitTgl[1], true);
+        var table = targetFilter == "#pendingStatement" ? $("#pendingStatement tbody") : $("#datatable-done tbody");
+
+        clearAndShowLoader(table);
+        if (targetFilter == '#pendingStatement') {
+            generateTable(targetFilter, '/dashboard/estatement/qris', columnPenStatement, orderPenStatement,startDate, endDate);
+        } else {
+            generateTable(targetFilter, '/dashboard/estatement/qris', columnDonStatement, orderDonStatement,startDate, endDate);
+        }
+        
+        
+    }
+
+    $(document).ready(function () {
+        targetFilter = $("#btnFilterPen").data("tabactive");
+        $('input[name="daterangePen"]').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                cancelLabel: 'Clear',
+                format: 'DD/MM/YYY'
+            }
+        });
+        $('input[name="daterangePen"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+        });
+        $('input[name="daterangePen"]').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+        $('input[name="daterangeDone"]').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                cancelLabel: 'Clear',
+                format: 'DD/MM/YYY'
+            }
+        });
+        $('input[name="daterangeDone"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+        });
+        $('input[name="daterangeDone"]').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $.fn.dataTable
+            .tables( { visible: true, api: true } )
+            .columns.adjust();
+        });
     });
+   
+
 </script>
 <?php $this->endSection();?>
