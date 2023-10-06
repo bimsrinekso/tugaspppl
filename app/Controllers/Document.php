@@ -24,7 +24,6 @@ class Document extends BaseController
             ];
             $postData = $this->async->post($enp, $this->apiclient, $dataBody);
             $parseData = $postData->response;
-            dd($parseData);
             if (is_countable($parseData)) {
                 $parseData = $parseData[0];
             }
