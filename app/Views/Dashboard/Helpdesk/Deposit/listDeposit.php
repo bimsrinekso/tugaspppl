@@ -103,7 +103,7 @@
                                         <th>No</th>
                                         <th>Trx ID</th>
                                         <th>Order Number</th>
-                                        <th>Virtual Account</th>
+                                        <th>Account Number</th>
                                         <th>Bank</th>
                                         <th>Holder Name</th>
                                         <th>Payment Method</th>
@@ -128,22 +128,22 @@
                                                         <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->vaNumber ?> 
+                                                        <?= $listDepo->accNumber ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->bank ?> 
+                                                        <?= $listDepo->bankName ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->payMethod ?> 
+                                                        <?= $listDepo->payMethod == 1 ? 'Bank Transfer' : 'Qris' ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
                                                     <td>
-                                                       KRW
+                                                       IDR
                                                     </td>
                                                     <td>
                                                          <?= $listDepo->name ?>
@@ -177,7 +177,7 @@
                                 </div>
                                 <table id="datatable-expired" class="table table-striped table-bordered nowrap" style="width:100%">
                                     <thead>
-                                        <tr>
+                                    <tr>
                                             <th>No</th>
                                             <th>Trx ID</th>
                                             <th>Order Number</th>
@@ -207,22 +207,22 @@
                                                         <?= $listDepo->dpOrderNo == null ? '-' : $listDepo->dpOrderNo?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->vaNumber ?> 
+                                                        <?= $listDepo->accNumber ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->bank ?> 
+                                                        <?= $listDepo->bankName ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->holderName ?> 
                                                     </td>
                                                     <td>
-                                                        <?= $listDepo->payMethod ?> 
+                                                        <?= $listDepo->payMethod == 1 ? 'Bank Transfer' : 'Qris' ?> 
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->forUser ?> 
                                                     </td>
                                                     <td>
-                                                       KRW
+                                                       IDR
                                                     </td>
                                                     <td>
                                                         <?= $listDepo->name ?> 
