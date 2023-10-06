@@ -44,6 +44,7 @@ class Document extends BaseController
             $data = [
                 "listBank" => $parseBank,
                 "dataKey" => $parseData,
+                "userid" => $this->sesi->get('userid')
             ];
             return view('Dashboard/Client/Documentation/index', $data);
         }
