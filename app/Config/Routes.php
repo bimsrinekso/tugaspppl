@@ -104,7 +104,8 @@ $routes->post('/dashboard/setBank/update', 'setBank::updateBank', ['filter' => '
 
 // e-statement 
 $routes->get('/dashboard/estatement/bank', 'EstatementController::listPendingBank', ['filter' => 'role:main,helpdesk']);
-$routes->get('/dashboard/estatement/qris', 'EstatementController::listPendingQris', ['filter' => 'role:main,helpdesk']);
+$routes->get('/dashboard/estatement/qris', 'EstatementController::index', ['filter' => 'role:main,helpdesk']);
+$routes->post('/dashboard/estatement/qris', 'EstatementController::listPenQris', ['filter' => 'role:main,helpdesk']);
 
 //wd
 $routes->get('/dashboard/withdrawTrans', 'Withdraw::wdTrans', ['filter' => 'role:main, client,helpdesk']);

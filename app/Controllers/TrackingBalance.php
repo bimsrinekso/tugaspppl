@@ -7,13 +7,9 @@ class TrackingBalance extends BaseController
     public function index()
     {
         $role = $this->sesi->get('role');
-        if ($role == 1 || $role == 4) {
-            return view('Dashboard/Main/TrackingBalance/index');
-            
-            
-        } elseif($this->sesi->get('role') == 2) {
-            return view('Dashboard/Client/TrackingBalance/index');
-        }   
+        if ($role == 1 || $role == 4 || $role == 2) {
+            return view('Dashboard/TrackingBalance/index'); 
+        }  
     }
     public function getTrack(){
         $param = $_REQUEST;        
