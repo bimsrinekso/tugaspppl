@@ -91,7 +91,7 @@
                                                     <input type="text" class="form-control" placeholder="Choose date range" name="daterangePost" id="daterange" value="" />
                                                 </div>
                                                 <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterPost" data-tabactive="datatable-post" onclick="filterTgl()" type="button">Filter</a>
+                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterPost" data-tabactive="datatable-post" onclick="filterTgl('#datatable-post')" type="button">Filter</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -106,20 +106,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($datapost != null): ?>
-                                            <?php $i = 1; ?>
-                                            <?php foreach($datapost as $logPost) :?> 
-                                        <tr>
-                                            <td><?=$i++?></td>
-                                            <td><?=substr($logPost->body, 0, 100)?></td>
-                                            <td>
-                                                <a class="btn btn-outline-secondary btn-sm " href="<?= base_url('dashboard/detailPost/'. $logPost->id) ?>" title="Detail">
-                                                    <i class='fa fa-eye'></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -133,7 +120,7 @@
                                                     <input type="text" class="form-control" placeholder="Choose date range" name="daterangeCallback" id="daterange" value="" />
                                                 </div>
                                                 <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterCallback" data-tabactive="datatable-active" onclick="filterTgl()" type="button">Filter</a>
+                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterCallback" data-tabactive="datatable-active" onclick="filterTgl('#datatable-callback')" type="button">Filter</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,23 +138,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($datacb != null): ?>
-                                            <?php $i = 1; ?>
-                                            <?php foreach($datacb as $logCb) :?> 
-                                        <tr>
-                                            <td><?=$i++?></td>
-                                            <td><?=$logCb->transactionID?></td>
-                                            <td><?=$logCb->orderNo?></td>
-                                            <td><?=substr($logCb->body, 0, 42)?></td>
-                                            <td><?=$logCb->callbackUrl?></td>
-                                            <td>
-                                                <a class="btn btn-outline-secondary btn-sm " href="<?= base_url('dashboard/detailCallback/'.$logCb->id) ?>" title="Detail">
-                                                    <i class='fa fa-eye'></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -181,7 +152,7 @@
                                                     <input type="text" class="form-control" placeholder="Choose date range" name="daterangeError" id="daterange" value="" />
                                                 </div>
                                                 <div class="col-4">
-                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterError" data-tabactive="datatable-error" onclick="filterTgl()" type="button">Filter</a>
+                                                    <button class="btn btn-secondary waves-effect waves-light" id="btnFilterError" data-tabactive="datatable-error" onclick="filterTgl('#datatable-error')" type="button">Filter</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,26 +163,11 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Message</th>
-                                            <th>Status Fixing</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($dataError != null): ?>
-                                            <?php $i = 1; ?>
-                                            <?php foreach($dataError as $logError) :?>  
-                                        <tr>
-                                            <td><?=$i++?></td>
-                                            <td><?=substr($logError->message, 0, 101);?></td>
-                                            <td></td>
-                                            <td>
-                                                <a class="btn btn-outline-secondary btn-sm" href="<?= base_url('dashboard/editErrorlog/'.$logError->id) ?>" title="Edit">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -248,6 +204,65 @@
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
 <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+<script>
+     var columnLogPost = [
+      {
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
+      { data: 'body' },
+      {
+        data: 'id',
+        render: function (data, type, row, meta) {
+            return `<a class="btn btn-outline-secondary btn-sm" href="detailPost/${data}" title="Edit"><i class="fas fa-eye"></i></a>`;
+        }
+      }
+     
+    ];
+    var orderLogPost = [[0, 'asc']];
+
+    var columnLogCallBack = [
+      {
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
+      { data: 'transactionID' },
+      { data: 'orderNo' },
+       { data: 'body' },
+      { data: 'callbackUrl' },
+      {
+        data: 'id',
+        render: function (data, type, row, meta) {
+            return `<a class="btn btn-outline-secondary btn-sm" href="detailCallback/${data}" title="Edit"><i class="fas fa-eye"></i></a>`;
+        }
+      }
+    ];
+    var orderLogCallBack = [[0, 'asc']];
+
+     var columnLogError = [
+      {
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
+      { data: 'message' },
+      {
+        data: 'id',
+        render: function (data, type, row, meta) {
+            return `<a class="btn btn-outline-secondary btn-sm" href="editErrorlog/${data}" title="Edit"><i class="fas fa-eye"></i></a>`;
+        }
+      }
+    ];
+    var orderLogError = [[0, 'asc']];
+</script>
+<script src="/assets/js/plugins/service/generateTable.js"></script>
+<script src="/assets/js/plugins/service/tableMonitoringLogs.js"></script>
+
 
 <!-- toastr init -->
 <script src="/assets/js/pages/toastr.init.js"></script>
@@ -271,13 +286,13 @@
     function cbHref(isi){
         var target = $(isi).data("bs-target");
         if(target == "#post"){
-           targetFilter = "datatable-post";
+           targetFilter = "#datatable-post";
            targetTgl = 'Post';
         }else if(target == "#callback"){
-            targetFilter = "datatable-callback";
-            targetTgl = "Call";
+            targetFilter = "#datatable-callback";
+            targetTgl = "Callback";
         }else{
-            targetFilter = "datatable-error";
+            targetFilter = "#datatable-error";
             targetTgl = "Error";
         }
     }
@@ -301,6 +316,7 @@
         return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
     }
 
+
     function handleAjaxSuccess(response, isTable, table){
         isTable.DataTable().destroy();
         table.empty();
@@ -311,37 +327,28 @@
             scrollX: true,
             "bDestroy": true
         });
-        ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)");
+        ikiTable.buttons().container().appendTo(targetFilter+"_wrapper .col-md-6:eq(0)");
         $(".dataTables_length select").addClass("form-select form-select-sm");
         $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
     }
 
-    function filterTgl(){
+    function filterTgl(targetFilter){
         var tgl = $('input[name="daterange'+targetTgl+'"]').val();
         var splitTgl = tgl.split('-');
         var startDate = formatDate(splitTgl[0], false);
         var endDate = formatDate(splitTgl[1], true);
-        var table = targetFilter == "datatable-post" ? $("#datatable-post tbody") : (targetFilter == "datatable-callback" ? $("#datatable-callback tbody") : $("#datatable-error tbody"));
-        var isTable = $("#"+targetFilter);
+        var table = targetFilter == "#datatable-post" ? $("#datatable-post tbody") : (targetFilter == "#datatable-callback" ? $("#datatable-callback tbody") : $("#datatable-error tbody"));
 
         clearAndShowLoader(table);
-
-        $.ajax({
-            url: '',
-            method: "POST",
-            xhrFields: {
-                withCredentials: true
-            },
-            dataType: "json",
-            data: {
-                startDate: startDate,
-                endDate: endDate,
-                target: targetFilter == "datatable-post" ? "post" : (targetFilter == "datatable-callback" ? "callback" : "error" )
-            },
-            success: (response) => {
-                handleAjaxSuccess(response, isTable, table);
-            }
-        });
+        if(targetFilter == '#datatable-post'){
+            generateTable(targetFilter, '/dashboard/monitoringLog',columnLogPost, orderLogPost,startDate, endDate);
+        }else if(targetFilter == '#datatable-callback'){
+            generateTable(targetFilter, '/dashboard/monitoringLog', columnLogCallBack, orderLogCallBack,startDate, endDate);
+        }else  if(targetFilter == '#datatable-error'){
+            generateTable(targetFilter, '/dashboard/monitoringLog', columnLogError, orderLogError,startDate, endDate);
+        }
+        
+        
     }
 
     $(document).ready(function () {
@@ -390,27 +397,6 @@
             .tables( { visible: true, api: true } )
             .columns.adjust();
         });
-        tablePost = $("#datatable-post").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            "scrollX" : true,
-            "bDestroy": true
-        });
-        tablePost.buttons().container().appendTo("#datatable-post_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm");
-        tableCallback = $("#datatable-callback").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            "scrollX" : true,
-            "bDestroy": true
-        });
-        tableCallback.buttons().container().appendTo("#datatable-callback_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm");
-        tableError = $("#datatable-error").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            "scrollX" : true,
-            "bDestroy": true
-        });
-        tableError.buttons().container().appendTo("#datatable-error_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm");
     });
 </script>
 <?php $this->endSection();?>

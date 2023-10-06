@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-wrap align-items-start">
@@ -124,125 +124,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                    <div class="d-flex flex-wrap align-items-start">
-                            <h5 class="card-title me-2">Summary Report</h5>
-                        </div>
-                        <table id="tableSummary" class="table table-striped table-bordered nowrap w-100">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Transaction ID</th>
-                                    <th>Order No</th>
-                                    <th>Remark</th>
-                                    <th>Amount</th>
-                                    <th>VA Fee</th>
-                                    <th>Commission</th>
-                                    <th>Bank Transfer</th>
-                                    <th>Last Balance</th>
-                                    <th>Client Name</th>
-                                    <th>Submit Time</th>
-                                    <th>Update Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Deposit Transaction</h4>
-                        <hr>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="confirm-tab" onclick="cbHref(this)"
-                                    data-bs-toggle="tab" data-bs-target="#confirm" type="button" role="tab"
-                                    aria-controls="confirm" aria-selected="true">ALL</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content mt-3" id="myTabContent">
-                            <div class="tab-pane fade show active" id="confirm" role="tabpanel"
-                                aria-labelledby="confirm-tab">
-                                <table id="tableDepo" class="table table-striped table-bordered nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Date</th>
-                                            <th>Trx ID</th>
-                                            <th>Status</th>
-                                            <th>Virtual Account</th>
-                                            <th>Bank</th>
-                                            <th>Holder Name</th>
-                                            <th>Payment Method</th>
-                                            <th>User ID</th>
-                                            <th>Depositor</th>
-                                            <th>Currency</th>
-                                            <th>Amount</th>
-                                            <th>Actual Amount</th>
-                                            <th>Fee</th>
-                                            <th>Actual Input</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- end col -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Withdraw Transaction</h4>
-                        <hr>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                              <button class="nav-link active" id="confirmed-tab" data-bs-toggle="tab" data-bs-target="#confirmed" type="button" role="tab" aria-controls="confirmed" aria-selected="false">ALL</button>
-                            </li>
-                          </ul> 
-                          <div class="tab-content mt-3" id="myTabContent">
-                            <div class="tab-pane fade show active" id="confirmed" role="tabpanel" aria-labelledby="confirmed-tab">
-                                <table id="tableWd" class="table table-bordered table-responsive nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Trx ID</th>
-                                            <th>Status</th>
-                                            <th>Payment Method</th>
-                                            <th>Amount</th>
-                                            <th>Currency</th>
-                                            <th>Bank Name</th>
-                                            <th>Customer Account Number</th>
-                                            <th>Holder Name</th>
-                                            <th>Request Date</th>
-                                            <th>Processed On</th>
-                                            <th>Remark</th>
-                                            <th>Operator</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                          </div>
-                        
-                    </div>
-                </div>
-            </div> <!-- end col -->
-            <div id="summaryTableContainer"></div>
-            <div id="depositTableContainer"></div>
-            <div id="withdrawTableContainer"></div>
+           
         </div> <!-- end row -->
 
     </div> <!-- container-fluid -->
@@ -292,5 +174,13 @@
             toastr.error("<?= session()->getFlashData("error"); ?>");
         </script>
     <?php endif?>
+    <script>
+        $(document).ready(function(){
+            let weekDeposit = <?= $weekDeposit ?>;
+            let weekWd = <?= $weekWithdraw ?>;
+
+            appenStats(weekDeposit, weekWd);
+        });
+    </script>
  
 <?php $this->endSection();?>

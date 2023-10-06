@@ -37,7 +37,40 @@ class Monitoring extends BaseController
             'datacb'=>$parseData3
         ];
         return view('Dashboard/Main/Monitoring/index',$data);
+        
+        
+
     }
+    public function listLogPost(){
+        $param = $_REQUEST;        
+        $enp = 'api/logMonitor/post';
+        $enp1 = 'api/logMonitor/error'; 
+        $enp2 = 'api/logMonitor/callback'; 
+        $dataBody = [
+            'role' => $this->sesi->get('role'),
+            'param' => $param,
+        ];
+       
+        
+        if($param['idTable'] == '#datatable-post'){
+            
+             $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        }elseif($param['idTable'] == '#datatable-callback'){
+             $postData = $this->async->post($enp2, $this->apimain, $dataBody);
+        }else{
+            $postData = $this->async->post($enp1, $this->apimain, $dataBody);
+        }
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
+
+        ];
+    
+        echo json_encode($response);
+    }
+
 
      public function detailPost($id = null){
         $enp = 'api/logMonitor/detailPost';
@@ -100,6 +133,37 @@ class Monitoring extends BaseController
     }
 
     public function saveError($id=null){
-
+        
     }
+
+    public function filterLogPost()
+    {
+        // $param = $_REQUEST;
+        $enp = 'api/logMonitor/filterLogPost';
+        // $enp1 = 'api/logMonitor/filterCallBack';
+        // $enp2 = 'api/logMonitor/filterError';
+        if ($this->sesi->get('role') == 1) {
+            
+            $dataBody = [
+                'startDate'=> $this->request->getVar('startDate'),
+                'endDate'=> $this->request->getVar('endDate'),
+                'role' => $this->sesi->get('role')
+            ];
+            
+            try {
+                $postData = $this->async->post($enp, $this->apimain, $dataBody);
+                // if($param['idTable'] == '#datatable-post'){
+                // $postData = $this->async->post($enp, $this->apimain, $dataBody);
+                // }elseif($param['idTable'] == '#datatable-callback'){
+                //     $postData = $this->async->post($enp1, $this->apimain, $dataBody);
+                // }else{
+                //     $postData = $this->async->post($enp2, $this->apimain, $dataBody);
+                // }
+                echo json_encode($postData);
+            } catch (\Exception $e) {
+                echo json_encode($e->getMessage());
+            }  
+        }
+    }
+
 }

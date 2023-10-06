@@ -2,12 +2,13 @@
 <?php $this->section('css');?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/material.min.css" />
+
 <!-- DataTables -->
 <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-<link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
 <!-- Responsive datatable examples -->
 <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+
 <style>
     .CodeMirror{
         height:auto !important;
@@ -35,6 +36,9 @@
 <?php $this->section('isKonten');?>
 <div class="page-content">
     <div class="container-fluid">
+        <div class="col-12">
+           
+        </div>
          <div class="row">
              <div>
                  <h5 class="mb-3">API Documentation</h5>
@@ -520,7 +524,29 @@
                                 <p>
                                     The following is a list of bank names that we accept:
                                 </p>
-                                
+                                <table id="datatable-all" class="table table-bordered w-100">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Bank Name</th>
+                                        <th>Universal Name</th>
+                                    
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if($listBank != null): ?>
+                                            <?php $i = 1; ?>
+                                            <?php foreach($listBank as $listData):?>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><?=$listData->bankName?></td>
+                                                    <td><?=$listData->universalName?></td>
+                                                
+                                                </tr>
+                                            <?php endforeach?>
+                                        <?php endif;?> 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -542,27 +568,6 @@
                 </div>
             </div>
         </div>
-        <table id="datatable-all" class="table table-bordered w-100">
-            <thead>
-            <tr>
-                <th>No</th>
-                <th>Bank Name</th>
-                <th>Universal Name</th>
-            </tr>
-            </thead>
-            <tbody>
-                <?php if(!empty($listBank)):?>
-                <?php $i = 1;?>
-                <?php foreach($listBank as $list):?>
-                <tr>
-                    <td><?=$i++?></td>
-                    <td><?=$list->bankName?></td>
-                    <td><?=$list->universalName?></td>
-                </tr>
-                <?php endforeach;?>
-                <?php endif;?> 
-            </tbody>
-        </table>
         <!-- end row -->
     </div> <!-- container-fluid -->
 </div>
@@ -583,39 +588,23 @@
 <!-- Required datatable js -->
 <script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples -->
-<script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="/assets/libs/jszip/jszip.min.js"></script>
-<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
 <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
-<!-- date range -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
 <!-- Datatable init js -->
 <script src="/js/pages/datatables.init.js"></script>
-  <!-- validation init -->
-  <script src="/assets/js/pages/validation.init.js"></script>
-  <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
-  <!-- toastr init -->
-  <script src="/assets/js/pages/toastr.init.js"></script>
 
 <script>
     $(document).ready(function () {
         var table = $("#datatable-all").DataTable({
                 "scrollX": true,
                 "bDestroy": true,
-                "order": [[ 3, 'asc' ]]
+                columnDefs: [
+                        { width: '20%', targets: 0 }
+                    ],
+                fixedColumns: true
             });
         table.on('order.dt search.dt', function () {
             let i = 1;
@@ -626,6 +615,8 @@
                 this.data(i++);
             });
         }).draw();
+
     });
 </script>
+
 <?php $this->endSection();?>

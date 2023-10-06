@@ -114,44 +114,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($dataTrack != null):?>
-                                        <?php $i = 1; ?>
-                                            <?php foreach($dataTrack as $listTrack):?>
-                                                <?php
-                                                    $idTransTB = $listTrack->idTransTB;
-                                                    $payFor = $listTrack->payFor;
-                                                    $payForText = ($payFor == 1) ? "Deposit" : (($payFor == 2) ? "Withdraw" : (($payFor == 3) ? "Topup Client" : (($payFor == 4) ? "Ho Withdraw" : "")));
-                                                    $styleCondition = $payFor == 1 || $payFor == 3;
-                                                    $amountCondition = $listTrack->amountTB == null;
-                                                    $formattedAmount = defaultMoney($listTrack->amountTB, true);
-                                                    $transactionAmount = $styleCondition ? ($amountCondition ? "-" : "+". $formattedAmount) : "-". $formattedAmount;
-                                                    $komisiFormatted = ($payFor == 1) ? defaultMoney($listTrack->depoCom, true) : ($payFor == 2 ? defaultMoney($listTrack->wdCom, true) : "-");
-                                                    $lastBalance = defaultMoney($listTrack->lastBalance, true);
-                                                    $orderNo = ($payFor == 1) ? $listTrack->dpOrderNo : ($payFor == 2 ? $listTrack->wdOrderNo : "-");
-                                                    $orderNo = $orderNo == null ? '-' : $orderNo;
-                                                    $name = $listTrack->name;
-                                                    $submitTime = format_date($listTrack->submitTime, 'd-m-Y H:i:s');
-                                                    $updatedTime = format_date($listTrack->updatedTime, 'd-m-Y H:i:s');
-                                                    $topupremark = $listTrack->topupremark == null ? '-' : $listTrack->topupremark;
-                                                ?>
-                                                <tr>
-                                                    <td><?= $i++ ?></td>
-                                                    <td><?= $idTransTB ?></td>
-                                                    <td><?=$orderNo?></td>
-                                                    <td><?= $payForText ?></td>
-                                                    <td <?= $styleCondition ? ($amountCondition ? "" : "style='color:#2ecc71;font-weight: 500;'") : "style='color:#e74c3c;font-weight: 500;'"?>>
-                                                    <?= $transactionAmount ?>
-                                                    </td>
-                                                    <td><?= $komisiFormatted ?></td>
-                                                    <td><?=$topupremark?></td>
-                                                    <td><?= $lastBalance ?></td>
-                                                    <td><?= $name ?></td>
-                                                    <td><?= $submitTime ?></td>
-                                                    <td><?= $updatedTime ?></td>
-                                                </tr>
-                                          
-                                          <?php endforeach;?>
-                                          <?php endif;?>
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -209,12 +172,104 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
   <!-- validation init -->
   <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
   <!-- toastr init -->
   <script src="/assets/js/pages/toastr.init.js"></script>
+
+    <script>
+        formatIdr = (money) => {
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+            }).format(money);
+        };
+        var columnTrack = [
+            {
+                data: null,
+                render: function (data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            },
+            { data: 'idTransTB',  },
+            {
+                data: null,
+               
+                render: function (data, type, row) {
+                    const orderNo = (row.payFor == 1) ? row.dpOrderNo : (row.payFor == 2 ? row.wdOrderNo : "-");
+                    return orderNo == null ? '-' : orderNo;
+                }
+            },
+            { data: 'payFor',
+                render: function (data, type, row) {
+                    let labelPay = ['-', 'Deposit','Withdraw','Top Up Client','HO Withdraw','Adjustment','Debt'];
+                    return labelPay[data];
+            } },
+            {
+                data: null,
+                
+                render: function (data, type, row) {
+                    if (row.payFor == 1 || row.payFor == 3) {
+                        return (row.amountTB === null ? "-" : "+" + formatIdr(row.amountTB));
+                    } else {
+                        return "-" + formatIdr(row.amountTB);
+                    }
+                }
+            },
+            { data: null,
+               
+                render: function (data, type, row) {
+                        if (row.payFor == 1 ) {
+                            return (row.amtVa=== null ? "-" : "+" + formatIdr(row.amtVa));
+                        } else {
+                            return "-" ;
+                        }
+                    }
+                },
+            { data: 'topupremark', 
+                render: function (data, type, row) {
+                        if (row.topupremark != null ) {
+                            return data;
+                        } else {
+                            return "-" ;
+                        }
+                    }
+            },
+            {
+                data: null,
+                title: 'Last Balance',
+                render: function (data, type, row) {
+                    return formatIdr(row.lastBalance);
+                }
+            },
+            { data: 'name', title: 'Client Name' },
+            {
+                data: null,
+                title: 'Submit Time',
+                render: function (data, type, row) {
+                    return moment(row.submitTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+                }
+            },
+            {
+                data: null,
+                title: 'Update Time',
+                render: function (data, type, row) {
+                    return moment(row.updatedTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+                }
+            }
+        ];
+
+        var orderTrack = [[0, 'asc']];
+
+
+
+    </script>
+    <script src="/assets/js/plugins/service/generateTable.js"></script>
+    <script src="/assets/js/plugins/service/tableTrackingBalance.js"></script>
 
   <?php if(session()->getFlashdata('sukses')):?>
         <script>
@@ -230,21 +285,11 @@
     var tableRun;
     var tableExp;
     var targetTgl = 'Run';
-    const uang = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'KRW',
-    minimumFractionDigits: 2, //
-    maximumFractionDigits: 2, //
-        });
-
     function cbHref(isi){
         var target = $(isi).data("bs-target");
         if(target == "#running"){
            targetFilter = "datatable-active";
            targetTgl = 'Run';
-        }else{
-            targetFilter = "datatable-expired";
-            targetTgl = "Exp";
         }
     }
     function formatDate(dateStr, isEndDate) {
@@ -264,68 +309,6 @@
             "</tr>"
         );
     }
-
-    function formatCurrency(num) {
-        num = parseFloat(num).toFixed(3);
-        if(isNaN(num)){
-            num = 0;
-        }
-        return uang.format(num);
-    }
-
-    function populateTable(table, data) {
-    let i = 0;
-    $.each(data, (a, listTrack) => {
-        i++;
-        let payForStr = '';
-        switch(listTrack.payFor) {
-            case 1: 
-                payForStr = "Deposit";
-                break;
-            case 2: 
-                payForStr = "Withdraw";
-                break;
-            case 3: 
-                payForStr = "Topup Client";
-                break;
-            case 4: 
-                payForStr = "Ho Withdraw";
-                break;
-            default:
-                payForStr = '';
-        }
-        let orderNo = (listTrack.payFor == 1) ? listTrack.dpOrderNo : (listTrack.payFor == 2 ? listTrack.wdOrderNo : "-");
-        orderNo = orderNo == null ? '-' : orderNo;
-        let amountStyle = (listTrack.payFor == 1 || listTrack.payFor == 3) && listTrack.amountTB !== null ? "style='color:#2ecc71;font-weight: 500;'" : "style='color:#e74c3c;font-weight: 500;'";
-        let amountStr = (listTrack.payFor == 1 || listTrack.payFor == 3) ? (listTrack.amountTB === null ? "-" : "+" + formatCurrency(listTrack.amountTB)) : "-" + formatCurrency(listTrack.amountTB);
-        let amtVaStr = listTrack.payFor == 1 ? formatCurrency(listTrack.amtVa) : "-";
-        let komisiFormatted = (listTrack.payFor == 1) ? formatCurrency(listTrack.depoCom) : (listTrack.payFor == 2 ? formatCurrency(listTrack.wdCom) : "-");
-        let btFormatted = (listTrack.payFor == 2) ? formatCurrency(listTrack.bankTransfer) : "-";
-        let lastBalance = formatCurrency(listTrack.lastBalance);
-        let name = listTrack.name;
-        let submitTime = moment(listTrack.submitTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
-        let updatedTime = moment(listTrack.updatedTime).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
-        let topupremark = listTrack.topupremark == null ? '-' : listTrack.topupremark;
-
-        table.append(`
-            <tr>
-                <td>${i}</td>
-                <td>${listTrack.idTransTB}</td>
-                <td>${orderNo}</td>
-                <td>${payForStr}</td>
-                <td ${amountStyle}>${amountStr}</td>
-                <td>${amtVaStr}</td>
-                <td>${komisiFormatted}</td>
-                <td>${btFormatted}</td>
-                <td>${topupremark}</td>
-                <td>${lastBalance}</td>
-                <td>${name}</td>
-                <td>${submitTime}</td>
-                <td>${updatedTime}</td>
-            </tr>
-        `);
-    });
-}
 
     function handleAjaxSuccess(response, isTable, table){
         isTable.DataTable().destroy();
@@ -347,26 +330,10 @@
         var splitTgl = tgl.split('-');
         var startDate = formatDate(splitTgl[0], false);
         var endDate = formatDate(splitTgl[1], true);
-        var table = $("#"+targetFilter+" tbody");
-        var isTable = $("#"+targetFilter);
+        var table = $(targetFilter+" tbody");
 
         clearAndShowLoader(table);
-        
-        $.ajax({
-            url: '<?=base_url("dashboard/filter/tracking")?>',
-            method: "POST",
-            xhrFields: {
-                withCredentials: true
-            },
-            dataType: "json",
-            data: {
-                startDate: startDate,
-                endDate: endDate,
-            },
-            success: (response) => {
-                handleAjaxSuccess(response, isTable, table);
-            }
-        });
+        generateTable('#datatable-active', '/dashboard/trackingBalance',columnTrack, orderTrack,startDate, endDate);
     }
     
     $(document).ready(function () {
