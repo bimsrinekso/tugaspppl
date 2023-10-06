@@ -178,6 +178,7 @@ $routes->post('/dashboard/editProvider/(:num)', 'ProviderController::updateProvi
 $routes->delete('/dashboard/deleteProvider/(:num)', 'ProviderController::delProvider/$1', ['filter' => 'role:main']);
 
 $routes->get('/dashboard/trackingBalance', 'TrackingBalance::index', ['filter' => 'role:main,client,helpdesk']);
+$routes->post('/dashboard/trackingBalance', 'TrackingBalance::getTrack', ['filter' => 'role:main,client,helpdesk']);
 $routes->post('/dashboard/filter/tracking', 'TrackingBalance::filterTracking', ['filter' => 'role:main,client,helpdesk']);
 
 // mutation

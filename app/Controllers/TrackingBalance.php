@@ -6,54 +6,36 @@ class TrackingBalance extends BaseController
 {
     public function index()
     {
-        
-        $enp = 'api/getTrack';
         $role = $this->sesi->get('role');
         if ($role == 1 || $role == 4) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $data = [
-                "dataTrack" => [],
-            ];
-            if($postData->status == 200){
-                $parseData = $postData->response;
-                if (is_object($parseData) && !is_countable($parseData)) {
-                    $parseData = [$parseData];
-                }
-                $data = [
-                    "dataTrack" => $parseData,
-                ];
-            }
-            if($role == 1){
-                return view('Dashboard/Main/TrackingBalance/index',$data);
-            }
-            if($role == 4){
-                return view('Dashboard/Main/TrackingBalance/index',$data);
-            }
-        } elseif($this->sesi->get('role') == 2) {
-                $dataBody = [
-                    'userid'=> $this->sesi->get('userid')
-                ];
-                $postData = $this->async->post($enp, $this->apiclient, $dataBody);
-                if($postData->status == 200){
-                    $parseData = $postData->response;
-                    if (is_object($parseData) && !is_countable($parseData)) {
-                        $parseData = [$parseData];
-                    }
-                $data = [
-                    "dataTrack" => $parseData,
-                ];
-                return view('Dashboard/Client/TrackingBalance/index',$data);
-            }else{
-                $data = [
-                    "dataTrack" => [],
-                ];
-                return view('Dashboard/Client/TrackingBalance/index',$data);
-            }
+            return view('Dashboard/Main/TrackingBalance/index');
             
+            
+        } elseif($this->sesi->get('role') == 2) {
+            return view('Dashboard/Client/TrackingBalance/index');
         }   
+    }
+    public function getTrack(){
+        $param = $_REQUEST;        
+        $enp = 'api/getTrack';
+      
+        $dataBody = [
+            'userid' => $this->sesi->get('userid'),
+            'param' => $param,
+        ];
+       
+        
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
+
+        ];
+    
+        echo json_encode($response);
     }
 
     public function filterTracking(){
