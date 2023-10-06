@@ -65,44 +65,15 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="col-xl-6">
-            <form action="" method="post">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4">Edit Error Log</h4> 
-                        <div class="mb-3">
-                            <label style="margin-bottom: 0px !important;" class="form-label mb-2">Status Restart</label>
-                            <div class="col-md-12">
-                                <code id="statusText1">Pending</code>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="restart">
-                                    <span class="toggle-switch-label"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label style="margin-bottom: 0px !important;" for="formrow-firstname-input" class="form-label">Status Fixing</label>
-                            <div class="col-md-12">
-                                <code id="statusText2">Pending</code>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="fixing">
-                                    <span class="toggle-switch-label"></span>
-                                </label>
-                            </div>
-                        </div> 
-                        <div class="mb-3">
-                            <label for="formrow-firstname-input" class="form-label">Message</label>
-                            <div id="Message" class="codemirror-container"></div>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-primary w-md">Submit</button>
-                        </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Error Log</h4> 
+                    <div class="mb-3">
+                        <label for="formrow-firstname-input" class="form-label">Message</label>
+                        <div id="Message" class="codemirror-container"></div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
