@@ -17,8 +17,8 @@ class Report extends BaseController
                 "trxDepoRej"=> $parseData->trxDepoRej,
                 "trxWdCon"=> $parseData->trxWdCon,
                 "trxWdRej"=> $parseData->trxWdRej, 
-                "weekWithdraw"=> $parseData->weekWithdraw,
-                "weekDeposit"=> $parseData->weekDeposit,
+                "weekWithdraw"=> json_encode($parseData->weekWithdraw),
+                "weekDeposit"=> json_encode($parseData->weekDeposit),
                 "rangeHari"=> $parseData->rangeHari,
                 "dataTrans"=> $parseData->dataTrans,
             ];

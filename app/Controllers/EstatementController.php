@@ -58,7 +58,7 @@ class EstatementController extends BaseController
         ];
         $postData = $this->async->post($enp, $this->apimain, $dataBody);
         $parseData = $postData->response;
-        if ($role == 1 || $role == 4) {
+        if ($role == 1) {
            
             $data = [
                 "dataPending" => $parseData->dataPending,

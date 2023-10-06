@@ -172,6 +172,7 @@
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
   <!-- validation init -->
   <script src="/assets/js/pages/validation.init.js"></script>
   <script src="/assets/libs/toastr/build/toastr.min.js"></script>
@@ -284,7 +285,6 @@
     var tableRun;
     var tableExp;
     var targetTgl = 'Run';
-
     function cbHref(isi){
         var target = $(isi).data("bs-target");
         if(target == "#running"){
