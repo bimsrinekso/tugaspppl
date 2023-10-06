@@ -2,6 +2,13 @@
 <?php $this->section('css');?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/material.min.css" />
+
+<!-- DataTables -->
+<link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+
 <style>
     .CodeMirror{
         height:auto !important;
@@ -29,6 +36,9 @@
 <?php $this->section('isKonten');?>
 <div class="page-content">
     <div class="container-fluid">
+        <div class="col-12">
+           
+        </div>
          <div class="row">
              <div>
                  <h5 class="mb-3">API Documentation</h5>
@@ -514,210 +524,29 @@
                                 <p>
                                     The following is a list of bank names that we accept:
                                 </p>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Bank Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Bank of Korea</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Korea Development Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Industrial Bank of Korea</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Kookmin Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>NFFC Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>The Export-Import Bank of Korea</td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>Nonghyup Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>Nonghyup Local Cooperatives</td>
-                                            </tr>
-                                            <tr>
-                                                <td>9</td>
-                                                <td>Woori Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>Standard Chartered Bank Korea Limited</td>
-                                            </tr>
-                                            <tr>
-                                                <td>11</td>
-                                                <td>Citibank Korea</td>
-                                            </tr>
-                                            <tr>
-                                                <td>12</td>
-                                                <td>Daegu Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>13</td>
-                                                <td>Busan Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>14</td>
-                                                <td>Kwangju Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>15</td>
-                                                <td>Jeju Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>16</td>
-                                                <td>Jeonbuk Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>17</td>
-                                                <td>Kyongnam Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>18</td>
-                                                <td>KFCC BANK</td>
-                                            </tr>
-                                            <tr>
-                                                <td>19</td>
-                                                <td>National Credit Union Federation of Korea</td>
-                                            </tr>
-                                            <tr>
-                                                <td>20</td>
-                                                <td>Federation of Savings Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>21</td>
-                                                <td>Korea Post Office</td>
-                                            </tr>
-                                            <tr>
-                                                <td>22</td>
-                                                <td>Hana Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>23</td>
-                                                <td>Shinhan Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>24</td>
-                                                <td>K Bank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>25</td>
-                                                <td>KakaoBank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>26</td>
-                                                <td>TossBank</td>
-                                            </tr>
-                                            <tr>
-                                                <td>27</td>
-                                                <td>Yuanta Securities Korea</td>
-                                            </tr>
-                                            <tr>
-                                                <td>28</td>
-                                                <td>Hyundai Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>29</td>
-                                                <td>Mirae Asset Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>30</td>
-                                                <td>Samsung Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>31</td>
-                                                <td>Korea Investment & Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>32</td>
-                                                <td>Kyobo Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>33</td>
-                                                <td>Hi Investment & Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>34</td>
-                                                <td>Hyundai Motor Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>35</td>
-                                                <td>Kiwoom Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>36</td>
-                                                <td>eBEST Investment & Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>37</td>
-                                                <td>SK Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>38</td>
-                                                <td>Daishin Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>39</td>
-                                                <td>I'M Investment & Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>40</td>
-                                                <td>Hanhwa Investment & Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>41</td>
-                                                <td>Hana Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>42</td>
-                                                <td>Shinhan Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>43</td>
-                                                <td>DB Financial Investment</td>
-                                            </tr>
-                                            <tr>
-                                                <td>44</td>
-                                                <td>EUGENE INVESTMENT & SECURITIES</td>
-                                            </tr>
-                                            <tr>
-                                                <td>45</td>
-                                                <td>Meritz Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>46</td>
-                                                <td>Kakaopay Securities </td>
-                                            </tr>
-                                            <tr>
-                                                <td>47</td>
-                                                <td> BOOKOOK Securities</td>
-                                            </tr>
-                                            <tr>
-                                                <td>48</td>
-                                                <td>SHINYOUNG SECURITIES</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table id="datatable-all" class="table table-bordered w-100">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Bank Name</th>
+                                        <th>Universal Name</th>
+                                    
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if($listBank != null): ?>
+                                            <?php $i = 1; ?>
+                                            <?php foreach($listBank as $listData):?>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><?=$listData->bankName?></td>
+                                                    <td><?=$listData->universalName?></td>
+                                                
+                                                </tr>
+                                            <?php endforeach?>
+                                        <?php endif;?> 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -754,6 +583,40 @@
 <script>
     var apiKey = '-';
     var md5key = '-';
+</script>
+
+<!-- Required datatable js -->
+<script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="/js/pages/datatables.init.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var table = $("#datatable-all").DataTable({
+                "scrollX": true,
+                "bDestroy": true,
+                columnDefs: [
+                        { width: '20%', targets: 0 }
+                    ],
+                fixedColumns: true
+            });
+        table.on('order.dt search.dt', function () {
+            let i = 1;
+            table.cells(null, 0, {
+                search: 'applied',
+                order: 'applied'
+            }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
+
+    });
 </script>
 
 <?php $this->endSection();?>

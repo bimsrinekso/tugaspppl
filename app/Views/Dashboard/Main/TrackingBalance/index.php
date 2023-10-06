@@ -368,22 +368,7 @@
             $.fn.dataTable
         .tables( { visible: true, api: true } )
         .columns.adjust();
-        });
-       tableRun = $("#datatable-active").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollX: true,
-            "bDestroy": true
-        });
-        tableRun.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-        tableExp = $("#datatable-expired").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollX: true,
-            "bDestroy": true
-        });
-        tableExp.buttons().container().appendTo("#datatable-expired_wrapper .col-md-6:eq(0)");
+        }); 
     });
 </script>
 <?php $this->endSection();?>
