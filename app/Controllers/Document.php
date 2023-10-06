@@ -46,7 +46,6 @@ class Document extends BaseController
                 "listBank" => $parseBank,
                 "dataKey" => $parseData,
             ];
-            dd($data);
             return view('Dashboard/Client/Documentation/index', $data);
         }
         
