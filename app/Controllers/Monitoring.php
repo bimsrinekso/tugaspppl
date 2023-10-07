@@ -5,41 +5,7 @@ namespace App\Controllers;
 class Monitoring extends BaseController
 {
     public function index(){
-        $enp1 = 'api/logMonitor/post';
-        
-        $dataBody1 = [
-            'role' => $this->sesi->get('role')
-        ];
-        $postData1 = $this->async->post($enp1,  $this->apimain, $dataBody1);
-        $parseData1 = $postData1->response;
-
-
-        $enp2 = 'api/logMonitor/error';
-        
-        $dataBody2 = [
-            'role' => $this->sesi->get('role')
-        ];
-        $postData2 = $this->async->post($enp2,  $this->apimain, $dataBody2);
-        $parseData2 = $postData2->response;
-
-        $enp3 = 'api/logMonitor/callback';
-        
-        $dataBody3 = [
-            'role' => $this->sesi->get('role')
-        ];
-        $postData3 = $this->async->post($enp3,  $this->apimain, $dataBody3);
-        $parseData3 = $postData3->response;
-
-        
-        $data =[
-            'datapost' => $parseData1,
-            'dataError'=>$parseData2,
-            'datacb'=>$parseData3
-        ];
-        return view('Dashboard/Main/Monitoring/index',$data);
-        
-        
-
+        return view('Dashboard/Main/Monitoring/index');
     }
     public function listLogPost(){
         $param = $_REQUEST;        

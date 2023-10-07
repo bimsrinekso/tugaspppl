@@ -5,8 +5,7 @@ namespace App\Controllers;
 class UserManagement extends BaseController
 {
     public function index()
-    {
-       
+    {      
         return view('Dashboard/Main/UserManagement/listUser' );
     }
     public function allusers(){
@@ -19,7 +18,6 @@ class UserManagement extends BaseController
             'param' => $param,
         ];
        
-        
         if($param['idTable'] == '#datatable-helpdesk'){
             
              $postData = $this->async->post($enp2, $this->apimain, $dataBody);

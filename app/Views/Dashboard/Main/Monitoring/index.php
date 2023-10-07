@@ -340,13 +340,24 @@
         var table = targetFilter == "#datatable-post" ? $("#datatable-post tbody") : (targetFilter == "#datatable-callback" ? $("#datatable-callback tbody") : $("#datatable-error tbody"));
 
         clearAndShowLoader(table);
-        if(targetFilter == '#datatable-post'){
-            generateTable(targetFilter, '/dashboard/monitoringLog',columnLogPost, orderLogPost,startDate, endDate);
-        }else if(targetFilter == '#datatable-callback'){
-            generateTable(targetFilter, '/dashboard/monitoringLog', columnLogCallBack, orderLogCallBack,startDate, endDate);
-        }else  if(targetFilter == '#datatable-error'){
-            generateTable(targetFilter, '/dashboard/monitoringLog', columnLogError, orderLogError,startDate, endDate);
+        if(tgl == ''){
+            if(targetFilter == '#datatable-post'){
+                generateTable(targetFilter, '/dashboard/monitoringLog',columnLogPost, orderLogPost);
+            }else if(targetFilter == '#datatable-callback'){
+                generateTable(targetFilter, '/dashboard/monitoringLog', columnLogCallBack, orderLogCallBack);
+            }else  if(targetFilter == '#datatable-error'){
+                generateTable(targetFilter, '/dashboard/monitoringLog', columnLogError, orderLogError);
+            }
+        }else{
+            if(targetFilter == '#datatable-post'){
+                generateTable(targetFilter, '/dashboard/monitoringLog',columnLogPost, orderLogPost,startDate, endDate);
+            }else if(targetFilter == '#datatable-callback'){
+                generateTable(targetFilter, '/dashboard/monitoringLog', columnLogCallBack, orderLogCallBack,startDate, endDate);
+            }else  if(targetFilter == '#datatable-error'){
+                generateTable(targetFilter, '/dashboard/monitoringLog', columnLogError, orderLogError,startDate, endDate);
+            }
         }
+        
         
         
     }
