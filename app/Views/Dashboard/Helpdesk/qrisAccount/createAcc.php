@@ -46,7 +46,7 @@
                                         <label for="pickProvider" class="form-label">Provider</label>
                                         <select id="pickProvider" name="providerID" class="form-select select2">
                                             <option value="">Choose Provider</option>
-                                            <?php if($dataProvider != null):?>
+                                            <?php if(!empty($dataProvider)):?>
                                             <?php foreach ($dataProvider as $listProvider): ?>
                                             <option value="<?=$listProvider->id?>"><?=$listProvider->providerName?>
                                             </option>
