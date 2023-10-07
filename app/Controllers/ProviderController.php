@@ -15,7 +15,7 @@ class ProviderController extends BaseController
     public function listProvider()
     {
         $param = $_REQUEST;        
-        $enp = 'api/provider/listProvider';
+        $enp = 'api/provider/listGenProvider';
         $dataBody = [
             'userid' => $this->sesi->get('userid'),
             'param' => $param,

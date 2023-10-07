@@ -64,17 +64,14 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                
-                            
-
+                                <img src="/gambar/qris/<?=$dataQris->gambar?>" alt class="img-thumbnail">             
                                 <div class="col-md-12">
                                     <label class="form-label">Qris Barcode</label>
                                     <div class="input-group mb-3">
                                         <label class="input-group-text" for="inputGroupFile01">Qris</label>
-                                        <input type="file" name="gambar" class="form-control" id="inputGroupFile01" <?=$dataQris->gambar?>>
+                                        <input type="file" name="gambar" class="form-control" id="inputGroupFile01" value="<?=$dataQris->gambar?>">
                                     </div>
-
+                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="pickProvider" class="form-label">Provider</label>
