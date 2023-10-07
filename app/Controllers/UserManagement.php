@@ -6,20 +6,37 @@ class UserManagement extends BaseController
 {
     public function index()
     {
+       
+        return view('Dashboard/Main/UserManagement/listUser' );
+    }
+    public function allusers(){
+        $param = $_REQUEST;        
+        $enp = 'api/getClient';
+        $enp1 = 'api/getMember'; 
+        $enp2 = 'api/getHelpdesk'; 
         $dataBody = [
-            'userid' => $this->sesi->get('userid')
+            'userid' => $this->sesi->get('userid'),
+            'param' => $param,
         ];
-        $enpAll = 'api/allUsers';
-        $enpUser = 'api/getClientUser';
-        $enpMember = 'api/getMember';
-        $postData = $this->async->post($enpAll, $this->apimain, $dataBody);
-        $parseData = $postData->response;
-        $data = [
-            "dataClientUser" => $parseData->dataClient,
-            "dataMember" => $parseData->dataMember,
-            "dataHelpdesk" => $parseData->dataHelpdesk
+       
+        
+        if($param['idTable'] == '#datatable-helpdesk'){
+            
+             $postData = $this->async->post($enp2, $this->apimain, $dataBody);
+        }elseif($param['idTable'] == '#datatable-member'){
+             $postData = $this->async->post($enp1, $this->apimain, $dataBody);
+        }else{
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        }
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
+
         ];
-        return view('Dashboard/Main/UserManagement/listUser', $data);
+    
+        echo json_encode($response);
     }
 
     public function createUser()

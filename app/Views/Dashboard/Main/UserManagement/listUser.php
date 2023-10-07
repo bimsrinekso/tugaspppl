@@ -56,6 +56,9 @@
                 transform: rotate(360deg);
             }
         }
+        .dataTables_scrollHeadInner{
+            width:auto !important;
+        }
 </style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
@@ -70,65 +73,36 @@
                         </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation" >
-                              <button class="nav-link active" id="helpdesk-tab" data-bs-toggle="tab" data-bs-target="#helpdesk" type="button" role="tab" aria-controls="helpdesk" aria-selected="false">Role Helpdesk</button>
+                              <button class="nav-link active"   id="helpdesk-tab" data-bs-toggle="tab" data-bs-target="#helpdesk" type="button" role="tab" aria-controls="helpdesk" aria-selected="false">Role Helpdesk</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                              <button class="nav-link" id="client-tab" data-bs-toggle="tab" data-bs-target="#client" type="button" role="tab" aria-controls="client" aria-selected="true">Role Client</button>
+                              <button class="nav-link"  id="client-tab" data-bs-toggle="tab" data-bs-target="#client" type="button" role="tab" aria-controls="client" aria-selected="true">Role Client</button>
                             </li>
                             <li class="nav-item" role="presentation" >
-                              <button class="nav-link" id="member-tab" data-bs-toggle="tab" data-bs-target="#member" type="button" role="tab" aria-controls="member" aria-selected="false">Role Member</button>
+                              <button class="nav-link"  id="member-tab" data-bs-toggle="tab" data-bs-target="#member" type="button" role="tab" aria-controls="member" aria-selected="false">Role Member</button>
                             </li>
                           </ul> 
                           <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="helpdesk" role="tabpanel" aria-labelledby="helpdesk-tab">
                                 <table id="datatable-helpdesk" class="table table-bordered dt-responsive nowrap w-100">
-                                            <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Username</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Created At</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if($dataHelpdesk != null): ?>
-                                                    <div hidden><?= $i = 1; ?> </div>
-                                                    <?php foreach($dataHelpdesk as $listHelpdesk) :?>
-                                                        <tr>
-                                                            <td>
-                                                                <?= $i++ ?> 
-                                                            </td>
-                                                            <td>
-                                                                <?= $listHelpdesk->username ?> 
-                                                            </td>
-                                                            <td>
-                                                                <?= $listHelpdesk->email ?> 
-                                                            </td>
-                                                            <td>
-                                                                <?= $listHelpdesk->role_id ?> 
-                                                            </td>
-                                                            <td>
-                                                                <?= date('d-m-Y', strtotime($listHelpdesk->createdAt))?>
-                                                            </td>
-                                                            <td>
-                                                            <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editUser/'. $listHelpdesk->id) ?> " title="Edit">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
-                                                            <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listHelpdesk->id?>)">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach?>
-                                                    <?php endif;?>
-                                            </tbody>
-                                        </table>
-                            </div>
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>  
                             <div class="tab-pane fade" id="client" role="tabpanel" aria-labelledby="client-tab">
-                                <table id="datatable-client" class="table table-bordered dt-responsive nowrap w-100">
-                                        <thead>
+                                <table id="datatable-client" class="table table-bordered dt-responsive nowrap w-100 ">
+                                    <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Merchant ID</th>
@@ -138,46 +112,14 @@
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if($dataClientUser != null): ?>
-                                                <div hidden><?= $i = 1; ?> </div>
-                                                <?php foreach($dataClientUser as $listUserClient) :?>
-                                                    <tr>
-                                                        <td>
-                                                            <?= $i++ ?> 
-                                                        </td>
-                                                        <td>
-                                                            <?= $listUserClient->id ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $listUserClient->username ?> 
-                                                        </td>
-                                                        <td>
-                                                            <?= $listUserClient->email ?> 
-                                                        </td>
-                                                        <td>
-                                                            <?= $listUserClient->role_id ?> 
-                                                        </td>
-                                                        <td>
-                                                            <?= date('d-m-Y', strtotime($listUserClient->createdAt))?>
-                                                        </td>
-                                                        <td>
-                                                        <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editUser/'. $listUserClient->id) ?> " title="Edit">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                        </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listUserClient->id?>)">
-                                                                <i class="fas fa-trash"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach?>
-                                                <?php endif;?>
-                                        </tbody>
-                                    </table>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
-                                <table id="datatable-member" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="datatable-member" class="table table-bordered dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -189,36 +131,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($dataMember != null): ?>
-                                            <div hidden><?= $i = 1; ?> </div>
-                                            <?php foreach($dataMember as $listMember) :?>
-                                                <tr>
-                                                    <td>
-                                                        <?= $i++ ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listMember->username ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listMember->email ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= $listMember->role_id ?> 
-                                                    </td>
-                                                    <td>
-                                                        <?= date('d-m-Y', strtotime($listMember->createdAt))?>
-                                                    </td>
-                                                    <td>
-                                                    <a class="btn btn-outline-secondary btn-sm edit" href="<?= base_url('dashboard/editUser/'. $listMember->id) ?> " title="Edit">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                    <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listMember->id?>)">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach?>
-                                            <?php endif;?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -256,14 +169,13 @@
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
 <!-- Required datatable js -->
+<!-- Required datatable js -->
 <script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
 <script src="/assets/libs/jszip/jszip.min.js"></script>
-<script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
@@ -273,16 +185,105 @@
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- Datatable init js -->
-<!-- <script src="/js/pages/datatables.init.js"></script> -->
+<script src="/js/pages/datatables.init.js"></script>
 <!-- date range -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <!-- validation init -->
-  <script src="/assets/js/pages/validation.init.js"></script>
-  <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+<!-- validation init -->
+<script src="/assets/js/pages/validation.init.js"></script>
+<script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
-  <!-- toastr init -->
-  <script src="/assets/js/pages/toastr.init.js"></script>
+  <script>
+    var columnHelpdesk = [
+      {
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
+      { data: 'username' },
+      { data: 'email' },
+      { data: 'role_id' },
+      {
+        data: null,
+                render: function (data, type, row) {
+                    return moment(row.createdAt).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+                }
+      },
+      {
+        data: 'id',
+        render: function (data, type, row, meta) {
+          return `
+                <a class="btn btn-outline-secondary btn-sm" href="editUser/${data}" title="Edit"><i class="fas fa-eye"></i></a>
+                <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+            `;
+        }
+      }
+     
+    ];
+    var orderHelpdesk= [[0, 'asc']];
+    var columnClient = [
+      {
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
+      { data: 'id' },
+      { data: 'username' },
+      { data: 'email' },
+      { data: 'role_id' },
+      {
+        data: null,
+                render: function (data, type, row) {
+                    return moment(row.createdAt).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+                }
+      },
+      {
+        data: 'id',
+        render: function (data, type, row, meta) {
+           return `
+                <a class="btn btn-outline-secondary btn-sm" href="editUser/${data}" title="Edit"><i class="fas fa-eye"></i></a>
+                <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+            `;
+        }
+      }
+    ];
+    var orderClient = [[0, 'asc']];
+    var columnMember = [
+      {
+        data: null,
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
+      { data: 'username' },
+      { data: 'email' },
+      { data: 'role_id' },
+      {
+        data: null,
+                render: function (data, type, row) {
+                    return moment(row.createdAt).subtract(7, 'hours').format('DD-MM-YYYY HH:mm:ss');
+                }
+      },
+      {
+        data: 'id',
+        render: function (data, type, row, meta) {
+           return `
+                <a class="btn btn-outline-secondary btn-sm" href="editUser/${data}" title="Edit"><i class="fas fa-eye"></i></a>
+                <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+            `;
+        }
+      }
+    ];
+    var orderMember = [[0, 'asc']];
+  </script>
+
+<script src="/assets/js/plugins/service/tableUsersManagement.js"></script>
+  <script src="/assets/js/plugins/service/generateTable.js"></script>
+
+
+
   
 
   <?php if(session()->getFlashdata('sukses')):?>
@@ -295,6 +296,28 @@
         </script>
     <?php endif?>
 <script>
+
+
+    
+
+    
+
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+    // 
+    
+    
+    
     $("#btnCloseModal").on("click", function(){
         $("#noticeDelete").modal("hide");
     })
@@ -303,42 +326,5 @@
         $("#formDelete").attr("action", "<?= base_url('dashboard/deleteUser'); ?>/" + id);
     }
 </script>
-<script>
-    var targetFilter;
-    var tableClient;
-    var tableMember;
-    var tableHelpdesk
-    var targetTgl = 'Run';
-    $(document).ready(function () {
-        targetFilter = $("#btnFilterRun").data("tabactive");
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $.fn.dataTable
-        .tables( { visible: true, api: true } )
-        .columns.adjust();
-        });
-        tableMember = $("#datatable-helpdesk").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
-            "bDestroy": true
-        });
-        tableMember.buttons().container().appendTo("#datatable-helpdesk_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-       tableClient = $("#datatable-client").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
-            "bDestroy": true
-        });
-        tableClient.buttons().container().appendTo("#datatable-client_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-        tableMember = $("#datatable-member").DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollCollapse: true,
-            "bDestroy": true
-        });
-        tableMember.buttons().container().appendTo("#datatable-member_wrapper .col-md-6:eq(0)");
-    });
-</script>
+
 <?php $this->endSection();?>

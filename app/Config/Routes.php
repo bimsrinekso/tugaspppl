@@ -70,6 +70,7 @@ $routes->post('/dashboard/editQris/(:any)', 'AccountQris::updateAcc/$1', ['filte
 $routes->get('/dashboard/createUser', 'UserManagement::createUser', ['filter' => 'role:main']);
 $routes->post('/dashboard/createUser', 'UserManagement::saveUser', ['filter' => 'role:main']);
 $routes->get('/dashboard/listUser', 'UserManagement::index', ['filter' => 'role:main']);
+$routes->post('/dashboard/listUsers', 'UserManagement::allusers', ['filter' => 'role:main']);
 $routes->get('/dashboard/editUser/(:num)', 'UserManagement::editUser/$1', ['filter' => 'role:main']);
 $routes->post('/dashboard/editUser/(:num)', 'UserManagement::updateUser/$1', ['filter' => 'role:main']);
 $routes->delete('/dashboard/deleteUser/(:num)', 'UserManagement::delUser/$1', ['filter' => 'role:main']);
