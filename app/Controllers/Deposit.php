@@ -6,33 +6,17 @@ class Deposit extends BaseController
 {
     public function listDeposit()
     {
-        $enp = 'api/listDepo';
         $role = $this->sesi->get('role');
         if ($role == 1 || $role == 2 || $role == 4) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $parseData = $postData->response;
-            if (is_object($parseData->dataRun) && !is_countable($parseData->dataRun)) {
-                $parseData->dataRun = [$parseData->dataRun];
-            }
-            if (is_object($parseData->dataExp) && !is_countable($parseData->dataExp)) {
-                $parseData->dataExp = [$parseData->dataExp];
-            }
-            $data = [
-                "dataRun" => $parseData->dataRun,
-                "dataExp" => $parseData->dataExp,
-            ];
             if($role == 1){
-                return view('Dashboard/Main/Deposit/listDeposit', $data);
+                return view('Dashboard/Main/Deposit/listDeposit');
             }
             if($role == 2){
-                return view('Dashboard/Client/Deposit/listDeposit', $data);
+                return view('Dashboard/Client/Deposit/listDeposit');
             }
             if($role == 4){
                 // dd($data);
-                return view('Dashboard/Helpdesk/Deposit/listDeposit', $data);
+                return view('Dashboard/Helpdesk/Deposit/listDeposit');
             }
 
         } else{
@@ -162,36 +146,21 @@ class Deposit extends BaseController
     }
 
     public function monitorDepo(){
-        $enp = 'api/monitorDepo';
-        if ($this->sesi->get('role') == 1) {
-            $dataBody = [
-                'startDate'=> $this->request->getVar('startDate'),
-                'endDate'=> $this->request->getVar('endDate'),
-                'target'=> $this->request->getVar('target'),
-                'role' => $this->sesi->get('role')
-            ];
-            try {
-                $postData = $this->async->post($enp, $this->apimain, $dataBody);  
-                echo json_encode($postData);
-            } catch (\Exception $e) {
-                echo json_encode($e->getMessage());
-            }    
-        } elseif($this->sesi->get('role') == 2) {
-            $dataBody = [
-                'startDate'=> $this->request->getVar('startDate'),
-                'endDate'=> $this->request->getVar('endDate'),
-                'target'=> $this->request->getVar('target'),
-                'userid'=> $this->sesi->get('userid'),
-                'role' => $this->sesi->get('role')
-            ];
-            try {
-                $postData = $this->async->post($enp, $this->apiclient, $dataBody);  
-                echo json_encode($postData);
-            } catch (\Exception $e) {
-                echo json_encode($e->getMessage());
-            }    
-        }
-          
+        $enp = 'api/listDepo';
+        $param = $_REQUEST;        
+        $dataBody = [
+            'userid' => $this->sesi->get('userid'),
+            'param' => $param,
+        ];
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
+
+        ];
+        echo json_encode($response);
     }
 
     public function monitorPending(){
