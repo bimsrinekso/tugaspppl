@@ -233,20 +233,34 @@
         $("#formDelete").attr("action", "<?= base_url('dashboard/deleteQris'); ?>/" + id);
     }
     $(document).ready(function () {
-        $("#tabListAll").DataTable({
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $.fn.dataTable
+        .tables( { visible: true, api: true } )
+        .columns.adjust();
+        });
+       tableAll = $("#tabListAll").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"]
-        }).buttons().container().appendTo("#tabListAll_wrapper .col-md-6:eq(0)"), $(
+            buttons: ["copy", "excel", "pdf"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableAll.buttons().container().appendTo("#tabListAll_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
-        $("#tabListActive").DataTable({
+       tableAct = $("#tabListActive").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"]
-        }).buttons().container().appendTo("#tabListActive_wrapper .col-md-6:eq(0)"), $(
+            buttons: ["copy", "excel", "pdf", "colvis"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableAct.buttons().container().appendTo("#tabListActive_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
-        $("#tabListRun").DataTable({
+        tableRun = $("#tabListRun").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"]
-        }).buttons().container().appendTo("#tabListRun_wrapper .col-md-6:eq(0)"), $(
+            buttons: ["copy", "excel", "pdf", "colvis"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableRun.buttons().container().appendTo("#tabListRun_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
     });
 </script>

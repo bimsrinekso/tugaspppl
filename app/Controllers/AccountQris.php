@@ -163,8 +163,6 @@ class AccountQris extends BaseController
             'password' =>$this->request->getVar('password'),
             'providerID' =>$this->request->getVar('providerID'),
         ];
-        // dd($dataBody);
-        
         $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath, 'gambar');
         $parseData = $postData->response;
         if($postData->status == '200'){
@@ -311,28 +309,52 @@ class AccountQris extends BaseController
             $clientID = $parseCC->client_id;
         }
         $enp = 'api/qris/updateAccount';
+        $merchantName = $this->request->getVar('merchantName');
+        $qris = $this->request->getFile('gambar');
+        $qrisPath = '';
+
+        if ($qris != NULL && $qris->isValid() && !$qris->hasMoved()) {
+            $qrisExtension = $qris->getClientExtension();
+            $qrisName = date('YmdHis') . '-qris-' . $this->sanitizeFilename($merchantName) . '-' . $qris->getRandomName($qrisExtension);
+            $qrisPath = 'gambar/qris/' . $qrisName;
+            $qris->move('gambar/qris', $qrisName);
+        }
+
         $dataBody = [
             'id' => $id,
-            'merchantName'=> $this->request->getVar('merchantName'),
-            'gambar' => $this->request->getVar('gambar'),
+            'merchantName' => $merchantName,
             'status' => $this->request->getVar('status'),
             'userid' => $this->sesi->get('userid'),
             'idClient' => $clientID,
             'action_by' => $this->sesi->get('username'),
             'country' => $country,
-            'username'=> $this->request->getVar('username'),
-            'password'=> $this->request->getVar('password'),
-            'providerID' =>$this->request->getVar('providerID'),
+            'username' => $this->request->getVar('username'),
+            'password' => $this->request->getVar('password'),
+            'providerID' => $this->request->getVar('providerID'),
         ];
-        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+
+        if ($qrisPath !== '') {
+            $postData = $this->async->post($enp, $this->apimain, $dataBody, $qrisPath, 'gambar');
+        } else {
+            $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        }
+
         $parseData = $postData->response;
-        if($postData->status == '200'){
-            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully update data VA Account");
+
+        if ($postData->status == '200') {
+            $this->sesi->setFlashdata('sukses', "Congratulations, you have successfully updated data Qris Account");
             return redirect()->to('dashboard/qrisAccounts');
-        }else{
+        } else {
             $this->sesi->setFlashdata('error', "Sorry, check again your data");
             return redirect()->to('dashboard/editAccount');
         }
+
+
+
+        
+        
+       
+        
     }
 
     public function delAcc($id = null){

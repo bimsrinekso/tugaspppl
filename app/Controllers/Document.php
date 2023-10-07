@@ -7,7 +7,7 @@ class Document extends BaseController
     public function index()
     {
         if ($this->sesi->get('role') == 1) {
-            $enpBank = 'api/bank/getAll';
+            $enpBank = 'api/bank/getList';
             $dataBody = [
                 'userid' => $this->sesi->get('userid'),
             ];

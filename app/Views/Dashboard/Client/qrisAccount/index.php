@@ -43,7 +43,6 @@
                                         <th>Country</th>
                                         <th>Operator</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                     </thead>
         
@@ -60,15 +59,6 @@
                                                     <td><?=$listData->cnName?></td>
                                                     <td><?= $listData->action_by ?></td>
                                                     <td><?= $listData->status_name?></td>
-                                                    
-                                                    <td>
-                                                        <a href="<?= base_url('/dashboard/editQris/'. $listData->id)?>" class="btn btn-outline-secondary btn-sm edit" title="Edit">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                        </a>
-                                                        <a class="btn btn-outline-danger btn-sm edit" onclick="cbModal(<?=$listData->id?>)">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                    </td>
 
                                                 </tr>
                                             <?php endforeach; ?> 
@@ -227,20 +217,34 @@
         $("#formDelete").attr("action", "<?= base_url('dashboard/deleteAccount'); ?>/" + id);
     }
     $(document).ready(function () {
-        $("#tabListAll").DataTable({
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $.fn.dataTable
+        .tables( { visible: true, api: true } )
+        .columns.adjust();
+        });
+       tableAll = $("#tabListAll").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"]
-        }).buttons().container().appendTo("#tabListAll_wrapper .col-md-6:eq(0)"), $(
+            buttons: ["copy", "excel", "pdf"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableAll.buttons().container().appendTo("#tabListAll_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
-        $("#tabListActive").DataTable({
+       tableAct = $("#tabListActive").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"]
-        }).buttons().container().appendTo("#tabListActive_wrapper .col-md-6:eq(0)"), $(
+            buttons: ["copy", "excel", "pdf", "colvis"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableAct.buttons().container().appendTo("#tabListActive_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
-        $("#tabListRun").DataTable({
+        tableRun = $("#tabListRun").DataTable({
             lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"]
-        }).buttons().container().appendTo("#tabListRun_wrapper .col-md-6:eq(0)"), $(
+            buttons: ["copy", "excel", "pdf", "colvis"],
+            "scrollX" : true,
+            "bDestroy": true
+        });
+        tableRun.buttons().container().appendTo("#tabListRun_wrapper .col-md-6:eq(0)"), $(
             ".dataTables_length select").addClass("form-select form-select-sm");
     });
 </script>
