@@ -29,24 +29,14 @@ class Deposit extends BaseController
         $enp = 'api/listTrans';
         $role = $this->sesi->get('role');
         if ($role == 1 || $role == 2 || $role == 4) {
-            $dataBody = [
-                'userid'=> $this->sesi->get('userid')
-            ];
-            $postData = $this->async->post($enp, $this->apimain, $dataBody);
-            $parseData = $postData->response;
-            $data = [
-                "dataCon" => $parseData->dataCon,
-                "dataRej" => $parseData->dataRej,
-
-            ];
             if($role == 1){
-                return view('Dashboard/Main/Deposit/listTrans', $data);
+                return view('Dashboard/Main/Deposit/listTrans');
             }
             if($role == 2){
-                return view('Dashboard/Client/Deposit/listTrans', $data);
+                return view('Dashboard/Client/Deposit/listTrans');
             }
             if($role == 4){
-                return view('Dashboard/Helpdesk/Deposit/listTrans', $data);
+                return view('Dashboard/Helpdesk/Deposit/listTrans');
             }
             
         } else{
@@ -194,35 +184,21 @@ class Deposit extends BaseController
               
     }
 
-    public function filterDate(){
-        $enp = 'api/filterDate';
-        if ($this->sesi->get('role') == 1) {
-            $dataBody = [
-                'startDate'=> $this->request->getVar('startDate'),
-                'endDate'=> $this->request->getVar('endDate'),
-                'target'=> $this->request->getVar('target'),
-                'role' => $this->sesi->get('role')
-            ];
-            try {
-                $postData = $this->async->post($enp, $this->apimain, $dataBody);  
-                echo json_encode($postData);
-            } catch (\Exception $e) {
-                echo json_encode($e->getMessage());
-            }  
-        } elseif($this->sesi->get('role') == 2) {
-            $dataBody = [
-                'startDate'=> $this->request->getVar('startDate'),
-                'endDate'=> $this->request->getVar('endDate'),
-                'target'=> $this->request->getVar('target'),
-                'userid'=> $this->sesi->get('userid'),
-                'role' => $this->sesi->get('role')
-            ];
-            try {
-                $postData = $this->async->post($enp, $this->apiclient, $dataBody);  
-                echo json_encode($postData);
-            } catch (\Exception $e) {
-                echo json_encode($e->getMessage());
-            }  
-        }
+    public function monitorTrans(){
+        $enp = 'api/listTrans';
+        $param = $_REQUEST;        
+        $dataBody = [
+            'userid' => $this->sesi->get('userid'),
+            'param' => $param,
+        ];
+        $postData = $this->async->post($enp, $this->apimain, $dataBody);
+        $response = [
+            "draw" => isset($param['draw']) ? $param['draw'] : 0,
+            "recordsTotal" => $postData->response->recordsTotal,
+            "recordsFiltered" => $postData->response->recordsFiltered,
+            "data" => $postData->response->data,
+
+        ];
+        echo json_encode($response);
     }
 }
