@@ -17,6 +17,8 @@
         <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css"> 
+        <link rel="stylesheet" type="text/css" href="/assets/css/loadingSpin.css"> 
         <?php $this->renderSection('css');?>
 
     </head>
@@ -64,9 +66,18 @@
 
         <!-- dashboard blog init -->
         <script src="/assets/js/pages/dashboard-job.init.js"></script>
-        <script src="/assets/js/plugins/react/react.production.js"></script>
-        <script src="/assets/js/plugins/react/react-dom.production.min.js"></script>
-        <script src="/assets/js/plugins/react/babel.min.js"></script>
+        <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+        <script src="/assets/js/pages/toastr.init.js"></script>
+        <script src="/assets/js/nirwanaHelper.js"></script>
+        <?php if(session()->getFlashdata('sukses')):?>
+        <script>
+              toastr.success("<?= session()->getFlashData("sukses"); ?>");
+        </script>
+        <?php elseif(session()->getFlashdata('error')):?>
+            <script>
+                toastr.error("<?= session()->getFlashData("error"); ?>");
+            </script>
+        <?php endif?>
 
         <?php $this->renderSection('javascript');?>
     </body>

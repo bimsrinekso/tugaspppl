@@ -6,57 +6,7 @@
 
 <!-- Responsive datatable examples -->
 <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
-<link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<style>
-    .loader {
-            margin-top: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 100%;
-            position: relative;
-        }
-
-        /* LOADER 1 */
-
-        #loader-1:before,
-        #loader-1:after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            border: 10px solid transparent;
-            border-top-color: #3498db;
-        }
-
-        #loader-1:before {
-            z-index: 100;
-            animation: spin 1s infinite;
-        }
-
-        #loader-1:after {
-            border: 10px solid #ccc;
-        }
-
-        @keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-                -ms-transform: rotate(360deg);
-                -o-transform: rotate(360deg);
-                transform: rotate(360deg);
-            }
-        }
-</style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -95,15 +45,15 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <button class="btn btn-secondary waves-effect waves-light"
-                                                        id="btnFilterCon" data-tabactive="datatable-active"
-                                                        onclick="filterTgl()" type="button">Filter</a>
+                                                        id="btnFilterCon" data-tabactive="depoTransConf"
+                                                        onclick="filterTgl('#depoTransConf')" type="button">Filter</a>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-active" class="table table-striped table-bordered nowrap w-100">
+                                <table id="depoTransConf" class="table table-striped table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
                                             <th>No</th>
@@ -118,82 +68,16 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Qris Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
-                                            <th>Client Name</th>
+                                            <th>Updated At</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($dataCon != null) :?>
-                                        <div hidden><?= $i = 1; ?></div>
-                                            <?php foreach($dataCon as $listTrans):?>
-                                                <?php
-                                                    $accNumber = $listTrans->accNumber == NULL ? '-' : $listTrans->accNumber;
-                                                    $bankName = $listTrans->bankName == NULL ? '-' : $listTrans->bankName;
-                                                    $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
-                                                    $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
-                                                    $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : formatMoney($listTrans->amtQr);
-                                                ?>
-                                            <tr>
-                                                <td>
-                                                    <?= $i++ ?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->trxId?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->dpOrderNo?>
-                                                </td>
-                                                <td>
-                                                    <?= $accNumber?>
-                                                </td>
-                                                <td>
-                                                    <?= $bankName?>
-                                                </td>
-                                                <td>
-                                                    <?= $holderName ?>
-                                                </td>
-                                                <td>
-                                                        <?= $merchantName?> 
-                                                </td>
-                                                <td>
-                                                    <?= $payMethod?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->senderName ?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->currency ?>
-                                                </td>
-                                                <td>
-                                                    <?=  formatMoney($listTrans->amt) ?>
-                                                </td>
-                                                <td>
-                                                    <?=  formatMoney($listTrans->actualAmount) ?>
-                                                </td>
-                                                <td>
-                                                <?=  $qrisFee?> 
-                                                </td>
-                                                <td>
-                                                        <?=  formatMoney($listTrans->comission)?> 
-                                                 </td>
-                                                <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : formatMoney($listTrans->lastBalance)?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->clientName ?>
-                                                </td>
-                                                <td>
-                                                    <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
-                                                </td>
-
-
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
+                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -210,15 +94,15 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <button class="btn btn-secondary waves-effect waves-light"
-                                                        id="btnFilterRej" data-tabactive="datatable-active"
-                                                        onclick="filterTgl()" type="button">Filter</a>
+                                                        id="btnFilterRej" data-tabactive="depoTransRej"
+                                                        onclick="filterTgl('#depoTransRej')" type="button">Filter</a>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <table id="datatable-inactive" class="table  table-striped table-bordered nowrap w-100">
+                                <table id="depoTransRej" class="table table-striped table-bordered nowrap w-100">
                                     <thead>
                                     <tr>
                                             <th>No</th>
@@ -233,81 +117,16 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Actual Amount</th>
+                                            <th>Bank Transfer Fee</th>
                                             <th>Qris Fee</th>
                                             <th>Commission</th>
                                             <th>Last Balance</th>
-                                            <th>Client Name</th>
+                                            <th>Updated At</th>
                                             <th>Depo At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php if($dataRej != null) :?>
-                                        <div hidden><?= $i = 1; ?></div>
-                                            <?php foreach($dataRej as $listTrans):?>
-                                                <?php
-                                                    $accNumber = $listTrans->accNumber == NULL ? '-' : $listTrans->accNumber;
-                                                    $bankName = $listTrans->bankName == NULL ? '-' : $listTrans->bankName;
-                                                    $holderName = $listTrans->holderName == NULL ? '-' : $listTrans->holderName;
-                                                    $merchantName = $listTrans->merchantName == NULL ? '-' : $listTrans->merchantName;
-                                                    $payMethod = $listTrans->payMethod == 1 ? 'Bank Transfer' : 'Qris';
-                                                    $qrisFee = $listTrans->amtQr == NULL ? '-' : formatMoney($listPen->amtQr);
-                                                ?>
-                                            <tr>
-                                                <td>
-                                                    <?= $i++ ?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->trxId?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->dpOrderNo?>
-                                                </td>
-                                                <td>
-                                                    <?= $accNumber?>
-                                                </td>
-                                                <td>
-                                                    <?= $bankName?>
-                                                </td>
-                                                <td>
-                                                    <?= $holderName ?>
-                                                </td>
-                                                <td>
-                                                        <?= $merchantName?> 
-                                                </td>
-                                                <td>
-                                                <?= $payMethod?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->senderName ?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->currency ?>
-                                                </td>
-                                                <td>
-                                                    <?=  formatMoney($listTrans->amt) ?>
-                                                </td>
-                                                <td>
-                                                    <?=  formatMoney($listTrans->actualAmount) ?>
-                                                </td>
-                                                <td>
-                                                    <?=  $qrisFee?> 
-                                                </td>
-                                                <td>
-                                                        <?=  formatMoney($listTrans->comission)?> 
-                                                </td>
-                                                <td>
-                                                    <?=  $listTrans->lastBalance == null ? "-" : formatMoney($listTrans->lastBalance)?>
-                                                </td>
-                                                <td>
-                                                    <?= $listTrans->clientName ?>
-                                                </td>
-                                                <td>
-                                                    <?= format_date($listTrans->tglbuat, 'd-m-Y H:i:s');?>
-                                                </td>
-
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -349,188 +168,62 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
-<script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
-<!-- toastr init -->
-<script src="/assets/js/pages/toastr.init.js"></script>
-
-<?php if(session()->getFlashdata('sukses')):?>
-        <script>
-              toastr.success("<?= session()->getFlashData("sukses"); ?>");
-        </script>
-    <?php elseif(session()->getFlashdata('error')):?>
-        <script>
-            toastr.error("<?= session()->getFlashData("error"); ?>");
-        </script>
-    <?php endif?>
+<!-- generate table -->
+<script src="/assets/js/plugins/service/columnTransDepo.js"></script>
+<script src="/assets/js/plugins/service/generateTable.js"></script>
 <script>
     var targetFilter;
     var tableConf;
     var tableRej;
     var targetTgl = 'Conf';
-    const uang = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'KRW',
-    minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
-        });
-
     function cbHref(isi){
         var target = $(isi).data("bs-target");
         if(target == "#confirm"){
-           targetFilter = "datatable-active";
+           targetFilter = "depoTransConf";
            targetTgl = 'Conf';
         }else{
-            targetFilter = "datatable-inactive";
+            targetFilter = "depoTransRej";
             targetTgl = "Rej";
         }
     }
-    function formatDate(dateStr, isEndDate) {
-    if (!dateStr || dateStr == '') return '';
-    dateStr = dateStr.replace(/\//g, '-').trim();
-    return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
-}
 
-    function clearAndShowLoader(table){
-        table.empty();
-        table.append(
-            "<tr>" +
-            "<td colspan='14'>" +
-            "<center>" +
-            "<div class='loader' id='loader-1'></div>" +
-            "</center>" +
-            "</td>" +
-            "</tr>"
-        );
-    }
-
-    function formatCurrency(num) {
-        num = parseFloat(num).toFixed(3);
-        if(isNaN(num)){
-            num = 0;
-        }
-        return uang.format(num);
-    }
-
-    function populateTable(table, data){
-        var i = 0;
-        $.each(data, function(a, b) {
-            var createdDate = moment.tz(b.tglbuat, "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-            i++;
-            table.append(
-                "<tr>" +
-                "<td>" + i + "</td>" +
-                "<td>" + b.trxId + "</td>" +
-                "<td>" + b.dpOrderNo + "</td>" +
-                "<td>" + b.vaNumber + "</td>" +
-                "<td>" + b.bank + "</td>" +
-                "<td>" + b.holderName + "</td>" +
-                "<td>" +"Bank Transfer" +"</td>" +
-                "<td>" + b.senderName + "</td>" +
-                "<td>" + b.currency + "</td>" +
-                "<td>" + formatCurrency(b.amt) + "</td>" +
-                "<td>" + formatCurrency(b.actualAmount) + "</td>" +
-                "<td>" + formatCurrency(b.amtVa) + "</td>" +
-                "<td>" + (b.comission == null ? "-" : formatCurrency(b.comission)) + "</td>" +
-                "<td>" + (b.lastBalance == null ? "Rp0" : formatCurrency(b.lastBalance)) + "</td>" +
-                "<td>" + b.clientName + "</td>" +
-                "<td>" + createdDate + "</td>" +
-                "</tr>"
-            );
-        });
-    }
-
-    function handleAjaxSuccess(response, isTable, table){
-        isTable.DataTable().destroy();
-        table.empty();
-        populateTable(table, response["response"]);
-        var ikiTable = isTable.DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollX: true,
-            "bDestroy": true
-        });
-        ikiTable.buttons().container().appendTo("#"+targetFilter+"_wrapper .col-md-6:eq(0)");
-        $(".dataTables_length select").addClass("form-select form-select-sm");
-        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-    }
-
-    function filterTgl(){
+    function filterTgl(targetFilter){
         var tgl = $('input[name="daterange'+targetTgl+'"]').val();
         var splitTgl = tgl.split('-');
         var startDate = formatDate(splitTgl[0], false);
         var endDate = formatDate(splitTgl[1], true);
-        var table = targetFilter == "datatable-active" ? $("#datatable-active tbody") : $("#datatable-inactive tbody");
-        var isTable = $("#"+targetFilter);
-
-        clearAndShowLoader(table);
-        
-        $.ajax({
-            url: '<?=base_url("dashboard/filterDate")?>',
-            method: "POST",
-            xhrFields: {
-                withCredentials: true
-            },
-            dataType: "json",
-            data: {
-                startDate: startDate,
-                endDate: endDate,
-                target: targetFilter == "datatable-active" ? "confirmed" : "rejected"
-            },
-            success: (response) => {
-                handleAjaxSuccess(response, isTable, table);
-            }
-        });
+        if(tgl == ''){
+            generateTable(targetFilter, '/dashboard/monitorTrans', columnListDpTransHc, orderListDpTransHc);
+        }else{
+            generateTable(targetFilter, '/dashboard/monitorTrans', columnListDpTransHc, orderListDpTransHc, startDate, endDate);
+        }
     }
     $(document).ready(function () {
+        generateTable("#depoTransConf", '/dashboard/monitorTrans', columnListDpTransHc, orderListDpTransHc);
+        generateTable("#depoTransRej", '/dashboard/monitorTrans', columnListDpTransHc, orderListDpTrans);
         targetFilter = $("#btnFilterCon").data("tabactive");
-        $('input[name="daterangeConf"]').daterangepicker({
+        ['daterangeConf', 'daterangeRej'].forEach(function (inputName) {
+            $('input[name="' + inputName + '"]').daterangepicker({
                 autoUpdateInput: false,
                 locale: {
                     cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
+                    format: 'DD/MM/YYYY'
                 }
             });
-            $('input[name="daterangeConf"]').on('apply.daterangepicker', function(ev, picker) {
+
+            $('input[name="' + inputName + '"]').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             });
-            $('input[name="daterangeConf"]').on('cancel.daterangepicker', function(ev, picker) {
+
+            $('input[name="' + inputName + '"]').on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
             });
-            $('input[name="daterangeRej"]').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
-                }
-            });
-            $('input[name="daterangeRej"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-            $('input[name="daterangeRej"]').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
+        });
         $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
         $.fn.dataTable
         .tables( { visible: true, api: true } )
         .columns.adjust();
         });
-       tableConf = $("#datatable-active").DataTable({
-            lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"],
-            "scrollX" : true,
-            "bDestroy": true
-        });
-        tableConf.buttons().container().appendTo("#datatable-active_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
-       tableRej = $("#datatable-inactive").DataTable({
-            lengthChange: !1,
-            buttons: ["copy", "excel", "pdf", "colvis"],
-            "scrollX" : true,
-            "bDestroy": true
-        });
-        tableRej.buttons().container().appendTo("#datatable-inactive_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
     });
 </script>
 <?php $this->endSection();?>

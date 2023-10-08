@@ -8,55 +8,6 @@
 <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
 <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<style>
-    .loader {
-            margin-top: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 100%;
-            position: relative;
-        }
-
-        /* LOADER 1 */
-
-        #loader-1:before,
-        #loader-1:after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            border: 10px solid transparent;
-            border-top-color: #3498db;
-        }
-
-        #loader-1:before {
-            z-index: 100;
-            animation: spin 1s infinite;
-        }
-
-        #loader-1:after {
-            border: 10px solid #ccc;
-        }
-
-        @keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-                -ms-transform: rotate(360deg);
-                -o-transform: rotate(360deg);
-                transform: rotate(360deg);
-            }
-        }
-</style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -218,9 +169,6 @@
     </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
-<!-- End Page-content -->
-<!-- End Page-content -->
-<!-- End Page-content -->
 <?php $this->endSection();?>
 <?php $this->section('javascript');?>
 <!-- Required datatable js -->
@@ -248,21 +196,8 @@
 <script src="/assets/js/pages/datatables.init.js"></script>
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
-<script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
-<!-- toastr init -->
-<script src="/assets/js/pages/toastr.init.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<?php if(session()->getFlashdata('sukses')):?>
-        <script>
-              toastr.success("<?= session()->getFlashData("sukses"); ?>");
-        </script>
-    <?php elseif(session()->getFlashdata('error')):?>
-        <script>
-            toastr.error("<?= session()->getFlashData("error"); ?>");
-        </script>
-    <?php endif?>
 <script>
      function getClients(countryID) {
         $.ajax({
@@ -407,27 +342,23 @@
             getBankAccounts(countryID, bankID, clientID);
         });
       
-        $('input[name="daterangePen"]').daterangepicker({
+        ['daterangePen'].forEach(function (inputName) {
+            $('input[name="' + inputName + '"]').daterangepicker({
                 autoUpdateInput: false,
                 locale: {
                     cancelLabel: 'Clear',
-                    format: 'DD/MM/YYY'
+                    format: 'DD/MM/YYYY'
                 }
             });
-            $('input[name="daterangePen"]').on('apply.daterangepicker', function(ev, picker) {
+
+            $('input[name="' + inputName + '"]').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             });
-            $('input[name="daterangePen"]').on('cancel.daterangepicker', function(ev, picker) {
+
+            $('input[name="' + inputName + '"]').on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
             });
-        $("#datatable").DataTable(), $("#pendingStatement").DataTable({
-            lengthChange: !1,
-            buttons: ["copy", "excel", "pdf"],
-            "scrollX": true,
-            scrollCollapse: true,
-            "bDestroy": true
-        }).buttons().container().appendTo("#pendingStatement_wrapper .col-md-6:eq(0)"), $(
-            ".dataTables_length select").addClass("form-select form-select-sm");
+        });
     });
 </script>
 <?php $this->endSection();?>

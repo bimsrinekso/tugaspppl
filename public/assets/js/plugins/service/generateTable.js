@@ -28,6 +28,7 @@ generateTable = (idTable, url, columns, order, startDate, endDate) => {
         );
       },
       success: function (data) {
+        console.log(data);
         $(idTable + " tbody").empty();
         table.clear().draw();
         if(data.data != null){

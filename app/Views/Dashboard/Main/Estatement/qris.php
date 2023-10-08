@@ -6,57 +6,7 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Responsive datatable examples -->
 <link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
-<link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<style>
-    .loader {
-            margin-top: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 100%;
-            position: relative;
-        }
-
-        /* LOADER 1 */
-
-        #loader-1:before,
-        #loader-1:after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            border: 10px solid transparent;
-            border-top-color: #3498db;
-        }
-
-        #loader-1:before {
-            z-index: 100;
-            animation: spin 1s infinite;
-        }
-
-        #loader-1:after {
-            border: 10px solid #ccc;
-        }
-
-        @keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-                -ms-transform: rotate(360deg);
-                -o-transform: rotate(360deg);
-                transform: rotate(360deg);
-            }
-        }
-</style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -192,101 +142,10 @@
 <script src="/assets/js/pages/datatables.init.js"></script>
 <!-- validation init -->
 <script src="/assets/js/pages/validation.init.js"></script>
-<script src="/assets/libs/toastr/build/toastr.min.js"></script>
-<script>
-    
-         formatIdr = (money) => {
-            return new Intl.NumberFormat("id-ID", {
-                style: "currency",
-                currency: "IDR",
-                minimumFractionDigits: 0,
-            }).format(money);
-        };
-     var columnPenStatement = [
-        {
-            data: null,
-            render: function (data, type, row, meta) {
-            return meta.row + 1;
-            }
-        },
-        {
-            data: null,
-            render: function (data, type, row) {
-                return formatIdr(row.grandTotal);
-            }
-        },
-        { data: 'transactionCode' },
-        { data: 'issuerName' },
-        { data: 'customerName' },
-        { data: 'cnName' },
-        {
-        data: null,
-        render: function (data, type, row) {
-            return moment.tz(row.transactionTime, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-        }
-        },
-        {
-            data: null,
-            render: function (data, type, row) {
-                return moment.tz(row.createdAt, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-            }
-        }
-     
-    ];
-    var orderPenStatement = [[0, 'asc']];
-
-    var columnDonStatement = [
-        {
-            data: null,
-            render: function (data, type, row, meta) {
-            return meta.row + 1;
-            }
-        },
-        {
-            data: null,
-            render: function (data, type, row) {
-                return formatIdr(row.grandTotal);
-            }
-        },
-        { data: 'transactionCode' },
-        { data: 'issuerName' },
-        { data: 'customerName' },
-        { data: 'cnName' },
-        {
-        data: null,
-        render: function (data, type, row) {
-            return moment.tz(row.transactionTime, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-        }
-        },
-        {
-            data: null,
-            render: function (data, type, row) {
-                return moment.tz(row.createdAt, "YYYY-MM-DDTHH:mm:ss.SSSZ", "UTC").tz("Asia/Manila").format("DD-MM-YYYY HH:mm:ss");
-            }
-        }
-     
-    ];
-    var orderDonStatement = [[0, 'asc']];
-
-     
-</script>
-<script src="/assets/js/plugins/service/generateTable.js"></script>
-<script src="/assets/js/plugins/service/tableScrapQris.js"></script>
-
-<!-- toastr init -->
-<script src="/assets/js/pages/toastr.init.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<?php if(session()->getFlashdata('sukses')):?>
-        <script>
-              toastr.success("<?= session()->getFlashData("sukses"); ?>");
-        </script>
-    <?php elseif(session()->getFlashdata('error')):?>
-        <script>
-            toastr.error("<?= session()->getFlashData("error"); ?>");
-        </script>
-    <?php endif?>
-    
+<script src="/assets/js/plugins/service/generateTable.js"></script>
+<script src="/assets/js/plugins/service/tableScrapQris.js"></script> 
 <script>
     var targetFilter;
     var targetTgl = 'Pen';
@@ -301,40 +160,6 @@
         }
     }
       
-    function clearAndShowLoader(table){
-        table.empty();
-        table.append(
-            "<tr>" +
-            "<td colspan='14'>" +
-            "<center>" +
-            "<div class='loader' id='loader-1'></div>" +
-            "</center>" +
-            "</td>" +
-            "</tr>"
-        );
-    }
-
-    function formatDate(dateStr, isEndDate) {
-        if (!dateStr || dateStr == '') return '';
-        dateStr = dateStr.replace(/\//g, '-').trim();
-        return dateStr.split("-").reverse().join("-") + (isEndDate ? ' 23:59:59' : ' 00:00:00');
-    }
-
-
-    function handleAjaxSuccess(response, isTable, table){
-        isTable.DataTable().destroy();
-        table.empty();
-        populateTable(table, response["response"]);
-        var ikiTable = isTable.DataTable({
-            lengthChange: false,
-            buttons: ["copy", "excel", "pdf"],
-            scrollX: true,
-            "bDestroy": true
-        });
-        ikiTable.buttons().container().appendTo(targetFilter+"_wrapper .col-md-6:eq(0)");
-        $(".dataTables_length select").addClass("form-select form-select-sm");
-        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-    }
 
     function filterTgl(targetFilter){
         var tgl = $('input[name="daterange'+targetTgl+'"]').val();
@@ -342,8 +167,6 @@
         var startDate = formatDate(splitTgl[0], false);
         var endDate = formatDate(splitTgl[1], true);
         var table = targetFilter == "#pendingStatement" ? $("#pendingStatement tbody") : $("#datatable-done tbody");
-
-        clearAndShowLoader(table);
         if (targetFilter == '#pendingStatement') {
             generateTable(targetFilter, '/dashboard/estatement/qris', columnPenStatement, orderPenStatement,startDate, endDate);
         } else {
@@ -352,34 +175,24 @@
         
         
     }
-
     $(document).ready(function () {
         targetFilter = $("#btnFilterPen").data("tabactive");
-        $('input[name="daterangePen"]').daterangepicker({
-            autoUpdateInput: false,
-            locale: {
-                cancelLabel: 'Clear',
-                format: 'DD/MM/YYY'
-            }
-        });
-        $('input[name="daterangePen"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-        });
-        $('input[name="daterangePen"]').on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-        });
-        $('input[name="daterangeDone"]').daterangepicker({
-            autoUpdateInput: false,
-            locale: {
-                cancelLabel: 'Clear',
-                format: 'DD/MM/YYY'
-            }
-        });
-        $('input[name="daterangeDone"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-        });
-        $('input[name="daterangeDone"]').on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
+        ['daterangePen', 'daterangeDone'].forEach(function (inputName) {
+            $('input[name="' + inputName + '"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'DD/MM/YYYY'
+                }
+            });
+
+            $('input[name="' + inputName + '"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            });
+
+            $('input[name="' + inputName + '"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
         });
         $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
             $.fn.dataTable

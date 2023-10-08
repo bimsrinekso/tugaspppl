@@ -5,60 +5,8 @@
 <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
 <!-- Responsive datatable examples -->
-<link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
-<link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">      
-
+<link href="/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />     
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-<style>
-    .loader {
-            margin-top: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 100%;
-            position: relative;
-        }
-
-        /* LOADER 1 */
-
-        #loader-1:before,
-        #loader-1:after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            border: 10px solid transparent;
-            border-top-color: #3498db;
-        }
-
-        #loader-1:before {
-            z-index: 100;
-            animation: spin 1s infinite;
-        }
-
-        #loader-1:after {
-            border: 10px solid #ccc;
-        }
-
-        @keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-                -ms-transform: rotate(360deg);
-                -o-transform: rotate(360deg);
-                transform: rotate(360deg);
-            }
-        }
-</style>
 <?php $this->endSection();?>
 <?php $this->section('isKonten');?>
 <div class="page-content">
@@ -158,22 +106,9 @@
     <script src="/assets/js/pages/datatables.init.js"></script>
     <!-- validation init -->
     <script src="/assets/js/pages/validation.init.js"></script>
-    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-
-    <!-- toastr init -->
-    <script src="/assets/js/pages/toastr.init.js"></script>
     <script src="/assets/js/plugins/service/tableReport.js"></script>
     <!-- apexcharts -->
     <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
-    <?php if(session()->getFlashdata('sukses')):?>
-        <script>
-              toastr.success("<?= session()->getFlashData("sukses"); ?>");
-        </script>
-    <?php elseif(session()->getFlashdata('error')):?>
-        <script>
-            toastr.error("<?= session()->getFlashData("error"); ?>");
-        </script>
-    <?php endif?>
     <script>
         $(document).ready(function(){
             let weekDeposit = <?= $weekDeposit ?>;
