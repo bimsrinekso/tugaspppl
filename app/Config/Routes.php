@@ -89,7 +89,7 @@ $routes->get('/dashboard/depoPending/update/(:num)', 'Deposit::editPending/$1', 
 $routes->post('/dashboard/depoPending/update/(:num)', 'Deposit::updatePending/$1', ['filter' => 'role:main,helpdesk']);
 $routes->post('/dashboard/monitorDepo', 'Deposit::monitorDepo', ['filter' => 'role:main, client,helpdesk']);
 $routes->post('/dashboard/monitorPending', 'Deposit::monitorPending', ['filter' => 'role:main, client,helpdesk']);
-$routes->post('/dashboard/filterDate', 'Deposit::filterDate', ['filter' => 'role:main, client,helpdesk']);
+$routes->post('/dashboard/monitorTrans', 'Deposit::monitorTrans', ['filter' => 'role:main, client,helpdesk']);
 
 
 // depoApproval
