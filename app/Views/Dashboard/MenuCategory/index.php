@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Add Product</h4>
+                    <h4 class="mb-sm-0 font-size-18">Menu Category</h4>
                 </div>
             </div>
         </div>
@@ -52,35 +52,22 @@
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <div class="text-sm-end">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Category</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="<?=base_url('dashboard/svtrxbalance')?>" method="POST" id="formProduct" enctype="multipart/form-data">
+                                    <form action="<?=base_url('dashboard/svcatmenu')?>" method="POST" id="formCatMenu" enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label for="amount">Amount</label>
-                                                <input id="amount" name="amount" type="text" class="price-input form-control" placeholder="Amount">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="pickJenis" class="form-label">Balance Type</label>
-                                                <select id="pickJenis" name="jenis" class="form-select select2">
-                                                    <option value="1">Pemasukan</option>
-                                                    <option value="2">Pengeluaran</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="pickCatBlc" class="form-label">Balance Category</label>
-                                                <select id="pickCatBlc" name="catBlc" class="form-select select2">
-
-                                                </select>
+                                                <label for="categoryname">Category Name</label>
+                                                <input id="categoryname" name="categoryname" type="text" class="form-control" placeholder="Category Name">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -93,7 +80,7 @@
                         </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">List Product</button>
+                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">List Category</button>
                             </li>
                         </ul> 
                         <div class="tab-content mt-3" id="myTabContent">
@@ -102,10 +89,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Transaction ID</th>
-                                            <th>Amount</th>
-                                            <th>Remark</th>
-                                            <th>Time</th>
+                                            <th>Category Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -124,20 +108,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                        <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editForm" action="<?=base_url('dashboard/updateProduct')?>" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" id="idProduct" name="prID" class="form-control">
+                        <form id="editForm" action="<?=base_url('dashboard/updateCatMenu')?>" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" id="idCatMenu" name="catMenuId" class="form-control">
                             <!-- Edit form fields go here -->
                             <div class="mb-3">
-                                <label for="editProductName" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="editProductName" name="namePr">
-                            </div>
-                            <div class="mb-3">
-                                <label for="editProductPrice" class="form-label">Price</label>
-                                <input type="text" class="price-input form-control" id="editProductPrice" name="price">
+                                <label for="editcategoryname" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" id="editcategoryname" name="nameCatMenu">
                             </div>
                         </form>
                     </div>
@@ -210,26 +190,181 @@
     };
 </script>
 <script src="/assets/js/plugins/service/generateTable.js"></script>
-<script src="/assets/js/plugins/service/tableTrackBlc.js"></script> 
-
+<script src="/assets/js/plugins/service/tableMenuCat.js"></script> 
 <script>
-    $(document).ready(function () {
-        $("#pickJenis").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Type'
+    // Add event listener to a common parent element (e.g., a modal or a container)
+    var modal1 = document.getElementById('exampleModal');
+    var modal2 = document.getElementById('editModal');
+
+    modal1.addEventListener('input', handleInput);
+    modal2.addEventListener('input', handleInput);
+
+    function handleInput(e) {
+        if (e.target.classList.contains('price-input')) {
+            var inputField = e.target;
+            var formattedValue = formatCurrency(inputField.value);
+            inputField.value = formattedValue;
+        }
+    }
+
+    function formatCurrency(angka) {
+        var number_string = angka.replace(/[^0-9]/g, '');
+        var rupiah = Number(number_string);
+        var formattedAmount = 'Rp' + rupiah.toLocaleString('id-ID');
+        return formattedAmount;
+    }
+    $("#formCatMenu").validate({
+        errorElement: 'span',
+        errorClass: 'ikiError',
+            rules: {
+                categoryname: {
+                    required: true,
+                },
             },
-            language: "en",
+            messages: {
+                categoryname: {
+                    required: "Data tidak boleh kosong",
+                },
+            },
+            errorPlacement: function(error, element) { 
+                error.insertAfter(element.parent("div")); 
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var parseData = JSON.parse(data);
+                        if(parseData['statusSave'] == true){
+                            $('#exampleModal').modal('hide');
+                            $('#exampleModal input').val('');
+                            var columnMenuCat = [
+                                {
+                                    data: null,
+                                    render: function (data, type, row, meta) {
+                                    return meta.row + 1;
+                                    }
+                                },
+                                { data: 'categoryName' },
+                                {
+                                    data: 'id',
+                                    render: function (data, type, row, meta) {
+                                        return `
+                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data})" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+                                    `;
+                                    }
+                                }
+                            
+                            ];
+                            var orderMenuCat = [[0, 'asc']];
+                            generateTable('#datatable-all', '/dashboard/getmenucat', columnMenuCat, orderMenuCat);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
         });
-        $("#pickCatBlc").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Category'
+    function clearAndShowLoader(table){
+        table.empty();
+        table.append(
+            "<tr>" +
+            "<td colspan='14'>" +
+            "<center>" +
+            "<div class='loader' id='loader-1'></div>" +
+            "</center>" +
+            "</td>" +
+            "</tr>"
+        );
+    }
+    function cokModal(catMenuId) {
+        $.ajax({
+            url: '/dashboard/getsinglecatmenu/' + catMenuId,
+            type: 'GET',
+            cache: false,
+            success: function(categoryData) {
+                $('#idCatMenu').val(categoryData.data.id);
+                $('#editcategoryname').val(categoryData.data.categoryName);
+                $('#editModal').modal('show');
+            }
+        });
+    }
+    $(document).ready(function () {
+        $('#editForm').validate({
+            errorElement: 'span',
+            errorClass: 'ikiError',
+            rules: {
+                categoryname: {
+                    required: true,
+                },
             },
-            language: "en",
+            messages: {
+                categoryname: {
+                    required: "Data tidak boleh kosong",
+                },
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent("div"));
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var parseData = JSON.parse(data);
+                        if(parseData['statusSave'] == true){
+                            $('#editModal').modal('hide');
+                            var columnMenuCat = [
+                                {
+                                    data: null,
+                                    render: function (data, type, row, meta) {
+                                    return meta.row + 1;
+                                    }
+                                },
+                                { data: 'categoryName' },
+                                {
+                                    data: 'id',
+                                    render: function (data, type, row, meta) {
+                                        return `
+                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data})" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+                                    `;
+                                    }
+                                }
+                            
+                            ];
+                            var orderMenuCat = [[0, 'asc']];
+                            generateTable('#datatable-all', '/dashboard/getmenucat', columnMenuCat, orderMenuCat);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+
+        $('#saveChangesButton').click(function () {
+            if ($('#editForm').valid()) {
+                $('#editForm').submit();
+                
+            }
         });
     });
-    // Add event listener to a common parent element (e.g., a modal or a container)
-    
+    $("#btnCloseModal").on("click", function(){
+        $("#noticeDelete").modal("hide");
+    })
+    function cbModal(id){
+        $("#noticeDelete").modal("show");
+        $("#formDelete").attr("action", "<?= base_url('dashboard/deletecatmenu'); ?>/" + id);
+    }
 </script>
 <?php $this->endSection();?>

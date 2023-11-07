@@ -3,24 +3,21 @@
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\AsyncModel;
+use App\Models\UsersModel;
+use App\Models\GroupRole;
+ 
 class RoleManage implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('logged_in')) {
-            return redirect()->to('/login');
+            return redirect()->to('/Login');
         } else {
-            $async = new AsyncModel();
-            $userid = session()->get('userid');
-            $dataBody = [
-                'userid' => $userid
-            ];
-            $enp = 'api/cekSelf';
-            $posData = $async->post($enp, '', $dataBody);
-            $isRole = $posData->response->role;
-            // dd($isRole);
-            if(in_array($isRole, $arguments)){
+            $isUser = new UsersModel();
+            $gpRole = new GroupRole();
+            $cekUsername = session()->get('username');
+            $getData = $isUser->where('username', $cekUsername)->join('grouprole', 'grouprole.id = users.role_id')->first();
+            if(in_array($getData->role, $arguments)){
                 return;
             }else{
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

@@ -7,6 +7,7 @@ generateTable = (idTable, url, columns, order, startDate, endDate) => {
       url: url,
       type: 'POST',
       data: function (d) {
+        console.log(d);
         d.draw = d.start / d.length + 1;
         if (typeof startDate != 'undefined' && typeof endDate != 'undefined') {
           d.startDate = startDate;
@@ -28,7 +29,7 @@ generateTable = (idTable, url, columns, order, startDate, endDate) => {
         );
       },
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         $(idTable + " tbody").empty();
         table.clear().draw();
         if(data.data != null){

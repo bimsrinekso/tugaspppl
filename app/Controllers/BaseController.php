@@ -8,8 +8,14 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use App\Models\AsyncModel;
-
+use App\Models\UsersModel;
+use App\Models\ProductModel;
+use App\Models\CategoryProductModel;
+use App\Models\TrackingBalanceModel;
+use App\Models\BalanceCategoryModel;
+use App\Models\BalanceTypeModel;
+use App\Models\BalanceModel;
+use App\Models\trxModel;
 /**
  * Class BaseController
  *
@@ -23,12 +29,18 @@ use App\Models\AsyncModel;
 abstract class BaseController extends Controller
 {
     public function __construct(){
-		$this->async = new AsyncModel();
-        $this->apimain = '53dab67c-be55-4edf-90af-34c3899fbb98';
-        $this->apiclient = '0352560c-fefe-410e-af76-9356ab060850';
         $this->sesi = session();
-        $this->isvalid = \Config\Services::validation();
+        $this->response = service('response');
+        $this->valid = \Config\Services::validation();
         $this->gambar = \Config\Services::image();
+        $this->trxID = new trxModel();
+        $this->users = new UsersModel();
+        $this->product = new ProductModel();
+        $this->catpr = new CategoryProductModel();
+        $this->trxblc = new TrackingBalanceModel();
+        $this->catblc = new BalanceCategoryModel();
+        $this->typeblc = new BalanceTypeModel();
+        $this->blc = new BalanceModel();
 	}
     protected function sanitizeFilename(string $filename): string
     {

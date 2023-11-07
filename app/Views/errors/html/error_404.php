@@ -10,7 +10,7 @@
     <title>404 Error Page </title>
      
     <meta charset="utf-8" />
-    <title>Nirwanacloud</title>
+    <title>Tugas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
     <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico"> -->
@@ -61,7 +61,7 @@
                         <img src="/assets/images/error-img.png" alt="" class="img-fluid">
                     </div>
                     <div class="mt-3 text-center" >
-                        <p style=" opacity: 0.5;">Nirwanacloud</p>
+                        <p style=" opacity: 0.5;">Tugas</p>
                     </div>
                 </div>
             </div>

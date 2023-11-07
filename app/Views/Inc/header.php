@@ -6,10 +6,10 @@
             <div class="navbar-brand-box">
                 <a href="" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="/assets/images/paymentgatewayTrans.png" alt="" height="30">
+                        <img src="/assets/images/tikumlogo.png" alt="" height="30">
                     </span>
                     <span class="logo-lg">
-                        <img src="/assets/images/logo-light.png" alt="" height="40">
+                        <img src="/assets/images/tikumlogo.png" alt="" height="40">
                     </span>
                 </a>
             </div>
@@ -36,15 +36,12 @@
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="<?= base_url('/assets/'.$_SESSION['avatar']) ?>"
                         alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry"><?= $_SESSION['username'] ?></span>
+                    <span class="d-none d-xl-inline-block ms-1" key="t-henry"></span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                     <?php if($_SESSION['role'] == 2):?> 
-                        <a class="dropdown-item" href="<?= base_url("dashboard/editProfile") ?>"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
-                    <?php endif ?>
-                    <a class="dropdown-item text-danger" href="<?= base_url("dashboard/logout") ?>"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+                    <a class="dropdown-item text-danger" href="<?=base_url('logout')?>"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
                 </div>
             </div>
 

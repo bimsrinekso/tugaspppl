@@ -6,7 +6,7 @@
 <head>
         
         <meta charset="utf-8" />
-        <title>Nirwanacloud</title>
+        <title>Anjeng</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- App favicon -->
         <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico"> -->
@@ -68,7 +68,7 @@
         <script src="/assets/js/pages/dashboard-job.init.js"></script>
         <script src="/assets/libs/toastr/build/toastr.min.js"></script>
         <script src="/assets/js/pages/toastr.init.js"></script>
-        <script src="/assets/js/nirwanaHelper.js"></script>
+        <script src="/assets/js/tugasHelper.js"></script>
         <?php if(session()->getFlashdata('sukses')):?>
         <script>
               toastr.success("<?= session()->getFlashData("sukses"); ?>");

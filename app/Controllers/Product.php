@@ -2,15 +2,18 @@
 
 namespace App\Controllers;
 
-class TrackingBalance extends BaseController
+class Product extends BaseController
 {
      public function index()
      {
-         return view('Dashboard/TrackingBalance/index');
+        $data = [
+            'catMenu' => $this->catpr->get()->getResult(),
+        ]; 
+         return view('Dashboard/Product/index',$data);
      }
      public function getDataPr()
      {
-        $data = $this->product->getProduct();
+        $data = $this->product->select('*,product.id as idPr')->join('categoryProduct','categoryProduct.id = product.categoryPr')->findAll();
         return $this->response->setJSON(['data' => $data]);
      }
      public function svProduct()
@@ -18,6 +21,7 @@ class TrackingBalance extends BaseController
         $price= filter_var($this->request->getVar('price'), FILTER_SANITIZE_NUMBER_INT);
         $dataProduk = [
             'nama_produk' => $this->request->getVar('productname'),
+            'categoryPr' => $this->request->getVar('idcatMenu'),
             'harga' => $price,
         ];
         try {
@@ -43,8 +47,10 @@ class TrackingBalance extends BaseController
         $productId = $this->request->getVar('prID');
         $productName = $this->request->getVar('namePr');
         $productPrice = filter_var($this->request->getVar('price'), FILTER_SANITIZE_NUMBER_INT);
+        $idCatmn = $this->request->getVar('catMn');
         $data = [
             'nama_produk' => $productName,
+            'categoryPr' => $idCatmn,
             'harga' => $productPrice,
         ];
         try {
