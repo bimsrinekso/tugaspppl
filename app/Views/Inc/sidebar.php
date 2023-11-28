@@ -28,10 +28,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= base_url('dashboard/pos') ?>" class="waves-effect">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx bxs-food-menu"></i>
-                        <span key="t-pos">POS</span>
+                        <span key="t-dashboards">POS</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url('dashboard/pos') ?>" key="t-tui-pos">Cashier</a></li>
+                        <li><a href="<?= base_url('dashboard/listpos') ?>" key="t-full-list">List</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="<?= base_url('dashboard/balance') ?>" class="waves-effect">

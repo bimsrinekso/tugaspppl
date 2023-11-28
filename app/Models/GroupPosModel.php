@@ -4,25 +4,24 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductModel extends Model
+class GroupPosModel extends Model
 {
-    protected $table      = 'product';
+    protected $table      = 'groupPos';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
 
    protected $allowedFields = 
     [
-        'nama_produk',
-        'categoryPr',
-        'harga'
+        'amount',
+        'trxID',
+        'qty',
+        'prID',
+        'prName',
+        'prAmt',
+        'subTotal'
     ];
 
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
-
-    public function getProduct()
-    {
-        return $this->findAll();
-    }
-
+    
 }

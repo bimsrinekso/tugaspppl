@@ -4,25 +4,22 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductModel extends Model
+class PosModel extends Model
 {
-    protected $table      = 'product';
+    protected $table      = 'pos';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
 
    protected $allowedFields = 
     [
-        'nama_produk',
-        'categoryPr',
-        'harga'
+        'amount',
+        'transactionID',
+        'cashIn',
+        'cashOut',
+        'totalAmt',
+        'actionBy'
     ];
 
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
-
-    public function getProduct()
-    {
-        return $this->findAll();
-    }
-
 }

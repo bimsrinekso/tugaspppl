@@ -16,6 +16,8 @@ use App\Models\BalanceCategoryModel;
 use App\Models\BalanceTypeModel;
 use App\Models\BalanceModel;
 use App\Models\trxModel;
+use App\Models\PosModel;
+use App\Models\GroupPosModel;
 /**
  * Class BaseController
  *
@@ -41,6 +43,8 @@ abstract class BaseController extends Controller
         $this->catblc = new BalanceCategoryModel();
         $this->typeblc = new BalanceTypeModel();
         $this->blc = new BalanceModel();
+        $this->pos = new PosModel();
+        $this->grpos = new GroupPosModel();
 	}
     protected function sanitizeFilename(string $filename): string
     {

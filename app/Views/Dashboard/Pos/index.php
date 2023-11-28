@@ -54,22 +54,23 @@
                             <?php foreach($dataCat as $index => $listCat): ?>
                                 <div class="tab-pane <?= ($index == 0) ? 'active' : ''; ?>" id="all-post<?=$index + 1?>" role="tabpanel">
                                     <div class="row">
-                                        <?php foreach($dataPr as $key => $item): ?>
-                                            <?php if ($item->categoryPr == $listCat->id): ?>
-                                                <div class="col-xl-4 col-sm-4">
-                                                    <div class="card text-center" style="background-color: bg-soft;">
-                                                        <div class="card-body border border-primary">
-                                                            <h5 class="card-title"><?=$item->nama_produk?></h5>
-                                                            <p class="card-text">Harga: <?=$item->harga?></p>
-                                                            <div>
-                                                                <button type="button" class="btn btn-danger btn-rounded waves-effect waves-light minus-btn" data-price="<?=$item->harga?>"><i class="fas fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-success btn-rounded waves-effect waves-light plus-btn" data-price="<?=$item->harga?>"><i class="fas fa-plus"></i></button>
-                                                            </div>
+                                    <?php foreach ($dataPr as $key => $item): ?>
+                                        <?php if ($item->categoryPr == $listCat->id): ?>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card text-center" style="background-color: bg-soft;">
+                                                    <div class="card-body border border-primary">
+                                                        <h5 class="card-title"><?=$item->nama_produk?></h5>
+                                                        <p class="card-text">Harga: <?=$item->harga?></p>
+                                                        <input type="hidden" value="<?=$item->id?>" class="ikiID"> <!-- Add class to identify this input -->
+                                                        <div>
+                                                            <button type="button" class="btn btn-danger btn-rounded waves-effect waves-light minus-btn" data-id="<?=$item->id?>" data-price="<?=$item->harga?>"><i class="fas fa-minus"></i></button>
+                                                            <button type="button" class="btn btn-success btn-rounded waves-effect waves-light plus-btn" data-id="<?=$item->id?>" data-price="<?=$item->harga?>"><i class="fas fa-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -80,34 +81,37 @@
             <div class="col-xl-4 col-lg-4">
                 <div class="card">
                     <div class="card-body p-4">
-                        <div>
-                            <p class="text-muted">Order</p>
-                            <div class="table-responsive">
-                                <table class="table table-sm m-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Qty</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Order items will be displayed here -->
-                                    </tbody>     
-                                </table>
+                        <form action="<?=base_url('dashboard/svpos')?>" method="POST" id="formPos" enctype="multipart/form-data">
+                            <div>
+                                <p class="text-muted">Order</p>
+                                <div class="table-responsive">
+                                    <table class="table table-sm m-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Qty</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Order items will be displayed here -->
+                                        </tbody>     
+                                    </table>
+                                </div>
+                                <h5 class="card-title pt-2">Total: <span id="total-amount">0</span></h5>
                             </div>
-                            <h5 class="card-title pt-2">Total: <span id="total-amount">0</span></h5>
-                        </div>
-                        <div class="mb-3">
-                            <label for="uang">Uang Pembeli</label>
-                            <input id="uang" name="uang" type="text" class="uang-input form-control" placeholder="Price" oninput="updateKembalian()">
-                        </div>
-                        <div class="mb-3">
-                            <label for="kembalian">Kembalian</label>
-                            <input id="kembalian" name="kembalian" type="text" class="kembalian form-control" placeholder="kembalian" readonly>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="mb-3">
+                                <label for="uang">Uang Pembeli</label>
+                                <input id="uang" name="uang" type="text" class="uang-input form-control" placeholder="Price" oninput="updateKembalian()" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kembalian">Kembalian</label>
+                                <input id="kembalian" name="kembalian" type="text" class="kembalian form-control" placeholder="kembalian" readonly required>
+                            </div>
+                            <input type="hidden" name="order_items" id="order-items" value="">
+                            <button type="submit" class="btn btn-primary" onclick="postDataToServer()">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -181,6 +185,7 @@
             tbody.appendChild(row);
 
             totalAmount += subtotal;
+
         }
 
         if (orderTable) {
@@ -209,14 +214,15 @@
         button.addEventListener('click', () => {
             const productName = button.parentElement.parentElement.querySelector('.card-title').textContent;
             const price = parseFloat(button.dataset.price);
-
+            const idProduct = parseInt(button.dataset.id);
             if (orderItems.has(productName)) {
                 orderItems.get(productName).quantity++;
             } else {
-                orderItems.set(productName, { price, quantity: 1 });
+                orderItems.set(productName, {idProduct, price, quantity: 1 });
             }
 
             updateTotal();
+            updateKembalian();
         });
     });
 
@@ -234,6 +240,7 @@
                 }
 
                 updateTotal();
+                updateKembalian();
             }
         });
     });
@@ -251,9 +258,7 @@
         var totalAmountElement = document.getElementById('total-amount');
         var totalAmount = convertToNumber(totalAmountElement.innerText) || 0; // Convert to integer or default to 0 if NaN
         var uangPembeliElement = document.getElementById('uang');
-        var uangPembeli = convertToNumber(uangPembeliElement.value) || 0; // Convert to integer or default to 0 if NaN
-        console.log(totalAmountElement);
-        console.log(totalAmount);
+        var uangPembeli = convertUang(uangPembeliElement.value) || 0; // Convert to integer or default to 0 if NaN
         var kembalian = uangPembeli - totalAmount;
 
         if (!isNaN(kembalian)) {
@@ -262,21 +267,18 @@
             console.error('Error: Unable to calculate kembalian. Please check your inputs.');
         }
     }
-    function updateKembalian() {
-        var totalAmountElement = document.getElementById('total-amount');
-        var totalAmount = convertToNumber(totalAmountElement.innerText) || 0; // Convert to integer or default to 0 if NaN
-        var uangPembeliElement = document.getElementById('uang');
-        var uangPembeli = convertUang(uangPembeliElement.value) || 0; // Convert to integer or default to 0 if NaN
-        console.log(totalAmountElement);
-        console.log(totalAmount);
 
-        var kembalian = uangPembeli - totalAmount;
-
-        if (!isNaN(kembalian)) {
-            document.getElementById('kembalian').value = kembalian.toLocaleString('id-ID');
-        } else {
-            console.error('Error: Unable to calculate kembalian. Please check your inputs.');
-        }
+    function postDataToServer() {
+        event.preventDefault();
+        const orderItemsArray = Array.from(orderItems.entries()).map(([productName, item]) => ({
+            productName,
+            idProduct: item.idProduct,
+            price: item.price,
+            quantity: item.quantity,
+        }));
+        const orderItemsInput = document.getElementById('order-items');
+        orderItemsInput.value = JSON.stringify(orderItemsArray);
+        document.getElementById('formPos').submit();
     }
 </script>
 <?php $this->endSection();?>

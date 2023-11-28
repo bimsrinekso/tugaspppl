@@ -21,7 +21,8 @@ class BalanceModel extends Model
     ];
 
     protected $useTimestamps = true;
-
+    protected $useSoftDeletes = true;
+    
     public function getAll()
     {
         $this->select('balance.id as idBlc,balance.created_at as tglbuat,balance.type as typeBlc,username,amount,transactionID,actionBy,remark,typeName,namaCatBlc');

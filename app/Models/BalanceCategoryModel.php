@@ -17,6 +17,7 @@ class BalanceCategoryModel extends Model
     ];
 
     protected $useTimestamps = true;
+    protected $useSoftDeletes = true;
     public function getblCat()
     {
         return $this->findAll();

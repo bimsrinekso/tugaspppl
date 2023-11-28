@@ -11,9 +11,14 @@ $routes->get('/regist', 'Login::regist');
 $routes->post('/regist', 'Login::saveRegist');
 $routes->post('/login', 'Login::cekLogin');
 $routes->get('/logout', 'Login::isLogout');
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin,kasir']);
+
+
 // general
 $routes->post('/dashboard/getbalancecategory', 'BalanceCategory::getBalanceCat');
+$routes->get('/dashboard/getpie', 'Dashboard::getPie', ['filter' => 'role:admin']);
+
+//dashboard
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin,kasir']);
 
 // product
 $routes->get('/dashboard/product', 'Product::index', ['filter' => 'role:admin']);
@@ -25,7 +30,9 @@ $routes->delete('/dashboard/deleteproduct/(:num)', 'Product::delPr/$1', ['filter
 
 // pos
 $routes->get('/dashboard/pos', 'Pos::index', ['filter' => 'role:admin,kasir']);
-
+$routes->post('/dashboard/svpos', 'Pos::svPos', ['filter' => 'role:admin,kasir']);
+$routes->post('/dashboard/getpos', 'Pos::getDataPos', ['filter' => 'role:admin']);
+$routes->get('/dashboard/listpos', 'Pos::listPos', ['filter' => 'role:admin']);
 // tracking balance
 $routes->get('/dashboard/trackingbalance', 'TrackingBalance::index', ['filter' => 'role:admin']);
 

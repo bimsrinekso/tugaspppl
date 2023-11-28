@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">User Management</h4>
+                    <h4 class="mb-sm-0 font-size-18">List Sales</h4>
                 </div>
             </div>
         </div>
@@ -49,50 +49,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row mb-2">
-                            <div class="col-sm-12">
-                                <div class="text-sm-end">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add User</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <form action="<?=base_url('dashboard/adduser')?>" method="POST" id="formUsers" enctype="multipart/form-data">
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label for="username">Username</label>
-                                                <input id="username" name="username" type="text" class="form-control" placeholder="Username">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email">Email</label>
-                                                <input id="email" name="email" type="email" class="form-control" placeholder="Email">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="role">Role</label>
-                                                <input id="role" name="role" type="number" class="form-control" placeholder="Role">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="password">Password</label>
-                                                <input id="password" name="password" type="password" class="form-control" placeholder="Password">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">List Product</button>
+                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">Sales</button>
                             </li>
                         </ul> 
                         <div class="tab-content mt-3" id="myTabContent">
@@ -101,8 +60,11 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
+                                            <th>Transaction</th>
+                                            <th>Cash In</th>
+                                            <th>Cast Out</th>
+                                            <th>Actual Amount</th>
+                                            <th>Operator</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -125,19 +87,21 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editForm" action="<?=base_url('dashboard/updateuser')?>" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" id="iduser" name="usrID" class="form-control">
+                        <form id="editForm" action="<?=base_url('dashboard/updateProduct')?>" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" id="idProduct" name="prID" class="form-control">
+                            <!-- Edit form fields go here -->
                             <div class="mb-3">
-                                <label for="editusername">Username</label>
-                                <input id="editusername" name="usernm" type="text" class="form-control" placeholder="Username">
+                                <label for="editProductName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="editProductName" name="namePr">
                             </div>
                             <div class="mb-3">
-                                <label for="editemail">Email</label>
-                                <input id="editemail" name="eml" type="email" class="form-control" placeholder="Email">
+                                <label for="editpickCat" class="form-label">Balance Type</label>
+                                <select id="editpickCat" name="catMn" class="form-select">
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="editrole">Role</label>
-                                <input id="editrole" name="rl" type="text" class="form-control" placeholder="Role">
+                                <label for="editProductPrice" class="form-label">Price</label>
+                                <input type="text" class="price-input form-control" id="editProductPrice" name="price">
                             </div>
                         </form>
                     </div>
@@ -200,46 +164,63 @@
 <!-- <script src="/assets/js/pages/validation.init.js"></script> -->
 <script src="/js/pages/datatables.init.js"></script>
 <script src="/assets/libs/jquery-validation/jquery.validate.min.js"></script>
+<script>
+    formatIdr = (money) => {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+        }).format(money);
+    };
+</script>
 <script src="/assets/js/plugins/service/generateTable.js"></script>
-<script src="/assets/js/plugins/service/tableUser.js"></script> 
+<script src="/assets/js/plugins/service/tablePos.js"></script> 
 <script>
     // Add event listener to a common parent element (e.g., a modal or a container)
+    var modal1 = document.getElementById('exampleModal');
+    var modal2 = document.getElementById('editModal');
+
+    modal1.addEventListener('input', handleInput);
+    modal2.addEventListener('input', handleInput);
+
+    function handleInput(e) {
+        if (e.target.classList.contains('price-input')) {
+            var inputField = e.target;
+            var formattedValue = formatCurrency(inputField.value);
+            inputField.value = formattedValue;
+        }
+    }
+
     function formatCurrency(angka) {
         var number_string = angka.replace(/[^0-9]/g, '');
         var rupiah = Number(number_string);
         var formattedAmount = 'Rp' + rupiah.toLocaleString('id-ID');
         return formattedAmount;
     }
-    $("#formUsers").validate({
+    $("#formProduct").validate({
         errorElement: 'span',
         errorClass: 'ikiError',
             rules: {
-                username: {
+                productname: {
                     required: true,
                 },
-                email: {
+                catMenu: {
                     required: true,
                 },
-                role: {
-                    required: true,
-                },
-                password: {
+                price: {
                     required: true,
                 }
             },
             messages: {
-                username: {
+                productname: {
                     required: "Data tidak boleh kosong",
                 },
-                email: {
+                catMenu: {
                     required: "Data tidak boleh kosong",
                 },
-                role: {
+                price: {
                     required: "Data tidak boleh kosong",
                 },
-                password: {
-                    required: "Data tidak boleh kosong",
-                }
             },
             errorPlacement: function(error, element) { 
                 error.insertAfter(element.parent("div")); 
@@ -254,35 +235,43 @@
                     success: function (data) {
                         var parseData = JSON.parse(data);
                         console.log(parseData);
-                        if(parseData['success'] == true){
+                        if(parseData['statusSave'] == true){
                             $('#exampleModal').modal('hide');
                             $('#exampleModal input').val('');
-                            var columnUsers = [
+                            var columnProduct = [
                                 {
                                     data: null,
                                     render: function (data, type, row, meta) {
                                     return meta.row + 1;
                                     }
                                 },
-                                { data: 'username' },
-                                { data: 'email' },
+                        
+                                { data: 'nama_produk' },
+                                { data: 'categoryName' },
                                 {
-                                    data: 'id',
+                                    data: null,
+                                    
+                                    render: function (data, type, row) {
+                                        return formatIdr(row.harga);
+                                    }
+                                },
+                                {
+                                    data: 'idPr',
                                     render: function (data, type, row, meta) {
                                         return `
-                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data})" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data}, '${row.categoryName}')" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                         <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
                                     `;
                                     }
                                 }
                             
                             ];
-                            var orderUsers = [[0, 'asc']];
-                            generateTable('#datatable-all', '/dashboard/getuser', columnUsers, orderUsers);
+                            var orderProduct = [[0, 'asc']];
+                            generateTable('#datatable-all', '/dashboard/getproduct', columnProduct, orderProduct);
                         }
                     },
-                    error: function(xhr, status, error) {
-                        console.log("Error: " + error);
+                    error: function (data) {
+                        console.log(data);
                     }
                 });
             }
@@ -299,43 +288,63 @@
             "</tr>"
         );
     }
-    function cokModal(userID) {
+    function cokModal(productId, catNm) {
+        var myDropdown = $('#editpickCat');
+        myDropdown.empty();
         $.ajax({
-            url: '/dashboard/getsingleuser/' + userID,
+            url: '/dashboard/getsingleproduct/' + productId,
             type: 'GET',
             cache: false,
-            success: function(userData) {
-                $('#editusername').val(userData.data.username);
-                $('#editemail').val(userData.data.email);
-                $('#editrole').val(userData.data.role_id);
-                $('#iduser').val(userData.data.id);
+            success: function(productData) {
+                $('#idProduct').val(productData.data.id);
+                $('#editProductName').val(productData.data.nama_produk);
+                $('#editProductPrice').val(formatCurrency(productData.data.harga));
+                $('#editpickCat').val(productData.data.categoryPr);
                 $('#editModal').modal('show');
             }
         });
+        
+        $.ajax({
+            url: '/dashboard/getmenucat',
+            type: 'POST', 
+            dataType: 'json',
+            success: function (data) {
+                data = data['data'];
+                $.each(data, function (key, entry) {
+                    var option = $('<option>', {
+                        value: entry.id,
+                        text: entry.categoryName
+                    });
+                    if (entry.categoryName === catNm) {
+                        option.attr('selected', 'selected');
+                    }
+                    myDropdown.append(option);
+                });
+
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
     }
+
     $(document).ready(function () {
         $('#editForm').validate({
             errorElement: 'span',
             errorClass: 'ikiError',
             rules: {
-                username: {
+                namePr: {
                     required: true,
                 },
-                email: {
+                price: {
                     required: true,
-                },
-                role: {
-                    required: true,
-                },
+                }
             },
             messages: {
-                username: {
+                namePr: {
                     required: "Data tidak boleh kosong",
                 },
-                email: {
-                    required: "Data tidak boleh kosong",
-                },
-                role: {
+                price: {
                     required: "Data tidak boleh kosong",
                 },
             },
@@ -351,31 +360,38 @@
                     contentType: false,
                     success: function (data) {
                         var parseData = JSON.parse(data);
-                        console.log(parseData);
                         if(parseData['statusSave'] == true){
                             $('#editModal').modal('hide');
-                            var columnUsers = [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                return meta.row + 1;
-                                }
-                            },
-                            { data: 'username' },
-                            { data: 'email' },
-                            {
-                                data: 'id',
-                                render: function (data, type, row, meta) {
-                                    return `
-                                    <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data})" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
-                                `;
-                                }
-                            }
+                            var columnProduct = [
+                                {
+                                    data: null,
+                                    render: function (data, type, row, meta) {
+                                    return meta.row + 1;
+                                    }
+                                },
                         
-                        ];
-                        var orderUsers = [[0, 'asc']];
-                        generateTable('#datatable-all', '/dashboard/getuser', columnUsers, orderUsers);
+                                { data: 'nama_produk' },
+                                { data: 'categoryName' },
+                                {
+                                    data: null,
+                                    
+                                    render: function (data, type, row) {
+                                        return formatIdr(row.harga);
+                                    }
+                                },
+                                {
+                                    data: 'idPr',
+                                    render: function (data, type, row, meta) {
+                                        return `
+                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data}, '${row.categoryName}')" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+                                    `;
+                                    }
+                                }
+                            
+                            ];
+                            var orderProduct = [[0, 'asc']];
+                            generateTable('#datatable-all', '/dashboard/getproduct', columnProduct, orderProduct);
                         }
                     },
                     error: function (data) {
@@ -397,7 +413,7 @@
     })
     function cbModal(id){
         $("#noticeDelete").modal("show");
-        $("#formDelete").attr("action", "<?= base_url('dashboard/deleteUser'); ?>/" + id);
+        $("#formDelete").attr("action", "<?= base_url('dashboard/deleteproduct'); ?>/" + id);
     }
 </script>
 <?php $this->endSection();?>
