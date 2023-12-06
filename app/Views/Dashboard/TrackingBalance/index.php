@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/libs/toastr/build/toastr.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/ladda.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <style>
     .ikiError {
         color: #ed2a26;
@@ -46,6 +47,23 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <label for="daterange" class="control-label">Filter Date</label>
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" class="form-control"
+                            placeholder="Choose date range" name="daterangeConf"
+                            id="daterange" value="" />
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-secondary waves-effect waves-light"
+                            id="btnFilterCon" 
+                            onclick="filterTgl()" type="button">Filter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- end page title -->
         <div class="row">
             <div class="col-12 mb-3">
@@ -56,7 +74,7 @@
                             <div class="ms-auto">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-bs-toggle="pill" href="#balance">Balance</a>
+                                        <a class="nav-link active" data-bs-toggle="pill" href="#balance">All</a>
                                     </li>
                                 </ul>
                             </div>
@@ -64,17 +82,16 @@
                         <div class="row">
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="balance">
-
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="card mini-stats-wid">
                                                 <div class="card-body">
                                                     <div class="d-flex">
                                                         <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Debit
+                                                            <p class="text-muted fw-medium">Outcome
                                                                 Total
                                                             </p>
-                                                            <h4 class="mb-0" style="color:red">
+                                                            <h4 class="mb-0" style="color:red" id="debit">
                                                                 <?=defaultMoney($debit,true)?>
                                                             </h4>
                                                         </div>
@@ -96,10 +113,10 @@
                                                 <div class="card-body">
                                                     <div class="d-flex">
                                                         <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Credit
+                                                            <p class="text-muted fw-medium">Income
                                                                 Total
                                                             </p>
-                                                            <h4 class="mb-0" style="color:#13fc03">
+                                                            <h4 class="mb-0" style="color:#13fc03" id="credit">
                                                                 <?=defaultMoney($credit,true)?>
                                                             </h4>
                                                         </div>
@@ -124,7 +141,7 @@
                                                             <p class="text-muted fw-medium">Balance
                                                                 Total
                                                             </p>
-                                                            <h4 class="mb-0">
+                                                            <h4 class="mb-0" id="total">
                                                                 <?=defaultMoney($total,true)?>
                                                             </h4>
                                                         </div>
@@ -142,14 +159,70 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">List Balance</h4>
+                                        <div class="table-responsive">
+                                            <table id="datatable-balance" class="table table-striped table-bordered nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>TrxID</th>
+                                                        <th>Amount</th>
+                                                        <th>Category</th>
+                                                        <th>Type</th>
+                                                        <th>Action By</th>
+                                                        <th>Created At</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">List Pos</h4>
+                                        <div class="table-responsive">
+                                            <table id="datatable-pos" class="table table-striped table-bordered nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Transaction</th>
+                                                        <th>Cash In</th>
+                                                        <th>Cast Out</th>
+                                                        <th>Actual Amount</th>
+                                                        <th>Operator</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         </div>
     </div>
 </div>
@@ -180,7 +253,10 @@
 <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 <!-- <script src="/assets/js/pages/validation.init.js"></script> -->
 <script src="/js/pages/datatables.init.js"></script>
+
 <script src="/assets/libs/jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script>
     formatIdr = (money) => {
         return new Intl.NumberFormat("id-ID", {
@@ -191,25 +267,65 @@
     };
 </script>
 <script src="/assets/js/plugins/service/generateTable.js"></script>
-<script src="/assets/js/plugins/service/tableTrackBlc.js"></script>
+<script src="/assets/js/plugins/service/tablePos.js"></script> 
+<script src="/assets/js/plugins/service/tableBalance.js"></script> 
 
 <script>
+        var targetTgl = 'Conf';
+        function filterTgl(){
+            var tgl = $('input[name="daterange' + targetTgl + '"]').val();
+            
+            var splitTgl = tgl.split('-');
+            var startDate = formatDate(splitTgl[0], false);
+            var endDate = formatDate(splitTgl[1], true);
+            var postData = {
+                startDate: startDate,
+                endDate: endDate
+                };
+                $.ajax({
+                    url: '/dashboard/filtertrack',
+                    type: 'POST',
+                    data: postData,
+                    dataType: 'json',
+                    success: function (response) {
+                        $("#debit").html(formatIdr(response['debit']));
+                        $("#credit").html(formatIdr(response['credit']));
+                        $("#total").html(formatIdr(response['total']));
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            if (tgl == '') {
+                generateTable('#datatable-balance', '/dashboard/getbalance', columnBalanceTb, orderBalance);
+                generateTable('#datatable-pos', '/dashboard/getpos', columnposTb, orderpos);
+            } else {
+                generateTable('#datatable-balance', '/dashboard/getbalance', columnBalanceTb, orderBalance,startDate,endDate);
+                generateTable('#datatable-pos', '/dashboard/getpos', columnposTb, orderpos,startDate,endDate);
+            }
+
+            
+        }
     $(document).ready(function () {
-        $("#pickJenis").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Type'
-            },
-            language: "en",
-        });
-        $("#pickCatBlc").select2({
-            placeholder: {
-                id: '',
-                text: 'Choose Category'
-            },
-            language: "en",
+        generateTable('#datatable-balance', '/dashboard/getbalance', columnBalanceTb, orderBalance);
+        generateTable('#datatable-pos', '/dashboard/getpos', columnposTb, orderpos);
+        ['daterangeConf'].forEach(function (inputName) {
+            $('input[name="' + inputName + '"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'DD/MM/YYYY'
+                }
+            });
+
+            $('input[name="' + inputName + '"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            });
+
+            $('input[name="' + inputName + '"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
         });
     });
-    // Add event listener to a common parent element (e.g., a modal or a container)
 </script>
 <?php $this->endSection();?>

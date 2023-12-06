@@ -290,6 +290,7 @@
         });
     }
     $(document).ready(function () {
+        generateTable('#datatable-all', '/dashboard/getbalance', columnBalance, orderBalance);
         $('#pickJenis').on('change', function () {
             var pickJenis = $(this).val();
             getkategori(pickJenis);

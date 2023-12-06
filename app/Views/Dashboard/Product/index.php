@@ -454,6 +454,7 @@
         $("#noticeDelete").modal("hide");
     })
     function cbModal(id){
+        console.log(id);
         $("#noticeDelete").modal("show");
         $("#formDelete").attr("action", "<?= base_url('dashboard/deleteproduct'); ?>/" + id);
     }

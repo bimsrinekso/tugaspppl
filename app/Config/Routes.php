@@ -33,8 +33,11 @@ $routes->get('/dashboard/pos', 'Pos::index', ['filter' => 'role:admin,kasir']);
 $routes->post('/dashboard/svpos', 'Pos::svPos', ['filter' => 'role:admin,kasir']);
 $routes->post('/dashboard/getpos', 'Pos::getDataPos', ['filter' => 'role:admin']);
 $routes->get('/dashboard/listpos', 'Pos::listPos', ['filter' => 'role:admin']);
+$routes->get('/dashboard/detailpos/(:any)', 'Pos::detailPos/$1', ['filter' => 'role:admin']);
+$routes->delete('/dashboard/deletepos/(:any)', 'Pos::delPos/$1', ['filter' => 'role:admin']);
 // tracking balance
 $routes->get('/dashboard/trackingbalance', 'TrackingBalance::index', ['filter' => 'role:admin']);
+$routes->post('/dashboard/filtertrack', 'TrackingBalance::filterTrack', ['filter' => 'role:admin']);
 
 // balance
 $routes->get('/dashboard/balance', 'Balance::index', ['filter' => 'role:admin']);

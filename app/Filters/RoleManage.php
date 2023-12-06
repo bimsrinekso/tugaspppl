@@ -11,7 +11,7 @@ class RoleManage implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('logged_in')) {
-            return redirect()->to('/Login');
+            return redirect()->to('/login');
         } else {
             $isUser = new UsersModel();
             $gpRole = new GroupRole();

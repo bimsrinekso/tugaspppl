@@ -16,7 +16,18 @@ class Balance extends BaseController
 
      public function getDataBlc()
      {
-        $data = $this->blc->getAll();
+        $startDate = $this->request->getVar('startDate');
+        $endDate = $this->request->getVar('endDate');
+        if ($startDate == null) {
+            $data = $this->blc->getAll();
+        } else {
+            $data = $this->blc
+            ->where('balance.created_at >=',$startDate)
+            ->where('balance.created_at <=',$endDate)
+            ->getAll();
+            
+        }
+        // $data = $this->blc->getAll();
         return $this->response->setJSON(['data' => $data]);
      }
 

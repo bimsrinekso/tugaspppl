@@ -36,72 +36,81 @@
 <?php $this->section('isKonten');?>
 <div class="page-content">
     <div class="container-fluid">
-        <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">List Sales</h4>
+                    <h4 class="mb-sm-0 font-size-18">Detail Pos</h4>
                 </div>
             </div>
         </div>
-        <!-- end page title -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">Sales</button>
-                            </li>
-                        </ul> 
-                        <div class="tab-content mt-3" id="myTabContent">
-                            <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="product-tab">
-                                <table id="datatable-all" class="table table-bordered w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Transaction</th>
-                                            <th>Cash In</th>
-                                            <th>Cast Out</th>
-                                            <th>Actual Amount</th>
-                                            <th>Operator</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
+                        <div class="invoice-title">
+                            <h4 class="float-end font-size-16">Order # <?=$result[0]->transactionID?></h4>
+                            <div class="">
+                                <img src="/assets/images/tikumlogo-dark.png" alt="logo" height="20"/>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12 text-sm-end">
+                                <address>
+                                    <strong>Order Date:</strong><br>
+                                    <?=$result[0]->created_at?><br><br>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="py-2">
+                            <h3 class="font-size-15 fw-bold">Order summary</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Qty</th>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($result as $list):?>
+                                    <tr>
+                                        <td><?=$list->qty?></td>
+                                        <td><?=$list->prName?></td>
+                                        <td><?=defaultMoney($list->prAmt,true)?></td>
+                                        <td class="text-end"><?=defaultMoney($list->subTotal,true)?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                    <tr>
+                                        <td colspan="3" class="border-0 text-end">
+                                            <strong>Total Harga</strong></td>
+                                        <td class="border-0 text-end"><h4 class="m-0"><?=defaultMoney($result[0]->totalAmt,true)?></h4></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="border-0 text-end">
+                                            <strong>Total Bayar</strong></td>
+                                        <td class="border-0 text-end"><h4 class="m-0"><?=defaultMoney($result[0]->cashIn,true)?></h4></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="border-0 text-end">
+                                            <strong>Kembalian</strong></td>
+                                        <td class="border-0 text-end"><h4 class="m-0"><?=defaultMoney($result[0]->cashOut,true)?></h4></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-print-none">
+                            <div class="float-end">
+                                <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal Hapus -->
-        <div class="modal fade" id="noticeDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="formDelete" method="post">
-                        <input value="DELETE" type="hidden" name="_method" name="id">
-                        <div class="modal-body">
-                            <p>Are you sure want to delete this data?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btnCloseModal" class="btn btn-primary">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- End Modal Hapus -->
-        
-        <!-- end row -->
     </div>
     <!-- container-fluid -->
 </div>
@@ -130,32 +139,4 @@
 <!-- <script src="/assets/js/pages/validation.init.js"></script> -->
 <script src="/js/pages/datatables.init.js"></script>
 <script src="/assets/libs/jquery-validation/jquery.validate.min.js"></script>
-<script src="/assets/js/plugins/service/generateTable.js"></script>
-<script src="/assets/js/plugins/service/tablePos.js"></script> 
-<script>
-    $(document).ready(function(){
-        generateTable('#datatable-all', '/dashboard/getpos', columnpos, orderpos);
-    });
-  
-    function clearAndShowLoader(table){
-        table.empty();
-        table.append(
-            "<tr>" +
-            "<td colspan='14'>" +
-            "<center>" +
-            "<div class='loader' id='loader-1'></div>" +
-            "</center>" +
-            "</td>" +
-            "</tr>"
-        );
-    }
-    $("#btnCloseModal").on("click", function(){
-        $("#noticeDelete").modal("hide");
-    })
-    function cokModal(id){
-        console.log(id);
-        $("#noticeDelete").modal("show");
-        $("#formDelete").attr("action", "<?= base_url('dashboard/deletepos'); ?>/" + id);
-    }
-</script>
 <?php $this->endSection();?>
