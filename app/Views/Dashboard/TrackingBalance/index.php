@@ -170,7 +170,7 @@
                 <div class="card-body">
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">List Balance</h4>
@@ -194,7 +194,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">List Pos</h4>

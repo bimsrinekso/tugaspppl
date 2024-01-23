@@ -15,7 +15,7 @@ $routes->get('/logout', 'Login::isLogout');
 
 // general
 $routes->post('/dashboard/getbalancecategory', 'BalanceCategory::getBalanceCat');
-$routes->get('/dashboard/getpie', 'Dashboard::getPie', ['filter' => 'role:admin']);
+$routes->get('/dashboard/getpie', 'Dashboard::getPie', ['filter' => 'role:admin,kasir']);
 
 //dashboard
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin,kasir']);
