@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Forgot Password | Tugas</title>
+        <title>Forgot Password | Tikum</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- App favicon -->
         <!-- Bootstrap Css -->

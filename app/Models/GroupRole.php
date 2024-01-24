@@ -12,4 +12,8 @@ class GroupRole extends Model
 
     protected $allowedFields = ['id', 'role',];
 
+    public function getAll()
+    {
+        return $this->findAll();
+    }
 }

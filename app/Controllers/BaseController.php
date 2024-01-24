@@ -18,6 +18,7 @@ use App\Models\BalanceModel;
 use App\Models\trxModel;
 use App\Models\PosModel;
 use App\Models\GroupPosModel;
+use App\Models\GroupRole;
 /**
  * Class BaseController
  *
@@ -45,6 +46,7 @@ abstract class BaseController extends Controller
         $this->blc = new BalanceModel();
         $this->pos = new PosModel();
         $this->grpos = new GroupPosModel();
+        $this->grole = new GroupRole();
 	}
     protected function sanitizeFilename(string $filename): string
     {

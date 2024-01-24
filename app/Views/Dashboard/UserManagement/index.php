@@ -60,7 +60,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <form action="<?=base_url('dashboard/adduser')?>" method="POST" id="formUsers" enctype="multipart/form-data">
@@ -74,8 +74,15 @@
                                                 <input id="email" name="email" type="email" class="form-control" placeholder="Email">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="role">Role</label>
-                                                <input id="role" name="role" type="number" class="form-control" placeholder="Role">
+                                                <label for="pickRole" class="form-label">Role</label>
+                                                <select id="pickRole" name="role" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    <?php foreach($result as $listRole) : ?>
+                                                    <option value="<?=$listRole->id?>">
+                                                        <?=$listRole->role?>
+                                                    </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password">Password</label>
@@ -92,7 +99,7 @@
                         </div>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">List Product</button>
+                                <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">List Users</button>
                             </li>
                         </ul> 
                         <div class="tab-content mt-3" id="myTabContent">
@@ -103,6 +110,7 @@
                                             <th>No</th>
                                             <th>Username</th>
                                             <th>Email</th>
+                                            <th>Role</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -121,7 +129,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                        <h5 class="modal-title" id="editModalLabel">Edit Users</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -136,8 +144,9 @@
                                 <input id="editemail" name="eml" type="email" class="form-control" placeholder="Email">
                             </div>
                             <div class="mb-3">
-                                <label for="editrole">Role</label>
-                                <input id="editrole" name="rl" type="text" class="form-control" placeholder="Role">
+                                <label for="editrole" class="form-label">Role</label>
+                                <select id="editrole" name="rl" class="form-select">
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -266,11 +275,12 @@
                                 },
                                 { data: 'username' },
                                 { data: 'email' },
+                                { data: 'role' },
                                 {
                                     data: 'id',
                                     render: function (data, type, row, meta) {
                                         return `
-                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data})" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data},'${row.roleid}')" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                         <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
                                     `;
                                     }
@@ -299,7 +309,9 @@
             "</tr>"
         );
     }
-    function cokModal(userID) {
+    function cokModal(userID,roleid) {
+        var myDropdown = $('#editrole');
+        myDropdown.empty();
         $.ajax({
             url: '/dashboard/getsingleuser/' + userID,
             type: 'GET',
@@ -310,6 +322,30 @@
                 $('#editrole').val(userData.data.role_id);
                 $('#iduser').val(userData.data.id);
                 $('#editModal').modal('show');
+            }
+        });
+
+        $.ajax({
+            url: '/dashboard/getrole',
+            type: 'POST', 
+            dataType: 'json',
+            success: function (data) {
+                data = data['data'];
+                console.log(data)
+                $.each(data, function (key, entry) {
+                    var option = $('<option>', {
+                        value: entry.id,
+                        text: entry.role
+                    });
+                    if (entry.id === roleid) {
+                        option.attr('selected', 'selected');
+                    }
+                    myDropdown.append(option);
+                });
+
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
             }
         });
     }
@@ -355,25 +391,26 @@
                         if(parseData['statusSave'] == true){
                             $('#editModal').modal('hide');
                             var columnUsers = [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                return meta.row + 1;
+                                {
+                                    data: null,
+                                    render: function (data, type, row, meta) {
+                                    return meta.row + 1;
+                                    }
+                                },
+                                { data: 'username' },
+                                { data: 'email' },
+                                { data: 'role' },
+                                {
+                                    data: 'id',
+                                    render: function (data, type, row, meta) {
+                                        return `
+                                        <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data},'${row.roleid}')" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
+                                    `;
+                                    }
                                 }
-                            },
-                            { data: 'username' },
-                            { data: 'email' },
-                            {
-                                data: 'id',
-                                render: function (data, type, row, meta) {
-                                    return `
-                                    <a class="btn btn-outline-secondary btn-sm edit" onclick="cokModal(${data})" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-outline-danger btn-sm" onclick="cbModal(${data})"><i class="fas fa-trash"></i></a>
-                                `;
-                                }
-                            }
-                        
-                        ];
+                            
+                            ];
                         var orderUsers = [[0, 'asc']];
                         generateTable('#datatable-all', '/dashboard/getuser', columnUsers, orderUsers);
                         }

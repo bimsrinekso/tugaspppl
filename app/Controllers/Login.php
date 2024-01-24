@@ -77,7 +77,7 @@ class Login extends BaseController
             'email' => $this->request->getVar('email'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
             'role_id' => 1,
-            'avatar' => 'avatar/default.png'
+            'avatar' => 'default.png'
         ];
         try {
             $daftar = $this->users->insert($data);

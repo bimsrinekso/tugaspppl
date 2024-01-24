@@ -6,7 +6,7 @@ class Balance extends BaseController
 {
      public function index()
      {
-        $dataTipe = $this->typeblc->get()->getResult();
+        $dataTipe = $this->typeblc->where('balanceType.deleted_at',null)->get()->getResult();
         $user = $this->sesi->get('user_id');
         $data = [
             'tipeBlc' => $dataTipe,
@@ -57,7 +57,7 @@ class Balance extends BaseController
      }
      public function getDataSingleBlc($id)
      {
-        $data = $this->blc->select('*')->where('id',$id)->first();
+        $data = $this->blc->select('*')->where('balance.deleted_at',null)->where('id',$id)->first();
         return $this->response->setJSON(['data' => $data]);
      }
 

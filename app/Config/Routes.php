@@ -63,6 +63,7 @@ $routes->post('/dashboard/svcatblc', 'BalanceCategory::svCatBlc', ['filter' => '
 $routes->delete('/dashboard/deletecatblc/(:num)', 'BalanceCategory::delCatBlc/$1', ['filter' => 'role:admin']);
 
 // user management
+$routes->post('/dashboard/getrole', 'UserManagement::getRole', ['filter' => 'role:admin']);
 $routes->get('/dashboard/usermanagement', 'UserManagement::index', ['filter' => 'role:admin']);
 $routes->post('/dashboard/getuser', 'UserManagement::getDataUser', ['filter' => 'role:admin']);
 $routes->post('/dashboard/adduser', 'UserManagement::svUsers', ['filter' => 'role:admin']);

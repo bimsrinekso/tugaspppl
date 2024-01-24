@@ -6,7 +6,10 @@ class UserManagement extends BaseController
 {
     public function index()
     {
-        return view('Dashboard/UserManagement/index');
+        $data = [
+            'result' =>$this->grole->get()->getResult(),
+        ];
+        return view('Dashboard/UserManagement/index',$data);
     }
     public function getDataUser()
     {
@@ -73,5 +76,11 @@ class UserManagement extends BaseController
         $this->users->delete($id);
         $this->sesi->setFlashdata('sukses', 'Data berhasil dihapus');
         return redirect()->to('/dashboard/usermanagement');
+    }
+
+    public function getRole()
+    {
+       $data = $this->grole->getAll();
+       return $this->response->setJSON(['data' => $data]);
     }
 }

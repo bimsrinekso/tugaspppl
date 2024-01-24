@@ -2,11 +2,11 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
-            <script>document.write(new Date().getFullYear())</script> © Tugas.
+            <script>document.write(new Date().getFullYear())</script> © Tim1P3L.
         </div>
         <div class="col-sm-6">
             <div class="text-sm-end d-none d-sm-block">
-                Design & Develop by Tugas
+                Design & Develop by Tim1P3L
             </div>
         </div>
     </div>

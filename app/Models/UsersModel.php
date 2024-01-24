@@ -24,6 +24,8 @@ class UsersModel extends Model
 
     public function GetUsers()
     {
+        $this->select('users.*,role,grouprole.id as roleid');
+        $this->join('grouprole','grouprole.id = users.role_id','left');
         return $this->findAll();
     }
 

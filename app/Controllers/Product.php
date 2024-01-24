@@ -7,13 +7,13 @@ class Product extends BaseController
      public function index()
      {
         $data = [
-            'catMenu' => $this->catpr->get()->getResult(),
+            'catMenu' => $this->catpr->where('deleted_at IS NULL')->get()->getResult(),
         ]; 
          return view('Dashboard/Product/index',$data);
      }
      public function getDataPr()
      {
-        $data = $this->product->select('*,product.id as idPr')->join('categoryProduct','categoryProduct.id = product.categoryPr')->findAll();
+        $data = $this->product->select('*,product.id as idPr')->join('categoryProduct','categoryProduct.id = product.categoryPr')->where('product.deleted_at IS NULL')->findAll();
         return $this->response->setJSON(['data' => $data]);
      }
      public function svProduct()

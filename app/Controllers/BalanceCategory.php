@@ -10,7 +10,7 @@ class BalanceCategory extends BaseController
      }
      public function getBlcCat()
      {
-        $data = $this->catblc->select('*,balanceCategory.id as idBlcCat')->join('balanceType','balanceCategory.jenis = balanceType.id')->findAll();
+        $data = $this->catblc->select('*,balanceCategory.id as idBlcCat')->join('balanceType','balanceCategory.jenis = balanceType.id')->where('balanceCategory.deleted_at',null)->findAll();
         return $this->response->setJSON(['data' => $data]);
      }
      public function svCatBlc()
@@ -68,7 +68,7 @@ class BalanceCategory extends BaseController
     public function getBalanceCat()
     {
         $pickJenis = $this->request->getVar('jenisnya');
-        $data = $this->catblc->select('*, balanceCategory.id as idBlcCat')->join('balanceType','balanceCategory.jenis = balanceType.id')->where('balanceCategory.jenis', $pickJenis)->get()->getResult();
+        $data = $this->catblc->select('*, balanceCategory.id as idBlcCat')->join('balanceType','balanceCategory.jenis = balanceType.id')->where('balanceCategory.deleted_at',null)->where('balanceCategory.jenis', $pickJenis)->get()->getResult();
         return $this->response->setJSON($data);
     }
 }

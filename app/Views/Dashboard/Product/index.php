@@ -60,7 +60,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <form action="<?=base_url('dashboard/svproduct')?>" method="POST" id="formProduct" enctype="multipart/form-data">
@@ -70,7 +70,7 @@
                                                 <input id="productname" name="productname" type="text" class="form-control" placeholder="Product Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="pickCat" class="form-label">Balance Type</label>
+                                                <label for="pickCat" class="form-label">Category Type</label>
                                                 <select id="pickCat" name="idcatMenu" class="form-select">
                                                     <option selected>Pilih</option>
                                                     <?php foreach($catMenu as $listCat) : ?>
@@ -137,7 +137,7 @@
                                 <input type="text" class="form-control" id="editProductName" name="namePr">
                             </div>
                             <div class="mb-3">
-                                <label for="editpickCat" class="form-label">Balance Type</label>
+                                <label for="editpickCat" class="form-label">Category Type</label>
                                 <select id="editpickCat" name="catMn" class="form-select">
                                 </select>
                             </div>

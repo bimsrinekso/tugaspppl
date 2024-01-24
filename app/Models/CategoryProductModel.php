@@ -20,6 +20,6 @@ class CategoryProductModel extends Model
 
     public function getCatMn()
     {
-        return $this->findAll();
+        return $this->where('deleted_at IS NULL')->findAll();
     }
 }

@@ -40,7 +40,10 @@
                             <div class="d-flex h-100 flex-column">
                                 <div class="p-4 mt-auto">
                                     <div class="row justify-content-center">
-                                        <div class="col-lg-7">
+                                        <div class="col-lg-6">
+                                            <img class="mx-auto d-block" src="/assets/images/tikumlogo-big.png" alt="">
+                                        </div>
+                                        <div class="col-lg-7 mt-5">
                                             <div class="text-center">
                                                 <h4 class="mb-3 text-light">Di Tikum, Setiap Tetes Kopi adalah Kisah Kehangatan!</h4>
                                                 <div dir="ltr">
